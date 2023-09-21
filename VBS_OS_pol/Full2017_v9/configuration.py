@@ -29,7 +29,6 @@ plotFile = 'plot.py'
 
 # luminosity to normalize to (in 1/fb)
 # https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L868 (874)
-#  59.832475339
 lumi =  41.48
 
 # used by mkPlot to define output directory for plots
