@@ -3,9 +3,7 @@ import copy
 import inspect
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations) # Full2018_v9
-configurations = os.path.dirname(configurations) # VBS_OS_pol
-configurations = os.path.dirname(configurations) # Configurations
+configurations = os.path.dirname(configurations)
 
 aliases = {}
 aliases = OrderedDict()
@@ -168,11 +166,9 @@ aliases['highZ'] = {
 }
 
 # my macro
-print('\n\n\n')
-print('Configs:\n\n\n')
-configurations = os.path.abspath('.').replace('work/m/mlizzo', 'user/m/mlizzo/work') 
+print('Configs:\n')
 print(configurations)
-print('\n\n\n')
+print('\n\n')
 
 aliases['dr_lj'] = {
   'linesToAdd': ['#include "%s/DR_lj.cc+"' % configurations],
