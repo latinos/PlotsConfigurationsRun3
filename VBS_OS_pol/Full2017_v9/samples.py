@@ -1,5 +1,5 @@
 # flake8: noqa E266
-from mkShapesRDF.lib.SearchFiles import SearchFiles
+from mkShapesRDF.lib.search_files import SearchFiles
 
 searchFiles = SearchFiles()
 #redirector = "root://eoscms.cern.ch//"
@@ -20,8 +20,8 @@ limitFiles = -1
 
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
-    if redirector != "":
-        _treeBaseDir = redirector + treeBaseDir
+    if redirector != "" and '/eos/cms' in treeBaseDir:
+        _treeBaseDir = treeBaseDir.split('/eos/cms')[1]
     if var == "":
         return "/".join([_treeBaseDir, mcProduction, mcSteps])
     else:
