@@ -2,9 +2,9 @@
 from mkShapesRDF.lib.search_files import SearchFiles
 
 searchFiles = SearchFiles()
-#redirector = "root://eoscms.cern.ch//"
+redirector = "root://eoscms.cern.ch//"
 #redirector = "root://cms-xrd-global.cern.ch//"
-redirector = ""
+#redirector = ""
 
 mcProduction = 'Summer20UL17_106x_nAODv9_Full2017v9'
 dataReco = 'Run2017_UL2017_nAODv9_Full2017v9'
