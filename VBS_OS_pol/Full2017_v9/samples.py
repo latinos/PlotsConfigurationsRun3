@@ -1,5 +1,5 @@
 # flake8: noqa E266
-from mkShapesRDF.lib.SearchFiles import SearchFiles
+from mkShapesRDF.lib.search_files import SearchFiles
 
 searchFiles = SearchFiles()
 #redirector = "root://eoscms.cern.ch//"
