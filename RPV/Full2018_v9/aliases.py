@@ -241,7 +241,7 @@ aliases['SFweightMuDown'] = {
 }
 
 aliases['masses'] = {
-  'linesToAdd': [f'#include "{here}/RPVMassRegressionInference.cc+"' ],
+  'linesToAdd': [f'#include "{here}/RPVMassRegressionInference.cc"' ],
   'class': 'RPVMassRegressionInference',
   'args': 'CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], PuppiMET_phi, PuppiMET_pt, detajj, detall, dphijj, dphilep1jet1, dphilep2jet1, dphill, dphilljet, dphillmet, dphilmet, dphilmet1, dphilmet2, dphiltkmet, drll, ht, mR, mT2, mTi, mindetajl, mjj, mll, mpmet, mth, mtw1, mtw2, pTWW, projpfmet, projtkmet, ptll',
 }

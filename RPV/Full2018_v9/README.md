@@ -1,5 +1,10 @@
 # 1 - Produce the histrograms
 
+Temporary: compile the `RPVMassRegressionInference.cc` macro by hand:
+```bash
+root -l
+.L RPVMassRegressionInference.cc+
+```
 Follow the instructions to install mkShapesRDF and to run the analysis:
 https://mkshapesrdf.readthedocs.io/en/latest/getting_started.html#getting-started
 

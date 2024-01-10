@@ -743,6 +743,6 @@ inline float activation_4 (float x, float n)
         return buffer_in[2];
    
       
-      //return i;
+      return 0;
     
 }
