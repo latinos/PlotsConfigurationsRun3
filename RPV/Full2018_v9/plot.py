@@ -80,15 +80,15 @@ groupPlot['VgS']  = {
 
 
 
-groupPlot['DATA']  = { 
-                   'nameHR' : 'Data',
-                   'color': 1 ,  
-                   'isSignal' : 0,
-                   'isData'   : 1 ,
-                   'isBlind'  : {
-                       'hww2l2v_13TeV_top': 'full',
-                       }
- }
+#groupPlot['DATA']  = { 
+#                   'nameHR' : 'Data',
+#                   'color': 1 ,  
+#                   'isSignal' : 0,
+#                   'isData'   : 1 ,
+#                   'isBlind'  : {
+#                       'hww2l2v_13TeV_top': 'full',
+#                       }
+# }
 
 plot = {}
 
@@ -191,7 +191,7 @@ plot['DATA']  = {
                   'color': 1 ,  
                   'isSignal' : 0,
                   'isData'   : 1 ,
-                  'isBlind'  : 0
+                  'isBlind'  : 1
                   }
 
 # merge cuts

@@ -431,34 +431,6 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 
 ##rate parameters TOP
 
-nuisances['DYnorm0j']  = {
-               'name'  : 'CMS_hww_DYttnorm0j_2018',
-               'samples'  : {
-                   'Dyemb' : '1.00',
-                   },
-               'type'  : 'rateParam',
-               'cuts'  : cuts0j
-              }
-
-nuisances['DYnorm1j']  = {
-               'name'  : 'CMS_hww_DYttnorm1j_2018',
-               'samples'  : {
-                   'Dyemb' : '1.00',
-                   },
-               'type'  : 'rateParam',
-               'cuts'  : cuts1j
-              }
-
-nuisances['DYnorm2j']  = {
-                 'name'  : 'CMS_hww_DYttnorm2j_2018',
-                 'samples'  : {
-                   'Dyemb' : '1.00',
-                     },
-                 'type'  : 'rateParam',
-                 'cuts'  : cuts2j
-                }
-
-
 nuisances['WWnorm0j']  = {
                'name'  : 'CMS_hww_WWnorm0j',
                'samples'  : {

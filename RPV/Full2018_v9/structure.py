@@ -5,6 +5,20 @@ structure = {}
 # keys here must match keys in samples.py    
 #                    
 
+
+chi_mass_step = 50
+mpoints = []
+
+for sb_mass in sb_masses:
+  start_chi_mass = 200 if sb_mass==300 else 400
+  for chi_mass in [200 + i*50 for i in range(int((sb_mass-start_chi_mass)/chi_mass_step))]:
+    for slep_mass in [chi_mass - 10 - i*20 for i in range(4)]:
+
+        structure['RPV_sb'+str(sb_mass)+'_chi'+str(chi_mass)+'_sl'+str(slep_mass)] = {
+                  'isSignal' : 1,
+                  'isData'   : 0
+                }
+
 structure['dytt']  = {  
                   'isSignal' : 0,
                   'isData'   : 0
@@ -90,6 +104,16 @@ structure['VVV']  = {
                   'isData'   : 0 
                   }
 
+structure['ttH_hww']  = {
+                  'isSignal' : 0,
+                  'isData'   : 0
+                  }
+
+structure['sig']  = {
+                  'isSignal' : 1,
+                  'isData'   : 0,
+                  'parametric' : 1,
+              }
 
 # data
 
