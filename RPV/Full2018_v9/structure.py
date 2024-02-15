@@ -16,7 +16,8 @@ for sb_mass in sb_masses:
 
         structure['RPV_sb'+str(sb_mass)+'_chi'+str(chi_mass)+'_sl'+str(slep_mass)] = {
                   'isSignal' : 1,
-                  'isData'   : 0
+                  'isData'   : 0,
+                  'scaleSampleForDatacard' : 0.001, 
                 }
 
 structure['dytt']  = {  
