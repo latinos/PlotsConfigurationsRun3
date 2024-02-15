@@ -84,7 +84,7 @@ def CMS_lumi(pad,  iPeriod,  iPosX ):
     elif ( iPeriod==12 ):
         lumiText += "8 TeV"
             
-    print lumiText
+    print (lumiText)
 
     latex = rt.TLatex()
     latex.SetNDC()

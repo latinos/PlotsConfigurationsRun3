@@ -250,6 +250,7 @@ class DatacardFactory:
                             self._outFile.cd()
                             histo.Write()
 
+                signal_ids_p = signal_ids.copy()
                 # Loop over alternative signal samples. One card per signal (there is always at least one entry (""))
                 for signalName in alternative_signals:
                     if signalName == "":
@@ -263,10 +264,10 @@ class DatacardFactory:
                         signals = [signalName] + [
                             name for name in cumulative_signals if name in cut_signals
                         ]
-
+                    
                     if (self._parametric):
                         signals += ['sig']
-                        signal_ids['sig'] = -1 - len(signal_ids)
+                        signal_ids_p['sig'] = -1 - len(signal_ids_p)
                         yieldsSig['sig'] = 1
 
                     processes = signals + cut_backgrounds
@@ -364,7 +365,7 @@ class DatacardFactory:
                     card.write("process".ljust(80))
                     card.write(
                         "".join(
-                            ("%d" % signal_ids[name]).ljust(columndef)
+                            ("%d" % signal_ids_p[name]).ljust(columndef)
                             for name in signals
                         )
                     )
