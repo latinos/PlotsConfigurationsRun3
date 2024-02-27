@@ -105,11 +105,10 @@ RVecF RPVMassRegressionInference(
     input[40] = projtkmet;
     input[41] = ptll;
 
+    masses.push_back(guess_digit(input, 0));
     masses.push_back(guess_digit(input, 1));
     masses.push_back(guess_digit(input, 2));
-    masses.push_back(guess_digit(input, 3));
 
-    
     return masses;
 
 }
