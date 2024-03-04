@@ -13,7 +13,14 @@ preselections = 'mll>12 \
             && ptll>30 \
             && PuppiMET_pt>20 \
             '
-
+'''
+cuts['hww2l2v_13TeV_of2j_dphijj_4bins_incl'] = {
+   'expr': ' (abs(CleanJet_eta[0])<4.7) && (abs(CleanJet_eta[1])<4.7) && bVeto && mtw2>30 && mth>60',
+    'categories' : {
+         '2j' : 'true',
+    }
+ }
+'''
 
 
 cuts['hww2l2v_13TeV_of2j_dphijj_4bins'] = {
@@ -25,6 +32,8 @@ cuts['hww2l2v_13TeV_of2j_dphijj_4bins'] = {
         '3' : '( DeltaPhijj > {} && DeltaPhijj < {})'.format(3*2*np.pi/n_bins - np.pi, 4*2*np.pi/n_bins - np.pi),
    }
 }
+
+
 
 ## Top control regions
 cuts['hww2l2v_13TeV_top_of2j_dphijj_4bins']  = { 

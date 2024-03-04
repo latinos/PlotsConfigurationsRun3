@@ -152,15 +152,17 @@ for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
 
 ##### Trigger Efficiency
 
-trig_syst = ['((TriggerEffWeight_2l_u)/(TriggerEffWeight_2l))*(TriggerEffWeight_2l>0.02) + (TriggerEffWeight_2l<=0.02)', '(TriggerEffWeight_2l_d)/(TriggerEffWeight_2l)']
+trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
     'name': 'CMS_eff_hwwtrigger_2018',
     'kind': 'weight',
     'type': 'shape',
-    #'samples': dict((skey, trig_syst) for skey in mc_emb)
     'samples': dict((skey, trig_syst) for skey in mc)
 }
+
+
+
 
 ##### Electron Efficiency and energy scale
 
@@ -617,6 +619,45 @@ nuisances['dytt_DeltaPhi_3']  = {
                  'type'  : 'rateParam',
                  'cuts' : cuts_DeltaPhi_3
                 }
+
+#rate param WW
+# nuisances['WW_DeltaPhi_0']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_0',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_0
+#                 }
+
+
+# nuisances['WW_DeltaPhi_1']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_1',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_1
+#                 }
+
+# nuisances['WW_DeltaPhi_2']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_2',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_2
+#                 }
+
+# nuisances['WW_DeltaPhi_3']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_3',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_3
+#                 }
+
 
 
 ## Use the following if you want to apply the automatic combine MC stat nuisances.

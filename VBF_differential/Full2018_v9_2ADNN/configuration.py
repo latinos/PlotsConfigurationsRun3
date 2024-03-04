@@ -1,7 +1,7 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = 'RDF_2018_v9_newBinning'
+tag = 'RDF_2018_v9_2ADNN'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
