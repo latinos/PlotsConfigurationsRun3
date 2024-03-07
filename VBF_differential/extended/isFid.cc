@@ -19,18 +19,13 @@ using namespace ROOT::VecOps;
 using namespace std;
 
 int isFiducial(
-        int    nLeptonGen, 
-		    RVecB  LeptonGen_isPrompt, 
-		    RVecI  LeptonGen_pdgId,
-		    RVecF  LeptonGen_pt,
-		    RVecF  LeptonGen_eta,
-		    RVecF  LeptonGen_phi,
-		    RVecF  LeptonGen_mass,
-		    int    nPhotonGen,
-		    RVecF  PhotonGen_pt,
-		    RVecF  PhotonGen_eta,
-		    RVecF  PhotonGen_phi,
-		    RVecF  PhotonGen_mass,
+                    int    nGenDressedLepton, 
+		    RVecI  GenDressedLepton_pdgId,
+		    RVecF  GenDressedLepton_pt,
+		    RVecF  GenDressedLepton_eta,
+		    RVecF  GenDressedLepton_phi,
+		    RVecF  GenDressedLepton_mass,
+		    RVecB  GenDressedLepton_hasTauAnc,
 		    int    nGenJet,
 		    RVecF  GenJet_pt,
 		    RVecF  GenJet_eta,
@@ -42,31 +37,29 @@ int isFiducial(
 
 
     unsigned nJ = nGenJet;
-    unsigned nL = nLeptonGen;
-
-
+    unsigned nL = nGenDressedLepton;
 
 
     // Create vector of prompt gen leptons
 
-    std::vector<unsigned> iPromptL{};
-    iPromptL.reserve(nL);
+    std::vector<unsigned> genleps{};
+    genleps.reserve(nL);
 
     for (unsigned iL{0}; iL != nL; ++iL) {
-        if (!LeptonGen_isPrompt[iL])
+
+        unsigned absId{static_cast<unsigned>(std::abs(GenDressedLepton_pdgId[iL]))};
+        if (absId != 11 && absId != 13  )
             continue;
 
-        unsigned absId{static_cast<unsigned>(std::abs(LeptonGen_pdgId[iL]))};
-        if (absId != 11 && absId != 13)
-            continue;
-
-        iPromptL.push_back(iL);
+        if (GenDressedLepton_hasTauAnc[iL]) continue;
+            
+        genleps.push_back(iL);
     }
 
     // If there are no prompt leptons don't bother checking and just count the jets w/ pt > 30
     // Why not returning default value?
 
-  if (iPromptL.size() == 0) {
+  if (genleps.size() == 0) {
     unsigned n{0};
     for (unsigned iJ{0}; iJ != nJ; ++iJ) {
       if (GenJet_pt[iJ] > 30.)
@@ -75,50 +68,20 @@ int isFiducial(
     return -9999;
   }
 
-  
+
   // Create prompt gen leptons 4-vectors
 
   std::vector<ROOT::Math::PtEtaPhiMVector> dressedLeptons{};
-  for (unsigned iL : iPromptL) {
+  for (unsigned iL : genleps) {
     dressedLeptons.push_back(
-			     ROOT::Math::PtEtaPhiMVector(
-							 LeptonGen_pt[iL],
-							 LeptonGen_eta[iL],
-							 LeptonGen_phi[iL],
-               LeptonGen_mass[iL]
-							 )
-			     );
+                             ROOT::Math::PtEtaPhiMVector(
+                                                         GenDressedLepton_pt[iL],
+                                                         GenDressedLepton_eta[iL],
+                                                         GenDressedLepton_phi[iL],
+                                                         GenDressedLepton_mass[iL]
+                                                         )
+                             );
   }
-
-  // Add to prompt gen leptons the closest gen photon 4-vector 
-  // if close enough (dR < 0.09) - FSR
-
-  unsigned nP = nPhotonGen;
-  
-  for (unsigned iP{0}; iP != nP; ++iP) {
-    double minDR2{1000.};
-    int iDMin{-1};
-    for (unsigned iD{0}; iD != iPromptL.size(); ++iD) {
-      unsigned iL{iPromptL[iD]};
-      double dEta{LeptonGen_eta[iL] - PhotonGen_eta[iP]};
-      double dPhi{TVector2::Phi_mpi_pi(LeptonGen_phi[iL] - PhotonGen_phi[iP])};
-      double dR2{dEta * dEta + dPhi * dPhi};
-      if (dR2 < minDR2) {
-        minDR2 = dR2;
-        iDMin = iD;
-      }
-    }
-
-    if (minDR2 < 0.09)
-      dressedLeptons[iDMin] += ROOT::Math::PtEtaPhiMVector(
-							   PhotonGen_pt[iP],
-							   PhotonGen_eta[iP],
-							   PhotonGen_phi[iP],
-							   PhotonGen_mass[iP]);
-  }
-  
-  
-
 
 
   // Do the actual cleaning, hacked to stop at 2
@@ -158,8 +121,8 @@ int isFiducial(
       ++n;
     }
   }
-  if ( (n < 2) || (nL < 2) ) return -9999;
-  else if ( iPromptL.size()>=2 && LeptonGen_pdgId[iPromptL[0]] * LeptonGen_pdgId[iPromptL[1]] != -11*13 ) return -9999;
+  if ( (n < 2) || (dressedLeptons.size() < 2) ) return -9999;
+  else if ( dressedLeptons.size()>=2 && GenDressedLepton_pdgId[0] * GenDressedLepton_pdgId[1] != -11*13 ) return -9999;
   
   double pt3{-1};
   if (dressedLeptons.size() > 2) pt3 = dressedLeptons[2].pt();
