@@ -2,6 +2,8 @@ import os
 import copy
 import inspect
 
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/unblinding/CMSSW_10_6_4/src/PlotsConfigurations/Configurations/ControlRegions/DY/Full2018_v9
+
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 configurations = os.path.dirname(configurations)
 
@@ -95,13 +97,13 @@ aliases['Top_pTrw'] = {
 
 # ##### DY Z pT reweighting
 # aliases['nCleanGenJet'] = {
-#     'linesToAdd': ['#include "%s/src/PlotsConfigurations/Configurations/Differential/ngenjet.cc"' % os.getenv('CMSSW_BASE')],
+#     'linesToAdd': ['#include "%s/src/PlotsConfigurations/Configurations/Differential/ngenjet.cc+"' % os.getenv('CMSSW_BASE')],
 #     'class': 'CountGenJet',
 #     'samples': mc
 # }
 
 # aliases['getGenZpt_OTF'] = {
-#     'linesToAdd':['#include "%s/src/PlotsConfigurations/Configurations/patches/getGenZpt.cc"' % os.getenv('CMSSW_BASE')],
+#     'linesToAdd':['#include "%s/src/PlotsConfigurations/Configurations/patches/getGenZpt.cc+"' % os.getenv('CMSSW_BASE')],
 #     'class': 'getGenZpt',
 #     'samples': ['DY']
 # }
@@ -135,19 +137,23 @@ aliases['multiJet'] = {
 }
 
 aliases['bVeto'] = {
-    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0532) == 0'
+    #'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepB, CleanJet_jetIdx) > 0.1355) == 0'
+    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.1208) == 0'
 }
 aliases['bReq'] = { 
-    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0532) >= 1'
+    #'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepB, CleanJet_jetIdx) > 0.1355) >= 1'
+    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.1208) >= 1'
 }
 
 # CR definition
 
 aliases['topcr'] = {
+    #'expr' : 'abs(mll-91)>15 && bReq'
     'expr': 'mll>50 && ((zeroJet && !bVeto) || bReq)'
 }
 
 aliases['dycr'] = {
+    #'expr': 'bVeto && abs(mll-91.2)<15'
     'expr': 'bVeto'
 }
 
@@ -157,14 +163,23 @@ aliases['sr'] = {
     'expr': 'bVeto'
 }
 
+aliases['lowZ'] = {
+    'expr':  '0.5*abs((Lepton_eta[0] + Lepton_eta[1]) - (CleanJet_eta[0] + CleanJet_eta[1])) < 1'        
+}
+
+aliases['highZ'] = {
+    'expr':  '0.5*abs((Lepton_eta[0] + Lepton_eta[1]) - (CleanJet_eta[0] + CleanJet_eta[1])) >= 1'
+}
+
 # my macro
-print('Configs:\n')
+print('\n\n\n')
+print('Configs:\n\n\n')
 print(configurations)
-print('\n\n')
+print('\n\n\n')
 
 aliases['dr_lj'] = {
   'linesToAdd': ['#include "%s/DR_lj.cc"' % configurations],
-  'class': 'DR_lj',
+  'class': 'dr_lj',
   'args': 'CleanJet_eta, CleanJet_phi, Lepton_eta, Lepton_phi',
   #'samples': mc
 }
@@ -186,11 +201,13 @@ aliases['proxyW'] = {
 
 # SF
 aliases['bVetoSF'] = {
+    #'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepcsv_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))',
     'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepjet_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))',
     'samples': mc
 }
 
 aliases['bReqSF'] = {
+    #'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>30 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepcsv_shape, CleanJet_jetIdx)+1*(CleanJet_pt<30 || abs(CleanJet_eta)>2.5))))',
     'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>30 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepjet_shape, CleanJet_jetIdx)+1*(CleanJet_pt<30 || abs(CleanJet_eta)>2.5))))',
     'samples': mc
 }
@@ -248,7 +265,19 @@ aliases['Zepp_ll'] = {
 aliases['Rpt'] = {
     'expr': 'Lepton_pt[0]*Lepton_pt[1]/(CleanJet_pt[0]*CleanJet_pt[1])'
 }
+'''
+aliases['costhetastarcmww_l1'] = {
+        'linesToAdd': ['#include "%s/VBS_OS_pol/Full2018_v9/costheta_cmww.cc+"' % configurations],
+        'class': 'CosThetaStarCMWW',
+        'args': 1,
+}
 
+aliases['costhetastarcmww_l2'] = {
+        'linesToAdd': ['#include "%s/VBS_OS_pol/Full2018_v9/costheta_cmww.cc+"' % configurations],
+        'class': 'CosThetaStarCMWW',
+        'args': 2,
+}
+'''
 # aliases['SFweight2lAlt'] = {
 #     'expr'   : 'puWeight*TriggerSFWeight_2l*Lepton_RecoSF[0]*Lepton_RecoSF[1]*EMTFbug_veto',
 #     'samples': mc
@@ -411,4 +440,26 @@ for i in range(len(bin_dnnTT)-1):
  
 aliases['dnn2D_16v2'] = {
     'expr' : dnn2D,
+    }
+
+bin_dnnTT = ['0.', '0.5', '1.']
+bin_dnnLL = ['0.', '0.5', '1.']
+dnn2D = ''
+for i in range(len(bin_dnnTT)-1):
+  for j in range(len(bin_dnnLL)-1):
+    if i+j != len(bin_dnnTT)+len(bin_dnnLL)-4: 
+      dnn2D+='('+bin_dnnTT[i]+'<dnn_TTVsOther[0])*(dnn_TTVsOther[0]<'+bin_dnnTT[i+1]+')*(('+str((len(bin_dnnTT)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnLL[j]+'<dnn_LLVsOther[0])*(dnn_LLVsOther[0]<'+bin_dnnLL[j+1]+')+'
+    else: 
+      dnn2D+='('+bin_dnnTT[i]+'<dnn_TTVsOther[0])*(dnn_TTVsOther[0]<'+bin_dnnTT[i+1]+')*(('+str((len(bin_dnnTT)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnLL[j]+'<dnn_LLVsOther[0])*(dnn_LLVsOther[0]<'+bin_dnnLL[j+1]+')'
+ 
+aliases['dnn2D_4'] = {
+    'expr' : dnn2D,
+    }
+
+aliases['LLD'] = {
+    'expr' : 'dnn_LLVsOther[0]/(1-dnn_TTVsOther[0])',
+    }
+
+aliases['TTD'] = {
+    'expr' : 'dnn_TTVsOther[0]/(1-dnn_LLVsOther[0])',
     }
