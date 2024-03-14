@@ -1,8 +1,8 @@
-mcProduction = 'Summer20UL16_106x_nAODv9_HIPM_Full2016v9'
-dataReco = 'Run2016_UL2016_nAODv9_HIPM_Full2016v9'
-mcSteps = 'MCl1loose2016v9__MCCorr2016v9NoJERInHorn__l2tightOR2016v9'
-fakeSteps = 'DATAl1loose2016v9__l2loose__fakeW'
-dataSteps = 'DATAl1loose2016v9__l2loose__l2tightOR2016v9'
+mcProduction = 'Summer20UL17_106x_nAODv9_Full2017v9'
+dataReco = 'Run2017_UL2017_nAODv9_Full2017v9'
+mcSteps = 'MCl1loose2017v9__MCCorr2017v9NoJERInHorn__l2tightOR2017v9'
+fakeSteps = 'DATAl1loose2017v9__l2loose__fake'
+dataSteps = 'DATAl1loose2017v9__l2loose__l2tightOR2017v9'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 #limitFiles = -1
@@ -53,17 +53,26 @@ for k in cuts:
 nuisances = {}
 
 
+
 nuisances['lumi_Uncorrelated'] = {
-    'name': 'lumi_13TeV_2016',
+    'name': 'lumi_13TeV_2017',
     'type': 'lnN',
-    'samples': dict((skey, '1.010') for skey in mc if skey not in ['WW', 'top',  'dytt'])
+    'samples': dict((skey, '1.02') for skey in mc if skey not in ['WW', 'top'])
 }
 
 nuisances['lumi_correlated'] = {
     'name': 'lumi_13TeV_correlated',
     'type': 'lnN',
-    'samples': dict((skey, '1.006') for skey in mc if skey not in ['WW', 'top',  'dytt'])
+    'samples': dict((skey, '1.009') for skey in mc if skey not in ['WW', 'top'])
 }
+
+nuisances['lumi_correlated_1718'] = {
+    'name': 'lumi_13TeV_correlated_1718',
+    'type': 'lnN',
+    'samples': dict((skey, '1.006') for skey in mc if skey not in ['WW', 'top'])
+}
+
+
 
 #### FAKES
 
@@ -86,7 +95,7 @@ nuisances['fake_syst_m'] = {
 }
 
 nuisances['fake_ele'] = {
-    'name': 'CMS_fake_e_2016',
+    'name': 'CMS_fake_e_2017',
     'kind': 'weight',
     'type': 'shape',
     'samples': {
@@ -95,7 +104,7 @@ nuisances['fake_ele'] = {
 }
 
 nuisances['fake_ele_stat'] = {
-    'name': 'CMS_fake_stat_e_2016',
+    'name': 'CMS_fake_stat_e_2017',
     'kind': 'weight',
     'type': 'shape',
     'samples': {
@@ -104,7 +113,7 @@ nuisances['fake_ele_stat'] = {
 }
 
 nuisances['fake_mu'] = {
-    'name': 'CMS_fake_m_2016',
+    'name': 'CMS_fake_m_2017',
     'kind': 'weight',
     'type': 'shape',
     'samples': {
@@ -113,7 +122,7 @@ nuisances['fake_mu'] = {
 }
 
 nuisances['fake_mu_stat'] = {
-    'name': 'CMS_fake_stat_m_2016',
+    'name': 'CMS_fake_stat_m_2017',
     'kind': 'weight',
     'type': 'shape',
     'samples': {
@@ -129,7 +138,7 @@ for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
 
     name = 'CMS_btag_%s' % shift
     if 'stats' in shift:
-        name += '_2016'
+        name += '_2017'
 
     nuisances['btag_shape_%s' % shift] = {
         'name': name,
@@ -140,33 +149,32 @@ for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
 
 ##### Trigger Efficiency
 
-trig_syst = ['((TriggerEffWeight_2l_u)/(TriggerEffWeight_2l))*(TriggerEffWeight_2l>0.02) + (TriggerEffWeight_2l<=0.02)', '(TriggerEffWeight_2l_d)/(TriggerEffWeight_2l)']
+trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2016',
+    'name': 'CMS_eff_hwwtrigger_2017',
     'kind': 'weight',
     'type': 'shape',
-    #'samples': dict((skey, trig_syst) for skey in mc_emb)
     'samples': dict((skey, trig_syst) for skey in mc)
 }
 
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2016',
+    'name': 'CMS_eff_e_2017',
     'kind': 'weight',
     'type': 'shape',
     #'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc_emb)
-    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc)
+    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc if skey not in ['ggWW','ggH_hww'])
 }
 
 nuisances['electronpt'] = {
-    'name': 'CMS_scale_e_2016',
+    'name': 'CMS_scale_e_2017',
     'kind': 'suffix',
     'type': 'shape',
     'mapUp': 'ElepTup',
     'mapDown': 'ElepTdo',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'samples': dict((skey, ['1', '1']) for skey in mc if skey not in ['ggWW','ggH_hww']),
     'folderUp': makeMCDirectory('ElepTup_suffix'),
     'folderDown': makeMCDirectory('ElepTdo_suffix'),
     'AsLnN': '1'
@@ -175,43 +183,31 @@ nuisances['electronpt'] = {
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2016',
+    'name': 'CMS_eff_m_2017',
     'kind': 'weight',
     'type': 'shape',
     # 'samples': dict((skey, ['ttHMVA_2l_mu_SF_Up', 'ttHMVA_2l_mu_SF_Down']) for skey in mc_emb)
     #'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc_emb)
-    'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc)
+    'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc if skey not in ['ggWW','ggH_hww'])
 }
 
 nuisances['muonpt'] = {
-    'name': 'CMS_scale_m_2016',
+    'name': 'CMS_scale_m_2017',
     'kind': 'suffix',
     'type': 'shape',
     'mapUp': 'MupTup',
     'mapDown': 'MupTdo',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'samples': dict((skey, ['1', '1']) for skey in mc if skey not in ['ggWW','ggH_hww']),
     'folderUp': makeMCDirectory('MupTup_suffix'),
     'folderDown': makeMCDirectory('MupTdo_suffix'),
     'AsLnN': '1'
 }
 
-
-# ### Pile-up uncertainty
-# nuisances['pileup']  = {
-#     'name'  : 'pileup', 
-#     'kind'  : 'weight',
-#     'type'  : 'shape',
-#     'samples'  : {
-#         'DY' : ['puWeightUp/puWeight', 'puWeightDown/puWeight']
-#     }
-# }
-
-
 ### PU ID SF uncertainty
 puid_syst = ['Jet_PUIDSF_up/Jet_PUIDSF', 'Jet_PUIDSF_down/Jet_PUIDSF']
 
 nuisances['jetPUID'] = {
-    'name': 'CMS_PUID_2016',
+    'name': 'CMS_PUID_2017',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, puid_syst) for skey in mc)
@@ -257,6 +253,9 @@ nuisances['jetPUID'] = {
 #       'AsLnN': '1'
 #   }
 
+
+#DA AGGIUNGERE LA PROSSIMA VOLTA
+
 # ##### Jet energy resolution
 # nuisances['JER'] = {
 #     'name'      : 'CMS_res_j_2018',
@@ -264,7 +263,7 @@ nuisances['jetPUID'] = {
 #     'type'      : 'shape',
 #     'mapUp'     : 'JERup',
 #     'mapDown'   : 'JERdo',
-#     'samples'   : dict((skey, ['1', '1']) for skey in mc if skey not in ['ggH_hww']),
+#     'samples'   : dict((skey, ['1', '1']) for skey in mc),
 #     'folderUp'  : makeMCDirectory('JERup_suffix'),
 #     'folderDown': makeMCDirectory('JERdo_suffix'),
 #     'AsLnN': '1'
@@ -274,12 +273,12 @@ nuisances['jetPUID'] = {
 ##### MET energy scale
 
 nuisances['met'] = {
-    'name': 'CMS_scale_met_2016',
+    'name': 'CMS_scale_met_2017',
     'kind': 'suffix',
     'type': 'shape',
     'mapUp': 'METup',
     'mapDown': 'METdo',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'samples': dict((skey, ['1', '1']) for skey in mc if skey not in  mc_bsm ),
     'folderUp': makeMCDirectory('METup_suffix'),
     'folderDown': makeMCDirectory('METdo_suffix'),
     'AsLnN': '1'
@@ -618,6 +617,46 @@ nuisances['dytt_DeltaPhi_3']  = {
                  'type'  : 'rateParam',
                  'cuts' : cuts_DeltaPhi_3
                 }
+
+# #rate param WW
+# nuisances['WW_DeltaPhi_0']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_0',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_0
+#                 }
+
+
+# nuisances['WW_DeltaPhi_1']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_1',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_1
+#                 }
+
+# nuisances['WW_DeltaPhi_2']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_2',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_2
+#                 }
+
+# nuisances['WW_DeltaPhi_3']  = {
+#                  'name'  : 'CMS_hww_ww_DeltaPhi_3',
+#                  'samples'  : {
+#                    'WW' : '1.00',
+#                      },
+#                  'type'  : 'rateParam',
+#                  'cuts' : cuts_DeltaPhi_3
+#                 }
+
+
 
 
 ## Use the following if you want to apply the automatic combine MC stat nuisances.

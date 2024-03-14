@@ -20,7 +20,7 @@ dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
 
-from mkShapesRDF.shapeAnalysis.libs.SearchFiles import SearchFiles
+from mkShapesRDF.lib.search_files import SearchFiles
 s = SearchFiles()
 
 useXROOTD = True
@@ -28,7 +28,7 @@ redirector = 'root://eoscms.cern.ch/'
 
 
 def nanoGetSampleFiles(path, name):
-    _files = s.searchFiles(path,  f"/nanoLatino_{name}__part*.root", useXROOTD, redirector=redirector)
+    _files = s.searchFiles(path,  name, redirector=redirector)
     #_files = glob.glob(path + f"/nanoLatino_{name}__part*.root")
     if limitFiles != -1 and len(_files) > limitFiles:
         return [(name, _files[:limitFiles])]
@@ -265,7 +265,7 @@ samples['qqH_hww'] = {
 }
 
 # Original VBF samples 
-
+'''
 samples['VBF_H0M'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0M_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0M_W',   
@@ -367,7 +367,7 @@ samples['VBF_H0L1Zgf05'] = {
      }
 } 
 
-
+'''
 ############ ZH H->WW ############
 
 samples['ZH_hww'] = {
@@ -378,12 +378,12 @@ samples['ZH_hww'] = {
 }
 
 
-# samples['ggZH_hww'] = {
-#     'name':   nanoGetSampleFiles(mcDirectory, 'GluGluZH_HToWWTo2L2Nu_M125'),
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 3,
-#     #'EventsPerJob': 15000
-# }
+samples['ggZH_hww'] = {
+    'name':   nanoGetSampleFiles(mcDirectory, 'ggZH_HToWW_M125'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 3,
+    #'EventsPerJob': 15000
+}
 
 
 ############ WH H->WW ############

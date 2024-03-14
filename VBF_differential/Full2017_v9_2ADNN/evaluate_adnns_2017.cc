@@ -9,6 +9,7 @@
 
 
 #include "generated_code_2_UL_plusDY.h"
+#include "generated_code_UL_ggH.h"
 
 using namespace ROOT;
 using namespace ROOT::VecOps;
@@ -54,8 +55,9 @@ RVecF adversarial_dnn(
         float D_QCD_VH,
         float D_VBF_DY
         ){
-    RVecF adnn;
-    adnn.reserve(1);
+    RVecF adnns;
+    adnns.reserve(2);
+    
     float input[36];
 
     input[0] = mjj;
@@ -105,16 +107,17 @@ RVecF adversarial_dnn(
     input[31] = mTi;
     input[32] = ht;
 
-    input[33] = 1; //y_2016
-    input[34] = 0; //y_2017
+    input[33] = 0; //y_2016
+    input[34] = 1; //y_2017
     input[35] = 0; //y_2018
 
 
 
 
-    adnn.push_back(guess_digit(input, 0));
+    adnns.push_back(guess_digit(input, 0));
+    adnns.push_back(guess_digit_ggh(input, 0));
     
-    return adnn;
+    return adnns;
 
 }
   

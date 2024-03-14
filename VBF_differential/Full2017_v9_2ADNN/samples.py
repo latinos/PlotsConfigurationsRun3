@@ -1,9 +1,9 @@
 import os, glob
-mcProduction = 'Summer20UL16_106x_nAODv9_noHIPM_Full2016v9'
-dataReco = 'Run2016_UL2016_nAODv9_noHIPM_Full2016v9'
-mcSteps = 'MCl1loose2016v9__MCCorr2016v9NoJERInHorn__l2tightOR2016v9'
-fakeSteps = 'DATAl1loose2016v9__l2loose__fakeW'
-dataSteps = 'DATAl1loose2016v9__l2loose__l2tightOR2016v9'
+mcProduction = 'Summer20UL17_106x_nAODv9_Full2017v9'
+dataReco = 'Run2017_UL2017_nAODv9_Full2017v9'
+mcSteps = 'MCl1loose2017v9__MCCorr2017v9NoJERInHorn__l2tightOR2017v9'
+fakeSteps = 'DATAl1loose2017v9__l2loose__fakeW'
+dataSteps = 'DATAl1loose2017v9__l2loose__l2tightOR2017v9'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -20,7 +20,7 @@ dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
 
-from mkShapesRDF.shapeAnalysis.libs.SearchFiles import SearchFiles
+from mkShapesRDF.lib.search_files import SearchFiles
 s = SearchFiles()
 
 useXROOTD = True
@@ -28,7 +28,7 @@ redirector = 'root://eoscms.cern.ch/'
 
 
 def nanoGetSampleFiles(path, name):
-    _files = s.searchFiles(path,  f"/nanoLatino_{name}__part*.root", useXROOTD, redirector=redirector)
+    _files = s.searchFiles(path,  name, redirector=redirector)
     #_files = glob.glob(path + f"/nanoLatino_{name}__part*.root")
     if limitFiles != -1 and len(_files) > limitFiles:
         return [(name, _files[:limitFiles])]
@@ -70,14 +70,16 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 ############ DATA DECLARATION ##################
 ################################################
+
 DataRun = [
-    ['F','Run2016F-UL2016-v1'],
-    ['G','Run2016G_UL2016-v1'],
-    ['H','Run2016H_UL2016-v1'],
+    ['B','Run2017B-UL2017-v1'],
+    ['C','Run2017C-UL2017-v1'],
+    ['D','Run2017D-UL2017-v1'],
+    ['E','Run2017E-UL2017-v1'],
+    ['F','Run2017F-UL2017-v1'],
 ]
 
 DataSets = ['MuonEG','SingleMuon','SingleElectron','DoubleMuon', 'DoubleEG']
-
 
 DataTrig = {
     'MuonEG'         : ' Trigger_ElMu' ,
@@ -86,12 +88,11 @@ DataTrig = {
     'DoubleMuon'     : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_sngEl && Trigger_dblMu',
     'DoubleEG'       : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_sngEl && !Trigger_dblMu && Trigger_dblEl'
 }
-
-
 #########################################
 ############ MC COMMON ##################
 #########################################
 
+# SFweight does not include btag weights
 mcCommonWeightNoMatch = 'XSWeight*METFilter_MC*SFweight'
 mcCommonWeight = 'XSWeight*METFilter_MC*PromptGenLepMatch2l*SFweight'
 
@@ -106,7 +107,7 @@ embed_tautauveto = ''
 ###### DY #######
 
 files = nanoGetSampleFiles(mcDirectory, 'DYJetsToTT_MuEle_M-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50')
+        nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50-LO')
 
 samples['dytt'] = {
     'name': files,
@@ -143,8 +144,8 @@ samples['WW'] = {
 
 samples['WWewk'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'WpWmJJ_EWK_noTop'),
-    'weight': mcCommonWeight+embed_tautauveto + '*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)', # Filter tops and Higgs,
-    'FilesPerJob': 3
+    'weight': mcCommonWeight+ '*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)', # Filter tops and Higgs,
+    'FilesPerJob': 4
 }
 
 
@@ -263,7 +264,7 @@ samples['qqH_hww'] = {
 }
 
 # Original VBF samples 
-
+'''
 samples['VBF_H0M'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0M_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0M_W',   
@@ -278,24 +279,15 @@ samples['VBF_H0M'] = {
          'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
+    
 } 
 
 
-samples['VBF_H0Mf05'] = { 
-   'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0Mf05_ToWWTo2L2Nu'), 
-   'weight': mcCommonWeight+ '*VBF_H0Mf05_W',   
-   'FilesPerJob': 4, 
-   'subsamples' : {
-         'GenDeltaPhijj_0fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
-     }
-} 
+# samples['VBF_H0Mf05'] = { 
+#    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0Mf05_ToWWTo2L2Nu'), 
+#    'weight': mcCommonWeight+ '*VBF_H0Mf05_W',   
+#    'FilesPerJob': 4, 
+# } 
 
 
 samples['VBF_H0PH'] = { 
@@ -335,7 +327,7 @@ samples['VBF_H0PHf05'] = {
 samples['VBF_H0L1'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0L1_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0L1_W',   
-   'FilesPerJob': 4, 
+   'FilesPerJob': 4,
    'subsamples' : {
          'GenDeltaPhijj_0fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
@@ -345,7 +337,7 @@ samples['VBF_H0L1'] = {
          'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
-     }
+     } 
 } 
 
 
@@ -364,8 +356,7 @@ samples['VBF_H0L1Zgf05'] = {
          'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
-
-
+'''
 ############ ZH H->WW ############
 
 samples['ZH_hww'] = {
@@ -376,12 +367,12 @@ samples['ZH_hww'] = {
 }
 
 
-# samples['ggZH_hww'] = {
-#     'name':   nanoGetSampleFiles(mcDirectory, 'GluGluZH_HToWWTo2L2Nu_M125'),
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 3,
-#     #'EventsPerJob': 15000
-# }
+samples['ggZH_hww'] = {
+    'name':   nanoGetSampleFiles(mcDirectory, 'GluGluZH_HToWWTo2L2Nu_M125'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 3,
+    #'EventsPerJob': 15000
+}
 
 
 ############ WH H->WW ############
@@ -446,7 +437,7 @@ samples['qqH_htt'] = {
 ###########################################
 samples['Fake'] = {
   'name': [],
-  'weight': 'METFilter_DATA_fix*fakeW',
+  'weight': 'METFilter_DATA*fakeW',
   'weights': [],
   'isData': ['all'],
   'FilesPerJob': 50
@@ -455,12 +446,6 @@ samples['Fake'] = {
 for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
-    if 'DoubleMuon' in pd and 'Run2016G' in sd: 
-        print("sd      = {}".format(sd))
-        print("pd      = {}".format(pd))
-        print("Old tag = {}".format(datatag))
-        datatag = datatag.replace('v1','v2')
-        print("New tag = {}".format(datatag))
 
     files = nanoGetSampleFiles(fakeDirectory, datatag)
 
@@ -474,13 +459,14 @@ samples['Fake']['subsamples'] = {
 }
 
 
+
 ###########################################
 ################## DATA ###################
 ###########################################
 
 samples['DATA'] = {
   'name': [],
-  'weight': 'LepWPCut*METFilter_DATA_fix',
+  'weight': 'LepWPCut*METFilter_DATA',
   'weights': [],
   'isData': ['all'],
   'FilesPerJob': 50
@@ -489,12 +475,6 @@ samples['DATA'] = {
 for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
-    if 'DoubleMuon' in pd and 'Run2016G' in sd: 
-        print("sd      = {}".format(sd))
-        print("pd      = {}".format(pd))
-        print("Old tag = {}".format(datatag))
-        datatag = datatag.replace('v1','v2')
-        print("New tag = {}".format(datatag))
 
     files = nanoGetSampleFiles(dataDirectory, datatag)
 

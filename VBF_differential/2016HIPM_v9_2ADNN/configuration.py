@@ -1,7 +1,7 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = 'RDF_2016noHIPM_v9'
+tag = 'RDF_2016HIPM_v9_2ADNN'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
@@ -28,7 +28,9 @@ samplesFile = 'samples.py'
 plotFile = 'plot.py' 
 
 # luminosity to normalize to (in 1/fb)
-lumi =  16.81
+# https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L27 (#95 #165)
+# 16.802739097 + 1.063261220 + 1.655228036 = 19.521228353 
+lumi =  19.52
 
 # used by mkPlot to define output directory for plots
 # different from "outputDir" to do things more tidy
@@ -41,7 +43,7 @@ outputDirDatacard = 'datacards'
 # structure file for datacard
 structureFile = 'structure.py'
 
-# nuisances file for mkDatacards and for mkShape
+# nuisances file for mkDatacards and for mkShapes
 nuisancesFile = 'nuisances.py'
 
 minRatio = 0.5

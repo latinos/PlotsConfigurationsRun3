@@ -289,12 +289,28 @@ aliases['MoMEMta_D'] = {
 }
 
 
-aliases['adnn'] = {
-  'linesToAdd': ['#include "%s/2016HIPM_v9_2output/evaluate_adnn_2016.cc+"' ],
+aliases['adnns'] = {
+  'linesToAdd': ['#include "/afs/cern.ch/work/b/bcamaian/mkShapesRDF/VBF_differential/2016noHIPM_v9_2ADNN/evaluate_adnns_2016.cc+"' ],
   'class': 'adversarial_dnn',
   'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0]',
   #'samples': mc
 }
+
+
+bin_adnnisVBF = ['0.0', '0.50', '0.65', '0.80', '0.85', '0.9', '0.93', '0.95', '0.96', '0.98', '0.99', '1.0']
+bin_adnnisGGH = ['0.0', '0.50', '0.65', '0.80', '0.85', '0.9', '0.93', '0.95', '0.96', '0.98', '0.99', '1.0']
+adnn2D = ''
+for i in range(len(bin_adnnisVBF)-1):
+  for j in range(len(bin_adnnisGGH)-1):
+    if i+j != len(bin_adnnisVBF)+len(bin_adnnisGGH)-4: 
+      adnn2D+='('+bin_adnnisVBF[i]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisGGH[j]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[j+1]+')+'
+    else: 
+      adnn2D+='('+bin_adnnisVBF[i]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisGGH[j]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[j+1]+')'
+ 
+aliases['adnns_2D'] = {
+    'expr' : adnn2D,
+    }
+
 
 
 aliases['DeltaPhijj'] = {
@@ -307,14 +323,14 @@ aliases['DeltaPhijj'] = {
 aliases['isFID'] = {
   'linesToAdd': ['#include "%s/extended/isFid.cc+"' % configurations],
   'class': 'isFiducial',
-  'args': 'nLeptonGen, LeptonGen_isPrompt, LeptonGen_pdgId, LeptonGen_pt, LeptonGen_eta, LeptonGen_phi, LeptonGen_mass, nPhotonGen, PhotonGen_pt, PhotonGen_eta, PhotonGen_phi, PhotonGen_mass, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass, GenMET_pt, GenMET_phi',
+  'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass, GenMET_pt, GenMET_phi',
   'samples': mc
 }
 
 aliases['GenDeltaPhijj'] = {
   'linesToAdd': ['#include "%s/extended/GetGenJetDeltaPhi.cc+"' % configurations],
   'class': 'GenJetDeltaPhi',
-  'args': 'nLeptonGen, LeptonGen_isPrompt, LeptonGen_pdgId, LeptonGen_pt, LeptonGen_eta, LeptonGen_phi, LeptonGen_mass, nPhotonGen, PhotonGen_pt, PhotonGen_eta, PhotonGen_phi, PhotonGen_mass, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
+  'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
   'samples': mc
 }
 

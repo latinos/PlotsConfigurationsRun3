@@ -12,13 +12,11 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
-# # LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW_tthmva_80
-# eleWP = 'mvaFall17V2Iso_WP90'
-# muWP  = 'cut_Tight_HWWW_tthmva_80'
+mc_bsm = ['VBF_H0M','VBF_H0PH', 'VBF_H0L1','VBF_H0Mf05','VBF_H0PHf05', 'VBF_H0L1Zgf05', 'ggH_hww']
 
-# LepCut2l__ele_mvaFall17V2Iso_WP90_tthmva_70__mu_cut_Tight80x_tthmva_80
-eleWP = 'mvaFall17V2Iso_WP90_tthmva_70' # _tthmva_70'
-muWP  = 'cut_Tight80x_tthmva_80' # _tthmva_80'
+# LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW_tthmva_80
+eleWP = 'mvaFall17V2Iso_WP90'
+muWP  = 'cut_Tight_HWWW_tthmva_80'
 
 
 aliases['LepWPCut'] = {
@@ -148,10 +146,10 @@ aliases['multiJet'] = {
 # DeepFlavB = DeepJet
 
 aliases['bVeto'] = {
-    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0480) == 0'
+    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0532) == 0'
 }
 aliases['bReq'] = { 
-    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0480) >= 1'
+    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0532) >= 1'
 }
 
 # CR definition
@@ -221,7 +219,8 @@ aliases['Jet_PUIDSF_down'] = {
 
 # data/MC scale factors
 aliases['SFweight'] = {
-    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'PrefireWeight', 'btagSF']),
+    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'PrefireWeight','btagSF']),
+    #'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF']),
     'samples': mc
 }
 
@@ -242,13 +241,6 @@ aliases['SFweightMuDown'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Do',
     'samples': mc_emb
 }
-
-# Fix METFilter_DATA definition: Flag_ecalBadCalibFilter is removed since it is not needed in 2016
-aliases['METFilter_DATA_fix'] = {
-    'expr' : 'Flag_goodVertices*Flag_globalSuperTightHalo2016Filter*Flag_HBHENoiseFilter*Flag_HBHENoiseIsoFilter*Flag_EcalDeadCellTriggerPrimitiveFilter*Flag_BadPFMuonFilter*Flag_BadPFMuonDzFilter*Flag_eeBadScFilter',
-    'samples': ['DATA','Fake']
-}
-
 
 
 
@@ -289,13 +281,28 @@ aliases['MoMEMta_D'] = {
   'args': 'nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1] ',
 }
 
-
-aliases['adnn'] = {
-  'linesToAdd': ['#include "%s/2016noHIPM_v9_2output/evaluate_adnn_2016.cc+"' ],
+#adnns[0] = isVBF  adnns[1]=isGGH
+aliases['adnns'] = {
+  'linesToAdd': ['#include "/afs/cern.ch/work/b/bcamaian/mkShapesRDF/VBF_differential/Full2017_v9_2ADNN/evaluate_adnns_2017.cc+"' ],
   'class': 'adversarial_dnn',
   'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0]',
   #'samples': mc
 }
+
+
+bin_adnnisVBF = ['0.0', '0.50', '0.65', '0.80', '0.85', '0.9', '0.93', '0.95', '0.96', '0.98', '0.99', '1.0']
+bin_adnnisGGH = ['0.0', '0.50', '0.65', '0.80', '0.85', '0.9', '0.93', '0.95', '0.96', '0.98', '0.99', '1.0']
+adnn2D = ''
+for i in range(len(bin_adnnisVBF)-1):
+  for j in range(len(bin_adnnisGGH)-1):
+    if i+j != len(bin_adnnisVBF)+len(bin_adnnisGGH)-4: 
+      adnn2D+='('+bin_adnnisVBF[i]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisGGH[j]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[j+1]+')+'
+    else: 
+      adnn2D+='('+bin_adnnisVBF[i]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisGGH[j]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[j+1]+')'
+ 
+aliases['adnns_2D'] = {
+    'expr' : adnn2D,
+    }
 
 
 aliases['DeltaPhijj'] = {
@@ -308,14 +315,14 @@ aliases['DeltaPhijj'] = {
 aliases['isFID'] = {
   'linesToAdd': ['#include "%s/extended/isFid.cc+"' % configurations],
   'class': 'isFiducial',
-  'args': 'nLeptonGen, LeptonGen_isPrompt, LeptonGen_pdgId, LeptonGen_pt, LeptonGen_eta, LeptonGen_phi, LeptonGen_mass, nPhotonGen, PhotonGen_pt, PhotonGen_eta, PhotonGen_phi, PhotonGen_mass, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass, GenMET_pt, GenMET_phi',
+  'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass, GenMET_pt, GenMET_phi',
   'samples': mc
 }
 
 aliases['GenDeltaPhijj'] = {
   'linesToAdd': ['#include "%s/extended/GetGenJetDeltaPhi.cc+"' % configurations],
   'class': 'GenJetDeltaPhi',
-  'args': 'nLeptonGen, LeptonGen_isPrompt, LeptonGen_pdgId, LeptonGen_pt, LeptonGen_eta, LeptonGen_phi, LeptonGen_mass, nPhotonGen, PhotonGen_pt, PhotonGen_eta, PhotonGen_phi, PhotonGen_mass, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
+  'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
   'samples': mc
 }
 

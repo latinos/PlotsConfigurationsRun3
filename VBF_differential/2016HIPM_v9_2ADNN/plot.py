@@ -87,14 +87,14 @@ groupPlot['VgS']  = {
 #                   'samples'  : ['ggZH_hww',' ZH_hww',' WH_hww',' ttH_hww',' qqH_htt',' ggH_htt' ]
 #               }
 
-# groupPlot['VBF']  = {
-#                   'nameHR' : "Higgs VBF",
-#                   'isSignal' : 1,
-#                   'color'    : 632,   # kBlue                                                                                                                                                              
-#                   'samples'  : ['qqH_hww_GenDeltaPhijj_0fid',' qqH_hww_GenDeltaPhijj_1fid',' qqH_hww_GenDeltaPhijj_2fid',' qqH_hww_GenDeltaPhijj_3fid',' qqH_hww_GenDeltaPhijj_0nonfid',' qqH_hww_GenDeltaPhijj_1nonfid',' qqH_hww_GenDeltaPhijj_2nonfid',' qqH_hww_GenDeltaPhijj_3nonfid ']
-#               }
+groupPlot['VBF']  = {
+                   'nameHR' : "Higgs VBF",
+                   'isSignal' : 1,
+                   'color'    : 632,   # kBlue                                                                                                                                                              
+                   'samples'  : ['qqH_hww_GenDeltaPhijj_0fid','qqH_hww_GenDeltaPhijj_1fid','qqH_hww_GenDeltaPhijj_2fid','qqH_hww_GenDeltaPhijj_3fid','qqH_hww_GenDeltaPhijj_0nonfid','qqH_hww_GenDeltaPhijj_1nonfid','qqH_hww_GenDeltaPhijj_2nonfid','qqH_hww_GenDeltaPhijj_3nonfid ']
+               }
 
-
+'''
 groupPlot['VBF_0']  = {
                   'nameHR' : "Higgs VBF bin 0 ",
                   'isSignal' : 2,
@@ -121,7 +121,7 @@ groupPlot['VBF_3']  = {
                   'color'    : 632-10,   # kBlue                                                                                                                                                              
                   'samples'  : ['qqH_hww_GenDeltaPhijj_3fid',' qqH_hww_GenDeltaPhijj_3nonfid']
               }
-
+'''
 # groupPlot['ggF']  = {
 #                   'nameHR' : "Higgs ggF",
 #                   'isSignal' : 2,
@@ -523,7 +523,7 @@ plot['DATA']  = {
                   'color': 1 ,  
                   'isSignal' : 0,
                   'isData'   : 1 ,
-                  'isBlind'  : 0
+                  'isBlind'  : 1
                   }
 
 # merge cuts
