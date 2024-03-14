@@ -16,7 +16,7 @@ ggh_thu_normfact['info'] = '[nominal/up, nominal/down]'
 for n in ggh_thus:
     print('-------')
     print(n)
-    ggh_thu_normfact[n.replace("WH_hww_","")] = {}
+    ggh_thu_normfact[n] = {}
     for s in ggh_sample_list: 
         up = f.Get(dir+s+'_'+n+'Up').Integral()
         do = f.Get(dir+s+'_'+n+'Down').Integral()
@@ -24,7 +24,7 @@ for n in ggh_thus:
         print('###',s)
 
         print("nom = ", nom," nom/up = ", nom/up, " nom/down = ", nom/do) 
-        ggh_thu_normfact[n.replace("WH_hww_","")][s.replace('histo_','')] = [nom/up, nom/do]
+        ggh_thu_normfact[n][s.replace('histo_','')] = [nom/up, nom/do]
 
 
 qqh_thu_normfact = {}
@@ -34,7 +34,7 @@ qqh_thu_normfact['info'] = '[nominal/up, nominal/down]'
 for n in qqh_thus:
     print('-------')
     print(n)
-    qqh_thu_normfact[n.replace("WH_hww_","")] = {}
+    qqh_thu_normfact[n] = {}
     for s in qqh_sample_list:
         up = f.Get(dir+s+'_'+n+'Up').Integral()
         do = f.Get(dir+s+'_'+n+'Down').Integral()
@@ -43,7 +43,7 @@ for n in qqh_thus:
 
         print("nom = ", nom," nom/up = ", nom/up, " nom/down = ", nom/do)
  
-        qqh_thu_normfact[n.replace("WH_hww_","")][s.replace('histo_','')] = [nom/up, nom/do]
+        qqh_thu_normfact[n][s.replace('histo_','')] = [nom/up, nom/do]
 
 
 import json
