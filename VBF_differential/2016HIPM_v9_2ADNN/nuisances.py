@@ -477,15 +477,15 @@ nuisances['singleTopToTTbar'] = {
 
 ## Top pT reweighting uncertainty
 
-nuisances['TopPtRew'] = {
-    'name'       : 'CMS_top_pT_reweighting',   # Theory uncertainty
-    'kind'       : 'weight',
-    'type'       : 'shape',
-    'samples'    : {
-        'top': ["1.", "1./Top_pTrw"]
-    },
-    'symmetrize' : True
-}
+#nuisances['TopPtRew'] = {
+#    'name'       : 'CMS_top_pT_reweighting',   # Theory uncertainty
+#    'kind'       : 'weight',
+#    'type'       : 'shape',
+#    'samples'    : {
+#        'top': ["1.", "1./Top_pTrw"]
+#    },
+#    'symmetrize' : True
+#}
 
 nuisances['VgStar'] = {
     'name': 'CMS_hww_VgStarScale',
@@ -644,6 +644,27 @@ nuisances['QCDscale_ggVV'] = {
         'ggWW' : '1.15',
     },
 }
+
+nuisances['WWresum']  = {
+    'name'  : 'CMS_hww_WWresum',
+    'kind'  : 'weight',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'WW'   : ['nllW_Rup/nllW', 'nllW_Rdown/nllW'],
+    },
+}
+
+nuisances['WWqscale']  = {
+    'name'  : 'CMS_hww_WWqscale',
+    'kind'  : 'weight',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'WW'   : ['nllW_Qup/nllW', 'nllW_Qdown/nllW'],
+    },
+}
+
 
 topvars2j = ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,8, 1.)']
 
