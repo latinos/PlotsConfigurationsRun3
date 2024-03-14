@@ -1,11 +1,11 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = 'RDF_2017_v9_emu_DNN'
+tag = 'RDF_2018_v9_2ADNN'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
-#outputDir = 'rootFile_' + tag
+# outputDir = 'rootFile_' + tag
 
 outputFile    = "mkShapes__{}.root".format(tag)
 outputFolder  = "rootFiles__{}".format(tag)
@@ -29,14 +29,13 @@ plotFile = 'plot.py'
 
 # luminosity to normalize to (in 1/fb)
 # https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L868 (874)
-lumi =  41.48
+#  59.832475339
+lumi =  59.83
 
 # used by mkPlot to define output directory for plots
 # different from "outputDir" to do things more tidy
+#outputDirPlots = 'plots_' + tag
 plotPath = 'plots_' + tag
-
-# jdl configuration file (will be read only if present)
-jdlconfigfile = 'jdl_dict.py'
 
 # used by mkDatacards to define output directory for datacards
 outputDirDatacard = 'datacards'
@@ -51,21 +50,19 @@ minRatio = 0.5
 maxRatio = 1.5
 plotPath      = "plots__{}".format(tag)
 
-
 mountEOS=[]
-imports = ['os', 'glob', ('collections', 'OrderedDict'), 'ROOT']
+imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
 filesToExec = [
-    cutsFile,
     samplesFile,
     aliasesFile,
     variablesFile,
+    cutsFile,
     plotFile,
     nuisancesFile,
     structureFile,
 ]
 
 varsToKeep = [
-    "jdlconfigfile",
     "batchVars",
     "outputFolder",
     "batchFolder",
@@ -75,9 +72,9 @@ varsToKeep = [
     "tag",
     "samples",
     "aliases",
+    "variables",
     ("cuts", {"cuts": "cuts", "preselections": "preselections"}),
     ("plot", {"plot": "plot", "groupPlot": "groupPlot", "legend": "legend"}),
-    "variables",
     "nuisances",
     "structure",
     "lumi",
