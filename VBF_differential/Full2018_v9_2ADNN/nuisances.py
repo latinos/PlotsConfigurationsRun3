@@ -437,7 +437,7 @@ nuisances['pdf_qqbar_ACCEPT'] = {
 ##
 ####### PDF uncertainties on WW
 ##nuisances['pdf_WW']  = {
-##  'name'  : 'CMS_hww_pdf_WW_2016',
+##  'name'  : 'CMS_hww_pdf_WW_2018',
 ##  'skipCMS' : 1,
 ##  'kind'  : 'weight_rms',
 ##  'type'  : 'shape',
@@ -448,7 +448,7 @@ nuisances['pdf_qqbar_ACCEPT'] = {
 ##
 ####### PDF uncertainties on top
 ##nuisances['pdf_top']  = {
-##  'name'  : 'CMS_hww_pdf_top_2016',
+##  'name'  : 'CMS_hww_pdf_top_2018',
 ##  'skipCMS' : 1,
 ##  'kind'  : 'weight_rms',
 ##  'type'  : 'shape',
@@ -648,7 +648,7 @@ nuisances['QCDscale_ggVV'] = {
 topvars2j = ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,8, 1.)']
 
 nuisances['QCDscale_top_2j']  = {
-    'name'  : 'QCDscale_top_2j_2016',
+    'name'  : 'QCDscale_top_2j',
     'skipCMS' : 1,
     'kind'  : 'weight',
     'type'  : 'shape',
@@ -735,7 +735,6 @@ nuisances['top_DeltaPhi_0']  = {
                  'type'  : 'rateParam',
                  'cuts' : cuts_DeltaPhi_0
                 }
-
 
 nuisances['top_DeltaPhi_1']  = {
                  'name'  : 'CMS_hww_top_DeltaPhi_1',
