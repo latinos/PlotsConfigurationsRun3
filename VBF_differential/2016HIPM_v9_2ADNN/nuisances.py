@@ -147,6 +147,18 @@ nuisances['trigg'] = {
     'type': 'shape',
     'samples': dict((skey, trig_syst) for skey in mc)
 }
+
+
+prefire_syst = ['PrefireWeight_Up/PrefireWeight', 'PrefireWeight_Down/PrefireWeight']
+
+nuisances['prefire'] = {
+    'name': 'CMS_eff_prefiring_2016',
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': dict((skey, prefire_syst) for skey in mc),
+    'AsLnN': '0'
+}
+
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {

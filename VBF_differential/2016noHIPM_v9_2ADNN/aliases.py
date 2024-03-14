@@ -182,7 +182,19 @@ aliases['btagSF'] = {
     'samples': mc
 }
 
-for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']:
+for shift in ['jesAbsolute', 'jesAbsolute_2018', 'jesBBEC1', 'jesBBEC1_2018', 'jesEC2',
+        'jesEC2_2018', 'jesFlavorQCD', 'jesHF', 'jesHF_2018', 'jesRelativeBal',
+        'jesRelativeSample_2018']:
+    for var in ['up','down']:
+        aliases[f'Jet_btagSF_deepjet_shape_{shift.replace("jes","JES")}{var[:2]}'] = {
+                'expr' : f'Jet_btagSF_deepjet_shape_{var}_{shift}',
+                'samples' : mc
+        }
+
+for shift in ['jesAbsolute', 'jesAbsolute_2018', 'jesBBEC1', 'jesBBEC1_2018', 'jesEC2',
+        'jesEC2_2018', 'jesFlavorQCD', 'jesHF', 'jesHF_2018', 'jesRelativeBal',
+        'jesRelativeSample_2018', 'lf', 'hf', 'lfstats1', 'lfstats2',
+        'hfstats1', 'hfstats2', 'cferr1', 'cferr2']:
 
     for targ in ['bVeto', 'bReq']:
         alias = aliases['%sSF%sup' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
@@ -191,16 +203,15 @@ for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr
         alias = aliases['%sSF%sdown' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
         alias['expr'] = alias['expr'].replace('btagSF_deepjet_shape', 'btagSF_deepjet_shape_down_%s' % shift)
 
-    aliases['btagSF%sup' % shift] = {
+    aliases[f'btagSF{shift.replace("jes","JES")}up'] = {
         'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'up'),
         'samples': mc
     }
 
-    aliases['btagSF%sdown' % shift] = {
+    aliases[f'btagSF{shift.replace("jes","JES")}do'] = {
         'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'down'),
         'samples': mc
     }
-
 
 
 aliases['Jet_PUIDSF'] = { 
@@ -334,6 +345,43 @@ aliases['GenDeltaPhijj'] = {
   'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
   'samples': mc
 }
+
+
+import json
+normfactors = json.load(open("HiggsTHUNormFactors.json"))
+
+diffcuts_ggh = samples['ggH_hww']['subsamples'] if 'ggH_hww' in samples else {}
+diffcuts_qqh = samples['qqH_hww']['subsamples'] if 'qqH_hww' in samples else {}
+
+ggh_thus = ['THU_ggH_Mu','THU_ggH_Res','THU_ggH_Mig01','THU_ggH_Mig12',
+        'THU_ggH_VBF2j','THU_ggH_VBF3j','THU_ggH_PT60','THU_ggH_PT120','THU_ggH_qmtop',
+        'PS_ISR', 'PS_FSR']
+
+for name in ggh_thus:
+    aliases['norm_ggh_'+name+'_up'] = {
+        'expr' : '+'.join(['({})*({})'.format(diffcuts_ggh[binname],normfactors[name]["ggH_hww_"+binname][0]) for binname in diffcuts_ggh]),
+        'samples' : ['ggH_hww'],
+    }
+    aliases['norm_ggh_'+name+'_down'] = {
+        'expr' : '+'.join(['({})*({})'.format(diffcuts_ggh[binname],normfactors[name]["ggH_hww_"+binname][1]) for binname in diffcuts_ggh]),
+        'samples' : ['ggH_hww'],
+    }
+
+
+qqh_thus = ["THU_qqH_YIELD","THU_qqH_PTH200","THU_qqH_Mjj60","THU_qqH_Mjj120",
+        "THU_qqH_Mjj350","THU_qqH_Mjj700","THU_qqH_Mjj1000","THU_qqH_Mjj1500",
+        "THU_qqH_PTH25","THU_qqH_JET01","THU_qqH_EWK","PS_ISR","PS_FSR"]
+
+for name in qqh_thus:
+    aliases['norm_qqh_'+name+'_up'] = {
+        'expr' : '+'.join(['({})*({})'.format(diffcuts_qqh[binname],normfactors[name]["qqH_hww_"+binname][0]) for binname in diffcuts_qqh]),
+        'samples' : ['qqH_hww'],
+    }
+    aliases['norm_qqh_'+name+'_down'] = {
+        'expr' : '+'.join(['({})*({})'.format(diffcuts_qqh[binname],normfactors[name]["qqH_hww_"+binname][1]) for binname in diffcuts_qqh]),
+        'samples' : ['qqH_hww'],
+    }
+
 
 
 # Couplings used in JHUGen
