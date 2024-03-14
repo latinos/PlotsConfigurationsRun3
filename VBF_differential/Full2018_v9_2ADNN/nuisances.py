@@ -437,7 +437,7 @@ nuisances['pdf_qqbar_ACCEPT'] = {
 ##
 ####### PDF uncertainties on WW
 ##nuisances['pdf_WW']  = {
-##  'name'  : 'CMS_hww_pdf_WW_2018',
+##  'name'  : 'CMS_hww_pdf_WW',
 ##  'skipCMS' : 1,
 ##  'kind'  : 'weight_rms',
 ##  'type'  : 'shape',
@@ -448,7 +448,7 @@ nuisances['pdf_qqbar_ACCEPT'] = {
 ##
 ####### PDF uncertainties on top
 ##nuisances['pdf_top']  = {
-##  'name'  : 'CMS_hww_pdf_top_2018',
+##  'name'  : 'CMS_hww_pdf_top',
 ##  'skipCMS' : 1,
 ##  'kind'  : 'weight_rms',
 ##  'type'  : 'shape',
