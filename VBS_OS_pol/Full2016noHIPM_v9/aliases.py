@@ -3,7 +3,9 @@ import copy
 import inspect
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations)
+configurations = os.path.dirname(configurations) # Full2018_v9
+configurations = os.path.dirname(configurations) # VBS_OS_pol
+configurations = os.path.dirname(configurations) # Configurations
 
 aliases = {}
 aliases = OrderedDict()
@@ -38,7 +40,7 @@ mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW_tthmva_80
 eleWP = 'mvaFall17V2Iso_WP90'
-muWP  = 'cut_Tight_HWWW_tthmva_80'
+muWP  = 'cut_Tight80x_tthmva_80'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
@@ -160,10 +162,10 @@ aliases['multiJet'] = {
 }
 
 aliases['bVeto'] = {
-    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0532) == 0'
+    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0480) == 0'
 }
 aliases['bReq'] = { 
-    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0532) >= 1'
+    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0480) >= 1'
 }
 
 # CR definition
@@ -182,10 +184,20 @@ aliases['sr'] = {
     'expr': 'bVeto'
 }
 
+aliases['lowZ'] = {
+    'expr':  '0.5*abs((Lepton_eta[0] + Lepton_eta[1]) - (CleanJet_eta[0] + CleanJet_eta[1])) < 1'        
+}
+
+aliases['highZ'] = {
+    'expr':  '0.5*abs((Lepton_eta[0] + Lepton_eta[1]) - (CleanJet_eta[0] + CleanJet_eta[1])) >= 1'
+}
+
 # my macro
-print('Configs:\n')
+print('\n\n\n')
+print('Configs:\n\n\n')
+configurations = os.path.abspath('.').replace('work/m/mlizzo', 'user/m/mlizzo/work') 
 print(configurations)
-print('\n\n')
+print('\n\n\n')
 
 aliases['dr_lj'] = {
   'linesToAdd': ['#include "%s/DR_lj.cc"' % configurations],
@@ -211,11 +223,13 @@ aliases['proxyW'] = {
 
 # SF
 aliases['bVetoSF'] = {
+    #'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepcsv_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))',
     'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepjet_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))',
     'samples': mc
 }
 
 aliases['bReqSF'] = {
+    #'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>30 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepcsv_shape, CleanJet_jetIdx)+1*(CleanJet_pt<30 || abs(CleanJet_eta)>2.5))))',
     'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>30 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepjet_shape, CleanJet_jetIdx)+1*(CleanJet_pt<30 || abs(CleanJet_eta)>2.5))))',
     'samples': mc
 }
@@ -225,7 +239,26 @@ aliases['btagSF'] = {
     'expr': 'bVeto*bVetoSF + topcr*bReqSF',
     'samples': mc
 }
+'''
+for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']:
 
+    for targ in ['bVeto', 'bReq']:
+        alias = aliases['%sSF%sup' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
+        alias['expr'] = alias['expr'].replace('btagSF_deepcsv_shape', 'btagSF_deepcsv_shape_up_%s' % shift)
+
+        alias = aliases['%sSF%sdown' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
+        alias['expr'] = alias['expr'].replace('btagSF_deepcsv_shape', 'btagSF_deepcsv_shape_down_%s' % shift)
+
+    aliases['btagSF%sup' % shift] = {
+        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'up'),
+        'samples': mc
+    }
+
+    aliases['btagSF%sdown' % shift] = {
+        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'down'),
+        'samples': mc
+    }
+'''
 for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']:
 
     for targ in ['bVeto', 'bReq']:
@@ -258,6 +291,11 @@ aliases['Jet_PUIDSF_down'] = {
   'samples': mc
 }
 
+'''
+aliases['Zepp_j3'] = {
+    'expr': 'Alt$(abs(CleanJet_eta[2] - (CleanJet_eta[0] + CleanJet_eta[1])/2)/detajj, 0, -9999)'
+}
+'''
 aliases['Zepp_l1'] = {
     'expr': 'Lepton_eta[0] - (CleanJet_eta[0] + CleanJet_eta[1])/2'
 }
@@ -307,6 +345,12 @@ aliases['SFweightMuUp'] = {
 aliases['SFweightMuDown'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Do',
     'samples': mc_emb
+}
+
+# Fix METFilter_DATA definition: Flag_ecalBadCalibFilter is removed since it is not needed in 2016
+aliases['METFilter_DATA_fix'] = {
+    'expr' : 'Flag_goodVertices*Flag_globalSuperTightHalo2016Filter*Flag_HBHENoiseFilter*Flag_HBHENoiseIsoFilter*Flag_EcalDeadCellTriggerPrimitiveFilter*Flag_BadPFMuonFilter*Flag_BadPFMuonDzFilter*Flag_eeBadScFilter',
+    'samples': ['DATA','Fake']
 }
 
 # Two leading jets matched to gen-level jets with pT > 25 GeV 

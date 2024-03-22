@@ -1,7 +1,7 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = 'RDF_2017_v9_emu_DNN'
+tag = 'RDF_2017_v9_THU'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
@@ -33,13 +33,14 @@ lumi =  41.48
 
 # used by mkPlot to define output directory for plots
 # different from "outputDir" to do things more tidy
+#outputDirPlots = 'plots_' + tag
 plotPath = 'plots_' + tag
 
 # jdl configuration file (will be read only if present)
 jdlconfigfile = 'jdl_dict.py'
 
 # used by mkDatacards to define output directory for datacards
-outputDirDatacard = 'datacards'
+outputDirDatacard = 'datacards_' + tag
 
 # structure file for datacard
 structureFile = 'structure.py'
@@ -53,7 +54,7 @@ plotPath      = "plots__{}".format(tag)
 
 
 mountEOS=[]
-imports = ['os', 'glob', ('collections', 'OrderedDict'), 'ROOT', 'json']
+imports = ['os', 'glob', ('collections', 'OrderedDict'), 'ROOT']
 filesToExec = [
     cutsFile,
     samplesFile,

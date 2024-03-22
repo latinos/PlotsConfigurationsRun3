@@ -1,7 +1,7 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = 'RDF_2017_v9_emu_DNN'
+tag = 'RDF_2016noHIPM_v9_emu_DNN'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
@@ -25,21 +25,20 @@ cutsFile = 'cuts.py'
 samplesFile = 'samples.py' 
 
 # file with list of samples
+#plotFile = 'plot_DYonly.py' 
 plotFile = 'plot.py' 
 
 # luminosity to normalize to (in 1/fb)
 # https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L868 (874)
-lumi =  41.48
+lumi =  16.81
 
 # used by mkPlot to define output directory for plots
 # different from "outputDir" to do things more tidy
+#outputDirPlots = 'plots_' + tag
 plotPath = 'plots_' + tag
 
-# jdl configuration file (will be read only if present)
-jdlconfigfile = 'jdl_dict.py'
-
 # used by mkDatacards to define output directory for datacards
-outputDirDatacard = 'datacards'
+outputDirDatacard = 'datacards_' + tag
 
 # structure file for datacard
 structureFile = 'structure.py'
@@ -65,7 +64,6 @@ filesToExec = [
 ]
 
 varsToKeep = [
-    "jdlconfigfile",
     "batchVars",
     "outputFolder",
     "batchFolder",
