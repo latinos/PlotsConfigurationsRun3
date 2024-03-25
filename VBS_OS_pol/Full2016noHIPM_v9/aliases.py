@@ -481,3 +481,26 @@ for i in range(len(bin_dnnTT)-1):
 aliases['dnn2D_16v2'] = {
     'expr' : dnn2D,
     }
+
+bin_dnnTT = ['0.', '0.5', '1.']
+bin_dnnLL = ['0.', '0.5', '1.']
+dnn2D = ''
+for i in range(len(bin_dnnTT)-1):
+  for j in range(len(bin_dnnLL)-1):
+    if i+j != len(bin_dnnTT)+len(bin_dnnLL)-4: 
+      dnn2D+='('+bin_dnnTT[i]+'<dnn_TTVsOther[0])*(dnn_TTVsOther[0]<'+bin_dnnTT[i+1]+')*(('+str((len(bin_dnnTT)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnLL[j]+'<dnn_LLVsOther[0])*(dnn_LLVsOther[0]<'+bin_dnnLL[j+1]+')+'
+    else: 
+      dnn2D+='('+bin_dnnTT[i]+'<dnn_TTVsOther[0])*(dnn_TTVsOther[0]<'+bin_dnnTT[i+1]+')*(('+str((len(bin_dnnTT)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnLL[j]+'<dnn_LLVsOther[0])*(dnn_LLVsOther[0]<'+bin_dnnLL[j+1]+')'
+ 
+aliases['dnn2D_4'] = {
+    'expr' : dnn2D,
+    }
+
+aliases['LLD'] = {
+    'expr' : 'dnn_LLVsOther[0]/(1-dnn_TTVsOther[0])',
+    }
+
+aliases['TTD'] = {
+    'expr' : 'dnn_TTVsOther[0]/(1-dnn_LLVsOther[0])',
+    }
+

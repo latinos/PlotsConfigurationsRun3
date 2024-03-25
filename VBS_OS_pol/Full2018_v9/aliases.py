@@ -2,13 +2,37 @@ import os
 import copy
 import inspect
 
-# /afs/cern.ch/user/n/ntrevisa/work/latinos/unblinding/CMSSW_10_6_4/src/PlotsConfigurations/Configurations/ControlRegions/DY/Full2018_v9
-
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 configurations = os.path.dirname(configurations)
 
 aliases = {}
 aliases = OrderedDict()
+
+with open('THU/NormTHU.json', 'r') as f:
+    NormTHU = json.load(f)
+for sample in NormTHU.keys():
+    for varName, norm in NormTHU[sample].items():
+        if abs(norm[0]) > 10 or abs(norm[0]) < 0.1:
+            NormTHU[sample][varName][0] = 1.
+            print(varName + ' nuisance Up variation is faulty')
+        if abs(norm[1]) > 10 or abs(norm[1]) < 0.1:
+            NormTHU[sample][varName][1] = 1.
+            print(varName + ' nuisance Down variation is faulty')
+        if 'pdf' not in varName:
+            aliases['NormTHU_' + sample + '_' + varName + '_Up'] = {
+                'expr': str(NormTHU[sample][varName][0]),
+                'samples' : sample
+            }
+            aliases['NormTHU_' + sample + '_' + varName + '_Do'] = {
+                'expr': str(NormTHU[sample][varName][1]),
+                'samples' : sample
+            }
+        else:
+            aliases['NormTHU_' + sample + '_' + varName] = {
+                'expr': str(NormTHU[sample][varName][0]),
+                'samples' : sample
+            }
+
 
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
