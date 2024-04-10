@@ -1,8 +1,8 @@
-mcProduction = 'Summer20UL18_106x_nAODv9_Full2018v9'
-dataReco = 'Run2018_UL2018_nAODv9_Full2018v9'
-mcSteps = 'MCl1loose2018v9__MCCorr2018v9NoJERInHorn__l2tightOR2018v9'
-fakeSteps = 'DATAl1loose2018v9__l2loose__fakeW'
-dataSteps = 'DATAl1loose2018v9__l2loose__l2tightOR2018v9'
+mcProduction = 'Summer20UL16_106x_nAODv9_HIPM_Full2016v9'
+dataReco = 'Run2016_UL2016_nAODv9_HIPM_Full2016v9'
+mcSteps = 'MCl1loose2016v9__MCCorr2016v9NoJERInHorn__l2tightOR2016v9'
+fakeSteps = 'DATAl1loose2016v9__l2loose__fakeW'
+dataSteps = 'DATAl1loose2016v9__l2loose__l2tightOR2016v9'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 #limitFiles = -1
@@ -32,19 +32,13 @@ cuts2j = _mergedCuts
 nuisances = {}
 
 nuisances['lumi_Uncorrelated'] = {
-    'name': 'lumi_13TeV_2018',
+    'name': 'lumi_13TeV_2016',
     'type': 'lnN',
-    'samples': dict((skey, '1.015') for skey in mc if skey not in ['WW', 'top', 'dyll', 'dytt'])
+    'samples': dict((skey, '1.010') for skey in mc if skey not in ['WW', 'top', 'dyll', 'dytt'])
 }
 
 nuisances['lumi_correlated'] = {
     'name': 'lumi_13TeV_correlated',
-    'type': 'lnN',
-    'samples': dict((skey, '1.009') for skey in mc if skey not in ['WW', 'top', 'dyll', 'dytt'])
-}
-
-nuisances['lumi_correlated_1718'] = {
-    'name': 'lumi_13TeV_correlated_1718',
     'type': 'lnN',
     'samples': dict((skey, '1.006') for skey in mc if skey not in ['WW', 'top', 'dyll', 'dytt'])
 }
@@ -72,7 +66,7 @@ nuisances['fake_syst_m'] = {
 }
 
 nuisances['fake_ele'] = {
-    'name': 'CMS_fake_e_2018',
+    'name': 'CMS_fake_e_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -82,7 +76,7 @@ nuisances['fake_ele'] = {
 }
 
 nuisances['fake_ele_stat'] = {
-    'name': 'CMS_fake_stat_e_2018',
+    'name': 'CMS_fake_stat_e_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -92,7 +86,7 @@ nuisances['fake_ele_stat'] = {
 }
 
 nuisances['fake_mu'] = {
-    'name': 'CMS_fake_m_2018',
+    'name': 'CMS_fake_m_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -102,7 +96,7 @@ nuisances['fake_mu'] = {
 }
 
 nuisances['fake_mu_stat'] = {
-    'name': 'CMS_fake_stat_m_2018',
+    'name': 'CMS_fake_stat_m_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -117,7 +111,7 @@ for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
 
     name = 'CMS_btag_%s' % shift
     if 'stats' in shift:
-        name += '_2018'
+        name += '_2016'
 
     nuisances['btag_shape_%s' % shift] = {
         'name': name,
@@ -128,11 +122,11 @@ for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
     }
 
 ##### Trigger Efficiency
-#trig_syst = ['((TriggerEffWeight_2l_u)/(TriggerEffWeight_2l))*(TriggerEffWeight_2l>0.02) + (TriggerEffWeight_2l<=0.02)', '(TriggerEffWeight_2l_d)/(TriggerEffWeight_2l)']
+
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2018',
+    'name': 'CMS_eff_hwwtrigger_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -142,7 +136,7 @@ nuisances['trigg'] = {
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2018',
+    'name': 'CMS_eff_e_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -150,7 +144,7 @@ nuisances['eff_e'] = {
 }
 
 nuisances['electronpt'] = {
-    'name': 'CMS_scale_e_2018',
+    'name': 'CMS_scale_e_2016',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -165,7 +159,7 @@ nuisances['electronpt'] = {
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2018',
+    'name': 'CMS_eff_m_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -173,7 +167,7 @@ nuisances['eff_m'] = {
 }
 
 nuisances['muonpt'] = {
-    'name': 'CMS_scale_m_2018',
+    'name': 'CMS_scale_m_2016',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -189,7 +183,7 @@ nuisances['muonpt'] = {
 puid_syst = ['Jet_PUIDSF_up/Jet_PUIDSF', 'Jet_PUIDSF_down/Jet_PUIDSF']
 
 nuisances['jetPUID'] = {
-    'name': 'CMS_PUID_2018',
+    'name': 'CMS_PUID_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -197,7 +191,8 @@ nuisances['jetPUID'] = {
 }
 
 ##### Jet energy scale
-jes_systs = ['JESAbsolute','JESAbsolute_2018','JESBBEC1','JESBBEC1_2018','JESEC2','JESEC2_2018','JESFlavorQCD','JESHF','JESHF_2018','JESRelativeBal','JESRelativeSample_2018']
+
+jes_systs = ['JESAbsolute','JESAbsolute_2016','JESBBEC1','JESBBEC1_2016','JESEC2','JESEC2_2016','JESFlavorQCD','JESHF','JESHF_2016','JESRelativeBal','JESRelativeSample_2016']
 
 for js in jes_systs:
     # Split source, applied to jets and MET
@@ -214,23 +209,9 @@ for js in jes_systs:
         'AsLnN': '0'
     }
 
-##### MET energy scale
-nuisances['met'] = {
-    'name': 'CMS_scale_met_2018',
-    'skipCMS' : 1,
-    'kind': 'suffix',
-    'type': 'shape',
-    'mapUp': 'METup',
-    'mapDown': 'METdo',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
-    'folderUp': makeMCDirectory('METup_suffix'),
-    'folderDown': makeMCDirectory('METdo_suffix'),
-    'AsLnN': '0'
-}
-
 ##### Jet energy resolution
 nuisances['JER'] = {
-    'name': 'CMS_res_j_2018',
+    'name': 'CMS_res_j_2016',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -242,26 +223,25 @@ nuisances['JER'] = {
     'AsLnN': '0'
 }
 
-# Uncertainty on SR/CR ratio
-nuisances['CRSR_accept_DY'] = {
-    'name': 'hww_CRSR_accept_DY',
-    'type': 'lnN',
-    'samples': {'DY': '1.02'},
-    'cuts': [cut for cut in cuts2j if 'DY' in cut],
-}
+##### MET energy scale
 
-# Uncertainty on SR/CR ratio
-nuisances['CRSR_accept_top'] = {
-    'name': 'hww_CRSR_accept_top',
-    'type': 'lnN',
-    'samples': {'top': '1.01'},
-    'cuts': [cut for cut in cuts2j if 'top' in cut],
+nuisances['met'] = {
+    'name': 'CMS_scale_met_2016',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'METup',
+    'mapDown': 'METdo',
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('METup_suffix'),
+    'folderDown': makeMCDirectory('METdo_suffix'),
+    'AsLnN': '0'
 }
 
 ##### Pileup
 
 nuisances['PU'] = {
-    'name': 'CMS_PU_2018',
+    'name': 'CMS_PU_2016',
     'skipCMS' : 1,
     'kind': 'weight',
     'type': 'shape',
@@ -354,6 +334,7 @@ nuisances['QCDscale_top_2j']  = {
     'kind'  : 'weight_envelope',
     'type'  : 'shape',
     'samples'  : {
+       #'top' : ['LHEScaleWeight[' + str(var) + ']' for var in [0, 1, 3, 5, 7, 8]],
        'top' : variations,
     }
 }
@@ -363,6 +344,7 @@ nuisances['QCDscale_WW_2j']  = {
     'kind'  : 'weight_envelope',
     'type'  : 'shape',
     'samples'  : {
+       #'WWjj_QCD' : ['LHEScaleWeight[' + str(var) + ']' for var in [0, 1, 3, 5, 7, 8]],
        'WWjj_QCD' : variations,
     }
 }
@@ -373,6 +355,7 @@ nuisances['QCDscale_V'] = {
     'kind': 'weight_envelope',
     'type': 'shape',
     'samples': {
+       #'dytt' : ['LHEScaleWeight[' + str(var) + ']' for var in [0, 1, 3, 5, 7, 8]],
        'dytt' : variations,
     },
 }
@@ -422,6 +405,33 @@ nuisances['pdf_WWewk'] = {
 }
 
 
+## An overall 1.5% UE uncertainty will cover all the UEup/UEdo variations
+## And we don't observe any dependency of UE variations on njet
+#nuisances['UE']  = {
+#                'name'  : 'UE_CUET',
+#                'skipCMS' : 1,
+#                'type': 'lnN',
+#                'samples': dict((skey, '1.015') for skey in mc if not skey in ['WW','top']),
+#}
+
+# Uncertainty on SR/CR ratio
+nuisances['CRSR_accept_DY'] = {
+    'name': 'hww_CRSR_accept_DY',
+    'type': 'lnN',
+    'samples': {'DY': '1.02'},
+    'cuts': [cut for cut in cuts2j if 'DY' in cut],
+    #'cutspost': (lambda self, cuts: [cut for cut in cuts if 'DY' in cut]),
+}
+
+# Uncertainty on SR/CR ratio
+nuisances['CRSR_accept_top'] = {
+    'name': 'hww_CRSR_accept_top',
+    'type': 'lnN',
+    'samples': {'top': '1.01'},
+    'cuts': [cut for cut in cuts2j if 'top' in cut],
+    #'cutspost': (lambda self, cuts: [cut for cut in cuts if 'top' in cut]),
+}
+
 ## Use the following if you want to apply the automatic combine MC stat nuisances.
 nuisances['stat'] = {
     'type': 'auto',
@@ -434,7 +444,6 @@ nuisances['stat'] = {
 
 nuisances['DYttnorm2j']  = {
                'name'  : 'CMS_hww_DYttnorm2j',
-               'skipCMS' : 1,
                'samples'  : {
                    'dytt' : '1.00',
                    },
@@ -444,7 +453,6 @@ nuisances['DYttnorm2j']  = {
 
 nuisances['WWnorm2j']  = {
                'name'  : 'CMS_hww_WWnorm2j',
-               'skipCMS' : 1,
                'samples'  : {
                    'WWjj_QCD' : '1.00',
                    },
@@ -454,7 +462,6 @@ nuisances['WWnorm2j']  = {
 
 nuisances['ggWWnorm2j']  = {
                'name'  : 'CMS_hww_WWnorm2j',
-               'skipCMS' : 1,
                'samples'  : {
                    'ggWW' : '1.00',
                    },
@@ -464,11 +471,9 @@ nuisances['ggWWnorm2j']  = {
 
 nuisances['Topnorm2j']  = {
                'name'  : 'CMS_hww_Topnorm2j',
-               'skipCMS' : 1,
                'samples'  : {
                    'top' : '1.00',
                    },
                'type'  : 'rateParam',
                'cuts'  : cuts2j
               }
-

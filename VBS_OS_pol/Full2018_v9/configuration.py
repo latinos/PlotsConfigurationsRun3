@@ -55,7 +55,7 @@ plotPath      = "plots__{}".format(tag)
 
 
 mountEOS=[]
-imports = ['os', 'glob', ('collections', 'OrderedDict'), 'ROOT']
+imports = ['os', 'glob', ('collections', 'OrderedDict'), 'ROOT', 'json']
 filesToExec = [
     cutsFile,
     samplesFile,

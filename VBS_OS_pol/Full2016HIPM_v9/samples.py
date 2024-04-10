@@ -6,11 +6,11 @@ redirector = "root://eoscms.cern.ch//"
 #redirector = "root://cms-xrd-global.cern.ch//"
 #redirector = ""
 
-mcProduction = 'Summer20UL17_106x_nAODv9_Full2017v9'
-dataReco = 'Run2017_UL2017_nAODv9_Full2017v9'
-mcSteps = 'MCl1loose2017v9__MCCorr2017v9NoJERInHorn__l2tightOR2017v9'
-fakeSteps = 'DATAl1loose2017v9__l2loose__fakeW'
-dataSteps = 'DATAl1loose2017v9__l2loose__l2tightOR2017v9'
+mcProduction = 'Summer20UL16_106x_nAODv9_HIPM_Full2016v9'
+dataReco = 'Run2016_UL2016_nAODv9_HIPM_Full2016v9'
+mcSteps = 'MCl1loose2016v9__MCCorr2016v9NoJERInHorn__l2tightOR2016v9'
+fakeSteps = 'DATAl1loose2016v9__l2loose__fakeW'
+dataSteps = 'DATAl1loose2016v9__l2loose__l2tightOR2016v9'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -85,11 +85,12 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['B','Run2017B-UL2017-v1'],
-    ['C','Run2017C-UL2017-v1'],
-    ['D','Run2017D-UL2017-v1'],
-    ['E','Run2017E-UL2017-v1'],
-    ['F','Run2017F-UL2017-v1'],    
+    ['B','Run2016B-ver1_HIPM_UL2016-v2'],
+    ['B','Run2016B-ver2_HIPM_UL2016-v2'],
+    ['C','Run2016C-HIPM_UL2016-v2'],
+    ['D','Run2016D-HIPM_UL2016-v2'],
+    ['E','Run2016E-HIPM_UL2016-v2'],
+    ['F','Run2016F-HIPM_UL2016-v2'],
 ]
 
 DataSets = ['MuonEG','SingleMuon','SingleElectron','DoubleMuon', 'DoubleEG']
@@ -115,8 +116,9 @@ mcCommonWeight = 'XSWeight*METFilter_MC*PromptGenLepMatch2l*SFweight'
 ###########################################
 
 ###### DY #######
+
 files = nanoGetSampleFiles(mcDirectory, 'DYJetsToTT_MuEle_M-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50-LO')
+        nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50')
 
 samples['dytt'] = {
     'name': files,
@@ -238,7 +240,7 @@ samples['ZH_hww'] = {
 }
 
 samples['ggZH_hww'] = {
-    'name':   nanoGetSampleFiles(mcDirectory, 'GluGluZH_HToWWTo2L2Nu_M125'),
+    'name':   nanoGetSampleFiles(mcDirectory, 'ggZH_HToWW_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 4
 }
@@ -268,6 +270,7 @@ samples['WWewk'] = {
 }
 
 ############# QCD ##############
+
 samples['WWjj_QCD'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'WpWmJJ_QCD_noTop'),
     'weight': mcCommonWeight + '*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)', # Filter tops and Higgs,
@@ -332,7 +335,7 @@ samples['WWewk_CMWW_TT'] = {
 ###########################################
 samples['Fake'] = {
   'name': [],
-  'weight': 'METFilter_DATA*fakeW',
+  'weight': 'METFilter_DATA_fix*fakeW',
   'weights': [],
   'isData': ['all'],
   'FilesPerJob': 50
@@ -341,6 +344,12 @@ samples['Fake'] = {
 for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
+    if 'DoubleEG' in pd and 'Run2016B-ver2' in sd: 
+        print("sd      = {}".format(sd))
+        print("pd      = {}".format(pd))
+        print("Old tag = {}".format(datatag))
+        datatag = datatag.replace('v2','v3')
+        print("New tag = {}".format(datatag))
 
     files = nanoGetSampleFiles(fakeDirectory, datatag)
 
@@ -353,13 +362,15 @@ samples['Fake']['subsamples'] = {
   'm': 'abs(Lepton_pdgId[1]) == 13'
 }
 
+
+
 ###########################################
 ################## DATA ###################
 ###########################################
 
 samples['DATA'] = {
   'name': [],
-  'weight': 'LepWPCut*METFilter_DATA',
+  'weight': 'LepWPCut*METFilter_DATA_fix',
   'weights': [],
   'isData': ['all'],
   'FilesPerJob': 50
@@ -368,8 +379,16 @@ samples['DATA'] = {
 for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
+    if 'DoubleEG' in pd and 'Run2016B-ver2' in sd: 
+        print("sd      = {}".format(sd))
+        print("pd      = {}".format(pd))
+        print("Old tag = {}".format(datatag))
+        datatag = datatag.replace('v2','v3')
+        print("New tag = {}".format(datatag))
 
     files = nanoGetSampleFiles(dataDirectory, datatag)
 
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
+    #samples['DATA']['weights'].extend([DataTrig[pd]] * len(files))
+
