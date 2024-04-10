@@ -1,5 +1,3 @@
-
-
 groupPlot = {}
 
 
@@ -11,17 +9,12 @@ groupPlot['top']  = {
                   'samples'  : ['top']
               }
 
-
-
 groupPlot['WW']  = {  
     'nameHR' : 'WW',
     'isSignal' : 0,
     'color': 851, # kAzure -9 
     'samples'  : ['WW', 'ggWW']
 }
-
-
-
 
 groupPlot['WWewk']  = {
     'nameHR' : 'WWewk',
@@ -30,7 +23,6 @@ groupPlot['WWewk']  = {
     'samples'  : ['WWewk']
 
 }
-
 
 groupPlot['DY']  = {  
                   'nameHR' : "DYtt",
@@ -46,14 +38,12 @@ groupPlot['Fake']  = {
                   'samples'  : ['Fake_m', 'Fake_e']
 }
 
-
 groupPlot['VVV']  = {  
                   'nameHR' : 'VVV',
                   'isSignal' : 0,
                   'color': 857, # kAzure -3  
                   'samples'  : ['VVV']
               }
-
 
 groupPlot['VZ']  = {  
                   'nameHR' : "VZ",
@@ -76,67 +66,47 @@ groupPlot['VgS']  = {
                   'samples'  : ['VgS_H','VgS_L']
               }
 
-
-
-# groupPlot['Higgs']  = {  
-#                   'nameHR' : 'Higgs',
-#                   'isSignal' : 0,
-#                   'color': 920, # kRed 
-# 		  #'samples'  : ['H_htt', 'H_hww', 'ZH_hww', 'ggZH_hww', 'WH_hww', 'qqH_hww', 'ggH_hww','bbH_hww','ttH_hww','ZH_htt', 'ggZH_htt', 'WH_htt', 'qqH_htt', 'ggH_htt','bbH_htt','ttH_htt' ]
-# 		  #'samples'  : ['H_htt', 'H_hww', 'ZH_hww', 'ggZH_hww', 'WH_hww', 'ggH_hww','bbH_hww','ttH_hww', 'qqH_htt', 'ggH_htt' ] with ggH
-#                   'samples'  : ['ggZH_hww',' ZH_hww',' WH_hww',' ttH_hww',' qqH_htt',' ggH_htt' ]
-#               }
-
 groupPlot['VBF']  = {
                    'nameHR' : "Higgs VBF",
                    'isSignal' : 1,
                    'color'    : 632,   # kBlue                                                                                                                                                              
-                   'samples'  : ['qqH_hww_GenDeltaPhijj_0fid','qqH_hww_GenDeltaPhijj_1fid','qqH_hww_GenDeltaPhijj_2fid','qqH_hww_GenDeltaPhijj_3fid','qqH_hww_GenDeltaPhijj_0nonfid','qqH_hww_GenDeltaPhijj_1nonfid','qqH_hww_GenDeltaPhijj_2nonfid','qqH_hww_GenDeltaPhijj_3nonfid ']
+                   'samples'  : ['qqH_hww_GenDeltaPhijj_0fid','qqH_hww_GenDeltaPhijj_1fid','qqH_hww_GenDeltaPhijj_2fid','qqH_hww_GenDeltaPhijj_3fid',' qqH_hww_GenDeltaPhijj_0nonfid','qqH_hww_GenDeltaPhijj_1nonfid','qqH_hww_GenDeltaPhijj_2nonfid','qqH_hww_GenDeltaPhijj_3nonfd']
                }
 
-'''
-groupPlot['VBF_0']  = {
-                  'nameHR' : "Higgs VBF bin 0 ",
-                  'isSignal' : 2,
-                  'color'    : 632,   # kBlue                                                                                                                                                              
-                  'samples'  : ['qqH_hww_GenDeltaPhijj_0fid',' qqH_hww_GenDeltaPhijj_0nonfid']
-              }
-
-groupPlot['VBF_1']  = {
-                  'nameHR' : "Higgs VBF bin 1 ",
-                  'isSignal' : 2,
-                  'color'    : 632+3,   # kBlue                                                                                                                                                              
-                  'samples'  : ['qqH_hww_GenDeltaPhijj_1fid',' qqH_hww_GenDeltaPhijj_1nonfid']
-              }
-groupPlot['VBF_2']  = {
-                  'nameHR' : "Higgs VBF bin 2 ",
-                  'isSignal' : 2,
-                  'color'    : 632-6,   # kBlue                                                                                                                                                              
-                  'samples'  : ['qqH_hww_GenDeltaPhijj_2fid',' qqH_hww_GenDeltaPhijj_2nonfid']
-              }
-
-groupPlot['VBF_3']  = {
-                  'nameHR' : "Higgs VBF bin 3 ",
-                  'isSignal' : 2,
-                  'color'    : 632-10,   # kBlue                                                                                                                                                              
-                  'samples'  : ['qqH_hww_GenDeltaPhijj_3fid',' qqH_hww_GenDeltaPhijj_3nonfid']
-              }
-'''
-# groupPlot['ggF']  = {
-#                   'nameHR' : "Higgs ggF",
+# groupPlot['VBF_0']  = {
+#                   'nameHR' : "Higgs VBF bin 0 ",
 #                   'isSignal' : 2,
-#                   'color'    : 600,   #kBlue                                                                                                                                                              
-#                   'samples'  : ['ggH_hww_GenDeltaPhijj_0fid',' ggH_hww_GenDeltaPhijj_1fid',' ggH_hww_GenDeltaPhijj_2fid',' ggH_hww_GenDeltaPhijj_3fid',' ggH_hww_GenDeltaPhijj_0nonfid',' ggH_hww_GenDeltaPhijj_1nonfid',' ggH_hww_GenDeltaPhijj_2nonfid',' ggH_hww_GenDeltaPhijj_3nonfid']
+#                   'color'    : 632,                                                                                                                                                                 
+#                   'samples'  : ['qqH_hww_GenDeltaPhijj_0fid',' qqH_hww_GenDeltaPhijj_0nonfid']
+#               }
+
+# groupPlot['VBF_1']  = {
+#                   'nameHR' : "Higgs VBF bin 1 ",
+#                   'isSignal' : 2,
+#                   'color'    : 632+3,                                                                                                                                                                 
+#                   'samples'  : ['qqH_hww_GenDeltaPhijj_1fid',' qqH_hww_GenDeltaPhijj_1nonfid']
+#               }
+
+# groupPlot['VBF_2']  = {
+#                   'nameHR' : "Higgs VBF bin 2 ",
+#                   'isSignal' : 2,
+#                   'color'    : 632-6,                                                                                                                                                                 
+#                   'samples'  : ['qqH_hww_GenDeltaPhijj_2fid',' qqH_hww_GenDeltaPhijj_2nonfid']
+#               }
+
+# groupPlot['VBF_3']  = {
+#                   'nameHR' : "Higgs VBF bin 3 ",
+#                   'isSignal' : 2,
+#                   'color'    : 632-10,                                                                                                                                                                 
+#                   'samples'  : ['qqH_hww_GenDeltaPhijj_3fid',' qqH_hww_GenDeltaPhijj_3nonfid']
 #               }
 
 groupPlot['ggH']  = {
                   'nameHR' : "Higgs ggH",
                   'isSignal' : 2,
-                  'color'    : 600,   # kBlue                                                                                                                                                              
+                  'color'    : 600,                                                                                                                                                   
                   'samples'  : ['ggH_hww_GenDeltaPhijj_0fid',' ggH_hww_GenDeltaPhijj_0nonfid','ggH_hww_GenDeltaPhijj_1fid',' ggH_hww_GenDeltaPhijj_1nonfid','ggH_hww_GenDeltaPhijj_2fid',' ggH_hww_GenDeltaPhijj_2nonfid','ggH_hww_GenDeltaPhijj_3fid',' ggH_hww_GenDeltaPhijj_3nonfid']
               }
-
-
 
 # groupPlot['ggH_0']  = {
 #                   'nameHR' : "Higgs ggH bin 0 ",
@@ -151,6 +121,7 @@ groupPlot['ggH']  = {
 #                   'color'    : 632+3,   # kBlue                                                                                                                                                              
 #                   'samples'  : ['ggH_hww_GenDeltaPhijj_1fid',' ggH_hww_GenDeltaPhijj_1nonfid']
 #               }
+
 # groupPlot['ggH_2']  = {
 #                   'nameHR' : "Higgs ggH bin 2 ",
 #                   'isSignal' : 2,
@@ -165,36 +136,25 @@ groupPlot['ggH']  = {
 #                   'samples'  : ['ggH_hww_GenDeltaPhijj_3fid',' ggH_hww_GenDeltaPhijj_3nonfid']
 #               }
 
+groupPlot['Higgs']  = {
+                   'nameHR' : "other Higgs",
+                   'isSignal' : 0,
+                   'color'    : 793,                                                                                                                                                               
+                   'samples'  : ['ttH_hww', 'qqH_htt', 'ggH_htt', 'ZH_hww', 'ggZH_hww', 'WH_hww', 'ZH_htt', 'WH_htt']
+               }
 
 
-
-
-
-
-
-
-# groupPlot['DATA']  = { 
-#                   'nameHR' : 'Data',
-#                   'color': 1 ,  
-#                   'isSignal' : 0,
-#                   'isData'   : 1 ,
-#                   'isBlind'  : {
-#                       'SR_2j': 'full',
-#                       }
-# }
 
 plot = {}
 
-
-#vbf fid e non fid
+# VBF
 
 plot['qqH_hww_GenDeltaPhijj_0fid'] = {
     'nameHR' : 'qqH -#pi <#Delta#phi_{jj,GEN} < -#pi/2',
     'color': 632, # kRed
     'isSignal' : 1,
     'isData'   : 0,    
-    'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_1','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_2','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_3'] )
+    'scale'    : 1,   
 }
 
 plot['qqH_hww_GenDeltaPhijj_1fid'] = {
@@ -203,7 +163,6 @@ plot['qqH_hww_GenDeltaPhijj_1fid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_0','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_2','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_3'] )
 }
 
 plot['qqH_hww_GenDeltaPhijj_2fid'] = {
@@ -212,7 +171,6 @@ plot['qqH_hww_GenDeltaPhijj_2fid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_1','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_0','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_3'] )
 }
 
 plot['qqH_hww_GenDeltaPhijj_3fid'] = {
@@ -221,15 +179,14 @@ plot['qqH_hww_GenDeltaPhijj_3fid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_1','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_2','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_0'] )
 }
+
 plot['qqH_hww_GenDeltaPhijj_0nonfid'] = {
     'nameHR' : 'qqH nonfid -#pi <#Delta#phi_{jj,GEN} < -#pi/2',
     'color': 409, # kRed
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_1','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_2','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_3'] )
 }
 
 plot['qqH_hww_GenDeltaPhijj_1nonfid'] = {
@@ -238,7 +195,6 @@ plot['qqH_hww_GenDeltaPhijj_1nonfid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_0','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_2','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_3'] )
 }
 
 plot['qqH_hww_GenDeltaPhijj_2nonfid'] = {
@@ -247,7 +203,6 @@ plot['qqH_hww_GenDeltaPhijj_2nonfid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_1','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_0','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_3'] )
 }
 
 plot['qqH_hww_GenDeltaPhijj_3nonfid'] = {
@@ -256,13 +211,10 @@ plot['qqH_hww_GenDeltaPhijj_3nonfid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1,
-    #'cuts': dict((skey, '0') for skey in ['hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_1','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_2','hww2l2v_13TeV_of2j_dphijj_4bins_vbflike_0'] )
 }
 
+# ggH
 
-
-
-#ggh
 plot['ggH_hww_GenDeltaPhijj_0fid'] = {
     'nameHR' : 'ggH -#pi <#Delta#phi_{jj,GEN} < -#pi/2',
     'color': 409, # kGreen-7 (416-7)
@@ -327,19 +279,10 @@ plot['ggH_hww_GenDeltaPhijj_3nonfid'] = {
     'scale'    : 1
 }
 
-                    
 plot['dytt']  = {  
                   'color': 418,    # kGreen+2
                   'isSignal' : 0,
                   'isData'   : 0, 
-                  'scale'    : 1.0,
-              }
-
-if useEmbeddedDY:
-  plot['Dyemb']  = {   
-                  'color': 418,    # kGreen+2
-                  'isSignal' : 0,
-                  'isData'   : 0,  
                   'scale'    : 1.0,
               }
 
@@ -350,14 +293,12 @@ plot['Fake_m']  = {
                   'scale'    : 1.0                  
               }
 
-
 plot['Fake_e']  = {  
                   'color': 921,    # kGray + 1
                   'isSignal' : 0,
                   'isData'   : 0,
                   'scale'    : 1.0                  
               }
-
               
 plot['top'] = {   
                   'color': 400,   # kYellow
@@ -365,7 +306,6 @@ plot['top'] = {
                   'isData'   : 0, 
                   'scale'    : 1.0,
                   }
-
 
 plot['WW']  = {
                   'color': 851, # kAzure -9 
@@ -387,7 +327,6 @@ plot['WWewk']  = {
                   'isData'   : 0,
                   'scale'    : 1.0   # ele/mu trigger efficiency   datadriven
                   }
-
 
 plot['Vg']  = { 
                   'color': 859, # kAzure -1  
@@ -425,120 +364,74 @@ plot['VVV']  = {
                   'scale'    : 1.0
                   }
 
+plot['ZH_hww'] = {
+                  'color': 923, # kRed+3 
+                  'isSignal' : 0,
+                  'isData'   : 0,    
+                  'scale'    : 1.0    #
+                  }
 
-# plot['ZH_hww'] = {
-#                   'color': 923, # kRed+3 
-#                   'isSignal' : 0,
-#                   'isData'   : 0,    
-#                   'scale'    : 1.0    #
-#                   }
+plot['ggZH_hww'] = {
+                  'color': 924, # kRed+4
+                  'isSignal' : 0,
+                  'isData'   : 0,    
+                  'scale'    : 1.0    #
+                  }
 
-# plot['ggZH_hww'] = {
-#                   'color': 924, # kRed+4
-#                   'isSignal' : 0,
-#                   'isData'   : 0,    
-#                   'scale'    : 1.0    #
-#                   }
+plot['WH_hww'] = {
+                  'color': 922, # kRed+2 
+                  'isSignal' : 0,
+                  'isData'   : 0,    
+                  'scale'    : 1.0    #
+                  }
 
-# plot['WH_hww'] = {
-#                   'color': 922, # kRed+2 
-#                   'isSignal' : 0,
-#                   'isData'   : 0,    
-#                   'scale'    : 1.0    #
-#                   }
+plot['ttH_hww'] = {
+                 'color': 632+6, # kRed+6
+                 'isSignal' : 0,
+                 'isData'   : 0,
+                 'scale'    : 1    #
+                 }
 
+plot['ZH_htt'] = {
+                 'nameHR' : 'ZHtt',
+                 'color': 632+3, # kRed+3 
+                 'isSignal' : 0,
+                 'isData'   : 0,    
+                 'scale'    : 1    #
+                 }
 
-# plot['ttH_hww'] = {
-#                  'color': 632+6, # kRed+6
-#                  'isSignal' : 1,
-#                  'isData'   : 0,
-#                  'scale'    : 1    #
-#                  }
+plot['WH_htt'] = {
+                 'nameHR' : 'WHtt',
+                 'color': 632+2, # kRed+2 
+                 'isSignal' : 0,
+                 'isData'   : 0,    
+                 'scale'    : 1    #
+                 }
 
-
-# # Htautau
-
-# #plot['ZH_htt'] = {
-# #                  'nameHR' : 'ZHtt',
-# #                  'color': 632+3, # kRed+3 
-# #                  'isSignal' : 1,
-# #                  'isData'   : 0,    
-# #                  'scale'    : 1    #
-# #                  }
-# #
-# #plot['bbH_htt'] = {
-# #                  'nameHR' : 'bbHtt',
-# #                  'color': 632-1, # kRed-1 
-# #                  'isSignal' : 1,
-# #                  'isData'   : 0,
-# #                  'scale'    : 1    #
-# #                  }
-# #
-# #plot['ttH_htt'] = {
-# #                  'nameHR' : 'bbHtt',
-# #                  'color': 632-2, # kRed-1 
-# #                  'isSignal' : 1,
-# #                  'isData'   : 0,
-# #                  'scale'    : 1    #
-# #                  }
-# #
-# #
-# #plot['ggZH_htt'] = {
-# #                  'nameHR' : 'ggZHtt',
-# #                  'color': 632+4, # kRed+4
-# #                  'isSignal' : 1,
-# #                  'isData'   : 0,    
-# #                  'scale'    : 1    #
-# #                  }
-# #
-# #plot['WH_htt'] = {
-# #                  'nameHR' : 'WHtt',
-# #                  'color': 632+2, # kRed+2 
-# #                  'isSignal' : 1,
-# #                  'isData'   : 0,    
-# #                  'scale'    : 1    #
-# #                  }
-# #
-
-# plot['qqH_htt'] = {
-#                  'nameHR' : 'qqHtt',
-#                  'color': 632+1, # kRed+1 
-#                  'isSignal' : 1,
-#                  'isData'   : 0,    
-#                  'scale'    : 1    #
-#                  }
+plot['qqH_htt'] = {
+                 'nameHR' : 'qqHtt',
+                 'color': 632+1, # kRed+1 
+                 'isSignal' : 0,
+                 'isData'   : 0,    
+                 'scale'    : 1    #
+                 }
 
 
-# plot['ggH_htt'] = {
-#                  'nameHR' : 'ggHtt',
-#                  'color': 632, # kRed 
-#                  'isSignal' : 1,
-#                  'isData'   : 0,    
-#                  'scale'    : 1    #
-#                  }
-
+plot['ggH_htt'] = {
+                 'nameHR' : 'ggHtt',
+                 'color': 632, # kRed 
+                 'isSignal' : 0,
+                 'isData'   : 0,    
+                 'scale'    : 1    #
+                 }
 
 plot['DATA']  = { 
                   'nameHR' : 'Data',
                   'color': 1 ,  
                   'isSignal' : 0,
                   'isData'   : 1 ,
-                  'isBlind'  : 1
+                  'isBlind'  : 1  # 1 yes
                   }
-
-# merge cuts
-_mergedCuts = []
-for cut in list(cuts.keys()):
-    __cutExpr = ''
-    if type(cuts[cut]) == dict:
-        __cutExpr = cuts[cut]['expr']
-        for cat in list(cuts[cut]['categories'].keys()):
-            _mergedCuts.append(cut + '_' + cat)
-    elif type(cuts[cut]) == str:
-        _mergedCuts.append(cut)
-
-cuts2j = _mergedCuts
-
 
 # additional options
 legend = {}

@@ -10,7 +10,6 @@ dataSteps = 'DATAl1loose2016v9__l2loose__l2tightOR2016v9'
 ##############################################
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
-
 def makeMCDirectory(var=''):
         return os.path.join(treeBaseDir, mcProduction, mcSteps.format(var=''))
 
@@ -42,7 +41,7 @@ def CombineBaseW(samples, proc, samplelist):
     leastFiles = _files[_l.index(min(_l))]
     dfSmall = ROOT.RDataFrame("Runs", leastFiles)
     s = dfSmall.Sum('genEventSumw').GetValue()
-    f = ROOT.TFile(leastFiles[0])
+    f = ROOT.TFile.Open(leastFiles[0])
     t = f.Get("Events")
     t.GetEntry(1)
     xs = t.baseW * s
@@ -165,10 +164,10 @@ samples['ggWW'] = {
     'weight': mcCommonWeight+embed_tautauveto + '*1.53/1.4', # updating k-factor <-- do we still need the k-factor?
     'FilesPerJob': 4
 }
-
 ######## Vg ########
 
-files = nanoGetSampleFiles(mcDirectory, 'WGToLNuG') + \
+files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J_PDF') + \
+        nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J') + \
         nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
 
 samples['Vg'] = {
@@ -177,11 +176,14 @@ samples['Vg'] = {
     'FilesPerJob': 4
 }
 
+CombineBaseW(samples, 'Vg', ['Wg_AMCNLOFXFX_01J_PDF', 'Wg_AMCNLOFXFX_01J'])
+
 ######## VgS ########
 
-files = nanoGetSampleFiles(mcDirectory, 'WGToLNuG') + \
+files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J_PDF') + \
+        nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J') + \
         nanoGetSampleFiles(mcDirectory, 'ZGToLLG') + \
-        nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin4p0') # WZTo3LNu_mllmin01_ext1
+        nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin4p0') 
 
 samples['VgS'] = {
     'name': files,
@@ -192,7 +194,11 @@ samples['VgS'] = {
       'H': 'gstarHigh'
     }
 }
-addSampleWeight(samples, 'VgS', 'WGToLNuG', '(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4.0)')
+
+CombineBaseW(samples, 'VgS', ['Wg_AMCNLOFXFX_01J_PDF', 'Wg_AMCNLOFXFX_01J'])
+
+addSampleWeight(samples, 'VgS', 'Wg_AMCNLOFXFX_01J_PDF', '(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4.0)')
+addSampleWeight(samples, 'VgS', 'Wg_AMCNLOFXFX_01J', '(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4.0)')
 addSampleWeight(samples, 'VgS', 'ZGToLLG', '(Gen_ZGstar_mass > 0)')
 addSampleWeight(samples, 'VgS', 'WZTo3LNu_mllmin4p0', '(Gen_ZGstar_mass > 4.0)')
 
@@ -232,17 +238,17 @@ samples['VVV'] = {
 
 samples['ggH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'),
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeight + '*1.103',
     'FilesPerJob': 2,
     'subsamples' : {
           'GenDeltaPhijj_0fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
           'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
           'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
           'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-          'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-          'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-          'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-          'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+          'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 }
 
@@ -257,10 +263,10 @@ samples['qqH_hww'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 }
 
@@ -275,10 +281,10 @@ samples['VBF_H0M'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
 
@@ -292,10 +298,10 @@ samples['VBF_H0Mf05'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
 
@@ -309,10 +315,10 @@ samples['VBF_H0PH'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
 
@@ -326,12 +332,13 @@ samples['VBF_H0PHf05'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
+
 
 
 samples['VBF_H0L1'] = { 
@@ -343,16 +350,15 @@ samples['VBF_H0L1'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
 
-
-samples['VBF_H0L1Zgf05'] = { 
-   'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0L1Zgf05_ToWWTo2L2Nu'), 
+samples['VBF_H0L1f05'] = { 
+   'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0L1f05_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0L1f05_W',  
   'FilesPerJob': 4, 
   'subsamples' : {
@@ -360,12 +366,61 @@ samples['VBF_H0L1Zgf05'] = {
          'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
          'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
-         'GenDeltaPhijj_0nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
-         'GenDeltaPhijj_1nonfid' : '(isFID == 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
-         'GenDeltaPhijj_2nonfid' : '(isFID == 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID == 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
      }
 } 
+
+samples['VBF_H0L1Zgf05'] = { 
+   'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0L1Zgf05_ToWWTo2L2Nu'), 
+   'weight': mcCommonWeight+ '*VBF_H0LZgf05_W',  
+  'FilesPerJob': 4, 
+  'subsamples' : {
+         'GenDeltaPhijj_0fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+     }
+} 
+
+samples['GGHjj_H0M'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GGHjj_H0M_ToWWTo2L2Nu'),
+    'weight': mcCommonWeight + '*GGHjj_H0M_W',
+    'FilesPerJob': 8,
+    'subsamples' : {
+         'GenDeltaPhijj_0fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+     }
+}
+
+
+samples['GGHjj_H0Mf05'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GGHjj_H0Mf05_ToWWTo2L2Nu'),
+    'weight': mcCommonWeight + '*GGHjj_H0Mf05_W',
+    'FilesPerJob': 8,
+    'subsamples' : {
+         'GenDeltaPhijj_0fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1fid' : '(isFID == 1 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2fid' : '(isFID == 1 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3fid' : '(isFID == 1 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
+         'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
+         'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+     }
+}
 
 '''
 ############ ZH H->WW ############
@@ -374,7 +429,6 @@ samples['ZH_hww'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'HZJ_HToWW_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 3,
-    #'EventsPerJob': 15000
 }
 
 
@@ -382,7 +436,6 @@ samples['ggZH_hww'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'ggZH_HToWW_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 3,
-    #'EventsPerJob': 15000
 }
 
 
@@ -392,7 +445,6 @@ samples['WH_hww'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWW_M125') + nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWW_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 3,
-    #'EventsPerJob': 15000
 }
 
 
@@ -402,7 +454,6 @@ samples['ttH_hww'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'ttHToNonbb_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 3,
-    #'EventsPerJob': 15000
 }
 
 
@@ -412,7 +463,6 @@ samples['ggH_htt'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToTauTau_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 3,
-    #'EventsPerJob': 15000
 }
 
 
@@ -420,27 +470,23 @@ samples['qqH_htt'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToTauTau_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 3,
-    #'EventsPerJob': 15000
 }
 
 
-# samples['ZH_htt'] = {
-#     'name': nanoGetSampleFiles(mcDirectory, 'HZJ_HToTauTau_M125'),
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 1,
-#     #'EventsPerJob': 15000
-# }
+samples['ZH_htt'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'ZHToTauTau_M125'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 1,
+}
 
-# signals.append('ZH_htt')
 
-# samples['WH_htt'] = {
-#     'name':  nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToTauTau_M125') + nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToTauTau_M125'),
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 1,
-#     #'EventsPerJob': 15000
-# }
+samples['WH_htt'] = {
+    'name':  nanoGetSampleFiles(mcDirectory, 'WplusHToTauTau_M125') + nanoGetSampleFiles(mcDirectory, 'WminusHToTauTau_M125'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 1,
+}
 
-# signals.append('WH_htt')
+
 
 ###########################################
 ################## FAKE ###################

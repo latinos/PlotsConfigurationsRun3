@@ -1,3 +1,5 @@
+#ifndef ADNN2018
+#define ADNN2018
 #include <vector>
 
 #include "TVector2.h"
@@ -108,8 +110,8 @@ RVecF adversarial_dnn(
     input[32] = ht;
 
     input[33] = 0; //y_2016
-    input[34] = 1; //y_2017
-    input[35] = 0; //y_2018
+    input[34] = 0; //y_2017
+    input[35] = 1; //y_2018
 
 
 
@@ -122,3 +124,4 @@ RVecF adversarial_dnn(
 }
   
 
+#endif

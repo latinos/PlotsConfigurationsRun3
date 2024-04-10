@@ -1,3 +1,6 @@
+#ifndef MECLASS
+#define MECLASS
+
 #include "TLorentzVector.h"
 
 #include <iostream>
@@ -167,3 +170,4 @@ class MEMELA{
    }
 };
 
+#endif

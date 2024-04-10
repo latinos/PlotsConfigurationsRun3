@@ -1,3 +1,6 @@
+#ifndef ADNN2016
+#define ADNN2016
+
 #include <vector>
 
 #include "TVector2.h"
@@ -120,5 +123,7 @@ RVecF adversarial_dnn(
     return adnns;
 
 }
+
+#endif
   
 

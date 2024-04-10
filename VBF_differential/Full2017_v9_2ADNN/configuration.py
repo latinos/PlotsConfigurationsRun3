@@ -1,7 +1,7 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = 'RDF_2017_v9_2ADNN'
+tag = 'Full2017_v9'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
@@ -41,7 +41,7 @@ plotPath = 'plots_' + tag
 outputDirDatacard = 'datacards'
 
 # structure file for datacard
-structureFile = 'structure.py'
+structureFile = 'structure_qqH_ggH.py'
 
 # nuisances file for mkDatacards and for mkShape
 nuisancesFile = 'nuisances.py'

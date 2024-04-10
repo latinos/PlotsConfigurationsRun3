@@ -12,12 +12,9 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
-# # LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW_tthmva_80
-# eleWP = 'mvaFall17V2Iso_WP90'
-# muWP  = 'cut_Tight_HWWW_tthmva_80'
 
 # LepCut2l__ele_mvaFall17V2Iso_WP90_tthmva_70__mu_cut_Tight80x_tthmva_80
-eleWP = 'mvaFall17V2Iso_WP90_tthmva_70' # _tthmva_70'
+eleWP = 'mvaFall17V2Iso_WP90' # _tthmva_70'
 muWP  = 'cut_Tight80x_tthmva_80' # _tthmva_80'
 
 
@@ -182,18 +179,18 @@ aliases['btagSF'] = {
     'samples': mc
 }
 
-for shift in ['jesAbsolute', 'jesAbsolute_2018', 'jesBBEC1', 'jesBBEC1_2018', 'jesEC2',
-        'jesEC2_2018', 'jesFlavorQCD', 'jesHF', 'jesHF_2018', 'jesRelativeBal',
-        'jesRelativeSample_2018']:
+for shift in ['jesAbsolute', 'jesAbsolute_2016', 'jesBBEC1', 'jesBBEC1_2016', 'jesEC2',
+        'jesEC2_2016', 'jesFlavorQCD', 'jesHF', 'jesHF_2016', 'jesRelativeBal',
+        'jesRelativeSample_2016']:
     for var in ['up','down']:
         aliases[f'Jet_btagSF_deepjet_shape_{shift.replace("jes","JES")}{var[:2]}'] = {
                 'expr' : f'Jet_btagSF_deepjet_shape_{var}_{shift}',
                 'samples' : mc
         }
 
-for shift in ['jesAbsolute', 'jesAbsolute_2018', 'jesBBEC1', 'jesBBEC1_2018', 'jesEC2',
-        'jesEC2_2018', 'jesFlavorQCD', 'jesHF', 'jesHF_2018', 'jesRelativeBal',
-        'jesRelativeSample_2018', 'lf', 'hf', 'lfstats1', 'lfstats2',
+for shift in ['jesAbsolute', 'jesAbsolute_2016', 'jesBBEC1', 'jesBBEC1_2016', 'jesEC2',
+        'jesEC2_2016', 'jesFlavorQCD', 'jesHF', 'jesHF_2016', 'jesRelativeBal',
+        'jesRelativeSample_2016', 'lf', 'hf', 'lfstats1', 'lfstats2',
         'hfstats1', 'hfstats2', 'cferr1', 'cferr2']:
 
     for targ in ['bVeto', 'bReq']:
@@ -266,26 +263,25 @@ aliases['METFilter_DATA_fix'] = {
 # my macro
 print('\n\n\n')
 print('Configs:\n\n\n')
-# configurations = os.path.abspath('.') + '/'
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations) # Full2017_v9
+configurations = os.path.dirname(configurations) 
 configurations = os.path.dirname(configurations) + '/' # VBF_differential 
 print(configurations)
 print('\n\n\n')
 
 aliases['m_lj'] = {
-  'linesToAdd': ['#include "%s/extended/m_lj.cc+"' % configurations],
+  'linesToAdd': ['#include "%s/macros/m_lj.cc+"' % configurations],
   'class': 'm_lj',
   'args': 'CleanJet_pt, CleanJet_eta, CleanJet_phi, CleanJet_jetIdx, Jet_mass, Lepton_pt, Lepton_eta, Lepton_phi',
   #'samples': mc
 }
 
 
-# D_VBF_QCD D_VBF_VH D_QCD_VH
+# D_VBF_GGH D_VBF_VH D_GGH_VH
 aliases['memela'] = {
   'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_707.so","",ROOT.kTRUE)',
                     'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
- 			        'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/VBF_differential/extended/ME_class_cc.so","", ROOT.kTRUE)',
+ 			        'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el7/VBF_differential/macros/ME_class_cc.so","", ROOT.kTRUE)',
 			        'ROOT.gInterpreter.Declare("MEMELA a;")'],
    'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
 
@@ -294,18 +290,18 @@ aliases['memela'] = {
 # D_VBF_DY
 aliases['MoMEMta_D'] = {
   'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1.0.1","",ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1","", ROOT.kTRUE)'],
-  'linesToAdd': ['#include "%s/extended/MoMEMta_D.cc+"' % configurations],
+                    'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1","", ROOT.kTRUE)',
+                    'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el7/VBF_differential/macros/MoMEMta_D_cc.so","", ROOT.kTRUE)'],
+#   'linesToAdd': ['#include "%s/macros/MoMEMta_D.cc+"' % configurations],
   'class': 'MoMEMta_discriminant',
   'args': 'nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1] ',
 }
 
-#adnns[0] = isVBF  adnns[1] = isGGH
+#adnns[0] = isVBF  adnns[1]=isGGH
 aliases['adnns'] = {
-  'linesToAdd': ['#include "/afs/cern.ch/work/b/bcamaian/mkShapesRDF/VBF_differential/2016noHIPM_v9_2ADNN/evaluate_adnns_2016.cc+"' ],
+  'linesToAdd': ['#include "%s/macros/evaluate_adnns.cc+"' % configurations ],
   'class': 'adversarial_dnn',
-  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0]',
-  #'samples': mc
+  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2016',
 }
 
 
@@ -326,21 +322,21 @@ aliases['adnns_2D'] = {
 
 
 aliases['DeltaPhijj'] = {
-  'linesToAdd': ['#include "%s/extended/GetJetDeltaPhi.cc+"' % configurations],
+  'linesToAdd': ['#include "%s/macros/GetJetDeltaPhi.cc+"' % configurations],
   'class': 'JetDeltaPhi',
   'args': 'nCleanJet, CleanJet_eta, CleanJet_phi',
 #   'samples': mc
 }
 
 aliases['isFID'] = {
-  'linesToAdd': ['#include "%s/extended/isFid.cc+"' % configurations],
+  'linesToAdd': ['#include "%s/macros/isFid.cc+"' % configurations],
   'class': 'isFiducial',
   'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass, GenMET_pt, GenMET_phi',
   'samples': mc
 }
 
 aliases['GenDeltaPhijj'] = {
-  'linesToAdd': ['#include "%s/extended/GetGenJetDeltaPhi.cc+"' % configurations],
+  'linesToAdd': ['#include "%s/macros/GetGenJetDeltaPhi.cc+"' % configurations],
   'class': 'GenJetDeltaPhi',
   'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
   'samples': mc
@@ -394,6 +390,8 @@ aliases['G2_VBF']  = {'expr': '0.27196538'}
 aliases['G4_VBF']  = {'expr': '0.29797901870'}
 aliases['L1_VBF']  = {'expr': '-2158.21307286'}
 
+aliases['G4_GGHjj']= {'expr': '1.0062'}
+
 # Cross-sections : Decay 
 
 aliases['JHUXSHWWa1']   = {'expr': '312.04019'}
@@ -404,15 +402,25 @@ aliases['JHUXSHWWa1a2'] = {'expr': '1149.9181'}
 aliases['JHUXSHWWa1a3'] = {'expr': '624.7195'}
 aliases['JHUXSHWWa1L1'] = {'expr': '5.3585509'}
 
+
 # Cross-sections : Production
 
 aliases['JHUXSVBFa1']   = {'expr': '968.88143'}
 aliases['JHUXSVBFa2']   = {'expr': '13097.831'}
 aliases['JHUXSVBFa3']   = {'expr': '10910.237'}
 aliases['JHUXSVBFL1']   = {'expr': '0.00020829261'}
+aliases['JHUXSVBFLZg']  = {'expr': '5.2902139e-05'}
 aliases['JHUXSVBFa1a2'] = {'expr': '2207.6738'}
 aliases['JHUXSVBFa1a3'] = {'expr': '1936.4327'}
 aliases['JHUXSVBFa1L1'] = {'expr': '2861.7003'}
+aliases['JHUXSVBFa1LZg'] = {'expr': '1574.5833'}
+
+aliases['JHUXSGGHjja2']   = {'expr': '14583.61'}
+aliases['JHUXSGGHjja3']   = {'expr': '14397.13'}
+aliases['JHUXSGGHjja2a3'] = {'expr': '29169.2'}
+
+
+# Normalisation Weights
 
 aliases['H0PM_W']    = { 'expr': '1'}
 aliases['H0M_W']     = { 'expr': '(JHUXSHWWa3/JHUXSHWWa1)'}
@@ -434,6 +442,11 @@ aliases['VBF_H0PM_W']    = { 'expr': '1'}
 aliases['VBF_H0M_W']     = { 'expr': 'H0M_W*(JHUXSVBFa3/JHUXSVBFa1)'}
 aliases['VBF_H0PH_W']    = { 'expr': 'H0PH_W*(JHUXSVBFa2/JHUXSVBFa1)'}
 aliases['VBF_H0L1_W']    = { 'expr': 'H0L1_W*(JHUXSVBFL1/JHUXSVBFa1)'}
+aliases['VBF_H0LZg_W']   = { 'expr': '1*(JHUXSVBFLZg/JHUXSVBFa1)'}
 aliases['VBF_H0Mf05_W']  = { 'expr': 'H0Mf05VBF_W*(JHUXSVBFa1a3/JHUXSVBFa1)'}
 aliases['VBF_H0PHf05_W'] = { 'expr': 'H0PHf05VBF_W*(JHUXSVBFa1a2/JHUXSVBFa1)'}
 aliases['VBF_H0L1f05_W'] = { 'expr': 'H0L1f05VBF_W*(JHUXSVBFa1L1/JHUXSVBFa1)'}
+aliases['VBF_H0LZgf05_W']= { 'expr': '1*(JHUXSVBFa1LZg/JHUXSVBFa1)'}
+
+aliases['GGHjj_H0M_W']     = { 'expr': '0.29*(JHUXSGGHjja3/JHUXSGGHjja2)'}
+aliases['GGHjj_H0Mf05_W']  = { 'expr': '0.29*(JHUXSGGHjja2a3/JHUXSGGHjja2)'}

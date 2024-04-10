@@ -19,19 +19,19 @@ using namespace ROOT::VecOps;
 
 
 double GenJetDeltaPhi(
-        int    nGenDressedLepton, 
-		    RVecI  GenDressedLepton_pdgId,
-		    RVecF  GenDressedLepton_pt,
-		    RVecF  GenDressedLepton_eta,
-		    RVecF  GenDressedLepton_phi,
-		    RVecF  GenDressedLepton_mass,
-		    RVecB  GenDressedLepton_hasTauAnc,
-		    int    nGenJet,
-		    RVecF  GenJet_pt,
-		    RVecF  GenJet_eta,
-		    RVecF  GenJet_phi,
-		    RVecF  GenJet_mass
-        ){
+                        int    nGenDressedLepton, 
+                        RVecI  GenDressedLepton_pdgId,
+                        RVecF  GenDressedLepton_pt,
+                        RVecF  GenDressedLepton_eta,
+                        RVecF  GenDressedLepton_phi,
+                        RVecF  GenDressedLepton_mass,
+                        RVecB  GenDressedLepton_hasTauAnc,
+                        int    nGenJet,
+                        RVecF  GenJet_pt,
+                        RVecF  GenJet_eta,
+                        RVecF  GenJet_phi,
+                        RVecF  GenJet_mass
+                      ){
 
 
     unsigned nJ = nGenJet;
@@ -117,7 +117,8 @@ double GenJetDeltaPhi(
       ++n;
     }
   }
-  if ( (n < 2) || (dressedLeptons.size() < 2) ) return -9999;
+
+  if ( (n < 2) || (TMath::Abs(j1.Eta()) > 4.7) || (TMath::Abs(j2.Eta()) > 4.7) ) return -9999;
     
 
   float phi1 = j1.Phi();
@@ -139,7 +140,7 @@ double GenJetDeltaPhi(
     // To have delta_phi in (-pi, pi) interval
     // https://root.cern.ch/doc/master/TVector2_8cxx_source.html#l00103
   if (output >  TMath::Pi()) output = output - 2*TMath::Pi();
-  if (output < -TMath::Pi()) output = output + 2*TMath::Pi();
+  if (output <= -TMath::Pi()) output = output + 2*TMath::Pi();
 
   return output;
 

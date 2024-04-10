@@ -44,20 +44,10 @@ structure['ggWW']  = {
                   'isData'   : 0    
                   }
 
-# structure['Wg']  = { 
-#                   'isSignal' : 0,
-#                   'isData'   : 0 
-#                   }
-
 structure['Vg']  = { 
                   'isSignal' : 0,
                   'isData'   : 0 
                   }
-
-# structure['VgS'] = { 
-#                   'isSignal' : 0,
-#                   'isData'   : 0 
-#                   }
 
 structure['VgS_L'] = {
                   'isSignal' : 0,
@@ -69,31 +59,15 @@ structure['VgS_H'] = {
                   'isData'   : 0
                   }
 
-# structure['Zg']  = { 
-#                   'isSignal' : 0,
-#                   'isData'   : 0 
-#                   }
-
 structure['VZ']  = { 
                   'isSignal' : 0,
                   'isData'   : 0 
                   }
 
-# structure['WZ']  = { 
-#                   'isSignal' : 0,
-#                   'isData'   : 0 
-#                   }
-
-
 structure['VVV']  = { 
                   'isSignal' : 0,
                   'isData'   : 0 
                   }
-
-# structure['ZZ']  = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
 
 structure['ggH_hww_GenDeltaPhijj_0fid'] = {
                   'isSignal' : 0,
@@ -173,9 +147,6 @@ structure['qqH_hww_GenDeltaPhijj_3nonfid'] = {
                   'isData'   : 0    
                   }
 
-
-
-
 structure['ZH_hww'] = {
                   'isSignal' : 0,
                   'isData'   : 0    
@@ -206,6 +177,16 @@ structure['qqH_htt'] = {
                   'isData'   : 0
                   }
 
+structure['ZH_htt'] = {
+                  'isSignal' : 0,
+                  'isData'   : 0
+                  }
+
+structure['WH_htt'] = {
+                  'isSignal' : 0,
+                  'isData'   : 0
+                  }
+
 # data
 
 
@@ -214,16 +195,3 @@ structure['DATA']  = {
                   'isData'   : 1 
               }
 
-
-'''
-print "INSTRUCTURE"
-print cuts
-#print nuisances['WWresum0j']
-print "OK"
-
-for nuis in nuisances.itervalues():
-  if 'cutspost' in nuis:
-    nuis['cuts'] = nuis['cutspost'](nuis, cuts)
-
-    print nuis
-'''

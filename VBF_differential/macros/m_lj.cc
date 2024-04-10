@@ -1,3 +1,6 @@
+#ifndef mlj
+#define mlj
+
 
 #include <vector>
 
@@ -35,3 +38,5 @@ RVecF m_lj(
   }
   return m_lj;
 }
+
+#endif

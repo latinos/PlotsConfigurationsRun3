@@ -1,3 +1,5 @@
+#ifndef VBFweights
+#define VBFweights
 
     // Select all (Ctrl+A), Copy (Ctrl+C), paste to an empty text file (Ctrl+V) and save that file as 'generated_code.h'
     // 
@@ -533,3 +535,6 @@ inline float activation_6 (float x, float n)
       //return i;
     
 }
+
+
+#endif
