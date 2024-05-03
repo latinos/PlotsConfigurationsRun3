@@ -136,14 +136,14 @@ aliases['ttHMVA_SF_flip_2l'] = {
     'linesToAdd': ['#include "%s/macros/flipper_eff_class.cc"' % configurations],
     'linesToProcess': ["ROOT.gInterpreter.Declare('flipper_eff flipper = flipper_eff(\"UL_2018\", 2, \"Total_SF\", \"false\");')"],
     'expr' : 'flipper(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': ['WW'],
+    'samples': ['DY','ChargeFlip'],
 }
 
 aliases['ttHMVA_eff_err_flip_2l'] = {
     'linesToAdd': ['#include "%s/macros/flipper_eff_class.cc"' % configurations],
-    'linesToProcess': ["ROOT.gInterpreter.Declare('flipper_eff flipper = flipper_eff(\"UL_2018\", 2, \"Total_SF\", \"false\");')"],
-    'expr' : 'flipper(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': ['WW','DY','ChargeFlip'],
+    'linesToProcess': ["ROOT.gInterpreter.Declare('flipper_eff flipper_unc = flipper_eff(\"UL_2018\", 2, \"Total_SF\", \"false\");')"],
+    'expr' : 'flipper_unc(Lepton_pt, Lepton_eta, Lepton_pdgId)',
+    'samples': ['DY','ChargeFlip'],
 }
 
 

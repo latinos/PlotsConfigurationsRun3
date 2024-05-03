@@ -27,7 +27,7 @@ lumi =  59.83
 aliasesFile = "aliases.py"
 
 # File with dict of variables
-variablesFile = "variables_datacard.py"
+variablesFile = "variables.py"
 
 # File with dict of cuts
 cutsFile = "cuts.py"
