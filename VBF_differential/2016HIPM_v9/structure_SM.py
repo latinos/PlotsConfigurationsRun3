@@ -95,130 +95,85 @@ structure['VVV']  = {
 #                   'isData'   : 0    
 #                   }
 
-### GGH ###
 structure['ggH_hww_GenDeltaPhijj_0fid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 structure['ggH_hww_GenDeltaPhijj_1fid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 structure['ggH_hww_GenDeltaPhijj_2fid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 structure['ggH_hww_GenDeltaPhijj_3fid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 structure['ggH_hww_GenDeltaPhijj_0nonfid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 structure['ggH_hww_GenDeltaPhijj_1nonfid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 structure['ggH_hww_GenDeltaPhijj_2nonfid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 structure['ggH_hww_GenDeltaPhijj_3nonfid'] = {
-                  'isSignal' : 0,
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_0fid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_1fid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_2fid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_3fid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+structure['qqH_hww_GenDeltaPhijj_0nonfid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_1nonfid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_2nonfid'] = {
+                  'isSignal' : 1,
+                  'isData'   : 0    
+                  }
+
+structure['qqH_hww_GenDeltaPhijj_3nonfid'] = {
+                  'isSignal' : 1,
                   'isData'   : 0    
                   }
 
 
-
-
-### VBF ###
-
-# structure['qqH_hww_GenDeltaPhijj_0fid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-# structure['qqH_hww_GenDeltaPhijj_1fid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-# structure['qqH_hww_GenDeltaPhijj_2fid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-# structure['qqH_hww_GenDeltaPhijj_3fid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-# structure['qqH_hww_GenDeltaPhijj_0nonfid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-# structure['qqH_hww_GenDeltaPhijj_1nonfid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-# structure['qqH_hww_GenDeltaPhijj_2nonfid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-# structure['qqH_hww_GenDeltaPhijj_3nonfid'] = {
-#                   'isSignal' : 0,
-#                   'isData'   : 0    
-#                   }
-
-### BSM ###
-
-structure['VBF_H0M_GenDeltaPhijj_0fid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-
-structure['VBF_H0M_GenDeltaPhijj_1fid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-
-structure['VBF_H0M_GenDeltaPhijj_2fid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-
-structure['VBF_H0M_GenDeltaPhijj_3fid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-structure['VBF_H0M_GenDeltaPhijj_0nonfid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-
-structure['VBF_H0M_GenDeltaPhijj_1nonfid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-
-structure['VBF_H0M_GenDeltaPhijj_2nonfid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
-
-structure['VBF_H0M_GenDeltaPhijj_3nonfid'] = {
-    'isSignal' : 1,
-    'isData'   : 0    
-}
 
 
 structure['ZH_hww'] = {

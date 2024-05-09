@@ -271,7 +271,7 @@ samples['qqH_hww'] = {
 }
 
 # Original VBF samples 
-'''
+
 samples['VBF_H0M'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0M_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0M_W',   
@@ -288,7 +288,7 @@ samples['VBF_H0M'] = {
      }
    
 } 
-
+'''
 samples['VBF_H0Mf05'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0Mf05_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0Mf05_W',   
@@ -322,7 +322,7 @@ samples['VBF_H0PH'] = {
      }
 } 
 
-
+'''
 samples['VBF_H0PHf05'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0PHf05_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0PHf05_W',   
@@ -339,7 +339,7 @@ samples['VBF_H0PHf05'] = {
      }
 } 
 
-
+'''
 samples['VBF_H0L1'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0L1_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0L1_W',   

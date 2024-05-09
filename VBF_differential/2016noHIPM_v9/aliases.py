@@ -273,7 +273,7 @@ aliases['m_lj'] = {
   'linesToAdd': ['#include "%s/macros/m_lj.cc+"' % configurations],
   'class': 'm_lj',
   'args': 'CleanJet_pt, CleanJet_eta, CleanJet_phi, CleanJet_jetIdx, Jet_mass, Lepton_pt, Lepton_eta, Lepton_phi',
-  #'samples': mc
+  'afterNuis': True,
 }
 
 
@@ -284,6 +284,7 @@ aliases['memela'] = {
  			        'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el7/VBF_differential/macros/ME_class_cc.so","", ROOT.kTRUE)',
 			        'ROOT.gInterpreter.Declare("MEMELA a;")'],
    'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
+   'afterNuis': True,
 
 }
 
@@ -295,37 +296,43 @@ aliases['MoMEMta_D'] = {
 #   'linesToAdd': ['#include "%s/macros/MoMEMta_D.cc+"' % configurations],
   'class': 'MoMEMta_discriminant',
   'args': 'nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1] ',
+  'afterNuis': True,
 }
 
 #adnns[0] = isVBF  adnns[1]=isGGH
 aliases['adnns'] = {
   'linesToAdd': ['#include "%s/macros/evaluate_adnns.cc+"' % configurations ],
   'class': 'adversarial_dnn',
-  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2016',
+  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2016, event',
+  'afterNuis': True,
 }
 
 
 
-bin_adnnisVBF = ['0.0', '0.50', '0.65', '0.80', '0.85', '0.9', '0.93', '0.95', '0.96', '0.98', '0.99', '1.0']
-bin_adnnisGGH = ['0.0', '0.50', '0.65', '0.80', '0.85', '0.9', '0.93', '0.95', '0.96', '0.98', '0.99', '1.0']
+bin_adnnisVBF = ['0.0', '0.04', '0.08', '0.12', '0.16', '0.2', '0.24', '0.28', '0.32', '0.36', '0.4', '0.44', '0.48', '0.52', '0.56', '0.6', '0.64', '0.68', '0.72', '0.76', '0.8', '0.84', '0.88', '0.92', '0.96', '1.0']
+bin_adnnisGGH = ['0.0', '0.50', '0.80', '0.9', '1.0']
 adnn2D = ''
-for i in range(len(bin_adnnisVBF)-1):
-  for j in range(len(bin_adnnisGGH)-1):
+for i in range(len(bin_adnnisGGH)-1):
+  for j in range(len(bin_adnnisVBF)-1):
     if i+j != len(bin_adnnisVBF)+len(bin_adnnisGGH)-4: 
-      adnn2D+='('+bin_adnnisVBF[i]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisGGH[j]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[j+1]+')+'
+      adnn2D+='('+bin_adnnisGGH[i]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisVBF[j]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[j+1]+')+'
     else: 
-      adnn2D+='('+bin_adnnisVBF[i]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisGGH[j]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[j+1]+')'
+      adnn2D+='('+bin_adnnisGGH[i]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisVBF[j]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[j+1]+')'
  
+
 aliases['adnns_2D'] = {
     'expr' : adnn2D,
+    'afterNuis': True,
+
     }
+
 
 
 aliases['DeltaPhijj'] = {
   'linesToAdd': ['#include "%s/macros/GetJetDeltaPhi.cc+"' % configurations],
   'class': 'JetDeltaPhi',
   'args': 'nCleanJet, CleanJet_eta, CleanJet_phi',
-#   'samples': mc
+  'afterNuis': True,
 }
 
 aliases['isFID'] = {
