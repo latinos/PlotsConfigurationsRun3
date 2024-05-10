@@ -266,6 +266,7 @@ aliases['m_lj'] = {
   'linesToAdd': ['#include "%s/macros/m_lj.cc+"' % configurations],
   'class': 'm_lj',
   'args': 'CleanJet_pt, CleanJet_eta, CleanJet_phi, CleanJet_jetIdx, Jet_mass, Lepton_pt, Lepton_eta, Lepton_phi',
+  'afterNuis': True,
   #'samples': mc
 }
 
@@ -277,6 +278,7 @@ aliases['memela'] = {
  			        'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el7/VBF_differential/macros/ME_class_cc.so","", ROOT.kTRUE)',
 			        'ROOT.gInterpreter.Declare("MEMELA a;")'],
    'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
+   'afterNuis': True,
 
 }
 
@@ -288,13 +290,15 @@ aliases['MoMEMta_D'] = {
 #   'linesToAdd': ['#include "%s/macros/MoMEMta_D.cc+"' % configurations],
   'class': 'MoMEMta_discriminant',
   'args': 'nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1] ',
+  'afterNuis': True,
 }
 
 #adnns[0] = isVBF  adnns[1]=isGGH
 aliases['adnns'] = {
   'linesToAdd': ['#include "%s/macros/evaluate_adnns.cc+"' % configurations ],
   'class': 'adversarial_dnn',
-  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2017',
+  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2017, event',
+  'afterNuis': True,
 }
 
 
@@ -310,6 +314,7 @@ for i in range(len(bin_adnnisVBF)-1):
  
 aliases['adnns_2D'] = {
     'expr' : adnn2D,
+    'afterNuis': True,
     }
 
 
@@ -317,6 +322,7 @@ aliases['DeltaPhijj'] = {
   'linesToAdd': ['#include "%s/macros/GetJetDeltaPhi.cc+"' % configurations],
   'class': 'JetDeltaPhi',
   'args': 'nCleanJet, CleanJet_eta, CleanJet_phi',
+  'afterNuis': True,
 #   'samples': mc
 }
 

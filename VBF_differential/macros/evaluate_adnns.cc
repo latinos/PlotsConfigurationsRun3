@@ -1,5 +1,5 @@
-#ifndef ADNN2017
-#define ADNN2017
+#ifndef ADNN
+#define ADNN
 #include <vector>
 
 #include "TVector2.h"
@@ -10,8 +10,10 @@
 #include "ROOT/RVec.hxx"
 
 
-#include "generated_code_2_UL_plusDY.h"
-#include "generated_code_UL_ggH.h"
+#include "generated_code_UL_vbf_adnn_even.h"
+#include "generated_code_UL_vbf_adnn_odd.h"
+#include "generated_code_UL_ggh_adnn_even.h"
+#include "generated_code_UL_ggh_adnn_odd.h"
 
 using namespace ROOT;
 using namespace ROOT::VecOps;
@@ -23,9 +25,9 @@ RVecF adversarial_dnn(
         float Lepton_pdgId_1,
         float Lepton_pdgId_2,
         float CleanJet_eta_1,
-		float CleanJet_eta_2,
-		float CleanJet_phi_1,
-		float CleanJet_phi_2,
+		    float CleanJet_eta_2,
+		    float CleanJet_phi_1,
+		    float CleanJet_phi_2,
         float CleanJet_pt_1,
         float CleanJet_pt_2,
         float Lepton_eta_1,
@@ -55,7 +57,9 @@ RVecF adversarial_dnn(
         float D_VBF_QCD,
         float D_VBF_VH,
         float D_QCD_VH,
-        float D_VBF_DY
+        float D_VBF_DY,
+        float year,
+        int ev_number
         ){
     RVecF adnns;
     adnns.reserve(2);
@@ -109,15 +113,29 @@ RVecF adversarial_dnn(
     input[31] = mTi;
     input[32] = ht;
 
-    input[33] = 0; //y_2016
-    input[34] = 1; //y_2017
-    input[35] = 0; //y_2018
+    if (year == 2016) {
+      input[33] = 1; //y_2016
+      input[34] = 0; //y_2017
+      input[35] = 0; //y_2018
+    } else if (year == 2017) {
+      input[33] = 0; //y_2016
+      input[34] = 1; //y_2017
+      input[35] = 0; //y_2018
+    } else if (year == 2018) {
+      input[33] = 0; //y_2016
+      input[34] = 0; //y_2017
+      input[35] = 1; //y_2018
+    } 
+ 
 
+    if (ev_number % 2 == 0) {
+       adnns.push_back(guess_digit_VBF_odd(input));
+       adnns.push_back(guess_digit_GGH_odd(input));
+    } else {
+        adnns.push_back(guess_digit_VBF_even(input));
+        adnns.push_back(guess_digit_GGH_even(input));
+    }
 
-
-
-    adnns.push_back(guess_digit(input, 0));
-    adnns.push_back(guess_digit_ggh(input, 0));
     
     return adnns;
 
