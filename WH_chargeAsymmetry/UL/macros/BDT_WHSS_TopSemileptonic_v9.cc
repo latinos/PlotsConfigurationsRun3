@@ -1,5 +1,5 @@
-#ifndef TMVA_BDT_WHSS_TOPSEMILEPTONIC_V9
-#define TMVA_BDT_WHSS_TOPSEMILEPTONIC_V9
+#ifndef BDT_WHSS_TOPSEMILEPTONIC_V9
+#define BDT_WHSS_TOPSEMILEPTONIC_V9
 
 #include <vector>
 #include "TVector2.h"
@@ -70,8 +70,10 @@ float BDT_WHSS_TopSemileptonic_v9(
   float dphilmet2,
   float dphijet1met,
   float jetpt1,
-  float Jet_btagDeepB_0,
-  float Jet_btagDeepB_1){
+  RVecF Jet_btagDeepB,
+  // float Jet_btagDeepB_0,
+  // float Jet_btagDeepB_1,
+  RVecI CleanJet_jetIdx){
 
   // Assign variables values 
   float pt1_             = pt1;
@@ -90,15 +92,18 @@ float BDT_WHSS_TopSemileptonic_v9(
   float dphilmet2_       = dphilmet2;
   float dphijet1met_     = dphijet1met;
   float jetpt1_          = jetpt1;
-  float Jet_btagDeepB_0_ = Jet_btagDeepB_0;
-  float Jet_btagDeepB_1_ = Jet_btagDeepB_1;
+  float Jet_btagDeepB_0_ = CleanJet_jetIdx[0]>=0 ? Jet_btagDeepB[CleanJet_jetIdx[0]] : -2;
+  float Jet_btagDeepB_1_ = CleanJet_jetIdx[1]>=0 ? Jet_btagDeepB[CleanJet_jetIdx[1]] : -2;
+
+  // float Jet_btagDeepB_0_ = Jet_btagDeepB_0;
+  // float Jet_btagDeepB_1_ = Jet_btagDeepB_1;
 
   // Create reader object
   TMVA::Reader *reader = new TMVA::Reader( "!Color:Silent" );
 
   // Pass variables to the reader
-  reader->AddVariable("pt1            ", &pt1_            );
-  reader->AddVariable("pt2            ", &pt2_            );
+  // reader->AddVariable("pt1            ", &pt1_            );
+  // reader->AddVariable("pt2            ", &pt2_            );
   reader->AddVariable("mll            ", &mll_            );
   reader->AddVariable("mjj            ", &mjj_            );
   reader->AddVariable("mtw1           ", &mtw1_           );
@@ -107,14 +112,19 @@ float BDT_WHSS_TopSemileptonic_v9(
   reader->AddVariable("mlljj20_whss   ", &mlljj20_whss_   );
   reader->AddVariable("PuppiMET_pt    ", &PuppiMET_pt_    );
   reader->AddVariable("dphill         ", &dphill_         );
-  reader->AddVariable("drll           ", &drll_           );
+  // reader->AddVariable("drll           ", &drll_           );
   reader->AddVariable("dphijj         ", &dphijj_         );
   reader->AddVariable("dphillmet      ", &dphillmet_      );
   reader->AddVariable("dphilmet2      ", &dphilmet2_      );
   reader->AddVariable("dphijet1met    ", &dphijet1met_    );
-  reader->AddVariable("jetpt1         ", &jetpt1_         );
-  reader->AddVariable("Jet_btagDeepB_0", &Jet_btagDeepB_0_);
-  reader->AddVariable("Jet_btagDeepB_1", &Jet_btagDeepB_1_);
+
+  // Variables with Alt$ values
+  reader->AddVariable("Alt$(CleanJet_pt[0],0)",                     &jetpt1_         );
+  reader->AddVariable("Alt$(Jet_btagDeepB[CleanJet_jetIdx[0]],-2)", &Jet_btagDeepB_0_);
+  reader->AddVariable("Alt$(Jet_btagDeepB[CleanJet_jetIdx[1]],-2)", &Jet_btagDeepB_1_);
+  // reader->AddVariable("jetpt1         ", &jetpt1_         );
+  // reader->AddVariable("Jet_btagDeepB_0", &Jet_btagDeepB_0_);
+  // reader->AddVariable("Jet_btagDeepB_1", &Jet_btagDeepB_1_);
 
 
   
