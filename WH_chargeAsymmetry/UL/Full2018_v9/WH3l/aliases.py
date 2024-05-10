@@ -318,3 +318,18 @@ aliases['hole_veto'] = {
             || ( (Alt(CleanJet_eta, 1, 99) < -1.3 && (Alt(CleanJet_eta, 1, -99) > -2.5))  && (Alt(CleanJet_phi, 1, -99) > -1.57 && Alt(CleanJet_phi, 1, 99) < -0.87) ) \
     ) ',
 }
+
+# Considering Top and Z+jets (DY) as sources of fake leptons
+aliases['BDT_WH3l_OSSF_new_v9'] = {
+    'linesToAdd' : ['#include "%s/macros/BDT_WH3l_OSSF_v9.cc"' % configurations],
+    'class'      : 'BDT_WH3l_OSSF_v9',
+    'args'       : '\"BDTG4C3\",\"{0}/data/BDT/2018/WH3l/OSSF/weights/TMVAClassification_BDTG4C3.weights.xml\",WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_ZVeto,WH3l_mtlmet,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt'.format(configurations),
+    'afterNuis'  : True,
+}
+    
+aliases['BDT_WH3l_SSSF_new_v9'] = {
+    'linesToAdd' : ['#include "%s/macros/BDT_WH3l_SSSF_v9.cc"' % configurations],
+    'class'      : 'BDT_WH3l_SSSF_v9',
+    'args'       : '\"BDTG4SK01_05shrinkage\",\"{0}/data/BDT/2018/WH3l/SSSF/weights/TMVAClassification_BDTG4SK01_05shrinkage.weights.xml\",WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt'.format(configurations),
+    'afterNuis'  : True,
+}
