@@ -79,7 +79,14 @@ class btagSFlight {
 };
 
 btagSFlight::btagSFlight(TString eff_map) {
-  cset = CorrectionSet::from_file("/afs/cern.ch/user/m/mlizzo/work/updateRunner/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/2018_UL/btagging.json.gz");
+  std::string home;
+  home          = std::string(std::getenv("STARTPATH"));
+  std::string to_replace  = "start.sh";
+  size_t start  = home.find(to_replace);
+  size_t stop   = to_replace.length();
+  home.replace(start, stop, "");
+  
+  cset = CorrectionSet::from_file(home + "/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/2018_UL/btagging.json.gz");
  
   TFile *reff = TFile::Open(eff_map, "READ");
   h_ljet_eff  = (TH2F*)reff->Get("ljet_eff")->Clone();
