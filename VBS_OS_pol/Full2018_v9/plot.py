@@ -4,7 +4,7 @@ plot = {}
 groupPlot = {}
 bkgs_to_plot = ['Vg', 'VgS_H', 'VgS_L', 'VZ', 'VVV', 'Fake_e', 'Fake_m', 
                 'qqH_hww', 'ggH_hww', 'ZH_hww', 'WH_hww', 'ggZH_hww', 'ttH_hww']
-
+'''
 groupPlot['Backgrounds']  = {
                   #'nameHR' : 'Other backgrounds',
                   'nameHR' : 'Backgrounds',
@@ -35,7 +35,7 @@ groupPlot['Multiboson']  = {
                   'samples'  : ['Vg', 'VgS_H', 'VgS_L', 'VZ', 'VVV']
                   #'VVV', 'VZ', 'WZ', 'ZZ', 'Vg', 'Wg', 'VgS_H', 'VgS_L']
               }
-'''
+
 groupPlot['dy']  = {  
     'nameHR' : "DY",
     'isSignal' : 0,

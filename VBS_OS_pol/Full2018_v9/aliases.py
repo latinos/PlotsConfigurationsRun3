@@ -223,7 +223,24 @@ aliases['proxyW'] = {
 }
 
 
-# SF
+# Fixed BTV SF
+
+btv_path = os.environ["STARTPATH"].replace('start.sh', '') + 'mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/2018_UL'
+
+for flavour in ['bc', 'light']:
+    for shift in ['central', 'up_uncorrelated', 'down_uncorrelated', 'up_correlated', 'down_correlated']:
+        btagsf = 'btagSF' + flavour
+        if shift != 'central':
+            btagsf += '_' + shift
+        aliases[btagsf] = {
+            'linesToAdd': [f'#include "{configurations}/evaluate_btagSF{flavour}.cc"'],
+            'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"{btv_path}/bTagEff_2018_ttbar_DeepFlavB_loose.root\");')"],
+            'expr': f'btagSF{flavour}_{shift}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btagDeepFlavB, "L", "{shift}")',
+            'samples' : mc,
+        }
+
+# Shape correction
+'''
 aliases['bVetoSF'] = {
     #'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepcsv_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))',
     'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_deepjet_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))',
@@ -260,7 +277,7 @@ for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr
         'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'down'),
         'samples': mc
     }
-
+'''
 aliases['Jet_PUIDSF'] = { 
           'expr' : 'TMath::Exp(Sum((Jet_jetId>=2)*LogVec(Jet_PUIDSF_loose)))',
           'samples': mc
@@ -314,8 +331,8 @@ aliases['costhetastarcmww_l2'] = {
 
 # data/MC scale factors
 aliases['SFweight'] = {
-    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'btagSF']),
-    #'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF']),
+    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF', 'Jet_PUIDSF', 'btagSFbc', 'btagSFlight']),
+    #'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF', 'Jet_PUIDSF', 'btagSF']),
     'samples': mc
 }
 
