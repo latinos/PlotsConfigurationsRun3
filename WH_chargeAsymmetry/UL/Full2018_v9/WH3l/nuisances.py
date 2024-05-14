@@ -30,15 +30,6 @@ def makeMCDirectory(var=''):
         print(os.path.join(treeBaseDir, mcProduction, mcSteps + '__' + var))
         return os.path.join(treeBaseDir, mcProduction, mcSteps + '__' + var)
 
-# def makeMCDirectory(var=''):
-# _treeBaseDir = treeBaseDir + ''
-# if useXROOTD:
-#     _treeBaseDir = redirector + treeBaseDir
-# if var== '':
-#     return '/'.join([_treeBaseDir, mcProduction, mcSteps])
-# else:
-#     return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
-
 mcDirectory = makeMCDirectory()
 fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
@@ -81,7 +72,7 @@ fake_syst_barrel = ['    1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])
                     '1.0/1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
 
 nuisances['fake_syst_barrel'] = {
-    'name'    : 'fake_syst_barrel',
+    'name'    : 'CMS_WH_hww_fake_syst_barrel',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -89,7 +80,7 @@ nuisances['fake_syst_barrel'] = {
     },
 }
 nuisances['fake_syst_endcap'] = {
-    'name'    : 'fake_syst_endcap',
+    'name'    : 'CMS_WH_hww_fake_syst_endcap',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -98,7 +89,7 @@ nuisances['fake_syst_endcap'] = {
 }
 
 nuisances['fake_ele'] = {
-    'name'    : 'CMS_fake_e_2018',
+    'name'    : 'CMS_WH_hww_fake_e_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -106,7 +97,7 @@ nuisances['fake_ele'] = {
     }
 }
 nuisances['fake_ele_stat'] = {
-    'name'    : 'CMS_fake_stat_e_2018',
+    'name'    : 'CMS_WH_hww_fake_stat_e_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -114,7 +105,7 @@ nuisances['fake_ele_stat'] = {
     }
 }
 nuisances['fake_mu'] = {
-    'name'    : 'CMS_fake_m_2018',
+    'name'    : 'CMS_WH_hww_fake_m_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -122,7 +113,7 @@ nuisances['fake_mu'] = {
     }   
 }       
 nuisances['fake_mu_stat'] = {
-    'name'    : 'CMS_fake_stat_m_2018',
+    'name'    : 'CMS_WH_hww_fake_stat_m_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -335,7 +326,8 @@ nuisances['pdf_Higgs_gg'] = {
     'type'    : 'lnN',
 }
 
-values = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ttH','125.09','pdf','sm')
+# For ttH, we need to use 1./values
+values = str(1./float(HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ttH','125.09','pdf','sm')))
 
 nuisances['pdf_Higgs_ttH'] = {
     'name'    : 'pdf_Higgs_ttH',
@@ -374,6 +366,14 @@ nuisances['pdf_qqbar'] = {
         'WZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'WgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'ZgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+    },
+}
+
+nuisances['pdf_gg'] = {
+    'name': 'pdf_gg',
+    'type': 'lnN',
+    'samples': {
+        'ggWW' : '1.05',
     },
 }
 

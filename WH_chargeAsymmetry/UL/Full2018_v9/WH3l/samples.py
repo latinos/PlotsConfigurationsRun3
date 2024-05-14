@@ -1,10 +1,4 @@
 import os,glob
-# import inspect
-
-# from mkShapesRDF.lib.search_files import SearchFiles
-
-# searchFiles = SearchFiles()
-# redirector = ""
 
 ################################################
 ################# SKIMS ########################
@@ -184,7 +178,7 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZTo4L')
 samples['ZZ'] = {
     'name': files,
     'weight': mcCommonWeightMatched,
-    'FilesPerJob': 8,
+    'FilesPerJob': 1,
 }
 
 
@@ -194,7 +188,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin0p1')
 samples['WZ'] = {
     'name': files,
     'weight': mcCommonWeightMatched + ' * (gstarHigh)',
-    'FilesPerJob': 8,
+    'FilesPerJob': 4,
 }
 addSampleWeight(samples, 'WZ', 'WZTo3LNu_mllmin0p1', '(0.601644*58.59/4.666)')
 
@@ -253,7 +247,7 @@ samples['WH_hww_plus'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWWTo2L2Nu_WToLNu_M125'),
     # 'name':   nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWW_M125'),
     'weight': mcCommonWeight,
-    'FilesPerJob': 8,
+    'FilesPerJob': 4,
 }
 signals.append('WH_hww_plus')
 
@@ -261,7 +255,7 @@ samples['WH_hww_minus'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWWTo2L2Nu_WToLNu_M125'),
     # 'name':   nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWW_M125'),
     'weight': mcCommonWeight,
-    'FilesPerJob': 8,
+    'FilesPerJob': 4,
 }
 signals.append('WH_hww_minus')
 

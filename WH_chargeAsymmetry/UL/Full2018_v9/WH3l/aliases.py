@@ -319,17 +319,24 @@ aliases['hole_veto'] = {
     ) ',
 }
 
-# Considering Top and Z+jets (DY) as sources of fake leptons
+# Evaluate BDT discriminants
 aliases['BDT_WH3l_OSSF_new_v9'] = {
-    'linesToAdd' : ['#include "%s/macros/BDT_WH3l_OSSF_v9.cc"' % configurations],
-    'class'      : 'BDT_WH3l_OSSF_v9',
-    'args'       : '\"BDTG4C3\",\"{0}/data/BDT/2018/WH3l/OSSF/weights/TMVAClassification_BDTG4C3.weights.xml\",WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_ZVeto,WH3l_mtlmet,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt'.format(configurations),
-    'afterNuis'  : True,
+    'linesToAdd'     : ['#include "%s/macros/BDT_WH3l_OSSF_v9_class.cc"' % configurations],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('BDT_WH3l_OSSF_v9 BDT_WH3l_OSSF = BDT_WH3l_OSSF_v9(\"BDTG4C3\",\"{0}/data/BDT/2018/WH3l/OSSF/weights/TMVAClassification_BDTG4C3.weights.xml\");')".format(configurations)],
+    'expr'           : 'BDT_WH3l_OSSF(WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_ZVeto,WH3l_mtlmet,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt)',
+    'samples'        : mc + ['DATA','Fake'],
 }
     
 aliases['BDT_WH3l_SSSF_new_v9'] = {
-    'linesToAdd' : ['#include "%s/macros/BDT_WH3l_SSSF_v9.cc"' % configurations],
-    'class'      : 'BDT_WH3l_SSSF_v9',
-    'args'       : '\"BDTG4SK01_05shrinkage\",\"{0}/data/BDT/2018/WH3l/SSSF/weights/TMVAClassification_BDTG4SK01_05shrinkage.weights.xml\",WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt'.format(configurations),
-    'afterNuis'  : True,
+    'linesToAdd'     : ['#include "%s/macros/BDT_WH3l_SSSF_v9_class.cc"' % configurations],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('BDT_WH3l_SSSF_v9 BDT_WH3l_SSSF = BDT_WH3l_SSSF_v9(\"BDTG4C3\",\"{0}/data/BDT/2018/WH3l/SSSF/weights/TMVAClassification_BDTG4SK01_05shrinkage.weights.xml\");')".format(configurations)],
+    'expr'           : 'BDT_WH3l_SSSF(WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt)',
+    'samples'        : mc + ['DATA','Fake'],
+}
+
+aliases['BDT_WHSS_TopSemileptonic_v9'] = {
+    'linesToAdd'     : ['#include "%s/macros/BDT_WHSS_TopSemileptonic_v9_class.cc"' % configurations],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('BDT_WHSS_TopSemileptonic_v9 BDT_WHSS = BDT_WHSS_TopSemileptonic_v9(\"BDTG_6\",\"{0}/data/BDT/2018/WHSS/weights/TMVAClassification_BDTG_6.weights.xml\");')".format(configurations)],
+    'expr'           : 'BDT_WHSS(mll,mjj,mtw1,mtw2,ptll,mlljj20_whss,PuppiMET_pt,dphill,dphijj,dphillmet,dphilmet2,dphijet1met,CleanJet_pt,Jet_btagDeepB,CleanJet_jetIdx)',
+    'samples'        : mc + ['DATA','Fake'],
 }
