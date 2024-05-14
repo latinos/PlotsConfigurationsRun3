@@ -71,61 +71,21 @@ fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.4) +     1.3*(abs(Lepton_eta[1])
 fake_syst_barrel = ['    1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)',
                     '1.0/1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
 
-nuisances['fake_syst_mm_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
+nuisances['fake_syst_barrel'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_barrel',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake_mm' : fake_syst_barrel,
+        'Fake' : fake_syst_barrel,
     },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
 }
-nuisances['fake_syst_mm_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
+nuisances['fake_syst_endcap'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_endcap',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake_mm' : fake_syst_endcap,
+        'Fake' : fake_syst_endcap,
     },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-
-nuisances['fake_syst_em_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-nuisances['fake_syst_em_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-
-nuisances['fake_syst_ee_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-nuisances['fake_syst_ee_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
 }
 
 nuisances['fake_ele'] = {
@@ -133,8 +93,7 @@ nuisances['fake_ele'] = {
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake_ee' : ['fakeWEleUp', 'fakeWEleDown'],
-        'Fake_em' : ['fakeWEleUp', 'fakeWEleDown'],
+        'Fake' : ['fakeWEleUp', 'fakeWEleDown'],
     }
 }
 nuisances['fake_ele_stat'] = {
@@ -142,8 +101,7 @@ nuisances['fake_ele_stat'] = {
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake_ee' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
-        'Fake_em' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
+        'Fake' : ['fakeWStatEleUp', 'fakeWStatEleDown']
     }
 }
 nuisances['fake_mu'] = {
@@ -151,8 +109,7 @@ nuisances['fake_mu'] = {
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake_mm' : ['fakeWMuUp', 'fakeWMuDown'],
-        'Fake_em' : ['fakeWMuUp', 'fakeWMuDown'],
+        'Fake' : ['fakeWMuUp', 'fakeWMuDown'],
     }   
 }       
 nuisances['fake_mu_stat'] = {
@@ -160,8 +117,7 @@ nuisances['fake_mu_stat'] = {
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake_mm' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
-        'Fake_em' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+        'Fake' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
     }
 }
 
@@ -183,7 +139,7 @@ for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr
 
 ##### Trigger Scale Factors
 
-trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
+trig_syst = ['TriggerSFWeight_3l_u/TriggerSFWeight_3l', 'TriggerSFWeight_3l_d/TriggerSFWeight_3l']
 
 nuisances['trigg'] = {
     'name'    : 'CMS_eff_hwwtrigger_2017',
@@ -281,7 +237,6 @@ nuisances['JER'] = {
 
 ##### MET unclustered energy
 
-# metUp.PuppiMET_pt_METup
 nuisances['met'] = {
     'name'      : 'CMS_scale_met_2017',
     'kind'      : 'suffix',
@@ -351,43 +306,6 @@ nuisances['UE_CP5']  = {
     'skipCMS' : 1,
     'type'    : 'lnN',
     'samples' : dict((skey, '1.015') for skey in mc),
-}
-
-# Charge flip efficiency
-nuisances['chargeFlipEff'] = {
-    'name'    : 'CMS_whss_chargeFlipEff_2017',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : dict((skey, ['1-ttHMVA_eff_err_flip_2l', '1+ttHMVA_eff_err_flip_2l']) for skey in ['DY','ChargeFlip']),
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut or '_em_' in cut)]
-}
-
-# Charge flip: uncertainty on opposite sign processes not affected by charge-flip
-nuisances['chargeFlip_syst'] = {
-    'name'    : 'CMS_ChargeFlip_syst',
-    'type'    : 'lnN',
-    'samples' : {
-        'ChargeFlip' : '1.10',
-    }
-}
-
-# Top pT reweighting uncertainty
-nuisances['TopPtRew'] = {
-    'name'       : 'CMS_top_pT_reweighting',   # Theory uncertainty
-    'kind'       : 'weight',
-    'type'       : 'shape',
-    'samples'    : {
-        'top': ["1.", "1./Top_pTrw"]
-    },
-    'symmetrize' : True
-}
-
-nuisances['WgStar'] = {
-    'name'    : 'CMS_hww_WgStarScale',
-    'type'    : 'lnN',
-    'samples' : {
-        'WgS' : '1.25'
-    }
 }
 
 ###### pdf uncertainties
@@ -520,9 +438,9 @@ variations = ['Alt(LHEScaleWeight,0,1)', 'Alt(LHEScaleWeight,1,1)', 'Alt(LHEScal
 # }
 
 nuisances['QCDscale_VV'] = {
-    'name'    : 'QCDscale_VV',
-    'kind'    : 'weight_envelope',
-    'type'    : 'shape',
+    'name' : 'QCDscale_VV',
+    'kind' : 'weight_envelope',
+    'type' : 'shape',
     'samples' : {
         'WW'  : variations,
         'Zg'  : variations,
@@ -628,22 +546,19 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 
 # WZ normalization from control region
 
-nuisances['WZ2jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l2jnorm',
+nuisances['WZ3lnorm']  = {
+    'name'    : 'CMS_hww_WZ3lnorm',
     'samples' : {
         'WZ' : '1.00',
     },
-    'type' : 'rateParam',
-    'cuts' : [cut for cut in cuts if '2j' in cut],
-}
-
-nuisances['WZ1jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l1jnorm',
-    'samples' : {
-        'WZ' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [cut for cut in cuts if '1j' in cut],
+    'type'  : 'rateParam',
+    'cuts'  : [
+        'wh3l_13TeV_ossf_plus',
+        'wh3l_13TeV_ossf_minus',
+        'wh3l_13TeV_sssf_plus',
+        'wh3l_13TeV_sssf_minus',
+        'wh3l_wz_13TeV',
+    ]
 }
 
 # Use the following if you want to apply the automatic combine MC stat nuisances.
