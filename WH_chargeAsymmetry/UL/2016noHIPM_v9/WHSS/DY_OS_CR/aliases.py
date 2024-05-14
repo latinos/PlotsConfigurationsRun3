@@ -2,9 +2,10 @@ import os
 import copy
 import inspect
 
-# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/2016noHIPM_v9/WHSS
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/2016noHIPM_v9/WHSS/DY_OS_CR
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
+configurations = os.path.dirname(configurations) # DY_OS_CR
 configurations = os.path.dirname(configurations) # WHSS
 configurations = os.path.dirname(configurations) # 2016noHIPM_v9
 configurations = os.path.dirname(configurations) # UL
@@ -14,6 +15,7 @@ aliases = OrderedDict()
 
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
+
 # LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight80x
 eleWP = 'mvaFall17V2Iso_WP90'
 muWP  = 'cut_Tight80x'
@@ -22,16 +24,14 @@ aliases['LepWPCut'] = {
     'expr'    : 'LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight80x*\
      ( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.82) || (abs(Lepton_pdgId[0])==11 && Lepton_mvaTTH_UL[0]>0.90)) \
     && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.82) || (abs(Lepton_pdgId[1])==11 && Lepton_mvaTTH_UL[1]>0.90)) )',
-    'samples' : mc + ['DATA'],
+    'samples' : mc + ['DATA']
 }
-
 
 # Lepton SF (not considering the ttHMVA discriminant)
 aliases['LepWPSF'] = {
     'expr'    : 'LepSF2l__ele_'+eleWP+'__mu_'+muWP,
-    'samples' : mc,
+    'samples' : mc
 }
-
 
 # ttHMVA SFs and uncertainties
 aliases['LepWPttHMVASF'] = {
@@ -134,14 +134,14 @@ aliases['ttHMVA_eff_flip_2l'] = {
     'linesToAdd'     : ['#include "%s/macros/flipper_eff_class.cc"' % configurations],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('flipper_eff flipper = flipper_eff(\"UL_2016noHIPM\", 2, \"Total_SF\", \"false\");')"],
     'expr'           : 'flipper(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples'        : ['DY','ChargeFlip'],
+    'samples'        : mc + ['DATA','Fake'],
 }
 
 aliases['ttHMVA_eff_err_flip_2l'] = {
     'linesToAdd'     : ['#include "%s/macros/flipper_eff_class.cc"' % configurations],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('flipper_eff flipper_unc = flipper_eff(\"UL_2016noHIPM\", 2, \"Total_SF\", \"false\");')"],
     'expr'           : 'flipper_unc(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples'        : ['DY','ChargeFlip'],
+    'samples'        : mc + ['DATA','Fake'],
 }
 
 
