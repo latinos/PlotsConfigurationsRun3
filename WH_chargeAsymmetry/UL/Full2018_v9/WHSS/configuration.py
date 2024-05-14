@@ -21,7 +21,7 @@ configsFolder = "configs"
 # Luminosity to normalize to (in 1/fb)
 # https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L868 (874)
 #  59.832475339
-lumi =  59.83
+lumi = 59.83
 
 # File with dict of aliases to define
 aliasesFile = "aliases.py"

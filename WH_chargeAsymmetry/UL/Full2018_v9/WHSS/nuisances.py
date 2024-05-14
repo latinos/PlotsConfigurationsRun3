@@ -74,28 +74,6 @@ nuisances['lumi_Correlated_2017_2018'] = {
 
 
 #### FAKES
-# nuisances['fake_syst_mm'] = {
-#     'name'    : 'CMS_fake_syst_mm',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3'
-#     },
-# }
-# nuisances['fake_syst_em'] = {
-#     'name'    : 'CMS_fake_syst_em',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_em' : '1.3'
-#     },
-# }
-# nuisances['fake_syst_ee'] = {
-#     'name'    : 'CMS_fake_syst_ee',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_ee' : '1.3'
-#     },
-# }
-
 fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.4) +     1.3*(abs(Lepton_eta[1])>1.4)',
                     '1.0*(abs(Lepton_eta[1])<=1.4) + 1.0/1.3*(abs(Lepton_eta[1])>1.4)']
 
@@ -103,92 +81,96 @@ fake_syst_barrel = ['    1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])
                     '1.0/1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
 
 nuisances['fake_syst_mm_barrel'] = {
-    'name'    : 'fake_syst_mm_barrel',
+    'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : fake_syst_barrel,
+        'Fake_mm' : fake_syst_barrel,
     },
     'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
 }
 nuisances['fake_syst_mm_endcap'] = {
-    'name'    : 'fake_syst_mm_endcap',
+    'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : fake_syst_endcap,
+        'Fake_mm' : fake_syst_endcap,
     },
     'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
 }
 
 nuisances['fake_syst_em_barrel'] = {
-    'name'    : 'fake_syst_em_barrel',
+    'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : fake_syst_barrel,
+        'Fake_em' : fake_syst_barrel,
     },
     'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
 }
 nuisances['fake_syst_em_endcap'] = {
-    'name'    : 'fake_syst_em_endcap',
+    'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : fake_syst_endcap,
+        'Fake_em' : fake_syst_endcap,
     },
     'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
 }
 
 nuisances['fake_syst_ee_barrel'] = {
-    'name'    : 'fake_syst_ee_barrel',
+    'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : fake_syst_barrel,
+        'Fake_ee' : fake_syst_barrel,
     },
     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
 }
 nuisances['fake_syst_ee_endcap'] = {
-    'name'    : 'fake_syst_ee_endcap',
+    'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : fake_syst_endcap,
+        'Fake_ee' : fake_syst_endcap,
     },
     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
 }
 
 nuisances['fake_ele'] = {
-    'name'    : 'CMS_fake_e_2018',
+    'name'    : 'CMS_WH_hww_fake_e_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : ['fakeWEleUp', 'fakeWEleDown'],
+        'Fake_ee' : ['fakeWEleUp', 'fakeWEleDown'],
+        'Fake_em' : ['fakeWEleUp', 'fakeWEleDown'],
     }
 }
 nuisances['fake_ele_stat'] = {
-    'name'    : 'CMS_fake_stat_e_2018',
+    'name'    : 'CMS_WH_hww_fake_stat_e_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : ['fakeWStatEleUp', 'fakeWStatEleDown']
+        'Fake_ee' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
+        'Fake_em' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
     }
 }
 nuisances['fake_mu'] = {
-    'name'    : 'CMS_fake_m_2018',
+    'name'    : 'CMS_WH_hww_fake_m_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : ['fakeWMuUp', 'fakeWMuDown'],
+        'Fake_mm' : ['fakeWMuUp', 'fakeWMuDown'],
+        'Fake_em' : ['fakeWMuUp', 'fakeWMuDown'],
     }   
 }       
 nuisances['fake_mu_stat'] = {
-    'name'    : 'CMS_fake_stat_m_2018',
+    'name'    : 'CMS_WH_hww_fake_stat_m_2018',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
-        'Fake' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+        'Fake_mm' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+        'Fake_em' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
     }
 }
 
@@ -469,7 +451,8 @@ nuisances['pdf_Higgs_gg'] = {
     'type'    : 'lnN',
 }
 
-values = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ttH','125.09','pdf','sm')
+# For ttH, we need to use 1./values
+values = str(1./float(HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ttH','125.09','pdf','sm')))
 
 nuisances['pdf_Higgs_ttH'] = {
     'name'    : 'pdf_Higgs_ttH',
@@ -508,6 +491,14 @@ nuisances['pdf_qqbar'] = {
         'WZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'WgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'ZgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+    },
+}
+
+nuisances['pdf_gg'] = {
+    'name': 'pdf_gg',
+    'type': 'lnN',
+    'samples': {
+        'ggWW' : '1.05',
     },
 }
 

@@ -1,6 +1,6 @@
 # plot configuration
 
- # Groups of samples to improve the plots.
+# Groups of samples to improve the plots.
 # If not defined, normal plots is used
 
 groupPlot = {}
@@ -375,5 +375,6 @@ plot['DATA']  = {
 # Define legend
 
 legend = {}
+
 legend['lumi'] = 'L = 59.8 fb^{-1}'
 legend['sqrt'] = '#sqrt{s} = 13 TeV'
