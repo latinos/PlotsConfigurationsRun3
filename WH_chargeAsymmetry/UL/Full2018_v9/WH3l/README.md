@@ -40,4 +40,4 @@ Merge rootfiles:
 
 Plot distributions:
 
-    mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
+    bash do_plots.sh
