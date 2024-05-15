@@ -13201,92 +13201,108 @@
   "structure": {
     "top": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.094644341199413
     },
     "WW": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0050152179122938
     },
     "Wg": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0
     },
     "Zg": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0240608689865076
     },
     "WgS": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0330312460649622
     },
     "ZgS": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0220256789333846
     },
     "ZZ": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.035431613378376
     },
     "WZ": {
       "isSignal": 0,
       "isData": 0,
-      "scaleSampleForDatacard": 1.138
+      "scaleSampleForDatacard": 1.161126894155771
     },
     "VVV": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0119047427847427
     },
     "ggH_hww": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.1338789567660748
     },
     "qqH_hww": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0138352196360725
     },
     "ZH_hww": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0312465236366781
     },
     "ggZH_hww": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0415768601193398
     },
     "WH_hww_plus": {
       "isSignal": 1,
       "isData": 0,
-      "scaleSampleForDatacard": 10
+      "scaleSampleForDatacard": 1.0190742132219504
     },
     "WH_hww_minus": {
       "isSignal": 1,
       "isData": 0,
-      "scaleSampleForDatacard": 10
+      "scaleSampleForDatacard": 1.0189660430796215
     },
     "ttH_hww": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.2164411504940285
     },
     "ggH_htt": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0
     },
     "qqH_htt": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 0.0
     },
     "ZH_htt": {
       "isSignal": 0,
-      "isData": 0
+      "isData": 0,
+      "scaleSampleForDatacard": 1.0605645337812306
     },
     "WH_htt_plus": {
       "isSignal": 1,
       "isData": 0,
-      "scaleSampleForDatacard": 10
+      "scaleSampleForDatacard": 1.0215448923785369
     },
     "WH_htt_minus": {
       "isSignal": 1,
       "isData": 0,
-      "scaleSampleForDatacard": 10
+      "scaleSampleForDatacard": 1.0215448923785369
     },
     "Fake": {
       "isSignal": 0,

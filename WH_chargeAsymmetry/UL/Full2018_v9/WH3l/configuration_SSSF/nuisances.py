@@ -236,7 +236,6 @@ nuisances['JER'] = {
 }
 
 ##### MET unclustered energy
-
 nuisances['met'] = {
     'name'      : 'CMS_scale_met_2018',
     'kind'      : 'suffix',

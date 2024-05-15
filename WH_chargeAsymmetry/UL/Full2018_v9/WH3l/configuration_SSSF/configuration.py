@@ -39,7 +39,7 @@ samplesFile = "../samples.py"
 plotFile = 'plot.py' 
 
 # File with dict of structure (used to define processes in combine)
-structureFile = "../structure.py"
+structureFile = "structure.py"
 
 # Nuisances file for mkDatacards and for mkShape
 nuisancesFile = "nuisances.py"
