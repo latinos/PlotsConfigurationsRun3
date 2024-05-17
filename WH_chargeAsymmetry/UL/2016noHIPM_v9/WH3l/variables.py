@@ -24,7 +24,7 @@ variables['BDT_WH3l_OSSF_new_v9_100_bins'] = {
 # ossf ge
 variables['BDT_WH3l_OSSF_new_v9_0_75'] = { 
     'name'  : 'BDT_WH3l_OSSF_new_v9',
-    'range' : ([-1.0, -0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0],),
+    'range' : ([-1.0, -0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 1.0],),
     'xaxis' : 'MVA discriminant',
     'fold'  : 3,
 }
@@ -39,9 +39,19 @@ variables['BDT_WH3l_SSSF_new_v9_100_bins'] = {
 # sssf ge
 variables['BDT_WH3l_SSSF_new_v9_0_75'] = { 
     'name'  : 'BDT_WH3l_SSSF_new_v9',
-    'range' : ([-1.0, 0.5, 0.75, 1.0],),
+    'range' : ([-1.0, 0.0, 0.5, 1.0],),
     'xaxis' : 'MVA discriminant',
     'fold'  : 3,
+}
+
+###########################
+# For WHSS WZ normalization
+###########################
+variables['BDTG6_TT'] = {
+    'name'     : 'BDT_WHSS_TopSemileptonic_v9',
+    'range'    : (40,-1,1),
+    'xaxis'    : 'BDT discriminant',
+    'fold'     : 3
 }
 
 # ###################
