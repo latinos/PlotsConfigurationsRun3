@@ -38,6 +38,11 @@ Merge rootfiles:
 
     mkShapesRDF -o 2 -f .
 
+Update same-sign histogram file with opposite-sign DY distributions, weighted to take into account charge flip:
+
+    bash do_DYee_estim_data.sh
+
 Plot distributions:
 
-    mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
+    bash do_plots.sh
+
