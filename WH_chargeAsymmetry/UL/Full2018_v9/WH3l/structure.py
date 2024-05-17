@@ -125,7 +125,3 @@ structure['DATA']  = {
     'isSignal' : 0,
     'isData'   : 1
 }
-
-
-
-
