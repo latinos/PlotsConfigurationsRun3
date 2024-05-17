@@ -33,7 +33,7 @@ variablesFile = "../variables.py"
 cutsFile = "cuts.py"
 
 # File with dict of samples
-samplesFile = "samples.py"
+samplesFile = "../samples.py"
 
 # File with dict of samples for plotting
 plotFile = 'plot.py' 
