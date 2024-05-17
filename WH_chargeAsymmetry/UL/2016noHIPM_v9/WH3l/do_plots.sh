@@ -42,6 +42,8 @@ cp ~/index.php plots_WH3l_2016noHIPM_v9_chargeAsymmetry_Mu82_EleUL90/
 if [ "$DATE" != "" ]; then
 	echo "Copying plots to the web ..."
 	mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/
+	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/
+	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/
 	cp -r plots_WH3l_2016noHIPM_v9_chargeAsymmetry_Mu82_EleUL90/ /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/
 	echo "Done!"
 fi
