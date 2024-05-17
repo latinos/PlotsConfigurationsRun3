@@ -30,15 +30,6 @@ def makeMCDirectory(var=''):
         print(os.path.join(treeBaseDir, mcProduction, mcSteps + '__' + var))
         return os.path.join(treeBaseDir, mcProduction, mcSteps + '__' + var)
 
-# def makeMCDirectory(var=''):
-# _treeBaseDir = treeBaseDir + ''
-# if useXROOTD:
-#     _treeBaseDir = redirector + treeBaseDir
-# if var== '':
-#     return '/'.join([_treeBaseDir, mcProduction, mcSteps])
-# else:
-#     return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
-
 mcDirectory = makeMCDirectory()
 fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
