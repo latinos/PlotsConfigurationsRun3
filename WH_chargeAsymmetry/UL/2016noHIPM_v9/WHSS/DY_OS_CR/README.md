@@ -1,6 +1,6 @@
 # WH charge asymmetry analysis
 
-This is an adaptation of the analysis which is part of HIG-20-013. It is used to measure the asymmetry in the prodution of W+H and W-H. Here, the 2-leptons final state (one of the W bosons decays hadronically) is inspected.
+This configuration creates data-driven distributions to estimate the DY->ee contamination in the 2lSS signal region. Opposite-sign DY->ee events are selected in MC and weighted for the charge-flip probability, to obtain the expected distributions in the same-sign final state.
 
 The instructions to run the analysis follow.
 
@@ -38,10 +38,6 @@ Merge rootfiles:
 
     mkShapesRDF -o 2 -f .
 
-Update same-sign histogram file with opposite-sign DY distributions, weighted to take into account charge flip:
-
-    bash do_DYee_estim_data.sh
-
 Plot distributions:
 
-    bash do_plots.sh
+    mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
