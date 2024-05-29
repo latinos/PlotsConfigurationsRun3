@@ -71,3 +71,11 @@ cuts['hww2l2v_13TeV_WH_OS_em_1j'] = {
         'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
     }
 }
+
+## Same-sign control region in the 0 jet bin: used in the WH3l category. Considering different flavor to avoid DY
+cuts['wh3l_13TeV_OS_CR'] = {
+    'expr' : 'Alt(Lepton_pt,2,0) < 15 && abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*13 && Alt(CleanJet_pt,0,0) < 30',
+    'categories' : {
+        'pt2ge20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]<0',
+    }
+}

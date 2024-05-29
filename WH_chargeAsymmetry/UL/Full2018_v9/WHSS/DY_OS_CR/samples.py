@@ -129,47 +129,72 @@ samples['DY'] = {
 # not affected by charge-flip:
 # all but DY, WW, and top
 
-######## Wg ########
-files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J')
-
-samples['Wg'] = {
-    'name': files,
-    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)*ttHMVA_eff_flip_2l',
-    'FilesPerJob': 2,
-}
-
-
-######## Zg ########
-files = nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
-
-samples['Zg'] = {
-    'name': files,
-    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)*ttHMVA_eff_flip_2l',
-    'FilesPerJob': 2
-}
-
-
-######## WgS ######## 
+######## Vg ########
 files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J') + \
-        nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin0p1')
+        nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
 
-samples['WgS'] = {
+samples['Vg'] = {
     'name': files,
-    'weight': mcCommonWeight + ' * (gstarLow * 0.94)*ttHMVA_eff_flip_2l',
-    'FilesPerJob': 2,
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)*ttHMVA_eff_flip_2l',
+    'FilesPerJob': 4,
 }
-addSampleWeight(samples, 'WgS', 'Wg_AMCNLOFXFX_01J',  '(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 0.1)')
-addSampleWeight(samples, 'WgS', 'WZTo3LNu_mllmin0p1', '(Gen_ZGstar_mass > 0.1)*(0.601644*58.59/4.666)')
 
+######## VgS ######## 
+files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J') + \
+        nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin0p1') + \
+        nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
 
-######## ZgS ########
-files = nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
-
-samples['ZgS'] = {
+samples['VgS'] = {
     'name': files,
-    'weight': mcCommonWeight + '*(Gen_ZGstar_mass > 0)*ttHMVA_eff_flip_2l',
-    'FilesPerJob': 2,
+    'weight': mcCommonWeight + '*ttHMVA_eff_flip_2l',
+    'FilesPerJob': 4,
 }
+addSampleWeight(samples, 'VgS', 'Wg_AMCNLOFXFX_01J',  '((Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 0.1))*(gstarLow*0.94)')
+addSampleWeight(samples, 'VgS', 'WZTo3LNu_mllmin0p1', '((Gen_ZGstar_mass > 0.1)*(0.601644*58.59/4.666))*(gstarLow*0.94)')
+addSampleWeight(samples, 'VgS', 'ZGToLLG',            '(Gen_ZGstar_mass > 0)')
+
+
+# ######## Wg ########
+# files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J')
+
+# samples['Wg'] = {
+#     'name': files,
+#     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)*ttHMVA_eff_flip_2l',
+#     'FilesPerJob': 2,
+# }
+
+
+# ######## Zg ########
+# files = nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
+
+# samples['Zg'] = {
+#     'name': files,
+#     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)*ttHMVA_eff_flip_2l',
+#     'FilesPerJob': 2
+# }
+
+
+# ######## WgS ######## 
+# files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J') + \
+#         nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin0p1')
+
+# samples['WgS'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + ' * (gstarLow * 0.94)*ttHMVA_eff_flip_2l',
+#     'FilesPerJob': 2,
+# }
+# addSampleWeight(samples, 'WgS', 'Wg_AMCNLOFXFX_01J',  '(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 0.1)')
+# addSampleWeight(samples, 'WgS', 'WZTo3LNu_mllmin0p1', '(Gen_ZGstar_mass > 0.1)*(0.601644*58.59/4.666)')
+
+
+# ######## ZgS ########
+# files = nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
+
+# samples['ZgS'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*(Gen_ZGstar_mass > 0)*ttHMVA_eff_flip_2l',
+#     'FilesPerJob': 2,
+# }
 
 
 ############ WZ ############
