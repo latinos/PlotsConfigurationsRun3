@@ -1,4 +1,4 @@
-# WH charge asymmetry analysis
+ charge asymmetry analysis
 
 This is an adaptation of the analysis which is part of HIG-20-013. It is used to measure the asymmetry in the prodution of W+H and W-H. Here, the 2-leptons final state (one of the W bosons decays hadronically) is inspected.
 
@@ -24,7 +24,7 @@ Compile the configuration. Do it after every change to any file in this director
 
 Produce histograms using batch:
 
-    mkShapesRDF -o 0 -f . -b 1
+    mkShapesRDF -c 1 -o 0 -f . -b 1
 
 Check jobs status:
 
@@ -45,4 +45,22 @@ Update same-sign histogram file with opposite-sign DY distributions, weighted to
 Plot distributions:
 
     bash do_plots.sh
+
+Produce datacards. Here, using the correct normalization for the signals:
+
+    bash do_datacards.sh
+
+Combine datacards:
+
+    mkdir -p Combination
+
+    cmssw-cc7
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+
+    python script_datacards_binning_SS_CR.py
+
+Fit data to get results:
+
+    bash do_fit.sh
 
