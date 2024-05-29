@@ -7,7 +7,10 @@ scale_histo_WW           = 3.22785217885/3.08817311604       # 1.04523032148
 scale_histo_DY           = 34.8175154215/33.4223704101       # 1.0417428505
 scale_histo_WZ           = 21.7086230788/21.2708869931       # 1.02057911764
 scale_histo_Wg           = 0.261776064848/0.294847019997     # 0.887836902169
+scale_histo_Vg           = (0.261776064848+21.7086230788)/(0.294847019997+21.2708869931)
 scale_histo_WgS          = 0.405287392724/0.376676301538     # 1.07595670625
+scale_histo_ZgS          = 3.94058303742/3.94381771208       # 0.999179811317
+scale_histo_VgS          = (3.94058303742+0.405287392724)/(3.94381771208+0.376676301538)
 scale_histo_ZH_htt       = 0.162021767299/0.152298934007     # 1.06384045532
 scale_histo_WH_htt_plus  = 1.31082379599/1.28342123306       # 1.02135118403
 scale_histo_ggZH_hww     = 0.0405578297738/0.0392402785668   # 1.03357649984
@@ -20,7 +23,6 @@ scale_histo_VVV          = 5.28478474804/5.23392511315       # 1.00971730275
 scale_histo_WH_hww_plus  = 4.15894078979/4.08099223915       # 1.01910039178
 scale_histo_ggH_htt      = 0.0936114704829/0.0947166491217   # 0.988331738411
 scale_histo_ggWW         = 0.292241832136/0.284461446195     # 1.02735128449
-scale_histo_ZgS          = 3.94058303742/3.94381771208       # 0.999179811317
 scale_histo_top          = 237.386109815/218.633895349       # 1.08576993259
 scale_histo_WWewk        = 0.0319102961075/0.0316459238835   # 1.00835406876
 scale_histo_ZH_hww       = 0.453229540457/0.433120191981     # 1.04642902559
@@ -60,32 +62,18 @@ groupPlot['VVV']  = {
     'samples'  : ['VVV']
 }
 
-groupPlot['Zg']  = {
-    'nameHR' : "Z#gamma",
+groupPlot['Vg']  = {
+    'nameHR' : "V#gamma",
     'isSignal' : 0,
     'color'    : 810,   # kOrange + 10
-    'samples'  : ['Zg']
+    'samples'  : ['Vg']
 }
 
-groupPlot['ZgS']  = {
-    'nameHR' : "Z#gamma*",
+groupPlot['VgS']  = {
+    'nameHR' : "V#gamma*",
     'isSignal' : 0,
     'color'    : 617,
-    'samples'  : ['ZgS']
-}
-
-groupPlot['Wg']  = {
-    'nameHR' : "W#gamma",
-    'isSignal' : 0,
-    'color'    : 859,
-    'samples'  : ['Wg']
-}
-
-groupPlot['WgS']  = {
-    'nameHR' : "W#gamma*",
-    'isSignal' : 0,
-    'color'    : 409,   # kGreen - 9
-    'samples'  : ['WgS']
+    'samples'  : ['VgS']
 }
 
 groupPlot['ZZ']  = {  
@@ -143,32 +131,18 @@ plot['WW']  = {
     'scale'    : scale_histo_WW,
 }
 
-plot['Wg']  = { 
+plot['Vg']  = { 
     'color'    : 859, # kAzure -1  
     'isSignal' : 0,
     'isData'   : 0,
-    'scale'    : scale_histo_Wg,
+    'scale'    : scale_histo_Vg,
 }
 
-plot['Zg']  = {
+plot['VgS']  = { 
     'color'    : 859, # kAzure -1  
     'isSignal' : 0,
     'isData'   : 0,
-    'scale'    : scale_histo_Zg,
-}
-
-plot['WgS']  = { 
-    'color'    : 859, # kAzure -1  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : scale_histo_WgS,
-}
-
-plot['ZgS'] = { 
-    'color'    : 617, # kViolet + 1  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : scale_histo_ZgS,
+    'scale'    : scale_histo_VgS,
 }
 
 plot['ZZ']  = { 
