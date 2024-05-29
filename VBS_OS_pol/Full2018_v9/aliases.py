@@ -161,23 +161,19 @@ aliases['multiJet'] = {
 }
 
 aliases['bVeto'] = {
-    #'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepB, CleanJet_jetIdx) > 0.1355) == 0'
-    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.1208) == 0'
+    'expr': 'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0490) == 0'
 }
 aliases['bReq'] = { 
-    #'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepB, CleanJet_jetIdx) > 0.1355) >= 1'
-    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.1208) >= 1'
+    'expr': 'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > 0.0490) >= 1'
 }
 
 # CR definition
 
 aliases['topcr'] = {
-    #'expr' : 'abs(mll-91)>15 && bReq'
     'expr': 'mll>50 && ((zeroJet && !bVeto) || bReq)'
 }
 
 aliases['dycr'] = {
-    #'expr': 'bVeto && abs(mll-91.2)<15'
     'expr': 'bVeto'
 }
 
@@ -222,10 +218,20 @@ aliases['proxyW'] = {
   #'samples': mc
 }
 
+# SF
+# Fixed BTV wp
 
-# Fixed BTV SF
+# btagging MC efficiencies and SFs are read through the btagSF{flavour} object:
+# - the first argument is the MC btagging efficiency root file
+# - the second argument is the year from which SFs are retrieved from the POG/BTV json-pog correctionlib directory; 
+#   allowed options are = ["2016postVFP_UL, 2016preVFP_UL", "2017_UL", "2018_UL"]
+# The btagSF{flavour}_{shift} constructor executes the actual computation
 
-btv_path = os.environ["STARTPATH"].replace('start.sh', '') + 'mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/2018_UL'
+# btv_path variable must be updated with the proper year
+# replace it with the proper path if you move b-tagging efficiency root files somewhere else
+
+year = '2018_UL' # allowed options are = ["2016postVFP_UL, 2016preVFP_UL", "2017_UL", "2018_UL"]
+btv_path = os.environ["STARTPATH"].replace('start.sh', '') + 'mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/' + year
 
 for flavour in ['bc', 'light']:
     for shift in ['central', 'up_uncorrelated', 'down_uncorrelated', 'up_correlated', 'down_correlated']:
@@ -234,7 +240,7 @@ for flavour in ['bc', 'light']:
             btagsf += '_' + shift
         aliases[btagsf] = {
             'linesToAdd': [f'#include "{configurations}/evaluate_btagSF{flavour}.cc"'],
-            'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"{btv_path}/bTagEff_2018_ttbar_DeepFlavB_loose.root\");')"],
+            'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"{btv_path}/bTagEff_2018_ttbar_DeepFlavB_loose.root\", \"{year}\");')"], 
             'expr': f'btagSF{flavour}_{shift}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btagDeepFlavB, "L", "{shift}")',
             'samples' : mc,
         }
@@ -306,19 +312,7 @@ aliases['Zepp_ll'] = {
 aliases['Rpt'] = {
     'expr': 'Lepton_pt[0]*Lepton_pt[1]/(CleanJet_pt[0]*CleanJet_pt[1])'
 }
-'''
-aliases['costhetastarcmww_l1'] = {
-        'linesToAdd': ['#include "%s/VBS_OS_pol/Full2018_v9/costheta_cmww.cc+"' % configurations],
-        'class': 'CosThetaStarCMWW',
-        'args': 1,
-}
 
-aliases['costhetastarcmww_l2'] = {
-        'linesToAdd': ['#include "%s/VBS_OS_pol/Full2018_v9/costheta_cmww.cc+"' % configurations],
-        'class': 'CosThetaStarCMWW',
-        'args': 2,
-}
-'''
 # aliases['SFweight2lAlt'] = {
 #     'expr'   : 'puWeight*TriggerSFWeight_2l*Lepton_RecoSF[0]*Lepton_RecoSF[1]*EMTFbug_veto',
 #     'samples': mc

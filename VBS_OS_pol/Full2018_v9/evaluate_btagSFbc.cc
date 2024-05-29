@@ -23,7 +23,7 @@ using correction::CorrectionSet;
 class btagSFbc {
 
   public:
-    btagSFbc(TString eff_map);
+    btagSFbc(TString eff_map, const string year);
     ~btagSFbc();
 
     TH2F* h_bjet_eff;
@@ -85,7 +85,7 @@ class btagSFbc {
   
 };
 
-btagSFbc::btagSFbc(TString eff_map) {
+btagSFbc::btagSFbc(TString eff_map, const string year) {
   std::string home;
   home          = std::string(std::getenv("STARTPATH"));
   std::string to_replace  = "start.sh";
@@ -93,7 +93,7 @@ btagSFbc::btagSFbc(TString eff_map) {
   size_t stop   = to_replace.length();
   home.replace(start, stop, "");
   
-  cset = CorrectionSet::from_file(home + "/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/2018_UL/btagging.json.gz");
+  cset = CorrectionSet::from_file(home + "/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/" + year + "/btagging.json.gz");
  
   TFile *reff = TFile::Open(eff_map, "READ");
   h_bjet_eff  = (TH2F*)reff->Get("bjet_eff")->Clone();
