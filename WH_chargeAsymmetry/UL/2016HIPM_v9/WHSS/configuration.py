@@ -1,5 +1,14 @@
 # Configuration file for charge asymmetry WHSS analysis using the UL 2016HIPM dataset
 
+import sys,inspect
+
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/2016HIPM_v9/WHSS/
+
+configurations_nuisance = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
+configurations_nuisance = os.path.dirname(configurations_nuisance) # WHSS
+configurations_nuisance = os.path.dirname(configurations_nuisance) # 2016HIPM_v9
+configurations_nuisance = os.path.dirname(configurations_nuisance) # UL
+
 # Tag used to identify the configuration folder version
 tag = 'WHSS_2016HIPM_v9_chargeAsymmetry_Mu82_EleUL90'
 

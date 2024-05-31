@@ -4,6 +4,8 @@
                     
 structure = {}
 
+signal_normalization = 10.0
+
 # BTag normalization factors
 # Cut = hww2l2v_13TeV_samesign_1j
 scale_histo_ttH_hww      = 0.180276825892/0.112076406383     # 1.60851718672
@@ -63,28 +65,16 @@ scale_histo_qqH_htt      = 0.00350350762844/0.00350350762844 # 1.0
 # }
 
 
-structure['Wg']  = { 
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Wg,
-}
+# structure['Vg']  = { 
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : scale_histo_Vg,
+# }
 
-structure['Zg']  = { 
+structure['VgS'] = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Zg,
-}
-
-structure['WgS'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WgS,
-}
-
-structure['ZgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_ZgS,
+    'scaleSampleForDatacard' : scale_histo_VgS,
 }
 
 structure['WZ'] = {
@@ -99,11 +89,11 @@ structure['ZZ']  = {
     'scaleSampleForDatacard' : scale_histo_ZZ,
 }
 
-structure['VVV']  = { 
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_VVV,
-}
+# structure['VVV']  = { 
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : scale_histo_VVV,
+# }
 
 
 # Higgs
@@ -134,13 +124,13 @@ structure['ggZH_hww'] = {
 structure['WH_hww_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_plus * 10.0, # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_hww_plus*signal_normalization,
 }
 
 structure['WH_hww_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_minus * 10.0 # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_hww_minus*signal_normalization,
 }
 
 structure['ttH_hww'] = {
@@ -170,13 +160,13 @@ structure['ZH_htt'] = {
 structure['WH_htt_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_plus * 10.0 # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
 structure['WH_htt_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_minus * 10.0, # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_htt_minus*signal_normalization,
 }
 
 
@@ -197,12 +187,12 @@ structure['Fake_em']  = {
 }
 
 
-# Data-driven charge flip estimation
-structure['ChargeFlip']  = {  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : 0.5,
-}
+# # Data-driven charge flip estimation
+# structure['ChargeFlip']  = {  
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : 0.5,
+# }
 
 # Data
 structure['DATA']  = { 

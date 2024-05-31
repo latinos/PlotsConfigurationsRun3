@@ -267,7 +267,7 @@ aliases['Jet_PUIDSF_down'] = {
 
 aliases['gstarLow'] = {
     'expr'    : 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
-    'samples' : 'WgS',
+    'samples' : 'VgS',
 }
 
 aliases['gstarHigh'] = {

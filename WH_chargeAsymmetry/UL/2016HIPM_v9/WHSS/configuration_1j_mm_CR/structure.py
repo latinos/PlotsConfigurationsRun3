@@ -4,15 +4,20 @@
                     
 structure = {}
 
+signal_normalization = 10.0
+
 # BTag normalization factors
 # Cut = hww2l2v_13TeV_samesign_1j
 scale_histo_ttH_hww      = 0.180276825892/0.112076406383     # 1.60851718672
 scale_histo_WW           = 17.3368525364/17.0463611631       # 1.01704125417
 scale_histo_DY           = 44.6641027279/49.5473999849       # 0.901441906972
-scale_histo_Zg           = 20.6166113057/19.4013313972       # 1.06263899542
 scale_histo_WZ           = 135.267286694/126.276144721       # 1.07120222108
 scale_histo_Wg           = 156.275315526/155.431783489       # 1.00542702412
+scale_histo_Zg           = 20.6166113057/19.4013313972       # 1.06263899542
+scale_histo_Vg           = (156.275315526+20.6166113057)/(155.431783489+19.4013313972)
 scale_histo_WgS          = 65.9150772791/63.6120002002       # 1.0362050725
+scale_histo_ZgS          = 7.64935533742/7.44793554501       # 1.02704370778
+scale_histo_VgS          = (65.9150772791+7.64935533742)/(63.6120002002+7.44793554501)
 scale_histo_ZH_htt       = 0.224625941246/0.19374122565      # 1.15941220301
 scale_histo_WH_htt_plus  = 1.41360321279/1.31045936383       # 1.0787081628
 scale_histo_ggZH_hww     = 0.119893497698/0.114894546858     # 1.04350903482
@@ -25,7 +30,6 @@ scale_histo_WH_hww_plus  = 3.56933756638/3.42337605238       # 1.04263671644
 scale_histo_ggH_htt      = 0.0533884742322/0.0490732410875   # 1.08793454537
 scale_histo_ggH_htt      = 0.0533884742322/0.0490732410875   # 1.08793454537
 scale_histo_ggWW         = 1.02379148736/1.00096980162       # 1.02279957468
-scale_histo_ZgS          = 7.64935533742/7.44793554501       # 1.02704370778
 scale_histo_top          = 108.055607163/81.5017466136       # 1.32580725755
 scale_histo_WWewk        = 0.137471641848/0.135830927369     # 1.01207909355
 scale_histo_ZH_hww       = 0.578285123642/0.536470527952     # 1.0779438823
@@ -63,28 +67,16 @@ scale_histo_qqH_htt      = 0.00350350762844/0.00350350762844 # 1.0
 # }
 
 
-structure['Wg']  = { 
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Wg,
-}
+# structure['Vg']  = { 
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : scale_histo_Vg,
+# }
 
-structure['Zg']  = { 
+structure['VgS'] = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Zg,
-}
-
-structure['WgS'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WgS,
-}
-
-structure['ZgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_ZgS,
+    'scaleSampleForDatacard' : scale_histo_VgS,
 }
 
 structure['WZ'] = {
@@ -134,13 +126,13 @@ structure['ggZH_hww'] = {
 structure['WH_hww_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_plus * 10.0, # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_hww_plus*signal_normalization,
 }
 
 structure['WH_hww_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_minus * 10.0 # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_hww_minus*signal_normalization,
 }
 
 structure['ttH_hww'] = {
@@ -170,13 +162,13 @@ structure['ZH_htt'] = {
 structure['WH_htt_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_plus * 10.0 # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
 structure['WH_htt_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_minus * 10.0, # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : scale_histo_WH_htt_minus*signal_normalization,
 }
 
 
@@ -197,12 +189,12 @@ structure['Fake_em']  = {
 }
 
 
-# Data-driven charge flip estimation
-structure['ChargeFlip']  = {  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : 0.5,
-}
+# # Data-driven charge flip estimation
+# structure['ChargeFlip']  = {  
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : 0.5,
+# }
 
 # Data
 structure['DATA']  = { 
