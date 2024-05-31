@@ -1,7 +1,7 @@
 import sys
  
 # Enable reading YR for Higgs XS and uncertainties
-sys.path.append('../../macros/')
+sys.path.append('{}/macros/'.format(configurations_nuisance))
 import HiggsXSection
 HiggsXS = HiggsXSection.HiggsXSection()
 
@@ -16,7 +16,7 @@ dataSteps    = 'DATAl1loose2017v9__l2loose__l2tightOR2017v9'
 treeBaseDir  = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles   = -1
 
-mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+mc = [skey for skey in samples if skey not in ('Fake', 'DATA', 'ChargeFlip')]
 
 redirector = ""
 
@@ -242,7 +242,7 @@ nuisances['muonpt'] = {
     'type'       : 'shape',
     'mapUp'      : 'MupTup',
     'mapDown'    : 'MupTdo',
-    'samples'    : dict((skey, ['1', '1']) for skey in mc if skey != "ggWW"), # exclude ggWW
+    'samples'    : dict((skey, ['1', '1']) for skey in mc if skey not in ['ggWW','ZZ']), # exclude ggWW and ZZ
     'folderUp'   : makeMCDirectory('MupTup_suffix'),
     'folderDown' : makeMCDirectory('MupTdo_suffix'),
     'AsLnN'      : '0'
@@ -627,7 +627,6 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 }
 
 # WZ normalization from control region
-
 nuisances['WZ2jnorm']  = {
     'name'    : 'CMS_hww_WZ3l2jnorm',
     'samples' : {
@@ -644,6 +643,158 @@ nuisances['WZ1jnorm']  = {
     },
     'type' : 'rateParam',
     'cuts' : [cut for cut in cuts if '1j' in cut],
+}
+
+# Nonprompt leptons normalization from control region - split per charge
+nuisances['Nonpromptee2jnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonpromptee2jnorm_plus',
+    'samples' : {
+        'Fake_ee' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_plus_pt2ge20',
+    ],
+}
+nuisances['Nonpromptee2jnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonpromptee2jnorm_minus',
+    'samples' : {
+        'Fake_ee' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_minus_pt2ge20',
+    ],
+}
+
+nuisances['Nonpromptee1jnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonpromptee1jnorm_plus',
+    'samples' : {
+        'Fake_ee' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_plus_pt2ge20',
+    ],
+}
+nuisances['Nonpromptee1jnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonpromptee1jnorm_minus',
+    'samples' : {
+        'Fake_ee' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_minus_pt2ge20',
+    ],
+}
+
+
+nuisances['Nonpromptem2jnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonpromptem2jnorm_plus',
+    'samples' : {
+        'Fake_em' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_plus_pt2ge20',
+    ],
+}
+nuisances['Nonpromptem2jnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonpromptem2jnorm_minus',
+    'samples' : {
+        'Fake_em' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_minus_pt2ge20',
+    ],
+}
+
+nuisances['Nonpromptem1jnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonpromptem1jnorm_plus',
+    'samples' : {
+        'Fake_em' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_plus_pt2ge20',
+    ],
+}
+nuisances['Nonpromptem1jnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonpromptem1jnorm_minus',
+    'samples' : {
+        'Fake_em' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_minus_pt2ge20',
+    ],
+}
+
+nuisances['Nonpromptmm2jnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonpromptmm2jnorm_plus',
+    'samples' : {
+        'Fake_mm' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_plus_pt2ge20',
+    ],
+}
+nuisances['Nonpromptmm2jnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonpromptmm2jnorm_minus',
+    'samples' : {
+        'Fake_mm' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_minus_pt2ge20',
+    ],
+}
+
+nuisances['Nonpromptmm1jnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonpromptmm1jnorm_plus',
+    'samples' : {
+        'Fake_mm' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_plus_pt2ge20',
+    ],
+}
+nuisances['Nonpromptmm1jnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonpromptmm1jnorm_minus',
+    'samples' : {
+        'Fake_mm' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2lt20',
+        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_minus_pt2ge20',
+    ],
 }
 
 # Use the following if you want to apply the automatic combine MC stat nuisances.

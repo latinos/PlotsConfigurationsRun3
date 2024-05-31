@@ -132,6 +132,15 @@ cuts['hww2l2v_13TeV_WH_SS_ee_1j'] = {
     }
 }
 
+## Same-sign control region in the 0 jet bin: used in the WH3l category. Considering different flavor to avoid DY
+cuts['wh3l_13TeV_SS_CR'] = {
+    'expr' : 'Alt(Lepton_pt,2,0) < 15 && abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*13 && Alt(CleanJet_pt,0,0) < 30',
+    'categories' : {
+        'plus_pt2ge20'  : 'Lepton_pdgId[0] < 0 && Lepton_pdgId[1] < 0',
+        'minus_pt2ge20' : 'Lepton_pdgId[0] > 0 && Lepton_pdgId[1] > 0',
+    }
+}
+
 ## DY->ee CR - 2 same-sign electrons IN the Z peak. To check the charge-flip probability method to estimate DY in the signal region
 
 # DY CR 2jets
