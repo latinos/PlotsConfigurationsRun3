@@ -24,7 +24,7 @@ Compile the configuration. Do it after every change to any file in this director
 
 Produce histograms using batch:
 
-    mkShapesRDF -o 0 -f . -b 1
+    mkShapesRDF -c 1 -o 0 -f . -b 1
 
 Check jobs status:
 
@@ -45,3 +45,18 @@ Plot distributions:
 Produce datacards. Here, using the correct normalization for the signals:
 
     bash do_datacards.sh
+
+Combine datacards:
+
+    mkdir -p Combination
+
+    cmssw-cc7
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+
+    python script_datacards_binning.py
+
+Fit data to get results:
+
+    bash do_fit.sh
+
