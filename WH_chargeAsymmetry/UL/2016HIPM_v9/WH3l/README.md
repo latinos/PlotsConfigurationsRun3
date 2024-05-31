@@ -24,7 +24,7 @@ Compile the configuration. Do it after every change to any file in this director
 
 Produce histograms using batch:
 
-    mkShapesRDF -o 0 -f . -b 1
+    mkShapesRDF -c 1 -o 0 -f . -b 1
 
 Check jobs status:
 
@@ -40,4 +40,61 @@ Merge rootfiles:
 
 Plot distributions:
 
-    mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
+    bash do_plots.sh
+
+Produce datacards. Here, using the correct normalization for the signals:
+
+    bash do_datacards.sh
+
+Combine datacards:
+
+    mkdir -p Combination
+
+    cmssw-cc7
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+
+    python script_datacards_binning.py
+
+Fit data to get results:
+
+    bash do_fit.sh
+
+### Produce Impact Plots
+
+Source combine:
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/
+    cmsenv
+    cd -
+
+    ulimit -s unlimited
+
+Prepare directory:
+
+    mkdir -p Impact_plots
+
+Actually produce impact plots:
+
+    cd Impact_plots
+
+Using r_A as POI:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016HIPM_v9.root -m 125 --doInitialFit -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016HIPM_v9.root -m 125 --doFits -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --job-mode condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"'
+
+From outside the singularity:
+
+    condor_submit condor_combine_task.sub
+
+Back to the singularity:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016HIPM_v9.root -m 125 -t -1 -o impacts_WH3l_2016HIPM_binning.json --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A
+
+    plotImpacts.py -i impacts_WH3l_2016HIPM_binning.json -o Impact_WH3l_2016HIPM_binning
+
+    rm combine_*
+    rm condor_*
+    rm higgsCombine_*
+

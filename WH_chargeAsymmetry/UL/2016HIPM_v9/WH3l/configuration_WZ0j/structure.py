@@ -2,33 +2,36 @@
 
 # keys here must match keys in samples.py
 
+signal_normalization = 10.0
 
 # BTag normalization factors
-# Cut = wh3l_13TeV_wz_CR_1j
-scale_histo_ttH_hww      = 0.312969685421/0.247099779017       # 1.26657209758
-scale_histo_WW           = 0.222681825873/0.231135032091       # 0.96342741236
-scale_histo_DY           = 8.48599640578/11.2464559412         # 0.754548495112
-scale_histo_Zg           = 33.4159597129/31.4848824419         # 1.06133347566
-scale_histo_WZ           = 326.14228463/321.737033107          # 1.01369208723
-scale_histo_Wg           = 0.0/1                               # 0.0
-scale_histo_WgS          = 0.396639830493/0.377679939405       # 1.05020094824
-scale_histo_ZH_htt       = 0.647211182617/0.603269162892       # 1.07283982413
-scale_histo_WH_htt_plus  = 0.204551232709/0.201160841494       # 1.0168541312
-scale_histo_ggZH_hww     = 0.955085797014/0.912647853478       # 1.04649980096
-scale_histo_qqH_hww      = 0.000729842313993/0.000714512473071 # 1.02145496615
-scale_histo_ZZ           = 16.3879343788/15.2592464253         # 1.07396747664
-scale_histo_ggH_hww      = 0.0/1                               # 0.0
-scale_histo_WH_htt_minus = 0.132129838082/0.130875360742       # 1.00958528276
-scale_histo_VVV          = 4.31255531288/4.04889273743         # 1.06511967408
-scale_histo_WH_hww_plus  = 0.546340912106/0.546504137349       # 0.999701328441
-scale_histo_ggH_htt      = 0.0/1                               # 0.0
-scale_histo_ggWW         = 0.00795074060998/0.00781932711513   # 1.01680624086
-scale_histo_ZgS          = 15.464172469/14.6842166217          # 1.0531152507
-scale_histo_top          = 3.10353203795/2.4256136133          # 1.2794832701
-scale_histo_WWewk        = 0.0/1                               # 0.0
-scale_histo_ZH_hww       = 1.49378402302/1.44097072589         # 1.03665119366
-scale_histo_WH_hww_minus = 0.363050698017/0.353255918697       # 1.02772714851
-scale_histo_qqH_htt      = 0.0/1                               # 0.0
+# Cut = wh3l_13TeV_wz_CR_0j
+scale_histo_ttH_hww      = 0.0209199536457/0.0160189954293   # 1.30594666426
+scale_histo_WW           = 0.701283713155/0.735598628195     # 0.953351034484
+scale_histo_DY           = 300.450692418/290.606001207       # 1.03387642089
+scale_histo_Wg           = 0.134107044499/0.129074478062     # 1.03898963228
+scale_histo_Zg           = 14.2044454926/13.8783945246       # 1.02349342119
+scale_histo_Vg           = (14.2044454926+0.134107044499)/(0.129074478062+13.8783945246)
+scale_histo_WgS          = 0.338242812333/0.338242812333     # 1.0
+scale_histo_ZgS          = 6.77691785228/6.39034886522       # 1.06049262649
+scale_histo_VgS          = (6.77691785228+0.338242812333)/(0.338242812333+6.39034886522)
+scale_histo_WZ           = 708.217267388/701.373117571       # 1.0097582152
+scale_histo_ZH_htt       = 1.28605263957/1.2377110684        # 1.03905723428
+scale_histo_WH_htt_plus  = 0.182651076195/0.181626026677     # 1.00564373695
+scale_histo_ggZH_hww     = 1.66862949896/1.64198266514       # 1.01622845014
+scale_histo_qqH_hww      = 0.00140445037169/0.00140445037169 # 1.0
+scale_histo_ZZ           = 11.6929645213/11.3204247685       # 1.0329086373
+scale_histo_ggH_hww      = 0.0/1                             # 0.0
+scale_histo_WH_htt_minus = 0.132446203032/0.132355474256     # 1.00068549319
+scale_histo_VVV          = 3.84870215586/3.96622625598       # 0.970368785709
+scale_histo_WH_hww_plus  = 0.433291621311/0.435664408242     # 0.994553636042
+scale_histo_ggH_htt      = 0.0343676731798/0.0367198199557   # 0.935943401174
+scale_histo_ggWW         = 0.0569898829264/0.0566945667715   # 1.00520889693
+scale_histo_top          = 55.0042059133/53.5828014318       # 1.0265272521
+scale_histo_WWewk        = 0.0107066885131/0.0112027627088   # 0.95571858402
+scale_histo_ZH_hww       = 2.7381895438/2.70463559113        # 1.01240609004
+scale_histo_WH_hww_minus = 0.315796568398/0.312464116948     # 1.01066506927
+scale_histo_qqH_htt      = 0.00176438079285/0.00176438079285 # 1.0
 
 structure = {}
 
@@ -44,28 +47,16 @@ structure['WW']  = {
     'scaleSampleForDatacard' : scale_histo_WW,
 }
 
-structure['Wg']  = {
+structure['Vg']  = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Wg,
+    'scaleSampleForDatacard' : scale_histo_Vg,
 }
 
-structure['Zg']  = {
+structure['VgS']  = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Zg,
-}
-
-structure['WgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WgS,
-}
-
-structure['ZgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_ZgS,
+    'scaleSampleForDatacard' : scale_histo_VgS,
 }
 
 structure['ZZ']  = {
@@ -113,13 +104,13 @@ structure['ggZH_hww'] = {
 structure['WH_hww_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_plus,
+    'scaleSampleForDatacard' : scale_histo_WH_hww_plus*signal_normalization,
 }
 
 structure['WH_hww_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_minus,
+    'scaleSampleForDatacard' : scale_histo_WH_hww_minus*signal_normalization,
 }
 
 structure['ttH_hww'] = {
@@ -149,13 +140,13 @@ structure['ZH_htt'] = {
 structure['WH_htt_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_plus,
+    'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
 structure['WH_htt_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_plus,
+    'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
 structure['Fake']  = {

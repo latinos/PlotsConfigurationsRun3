@@ -25,8 +25,8 @@ cuts['wh3l_13TeV_sssf'] = {
     'categories' : {
         'plus_pt2ge20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
         'minus_pt2ge20' : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
-        'plus_pt2lt20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]<20',
-        'minus_pt2lt20' : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]<20',
+        # 'plus_pt2lt20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]<20',
+        # 'minus_pt2lt20' : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]<20',
     }
 }
 
@@ -36,8 +36,8 @@ cuts['wh3l_13TeV_ossf'] = {
     'categories' : {
         'plus_pt2ge20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
         'minus_pt2ge20' : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
-        'plus_pt2lt20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]<20',
-        'minus_pt2lt20' : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]<20',
+        # 'plus_pt2lt20'  : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]<20',
+        # 'minus_pt2lt20' : 'Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]<20',
     }
 }
 

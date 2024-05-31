@@ -1,7 +1,7 @@
 import sys
  
 # Enable reading YR for Higgs XS and uncertainties
-sys.path.append('../../macros/')
+sys.path.append('{}/macros/'.format(configurations_nuisance))
 import HiggsXSection
 HiggsXS = HiggsXSection.HiggsXSection()
 
@@ -229,19 +229,18 @@ nuisances['JER'] = {
     'AsLnN'     : '0'
 }
 
-##### MET unclustered energy
-
-nuisances['met'] = {
-    'name'      : 'CMS_scale_met_2016',
-    'kind'      : 'suffix',
-    'type'      : 'shape',
-    'mapUp'     : 'METup',
-    'mapDown'   : 'METdo',
-    'samples'   : dict((skey, ['1', '1']) for skey in mc),
-    'folderUp'  : makeMCDirectory('METup_suffix'),
-    'folderDown': makeMCDirectory('METdo_suffix'),
-    'AsLnN'     : '0'
-}
+# ##### MET unclustered energy
+# nuisances['met'] = {
+#     'name'      : 'CMS_scale_met_2016',
+#     'kind'      : 'suffix',
+#     'type'      : 'shape',
+#     'mapUp'     : 'METup',
+#     'mapDown'   : 'METdo',
+#     'samples'   : dict((skey, ['1', '1']) for skey in mc),
+#     'folderUp'  : makeMCDirectory('METup_suffix'),
+#     'folderDown': makeMCDirectory('METdo_suffix'),
+#     'AsLnN'     : '0'
+# }
 
 
 ##### Pileup
@@ -538,7 +537,6 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 }
 
 # WZ normalization from control region
-
 nuisances['WZ3lnorm']  = {
     'name'    : 'CMS_hww_WZ3lnorm',
     'samples' : {
@@ -551,6 +549,31 @@ nuisances['WZ3lnorm']  = {
         'wh3l_13TeV_sssf_plus',
         'wh3l_13TeV_sssf_minus',
         'wh3l_wz_13TeV',
+    ]
+}
+
+# Fakes normalization from control region
+nuisances['Nonprompt2lnorm_plus']  = {
+    'name'    : 'CMS_hww_Nonprompt2lnorm_plus',
+    'samples' : {
+        'Fake' : '1.00',
+    },
+    'type'  : 'rateParam',
+    'cuts'  : [
+        'wh3l_13TeV_ossf_plus',
+        'wh3l_13TeV_sssf_plus',
+    ]
+}
+
+nuisances['Nonprompt2lnorm_minus']  = {
+    'name'    : 'CMS_hww_Nonprompt2lnorm_minus',
+    'samples' : {
+        'Fake' : '1.00',
+    },
+    'type'  : 'rateParam',
+    'cuts'  : [
+        'wh3l_13TeV_ossf_minus',
+        'wh3l_13TeV_sssf_minus',
     ]
 }
 

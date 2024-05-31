@@ -233,7 +233,7 @@ for shift in ['jesAbsolute', 'jesAbsolute_2016', 'jesBBEC1', 'jesBBEC1_2016', 'j
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
-    'samples': 'WgS'
+    'samples': 'VgS'
 }
 
 aliases['gstarHigh'] = {
