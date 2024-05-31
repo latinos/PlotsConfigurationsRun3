@@ -60,3 +60,42 @@ Fit data to get results:
 
     bash do_fit.sh
 
+### Produce impact plots:
+
+Prepare directory:
+
+    mkdir -p Impact_plots
+
+Select datacard to use and actually produce impact plots:
+
+    cd Impact_plots
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016_noHIPM_v9.root -m 125 --doInitialFit -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016_noHIPM_v9.root -m 125 --doFits -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --job-mode condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"'
+
+From outside the singularity:
+
+    condor_submit condor_combine_task.sub
+
+Back to the singularity:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016_noHIPM_v9.root -m 125 -t -1 -o impacts_WH3l_2016noHIPM_binning.json --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A
+
+    plotImpacts.py -i impacts_WH3l_2016noHIPM_binning.json -o Impacts_WH3l_2016noHIPM_binning
+
+Remove the intermediate files:
+
+    rm combine_*
+    rm condor_*
+    rm higgsCombine_*
+
+Copy the plots on the web:
+
+    DATE=2024_05_03
+
+    mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/Impacts/
+
+    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/Impacts/
+
+    cp impacts_WH3l_2016noHIPM_binning.json Impacts_WH3l_2016noHIPM_binning.pdf /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/Impacts/
