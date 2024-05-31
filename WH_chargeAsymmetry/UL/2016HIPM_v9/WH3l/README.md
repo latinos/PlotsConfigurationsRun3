@@ -98,3 +98,12 @@ Back to the singularity:
     rm condor_*
     rm higgsCombine_*
 
+Copy the plots on the web:
+
+    DATE=2024_05_03
+
+    mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2016HIPM/Impacts/
+
+    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2016HIPM/Impacts/
+
+    cp impacts_WH3l_2016HIPM_binning.json Impact_WH3l_2016HIPM_binning.pdf /eos/user/n/ntrevisa/www/plots/${DATE}/2016HIPM/Impacts/

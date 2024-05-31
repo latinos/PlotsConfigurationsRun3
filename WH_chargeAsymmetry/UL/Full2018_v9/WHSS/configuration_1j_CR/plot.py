@@ -35,27 +35,6 @@ scale_histo_qqH_htt      = 0.011234128291/0.0123404588292  # 0.910349318975
 
 groupPlot = {}
  
-# groupPlot['top']  = {  
-#     'nameHR'   : 'tW+ and t#bar{t}',
-#     'isSignal' : 0,
-#     'color'    : 400,   # kYellow
-#     'samples'  : ['top']
-# }
-
-# groupPlot['WW']  = {  
-#     'nameHR'   : 'WW',
-#     'isSignal' : 0,
-#     'color'    : 851, # kAzure -9 
-#     'samples'  : ['WW', 'ggWW', 'WWewk']
-# }
-
-# groupPlot['DY']  = {  
-#     'nameHR'   : "DY",
-#     'isSignal' : 0,
-#     'color'    : 418,    # kGreen+2
-#     'samples'  : ['DY']
-# }
-
 groupPlot['Fake']  = {  
     'nameHR'   : 'Non-prompt',
     'isSignal' : 0,
@@ -137,42 +116,6 @@ plot['ChargeFlip']  = {
     'isData'   : 0, 
     'scale'    : 0.5,
 }
-
-# plot['DY']  = {  
-#     'color'    : 418,    # kGreen+2
-#     'isSignal' : 0,
-#     'isData'   : 0, 
-#     'scale'    : scale_histo_DY,
-# }
-
-# plot['top'] = {   
-#     'nameHR' : 'tW and t#bar{t}',
-#     'color'    : 400,   # kYellow
-#     'isSignal' : 0,
-#     'isData'   : 0, 
-#     'scale'    : scale_histo_top,
-# }
-
-# plot['WW']  = {
-#     'color'    : 851, # kAzure -9 
-#     'isSignal' : 0,
-#     'isData'   : 0,    
-#     'scale'    : scale_histo_WW,
-# }
-
-# plot['WWewk']  = {
-#     'color'    : 850, # kAzure -10
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scale'    : scale_histo_WWewk,
-# }
-
-# plot['ggWW']  = {
-#     'color'    : 850, # kAzure -10
-#     'isSignal' : 0,
-#     'isData'   : 0,    
-#     'scale'    : scale_histo_ggWW,
-# }
 
 plot['Vg']  = {
     'color'    : 859, # kAzure -1  

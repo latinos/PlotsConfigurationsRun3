@@ -35,37 +35,6 @@ scale_histo_qqH_htt      = 0.011234128291/0.0123404588292  # 0.910349318975
 
 structure = {}
 
-# structure['DY']  = {  
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scaleSampleForDatacard' : scale_histo_DY,
-# }
-
-# structure['top'] = {   
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scaleSampleForDatacard' : scale_histo_top,
-# }
-
-# structure['WW']  = {
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scaleSampleForDatacard' : scale_histo_WW,
-# }
-
-# structure['WWewk']  = {
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scaleSampleForDatacard' : scale_histo_WWewk,
-# }
-
-# structure['ggWW']  = {
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scaleSampleForDatacard' : scale_histo_ggWW,
-# }
-
-
 structure['Vg']  = { 
     'isSignal' : 0,
     'isData'   : 0,

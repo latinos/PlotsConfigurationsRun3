@@ -689,12 +689,10 @@ nuisances['Nonpromptee2jnorm_plus']  = {
         'Fake_ee' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '2j' in cut and '_ee_' in cut and 'plus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_plus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_plus_pt2lt20',
     ],
 }
 nuisances['Nonpromptee2jnorm_minus']  = {
@@ -703,12 +701,10 @@ nuisances['Nonpromptee2jnorm_minus']  = {
         'Fake_ee' : '1.00',
     },
     'type' : 'rateParam',
-    #'cuts' : [cut for cut in cuts if '2j' in cut and '_ee_' in cut and 'minus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_minus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_minus_pt2lt20',
     ],
 }
 
@@ -718,12 +714,10 @@ nuisances['Nonpromptee1jnorm_plus']  = {
         'Fake_ee' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '1j' in cut and '_ee_' in cut and 'plus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_plus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_plus_pt2lt20',
     ],
 }
 nuisances['Nonpromptee1jnorm_minus']  = {
@@ -732,12 +726,10 @@ nuisances['Nonpromptee1jnorm_minus']  = {
         'Fake_ee' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '1j' in cut and '_ee_' in cut and 'minus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_minus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_minus_pt2lt20',
     ],
 }
 
@@ -748,12 +740,10 @@ nuisances['Nonpromptem2jnorm_plus']  = {
         'Fake_em' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '2j' in cut and '_em_' in cut and 'plus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_plus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_plus_pt2lt20',
     ],
 }
 nuisances['Nonpromptem2jnorm_minus']  = {
@@ -762,12 +752,10 @@ nuisances['Nonpromptem2jnorm_minus']  = {
         'Fake_em' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '2j' in cut and '_em_' in cut and 'minus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_minus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_minus_pt2lt20',
     ],
 }
 
@@ -777,12 +765,10 @@ nuisances['Nonpromptem1jnorm_plus']  = {
         'Fake_em' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '1j' in cut and '_em_' in cut and 'plus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_plus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_plus_pt2lt20',
     ],
 }
 nuisances['Nonpromptem1jnorm_minus']  = {
@@ -791,12 +777,10 @@ nuisances['Nonpromptem1jnorm_minus']  = {
         'Fake_em' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '1j' in cut and '_em_' in cut and 'minus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_minus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_minus_pt2lt20',
     ],
 }
 
@@ -806,12 +790,10 @@ nuisances['Nonpromptmm2jnorm_plus']  = {
         'Fake_mm' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '2j' in cut and '_mm_' in cut and 'plus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_plus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_plus_pt2lt20',
     ],
 }
 nuisances['Nonpromptmm2jnorm_minus']  = {
@@ -820,12 +802,10 @@ nuisances['Nonpromptmm2jnorm_minus']  = {
         'Fake_mm' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '2j' in cut and '_mm_' in cut and 'minus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_minus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_minus_pt2lt20',
     ],
 }
 
@@ -835,12 +815,10 @@ nuisances['Nonpromptmm1jnorm_plus']  = {
         'Fake_mm' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '1j' in cut and '_mm_' in cut and 'plus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_plus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_plus_pt2lt20',
     ],
 }
 nuisances['Nonpromptmm1jnorm_minus']  = {
@@ -849,12 +827,10 @@ nuisances['Nonpromptmm1jnorm_minus']  = {
         'Fake_mm' : '1.00',
     },
     'type' : 'rateParam',
-    # 'cuts' : [cut for cut in cuts if '1j' in cut and '_mm_' in cut and 'minus' in cut["categories"]],
     'cuts' : [
         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2lt20',
         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_minus_pt2ge20',
-        # 'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_minus_pt2lt20',
     ],
 }
 
