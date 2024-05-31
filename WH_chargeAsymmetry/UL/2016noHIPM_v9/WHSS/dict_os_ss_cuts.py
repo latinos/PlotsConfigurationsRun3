@@ -56,4 +56,8 @@ dict_os_ss_cuts = {
     "hww2l2v_13TeV_WH_SS_em_1j_SS_CR_minus_pt2ge20"   : "hww2l2v_13TeV_WH_OS_em_1j_SS_CR_pt2ge20",
     "hww2l2v_13TeV_WH_SS_em_1j_SS_CR_plus_pt2lt20"    : "hww2l2v_13TeV_WH_OS_em_1j_SS_CR_pt2lt20",
     "hww2l2v_13TeV_WH_SS_em_1j_SS_CR_minus_pt2lt20"   : "hww2l2v_13TeV_WH_OS_em_1j_SS_CR_pt2lt20",
+
+    # WH3l control region
+    "wh3l_13TeV_SS_CR_plus_pt2ge20"  : "wh3l_13TeV_OS_CR_pt2ge20",
+    "wh3l_13TeV_SS_CR_minus_pt2ge20" : "wh3l_13TeV_OS_CR_pt2ge20",
 }

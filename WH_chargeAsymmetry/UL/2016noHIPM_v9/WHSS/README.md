@@ -24,7 +24,7 @@ Compile the configuration. Do it after every change to any file in this director
 
 Produce histograms using batch:
 
-    mkShapesRDF -o 0 -f . -b 1
+    mkShapesRDF -c 1 -o 0 -f . -b 1
 
 Check jobs status:
 
@@ -45,3 +45,61 @@ Update same-sign histogram file with opposite-sign DY distributions, weighted to
 Plot distributions:
 
     bash do_plots.sh
+
+Produce datacards. Here, using the correct normalization for the signals:
+
+    bash do_datacards.sh
+
+To combine datacards, open a new lxplus terminal. We will run combine inside a singularity, and the setting loaded to run mkShapesRDF may interfere with those required by combine:
+
+    cmssw-cc7
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+
+    mkdir -p Combination
+
+    python script_datacards_binning_SS_CR.py
+
+Fit data to get results:
+
+    bash do_fit.sh
+
+### Produce impact plots:
+
+Prepare directory:
+
+    mkdir -p Impact_plots
+
+Select datacard to use and actually produce impact plots:
+
+    cd Impact_plots
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_SS_2016noHIPM_v9_SS_CR.root -m 125 --doInitialFit -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_SS_2016noHIPM_v9_SS_CR.root -m 125 --doFits -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --job-mode condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"'
+
+From outside the singularity:
+
+    condor_submit condor_combine_task.sub
+
+Back to the singularity:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_SS_2016noHIPM_v9_SS_CR.root -m 125 -t -1 -o impacts_WHSS_2016noHIPM_binning.json --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A
+
+    plotImpacts.py -i impacts_WHSS_2016noHIPM_binning.json -o Impacts_WHSS_2016noHIPM_binning
+
+Remove the intermediate files:
+
+    rm combine_*
+    rm condor_*
+    rm higgsCombine_*
+
+Copy the plots on the web:
+
+    DATE=2024_05_03
+
+    mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/Impacts/
+
+    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/Impacts/
+
+    cp impacts_WHSS_2016noHIPM_binning.json Impacts_WHSS_2016noHIPM_binning.pdf /eos/user/n/ntrevisa/www/plots/${DATE}/2016noHIPM/Impacts/

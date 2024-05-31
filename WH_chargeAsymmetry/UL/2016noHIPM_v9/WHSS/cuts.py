@@ -132,28 +132,14 @@ cuts['hww2l2v_13TeV_WH_SS_ee_1j'] = {
     }
 }
 
-
-## WZ CR --> 3l control region: should it go in a different cfg, due to lepton selections and SFs? Check it!
-
-# # CR 1jet
-# cuts['hww2l2v_13TeV_WH_SS_WZ_1j'] = '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11))\
-#                                        && (nLepton>=3 && Alt(Lepton_pt[3],0)<10) \
-#                                        && Lepton_pt[2]>15 \
-#                                        && Alt(CleanJet_pt,0,0)>30 \
-#                                        && Alt(CleanJet_pt,1,0)<30 \
-#                                        && WH3l_mlll > 100 \
-#                                        && abs(WH3l_chlll) == 1 \
-#                                        '
-
-# # CR 2jets
-# cuts['hww2l2v_13TeV_WH_SS_WZ_2j'] = '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11)) \
-#                                        && (nLepton>=3 && Alt(Lepton_pt[3],0)<10) \
-#                                        && Lepton_pt[2]>15 \
-#                                        && Alt(CleanJet_pt,0,0)>30 \
-#                                        && Alt(CleanJet_pt,1,0)>30 \
-#                                        && WH3l_mlll > 100 \
-#                                        && abs(WH3l_chlll) == 1 \
-#                                        '
+## Same-sign control region in the 0 jet bin: used in the WH3l category. Considering different flavor to avoid DY
+cuts['wh3l_13TeV_SS_CR'] = {
+    'expr' : 'Alt(Lepton_pt,2,0) < 15 && abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*13 && Alt(CleanJet_pt,0,0) < 30',
+    'categories' : {
+        'plus_pt2ge20'  : 'Lepton_pdgId[0] < 0 && Lepton_pdgId[1] < 0',
+        'minus_pt2ge20' : 'Lepton_pdgId[0] > 0 && Lepton_pdgId[1] > 0',
+    }
+}
 
 ## DY->ee CR - 2 same-sign electrons IN the Z peak. To check the charge-flip probability method to estimate DY in the signal region
 
