@@ -3,6 +3,8 @@
 # keys here must match keys in samples.py
 #
 
+signal_normalization = 10.0
+
 # BTag normalization factors
 # Cut = wh3l_13TeV_ossf
 scale_histo_ttH_hww      = 0.107932481916/0.10008965436    # 1.07835802417
@@ -113,13 +115,13 @@ structure['ggZH_hww'] = {
 structure['WH_hww_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_plus,
+    'scaleSampleForDatacard' : scale_histo_WH_hww_plus*signal_normalization,
 }
 
 structure['WH_hww_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_hww_minus,
+    'scaleSampleForDatacard' : scale_histo_WH_hww_minus*signal_normalization,
 }
 
 structure['ttH_hww'] = {
@@ -149,13 +151,13 @@ structure['ZH_htt'] = {
 structure['WH_htt_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_plus,
+    'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
 structure['WH_htt_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WH_htt_plus,
+    'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
 structure['Fake']  = {

@@ -1,7 +1,7 @@
 import sys
  
 # Enable reading YR for Higgs XS and uncertainties
-sys.path.append('../../macros/')
+sys.path.append('{}/macros/'.format(configurations_nuisance))
 import HiggsXSection
 HiggsXS = HiggsXSection.HiggsXSection()
 
@@ -198,7 +198,7 @@ nuisances['muonpt'] = {
     'type'       : 'shape',
     'mapUp'      : 'MupTup',
     'mapDown'    : 'MupTdo',
-    'samples'    : dict((skey, ['1', '1']) for skey in mc),
+    'samples'    : dict((skey, ['1', '1']) for skey in mc if skey not in ['ZZ']),
     'folderUp'   : makeMCDirectory('MupTup_suffix'),
     'folderDown' : makeMCDirectory('MupTdo_suffix'),
     'AsLnN'      : '0'
@@ -235,19 +235,18 @@ nuisances['JER'] = {
     'AsLnN'     : '0'
 }
 
-##### MET unclustered energy
-
-nuisances['met'] = {
-    'name'      : 'CMS_scale_met_2017',
-    'kind'      : 'suffix',
-    'type'      : 'shape',
-    'mapUp'     : 'METup',
-    'mapDown'   : 'METdo',
-    'samples'   : dict((skey, ['1', '1']) for skey in mc),
-    'folderUp'  : makeMCDirectory('METup_suffix'),
-    'folderDown': makeMCDirectory('METdo_suffix'),
-    'AsLnN'     : '0'
-}
+# ##### MET unclustered energy
+# nuisances['met'] = {
+#     'name'      : 'CMS_scale_met_2017',
+#     'kind'      : 'suffix',
+#     'type'      : 'shape',
+#     'mapUp'     : 'METup',
+#     'mapDown'   : 'METdo',
+#     'samples'   : dict((skey, ['1', '1']) for skey in mc),
+#     'folderUp'  : makeMCDirectory('METup_suffix'),
+#     'folderDown': makeMCDirectory('METdo_suffix'),
+#     'AsLnN'     : '0'
+# }
 
 
 ##### Pileup

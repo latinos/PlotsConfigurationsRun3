@@ -44,6 +44,16 @@ variables['BDT_WH3l_SSSF_new_v9_0_75'] = {
     'fold'  : 3,
 }
 
+###########################
+# For WHSS WZ normalization
+###########################
+variables['BDTG6_TT'] = {
+    'name'     : 'BDT_WHSS_TopSemileptonic_v9',
+    'range'    : (40,-1,1),
+    'xaxis'    : 'BDT discriminant',
+    'fold'     : 3
+}
+
 # ###################
 # # Control variables
 # ###################

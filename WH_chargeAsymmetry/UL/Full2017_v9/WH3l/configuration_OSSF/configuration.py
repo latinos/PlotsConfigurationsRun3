@@ -1,5 +1,15 @@
 # Configuration file for charge asymmetry WH3l analysis using the UL 2017 dataset
 
+import sys,inspect
+
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2017_v9/WH3l/configuration_OSSF/
+
+configurations_nuisance = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
+configurations_nuisance = os.path.dirname(configurations_nuisance) # configuration_OSSF
+configurations_nuisance = os.path.dirname(configurations_nuisance) # WH3l
+configurations_nuisance = os.path.dirname(configurations_nuisance) # Full2017_v9
+configurations_nuisance = os.path.dirname(configurations_nuisance) # UL
+
 # Tag used to identify the configuration folder version
 tag = 'WH3l_2017_v9_chargeAsymmetry_Mu82_EleUL90'
 
@@ -42,7 +52,7 @@ plotFile = 'plot.py'
 structureFile = "structure.py"
 
 # Nuisances file for mkDatacards and for mkShape
-nuisancesFile = "nuisances.py"
+nuisancesFile = "../nuisances.py"
 
 # Path to folder where to save plots
 plotPath = '../plots_' + tag
