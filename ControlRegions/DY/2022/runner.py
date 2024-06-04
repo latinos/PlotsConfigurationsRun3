@@ -1306,17 +1306,20 @@ def recomputeJets(self, df):
     if "Run2022EE" in self.samples[0][1][0]:
         isData = True
         isEE = True
-        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022EE/jetvetomaps.json"
+        pathToJson = "/afs/cern.ch/user/c/cgrieco/private/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022EE/jetvetomaps.json"
+        #pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022EE/jetvetomaps.json"
         globalTag = "Summer22EE_23Sep2023_RunEFG_V1"
 
     elif "Run2022_" in self.samples[0][1][0]:
         isData = True
-        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022/jetvetomaps.json"
+        pathToJson = "/afs/cern.ch/user/c/cgrieco/private/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022/jetvetomaps.json"
+        #pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022/jetvetomaps.json"
         globalTag = "Summer22_23Sep2023_RunCD_V1"
         
     elif "Summer22EE" in self.samples[0][1][0]:
         isEE = True
-        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022EE/jetvetomaps.json"
+        patTooJson = "/afs/cern.ch/user/c/cgrieco/private/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022EE/jetvetomaps.json"
+        #pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022EE/jetvetomaps.json"
         globalTag = "Summer22EE_23Sep2023_RunEFG_V1"
 
         JEC_era = "Summer22EE_22Sep2023_V2_MC"
@@ -1325,7 +1328,8 @@ def recomputeJets(self, df):
         met_collections = ["PuppiMET", "MET", "RawMET"]
                 
     else:
-        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022/jetvetomaps.json"
+        pathToJson = "/afs/cern.ch/user/c/cgrieco/private/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022/jetvetomaps.json"
+        #pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/mkShapesRDF/processor/data/jetvetomaps/Run2022/jetvetomaps.json"
         globalTag = "Summer22_23Sep2023_RunCD_V1"
 
         JEC_era = "Summer22_22Sep2023_V2_MC"
@@ -1839,7 +1843,8 @@ def recomputeJets(self, df):
                             "jesPileUpPtEC1","jesPileUpPtEC2","jesPileUpPtHF"]
 
         mode = "shape"
-        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/polarization/btagging_Summer22EE.json"
+        pathToJson = "/afs/cern.ch/user/c/cgrieco/private/mkShapesRDF/mkShapesRDF/processor/data/scale_factors_BTV/Full2022EEv12/btagging_Summer22EE.json"
+        #pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/polarization/btagging_Summer22EE.json"
 
     else:
 
@@ -1852,7 +1857,8 @@ def recomputeJets(self, df):
                             "jesPileUpPtEC1","jesPileUpPtEC2","jesPileUpPtHF"]
 
         mode = "shape"
-        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/polarization/btagging_Summer22.json"
+#        pathToJson = "/afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/polarization/btagging_Summer22.json"
+        pathToJson = "/afs/cern.ch/user/c/cgrieco/private/mkShapesRDF/mkShapesRDF/processor/data/scale_factors_BTV/Full2022v12/btagging_Summer22.json"
 
 
 

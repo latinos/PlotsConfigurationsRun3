@@ -336,7 +336,8 @@ aliases["nMyCleanJet"] = {
 }'''
 # Number of hard (= gen-matched) jets                                                                                                                                                                       
 aliases['nHardJets'] = {
-    'expr':  'Sum(Jet_genJetIdx[MyCleanJet_jetIdx] >= 0 && GenJet_pt[Jet_genJetIdx[MyCleanJet_jetIdx]] > 25)',
+#    'expr':  'Sum(Jet_genJetIdx[MyCleanJet_jetIdx] >= 0 && GenJet_pt[Jet_genJetIdx[MyCleanJet_jetIdx]] > 25)',
+    'expr':  'Sum(Take(Jet_genJetIdx,MyCleanJet_jetIdx) >= 0 && Take(GenJet_pt,Take(Jet_genJetIdx,MyCleanJet_jetIdx)) > 25)',
 }
 
 # Two leading jets matched to gen-level jets with pT > 25 GeV 
