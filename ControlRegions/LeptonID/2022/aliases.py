@@ -233,120 +233,95 @@ aliases["nMyCleanJet"] = {
     'expr': 'MyCleanJet_pt.size()'
 }
 
-#aliases['WWvariables_B'] = {
-#    'linesToAdd': [".L /afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/extended/BoostVar.C+"],
-#    'class': "getVariables",
-#    'args': 'Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,PuppiMET_pt,PuppiMET_phi',
-#    'afterNuis': True
-#}
-
-#aliases["cosTheta_CS"] = {
-#    'expr': 'WWvariables_B[0]',
-#    'afterNuis': True
-#}
-#aliases["cosTheta_star"] = {
-#    'expr': 'WWvariables_B[1]',
-#    'afterNuis': True
-#}
-#aliases["dphi_star3"] = {
-#    'expr': 'WWvariables_B[2]',
-#    'afterNuis': True
-#}
-#aliases["costheta_CS2"] = {
-#    'expr': 'WWvariables_B[3]',
-#    'afterNuis': True
-#}
-#aliases["ME_WW_cos"] = {
-##    'expr': 'WWvariables_B[4]',
-#    'afterNuis': True
-#}
-#aliases["ME_WW_cos1"] = {
-#    'expr': 'WWvariables_B[5]',
-#    'afterNuis': True
-#}
-#aliases["ME_WW_Eta"] = {
-#    'expr': 'WWvariables_B[6]',
-#    'afterNuis': True
-#}
-
-#aliases['WWvariables'] = {
-#    'linesToAdd': [".L /afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/polarization/DelaPhiMET.C+"],
-#    'class': "getVariables",
-#    'args': 'Lepton_pt,Lepton_phi,Lepton_eta,PuppiMET_pt,PuppiMET_phi,TkMET_pt,TkMET_phi',
-#    'afterNuis': True
-#}
-
-#aliases['mll_'] = {
-#    'expr': 'WWvariables[9]',
-#    'afterNuis': True
-#}
-#aliases['mth_'] = {
- #   'expr': 'WWvariables[10]',
-#    'afterNuis': True
-#}
-#aliases['mtw1_'] = {
-#    'expr': 'WWvariables[11]',
-#    'afterNuis': True
-#}
-#aliases['mtw2_'] = {
-#    'expr': 'WWvariables[12]',
-#    'afterNuis': True
-#}
-#aliases['ptll_'] = {
-#    'expr': 'WWvariables[7]',
-#    'afterNuis': True
-#}
-#aliases['drll_'] = {
-#    'expr': 'WWvariables[8]',
-#    'afterNuis': True#
-#}
-#aliases['dphill_'] = {
-#    'expr': 'WWvariables[6]',
-#    'afterNuis': True
-#}
-#aliases['detall_'] = {
-#    'expr': 'WWvariables[5]',
-#    'afterNuis': True
-#}
-#aliases['mpmet'] = {
-#    'expr': 'WWvariables[4]',
-#    'afterNuis': True
-#}
-#aliases['dphilmet_'] = {
-#    'expr': 'WWvariables[0]',
-#    'afterNuis': True
-#}
-
-#aliases['RandomForest_evaluator'] = {
-#    'linesToAdd' : ['.L /afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/extended/evaluate#_RF_polarization.cc+'],
-#    'class' : 'evaluate_dnn',
-#    'args': 'Lepton_pt[0],Lepton_pt[1],mll_,mth_,mtw1_,mtw2_,ptll_,drll_,dphill_,PuppiMET_pt,PuppiMET_phi,detall#_,mpmet,dphilmet_,cosTheta_CS,dphi_star3,costheta_CS2,ME_WW_cos,ME_WW_cos1,ME_WW_Eta',
-#    'afterNuis': True#
-#}
-
-#Added from Full 2018_v9 -  do i need to add also tghe aliases from hardjers and PUJets?
-# Number of hard (= gen-matched) jets
-
-'''aliases['nHardJets'] = {
-    'expr': 'Sum(hardJets)',
-#    'expr':  '!(Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25)',
-  #  'expr':  'Sum(Take(Jet_genJetIdx,CleanJet_jetIdx) >= 0 && Take(GenJet_pt,Jet_genJetIdx[CleanJet_jetIdx]) > 25)',
-   # 'expr': 'Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 0, -1), 0)>=0 && Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 1, -1), 0)>=0 && Alt(GenJet_pt, Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 0, -1), -1), -1) > 25 && Alt(GenJet_pt, Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 1, -1),-1), -1) > 25'
-    'samples': ['DY']
-}'''
-# Number of hard (= gen-matched) jets                                                                                                                                                                       
-aliases['nHardJets'] = {
-#    'expr':  'Sum(Jet_genJetIdx[MyCleanJet_jetIdx] >= 0 && GenJet_pt[Jet_genJetIdx[MyCleanJet_jetIdx]] > 25)',
-    'expr':  'Sum(Take(Jet_genJetIdx,MyCleanJet_jetIdx) >= 0 && Take(GenJet_pt,Take(Jet_genJetIdx,MyCleanJet_jetIdx)) > 25)',
+aliases['WWvariables_B'] = {
+    'linesToAdd': [".L /afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/extended/BoostVar.C+"],
+    'class': "getVariables",
+    'args': 'Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,PuppiMET_pt,PuppiMET_phi',
+    'afterNuis': True
 }
 
-# Two leading jets matched to gen-level jets with pT > 25 GeV 
-aliases['hardJets'] = {
-    'expr':  'Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25', 
-    'samples': ['DY']
+aliases["cosTheta_CS"] = {
+    'expr': 'WWvariables_B[0]',
+    'afterNuis': True
+}
+aliases["cosTheta_star"] = {
+    'expr': 'WWvariables_B[1]',
+    'afterNuis': True
+}
+aliases["dphi_star3"] = {
+    'expr': 'WWvariables_B[2]',
+    'afterNuis': True
+}
+aliases["costheta_CS2"] = {
+    'expr': 'WWvariables_B[3]',
+    'afterNuis': True
+}
+aliases["ME_WW_cos"] = {
+    'expr': 'WWvariables_B[4]',
+    'afterNuis': True
+}
+aliases["ME_WW_cos1"] = {
+    'expr': 'WWvariables_B[5]',
+    'afterNuis': True
+}
+aliases["ME_WW_Eta"] = {
+    'expr': 'WWvariables_B[6]',
+    'afterNuis': True
 }
 
-aliases['PUJets'] = {
-    'expr':  '!(Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25)',
-    'samples': ['DY']
+aliases['WWvariables'] = {
+    'linesToAdd': [".L /afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/polarization/DelaPhiMET.C+"],
+    'class': "getVariables",
+    'args': 'Lepton_pt,Lepton_phi,Lepton_eta,PuppiMET_pt,PuppiMET_phi,TkMET_pt,TkMET_phi',
+    'afterNuis': True
 }
+
+aliases['mll_'] = {
+    'expr': 'WWvariables[9]',
+    'afterNuis': True
+}
+aliases['mth_'] = {
+    'expr': 'WWvariables[10]',
+    'afterNuis': True
+}
+aliases['mtw1_'] = {
+    'expr': 'WWvariables[11]',
+    'afterNuis': True
+}
+aliases['mtw2_'] = {
+    'expr': 'WWvariables[12]',
+    'afterNuis': True
+}
+aliases['ptll_'] = {
+    'expr': 'WWvariables[7]',
+    'afterNuis': True
+}
+aliases['drll_'] = {
+    'expr': 'WWvariables[8]',
+    'afterNuis': True
+}
+aliases['dphill_'] = {
+    'expr': 'WWvariables[6]',
+    'afterNuis': True
+}
+aliases['detall_'] = {
+    'expr': 'WWvariables[5]',
+    'afterNuis': True
+}
+aliases['mpmet'] = {
+    'expr': 'WWvariables[4]',
+    'afterNuis': True
+}
+aliases['dphilmet_'] = {
+    'expr': 'WWvariables[0]',
+    'afterNuis': True
+}
+
+aliases['RandomForest_evaluator'] = {
+    'linesToAdd' : ['.L /afs/cern.ch/work/s/sblancof/private/Run3Analysis/mkShapesRDF/examples/extended/evaluate_RF_polarization.cc+'],
+    'class' : 'evaluate_dnn',
+    'args': 'Lepton_pt[0],Lepton_pt[1],mll_,mth_,mtw1_,mtw2_,ptll_,drll_,dphill_,PuppiMET_pt,PuppiMET_phi,detall_,mpmet,dphilmet_,cosTheta_CS,dphi_star3,costheta_CS2,ME_WW_cos,ME_WW_cos1,ME_WW_Eta',
+    'afterNuis': True
+}
+
+
