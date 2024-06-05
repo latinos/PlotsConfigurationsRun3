@@ -210,6 +210,3 @@ variables['re_jeteta2_noHorn']  = {
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
 }
-
-
-

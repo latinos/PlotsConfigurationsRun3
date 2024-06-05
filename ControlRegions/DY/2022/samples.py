@@ -139,9 +139,8 @@ files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50') + \
 samples['DY'] = {
     'name': files,
     #'weight': mcCommonWeight + '*8.174732641*( !(Sum(PhotonGen_isPrompt==1 && PhotonGen_pt>15 && abs(PhotonGen_eta)<2.6) > 0))',
-    'weight': mcCommonWeight + '*8.174732641',
+    'weight': mcCommonWeight,
     'FilesPerJob': 2,
-#this subsample here added from full 2018_v9
     'subsamples': {
         'nHardJets_0' : 'nHardJets == 0',
         'nHardJets_1' : 'nHardJets == 1',
@@ -154,279 +153,279 @@ samples['DY'] = {
 #        nanoGetSampleFiles(mcDirectory2, 'DYto2L-2Jets_MLL-10to50')
 
 
-samples['DY_EE'] = {
-    'name': files,
-    #'weight': mcCommonWeight + '*27.0*( !(Sum(PhotonGen_isPrompt==1 && PhotonGen_pt>15 && abs(PhotonGen_eta)<2.6) > 0))',
-    'weight': mcCommonWeight + '*27.0',
-    'FilesPerJob': 2,
-}
+# samples['DY_EE'] = {
+#     'name': files,
+#     #'weight': mcCommonWeight + '*27.0*( !(Sum(PhotonGen_isPrompt==1 && PhotonGen_pt>15 && abs(PhotonGen_eta)<2.6) > 0))',
+#     'weight': mcCommonWeight + '*27.0',
+#     'FilesPerJob': 2,
+# }
 
-###### Top #######
+# ###### Top #######
 
-files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
-        nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
-        nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop') + \
-        nanoGetSampleFiles(mcDirectory, 'ST_tW_top') + \
-        nanoGetSampleFiles(mcDirectory, 'ST_tW_antitop')
+# files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+#         nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
+#         nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop') + \
+#         nanoGetSampleFiles(mcDirectory, 'ST_tW_top') + \
+#         nanoGetSampleFiles(mcDirectory, 'ST_tW_antitop')
 
-samples['top'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
+# samples['top'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
 
-addSampleWeight(samples,'top','ST_tW_top','0.108')
-addSampleWeight(samples,'top','ST_tW_antitop','0.108')
+# addSampleWeight(samples,'top','ST_tW_top','0.108')
+# addSampleWeight(samples,'top','ST_tW_antitop','0.108')
 
-addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
+# addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
 
-#files = nanoGetSampleFiles(mcDirectory2, 'TTTo2L2Nu') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ST_t-channel_top') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ST_t-channel_antitop') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ST_tW_top') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ST_tW_antitop')
+# #files = nanoGetSampleFiles(mcDirectory2, 'TTTo2L2Nu') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ST_t-channel_top') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ST_t-channel_antitop') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ST_tW_top') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ST_tW_antitop')
 
-samples['top_EE'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*27.0',
-    'FilesPerJob': 2,
-}
+# samples['top_EE'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*27.0',
+#     'FilesPerJob': 2,
+# }
 
-addSampleWeight(samples,'top_EE','ST_tW_top','0.108')
-addSampleWeight(samples,'top_EE','ST_tW_antitop','0.108')
+# addSampleWeight(samples,'top_EE','ST_tW_top','0.108')
+# addSampleWeight(samples,'top_EE','ST_tW_antitop','0.108')
 
-addSampleWeight(samples,'top_EE','TTTo2L2Nu','Top_pTrw')
+# addSampleWeight(samples,'top_EE','TTTo2L2Nu','Top_pTrw')
 
-###### WW ####### 
+# ###### WW ####### 
 
-files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
+# files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
-samples['WW'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641', #+ '*1.03', ## To take into account missing ggWW
-    'FilesPerJob': 2,
-}
-
-
-#files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu')
-
-samples['WW_EE'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*27.0', #+ '*1.03', ## To take into account missing ggWW
-    'FilesPerJob': 2,
-}
+# samples['WW'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641', #+ '*1.03', ## To take into account missing ggWW
+#     'FilesPerJob': 2,
+# }
 
 
-######
-###### POLARIZATION
-######
+# #files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu')
 
-files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_LL')
-samples['WW_LL'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-#files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_LL')
-#samples['WW_LL_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
-
-files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_TT')
-samples['WW_TT'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-#files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_TT')
-#samples['WW_TT_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# samples['WW_EE'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*27.0', #+ '*1.03', ## To take into account missing ggWW
+#     'FilesPerJob': 2,
+# }
 
 
-files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_TL')
-samples['WW_TL'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-#files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_TL')
-#samples['WW_TL_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# ######
+# ###### POLARIZATION
+# ######
 
-files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_LT')
-samples['WW_LT'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-#files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_LT')
-#samples['WW_LT_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_LL')
+# samples['WW_LL'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+# #files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_LL')
+# #samples['WW_LL_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
 
-
-### -----------------------------------------------------------------------------------------
-
-
-files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu') + \
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu')
-
-samples['ggWW'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-
-#files = nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoENuENu') + \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoENuMuNu') + \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoENuTauNu') +   \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoMuNuENu') +    \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoMuNuMuNu') +   \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoMuNuTauNu') +  \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoTauNuENu') +   \
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoTauNuMuNu') +  \#
-#    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoTauNuTauNu')
-
-#samples['ggWW'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_TT')
+# samples['WW_TT'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+# #files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_TT')
+# #samples['WW_TT_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
 
 
-###### WGamma #######
+# files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_TL')
+# samples['WW_TL'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+# #files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_TL')
+# #samples['WW_TL_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
 
-#files = nanoGetSampleFiles(mcDirectory, '')
-#
-#samples['Wg'] = {
-#    'name': files,
-#    'weight': mcCommonWeight
-#    'FilesPerJob': 2,
-#}
-
-###### Zgamma #######
-
-###### ZgS #######
-
-
-
-###### ZZ #######
-
-files = nanoGetSampleFiles(mcDirectory, 'ZZTo4L') + \
-        nanoGetSampleFiles(mcDirectory, 'ZZTo2L2Nu') + \
-        nanoGetSampleFiles(mcDirectory, 'ZZTo2L2Q') + \
-        nanoGetSampleFiles(mcDirectory, 'ZZTo2Q2Nu')
-
-samples['ZZ'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-
-#files = nanoGetSampleFiles(mcDirectory2, 'ZZTo4L') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ZZTo2L2Nu') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ZZTo2L2Q') + \
-#        nanoGetSampleFiles(mcDirectory2, 'ZZTo2Q2Nu')
-
-#samples['ZZ_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
-
-###### WZ #######
-
-files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
-
-samples['WZ'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-
-#files = nanoGetSampleFiles(mcDirectory2, 'WZTo3LNu')
-
-#samples['WZ_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
-
-#addSampleWeight(samples, 'WZ', 'WZTo3LNu', '(0.601644*58.59/4.666)')
-
-###### VVV #######
-files = nanoGetSampleFiles(mcDirectory, 'ZZZ') + \
-        nanoGetSampleFiles(mcDirectory, 'WZZ') + \
-        nanoGetSampleFiles(mcDirectory, 'WWZ') + \
-        nanoGetSampleFiles(mcDirectory, 'WWW')
-
-samples['VVV'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
-
-#files = nanoGetSampleFiles(mcDirectory2, 'ZZZ') + \
-#        nanoGetSampleFiles(mcDirectory2, 'WZZ') + \
-#        nanoGetSampleFiles(mcDirectory2, 'WWZ') + \
-#        nanoGetSampleFiles(mcDirectory2, 'WWW')
-
-#samples['VVV_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu_LT')
+# samples['WW_LT'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+# #files = nanoGetSampleFiles(mcDirectory2, 'WWTo2L2Nu_LT')
+# #samples['WW_LT_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
 
 
-###### ggH Higgs #######
-files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
+# ### -----------------------------------------------------------------------------------------
 
-samples['ggH_hww'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
 
-#files = nanoGetSampleFiles(mcDirectory2, 'GluGluHToWWTo2L2Nu_M125')
+# files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu') + \
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu') +	\
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu') +	\
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu') +	\
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') +	\
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu') +	\
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') +	\
+#     nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu')
 
-#samples['ggH_hww_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# samples['ggWW'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
 
-files = nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125')
+# #files = nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoENuENu') + \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoENuMuNu') + \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoENuTauNu') +   \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoMuNuENu') +    \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoMuNuMuNu') +   \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoMuNuTauNu') +  \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoTauNuENu') +   \
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoTauNuMuNu') +  \#
+# #    nanoGetSampleFiles(mcDirectory2, 'GluGlutoContintoWWtoTauNuTauNu')
 
-samples['qqH_hww'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*8.174732641',
-    'FilesPerJob': 2,
-}
+# #samples['ggWW'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
 
-#files = nanoGetSampleFiles(mcDirectory2, 'VBFHToWWTo2L2Nu_M125')
 
-#samples['qqH_hww_EE'] = {
-#    'name': files,
-#    'weight': mcCommonWeight + '*27.0',
-#    'FilesPerJob': 2,
-#}
+# ###### WGamma #######
+
+# #files = nanoGetSampleFiles(mcDirectory, '')
+# #
+# #samples['Wg'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight
+# #    'FilesPerJob': 2,
+# #}
+
+# ###### Zgamma #######
+
+# ###### ZgS #######
+
+
+
+# ###### ZZ #######
+
+# files = nanoGetSampleFiles(mcDirectory, 'ZZTo4L') + \
+#         nanoGetSampleFiles(mcDirectory, 'ZZTo2L2Nu') + \
+#         nanoGetSampleFiles(mcDirectory, 'ZZTo2L2Q') + \
+#         nanoGetSampleFiles(mcDirectory, 'ZZTo2Q2Nu')
+
+# samples['ZZ'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+
+# #files = nanoGetSampleFiles(mcDirectory2, 'ZZTo4L') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ZZTo2L2Nu') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ZZTo2L2Q') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'ZZTo2Q2Nu')
+
+# #samples['ZZ_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
+
+# ###### WZ #######
+
+# files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
+
+# samples['WZ'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+
+# #files = nanoGetSampleFiles(mcDirectory2, 'WZTo3LNu')
+
+# #samples['WZ_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
+
+# #addSampleWeight(samples, 'WZ', 'WZTo3LNu', '(0.601644*58.59/4.666)')
+
+# ###### VVV #######
+# files = nanoGetSampleFiles(mcDirectory, 'ZZZ') + \
+#         nanoGetSampleFiles(mcDirectory, 'WZZ') + \
+#         nanoGetSampleFiles(mcDirectory, 'WWZ') + \
+#         nanoGetSampleFiles(mcDirectory, 'WWW')
+
+# samples['VVV'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+
+# #files = nanoGetSampleFiles(mcDirectory2, 'ZZZ') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'WZZ') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'WWZ') + \
+# #        nanoGetSampleFiles(mcDirectory2, 'WWW')
+
+# #samples['VVV_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
+
+
+# ###### ggH Higgs #######
+# files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
+
+# samples['ggH_hww'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+
+# #files = nanoGetSampleFiles(mcDirectory2, 'GluGluHToWWTo2L2Nu_M125')
+
+# #samples['ggH_hww_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
+
+# files = nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125')
+
+# samples['qqH_hww'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*8.174732641',
+#     'FilesPerJob': 2,
+# }
+
+# #files = nanoGetSampleFiles(mcDirectory2, 'VBFHToWWTo2L2Nu_M125')
+
+# #samples['qqH_hww_EE'] = {
+# #    'name': files,
+# #    'weight': mcCommonWeight + '*27.0',
+# #    'FilesPerJob': 2,
+# #}
 
 ###########################################
 ################## DATA ###################
@@ -459,33 +458,33 @@ for _, sd in DataRun:
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
 
 
-###########################################  
-################## FAKE ###################
-###########################################  
+# ###########################################  
+# ################## FAKE ###################
+# ###########################################  
 
-samples['Fake'] = {
-    'name': [],
-    'weight': 'METFilter_DATA*fakeW',
-    'weights': [],
-    'isData': ['all'],
-    'FilesPerJob': 15
-}
+# samples['Fake'] = {
+#     'name': [],
+#     'weight': 'METFilter_DATA*fakeW',
+#     'weights': [],
+#     'isData': ['all'],
+#     'FilesPerJob': 15
+# }
 
-for _, sd in DataRun:
-  for pd in DataSets:
-    tag = pd + '_' + sd
+# for _, sd in DataRun:
+#   for pd in DataSets:
+#     datatag = pd + '_' + sd
 
-    if (pd == "SingleMuon" and _ in ["D","E","F","G"]) or (pd == "Muon" and _ == "B"):
-        continue
+#     if (pd == "SingleMuon" and _ in ["D","E","F","G"]) or (pd == "Muon" and _ == "B"):
+#         continue
 
-    if (_ in ["E","F","G"]):
-        continue
-        #        files = nanoGetSampleFiles(dataDirectory2, tag)
-    else:
-        files = nanoGetSampleFiles(dataDirectory, tag)
+#     if (_ in ["E","F","G"]):
+#         continue
+#         #        files = nanoGetSampleFiles(dataDirectory2, datatag)
+#     else:
+#         files = nanoGetSampleFiles(dataDirectory, datatag)
         
-    samples['Fake']['name'].extend(files)
-    addSampleWeight(samples, 'Fake', tag, DataTrig[pd])
+#     samples['Fake']['name'].extend(files)
+#     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
 
 
     

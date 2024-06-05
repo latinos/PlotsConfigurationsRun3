@@ -29,93 +29,93 @@ aliases['LepWPSF'] = {
     'samples': mc
 }
 
-#aliases['Lepton_mvaIso_0'] = {
-#    'expr': "abs(Lepton_pdgId[0])==11 ? Electron_mvaIso[Lepton_electronIdx[0]] : -2.0"
-#}
+# #aliases['Lepton_mvaIso_0'] = {
+# #    'expr': "abs(Lepton_pdgId[0])==11 ? Electron_mvaIso[Lepton_electronIdx[0]] : -2.0"
+# #}
 
-#aliases['Lepton_mvaIso_1'] = {
-#    'expr': "abs(Lepton_pdgId[1])==11 ? Electron_mvaIso[Lepton_electronIdx[1]] : -2.0"
-#}
+# #aliases['Lepton_mvaIso_1'] = {
+# #    'expr': "abs(Lepton_pdgId[1])==11 ? Electron_mvaIso[Lepton_electronIdx[1]] : -2.0"
+# #}
 
-Tag = 'ele_'+eleWP+'_mu_'+muWP
+# Tag = 'ele_'+eleWP+'_mu_'+muWP
 
-aliases["fakeW"] = {
-    "expr": f"fakeW_{Tag}_2l0j*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1j*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2j*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWEleUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWEleDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWMuUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWMuDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatEleUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatEleDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatMuUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatMuDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
+# aliases["fakeW"] = {
+#     "expr": f"fakeW_{Tag}_2l0j*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1j*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2j*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWEleUp"] = {
+#     "expr": f"fakeW_{Tag}_2l0jElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWEleDown"] = {
+#     "expr": f"fakeW_{Tag}_2l0jElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWMuUp"] = {
+#     "expr": f"fakeW_{Tag}_2l0jMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWMuDown"] = {
+#     "expr": f"fakeW_{Tag}_2l0jMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWStatEleUp"] = {
+#     "expr": f"fakeW_{Tag}_2l0jstatElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWStatEleDown"] = {
+#     "expr": f"fakeW_{Tag}_2l0jstatElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWStatMuUp"] = {
+#     "expr": f"fakeW_{Tag}_2l0jstatMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuUp*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases["fakeWStatMuDown"] = {
+#     "expr": f"fakeW_{Tag}_2l0jstatMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuDown*(Alt(MyCleanJet_pt[abs(MyCleanJet_eta)<=2.5], 1, 0)>30.0)",
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
 
-"""
-# # Fake leptons transfer factor
-aliases['fakeW'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP,
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-# And variations - already divided by central values in formulas !
-aliases['fakeWEleUp'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_EleUp',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWEleDown'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_EleDown',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWMuUp'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_MuUp',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWMuDown'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_MuDown',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWStatEleUp'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statEleUp',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWStatEleDown'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statEleDown',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWStatMuUp'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statMuUp',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases['fakeWStatMuDown'] = {
-    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statMuDown',
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-"""
+# """
+# # # Fake leptons transfer factor
+# aliases['fakeW'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP,
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# # And variations - already divided by central values in formulas !
+# aliases['fakeWEleUp'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_EleUp',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWEleDown'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_EleDown',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWMuUp'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_MuUp',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWMuDown'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_MuDown',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWStatEleUp'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statEleUp',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWStatEleDown'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statEleDown',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWStatMuUp'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statMuUp',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# aliases['fakeWStatMuDown'] = {
+#     'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statMuDown',
+#     'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+# }
+# """
 
 # gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch2l'] = {
@@ -324,29 +324,30 @@ aliases["nMyCleanJet"] = {
 #    'afterNuis': True#
 #}
 
-#Added from Full 2018_v9 -  do i need to add also tghe aliases from hardjers and PUJets?
-# Number of hard (= gen-matched) jets
+# #Added from Full 2018_v9 -  do i need to add also tghe aliases from hardjers and PUJets?
+# # Number of hard (= gen-matched) jets
 
-'''aliases['nHardJets'] = {
-    'expr': 'Sum(hardJets)',
-#    'expr':  '!(Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25)',
-  #  'expr':  'Sum(Take(Jet_genJetIdx,CleanJet_jetIdx) >= 0 && Take(GenJet_pt,Jet_genJetIdx[CleanJet_jetIdx]) > 25)',
-   # 'expr': 'Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 0, -1), 0)>=0 && Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 1, -1), 0)>=0 && Alt(GenJet_pt, Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 0, -1), -1), -1) > 25 && Alt(GenJet_pt, Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 1, -1),-1), -1) > 25'
-    'samples': ['DY']
-}'''
+# '''aliases['nHardJets'] = {
+#     'expr': 'Sum(hardJets)',
+# #    'expr':  '!(Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25)',
+#   #  'expr':  'Sum(Take(Jet_genJetIdx,CleanJet_jetIdx) >= 0 && Take(GenJet_pt,Jet_genJetIdx[CleanJet_jetIdx]) > 25)',
+#    # 'expr': 'Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 0, -1), 0)>=0 && Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 1, -1), 0)>=0 && Alt(GenJet_pt, Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 0, -1), -1), -1) > 25 && Alt(GenJet_pt, Alt(Jet_genJetIdx, Alt(MyCleanJet_jetIdx, 1, -1),-1), -1) > 25'
+#     'samples': ['DY']
+# }'''
+
 # Number of hard (= gen-matched) jets                                                                                                                                                                       
 aliases['nHardJets'] = {
-#    'expr':  'Sum(Jet_genJetIdx[MyCleanJet_jetIdx] >= 0 && GenJet_pt[Jet_genJetIdx[MyCleanJet_jetIdx]] > 25)',
-    'expr':  'Sum(Take(Jet_genJetIdx,MyCleanJet_jetIdx) >= 0 && Take(GenJet_pt,Take(Jet_genJetIdx,MyCleanJet_jetIdx)) > 25)',
+    'expr'    :  'Sum(Take(Jet_genJetIdx,MyCleanJet_jetIdx) >= 0 && Take(GenJet_pt,Take(Jet_genJetIdx,MyCleanJet_jetIdx)) > 25)',
+    'samples' : mc
 }
 
-# Two leading jets matched to gen-level jets with pT > 25 GeV 
-aliases['hardJets'] = {
-    'expr':  'Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25', 
-    'samples': ['DY']
-}
+# # Two leading jets matched to gen-level jets with pT > 25 GeV 
+# aliases['hardJets'] = {
+#     'expr':  'Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25', 
+#     'samples': ['DY']
+# }
 
-aliases['PUJets'] = {
-    'expr':  '!(Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25)',
-    'samples': ['DY']
-}
+# aliases['PUJets'] = {
+#     'expr':  '!(Jet_genJetIdx[CleanJet_jetIdx[0]] >= 0 && Jet_genJetIdx[CleanJet_jetIdx[1]] >= 0 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[0]]] > 25 && GenJet_pt[Jet_genJetIdx[CleanJet_jetIdx[1]]] > 25)',
+#     'samples': ['DY']
+# }

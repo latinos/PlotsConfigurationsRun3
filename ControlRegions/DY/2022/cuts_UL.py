@@ -1,7 +1,6 @@
-
 cuts = {}
 
-#here change the cuts with the ones used in UL studies (link in gDOC)
+# here change the cuts with the ones used in UL studies (link in gDOC)
 
 #UL cuts
 preselections = 'Lepton_pt[0]>25 && Lepton_pt[1]>13 && (nLepton>=2 && Alt(Lepton_pt,2,0)<10) && abs(Lepton_eta[0])<2.5 && abs(Lepton_eta[1])<2.5 && mll > 60 && mll < 120'

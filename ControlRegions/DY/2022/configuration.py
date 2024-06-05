@@ -1,31 +1,25 @@
-"""
-Configuration file for mkShapesRDF script.
-
-It's the only necessary python configuration file, all the other files are imported and defined by this one.
-
-"""
-
 #: tag used to identify the configuration folder version
-tag = "WW_2022"
+tag = "DY2022"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
-runnerFile = "default"
+runnerFile = "runner.py"
 
 #: output file name
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "/eos/user/c/cgrieco/HWW_Run3/ControlRegions/DY/nHardJets_newdef"
+outputFolder = "rootFile"
+
 #: path to batch folder (used for condor submission)
-batchFolder = "condor/nHardJets_newdef"
+batchFolder = "condor"
 
 #: path to configuration folder (will contain all the compiled configuration files)
 configsFolder = "configs"
 
 #: luminosity to normalize to (in 1/fb)
-#lumi = 8.174732641
+lumi = 8.174732641
 #lumi = 35.0
-lumi = 34.7486
+# lumi = 34.7486
 
 #: file with dict of aliases to define
 aliasesFile = "aliases.py"
@@ -53,7 +47,7 @@ nuisancesFile = "nuisances.py"
 # plotPath = "/eos/user/g/gpizzati/www/rdf/2016/"
 
 #: path to folder where to save plots
-plotPath = "/eos/user/c/cgrieco/HWW_Run3/ControlRegions/DY/plots/nHardJets_newdef"
+plotPath = "plots_" + tag
 
 #: this lines are executed right before the runner on the condor node
 mountEOS = [
