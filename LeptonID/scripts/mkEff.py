@@ -24,6 +24,7 @@ if __name__ == '__main__':
     parser.add_option('--signals',     dest='signals',     help='comma-separated list of signal processes',     default='DEFAULT')
     parser.add_option('--backgrounds', dest='backgrounds', help='comma-separated list of background processes', default='DEFAULT')
     parser.add_option('--cuts',        dest='cuts',        help='list of cuts names to analyze as in cuts.py',  default='DEFAULT')
+    parser.add_option('--presel',      dest='presel',      help='preselection to analyze as in cuts.py',        default='DEFAULT')
     parser.add_option('--year',        dest='year',        help='year',                                         default='DEFAULT')
     parser.add_option('--outputDir',   dest='outputDir',   help='output directory',                             default='eff_plots')
     parser.add_option('--variable',    dest='variable',    help='variable to inspect',                          default='events')
@@ -39,6 +40,7 @@ if __name__ == '__main__':
     print("Signals     = {}".format(opt.signals))
     print("Backgrounds = {}".format(opt.backgrounds))
     print("Cuts        = {}".format(opt.cuts))
+    print("Presel      = {}".format(opt.presel))
     print("Year        = {}".format(opt.year))
     print("Output dir  = {}".format(opt.outputDir))
     print("variable    = {}".format(opt.variable))
@@ -62,6 +64,11 @@ if __name__ == '__main__':
         raise ValueError("Please insert the cuts to analyze")
     cuts = opt.cuts
 
+    if opt.presel == 'DEFAULT' :
+        raise ValueError("Please insert the preselection to analyze")
+    presel = opt.presel
+
+    
     outputDir = opt.outputDir
     variable  = opt.variable
     
@@ -103,7 +110,7 @@ if __name__ == '__main__':
             else:
                 h_sig.Add(h_tmp)
     
-            h_name_presel = f"basic_selections/{variable}/histo_{signal}"
+            h_name_presel = f"{presel}/{variable}/histo_{signal}"
             h_tmp_presel  = infile.Get(h_name_presel)
             if (h_sig_preselection.GetNbinsX() == 999):
                 h_sig_preselection = h_tmp_presel.Clone("h_sig_presel")
@@ -123,7 +130,7 @@ if __name__ == '__main__':
             else:
                 h_bkg.Add(h_tmp)
     
-            h_name_presel = f"basic_selections/{variable}/histo_{background}"
+            h_name_presel = f"{presel}/{variable}/histo_{background}"
             h_tmp_presel  = infile.Get(h_name_presel)
             if (h_bkg_preselection.GetNbinsX() == 999):
                 h_bkg_preselection = h_tmp_presel.Clone("h_bkg_presel")
