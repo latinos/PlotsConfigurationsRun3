@@ -14,7 +14,17 @@ preselections = 'Lepton_pt[0] > 25 && Lepton_pt[1] > 10 \
 
 # && mpmet > 15 \
 
-cuts['basic_selections'] = '1' # same as preselections
+cuts['basic_selections'] = {
+    'expr' : 'mll > 12', # transparent selection, already present in preselections
+    'categories' : {
+        'ee_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*11 && Lepton_pt[1] >= 20',
+        'ee_low_pt'  : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*11 && Lepton_pt[1] <  20',
+        'em_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*13 && Lepton_pt[1] >= 20',
+        'em_low_pt'  : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*13 && Lepton_pt[1] <  20',
+        'mm_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 13*13 && Lepton_pt[1] >= 20',
+        'mm_low_pt'  : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 13*13 && Lepton_pt[1] <  20',
+    }
+}
 
 cuts['sr_ele_wp90iso_mu_cut_TightID_POG'] = {
     'expr' : 'LepWPCut__ele_wp90iso__mu_cut_TightID_POG > 0.5',
@@ -28,7 +38,7 @@ cuts['sr_ele_wp90iso_mu_cut_TightID_POG'] = {
     }
 }
 
-cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightID_POG'] = {
+cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW'] = {
     'expr' : 'LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW > 0.5',
     'categories' : {
         'ee_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*11 && Lepton_pt[1] >= 20',
