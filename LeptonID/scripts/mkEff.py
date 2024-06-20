@@ -83,6 +83,9 @@ if __name__ == '__main__':
 
     infile = ROOT.TFile(inputFile)
     
+    output_root_file = ROOT.TFile(f"{outputDir}/efficiencies.root","update")
+    output_root_file.cd()
+    
     # Loop over cuts
     cuts = opt.cuts.split(',')
 
@@ -153,10 +156,25 @@ if __name__ == '__main__':
         with open(f"{outputDir}/efficiencies.csv", "a") as outfile:
             outfile.write(f"{signals} ; {backgrounds} ; {cut} ; {sig_eff} ; {bkg_eff}\n")
 
+        # histo_eff = ROOT.TH2F(f"{signal}_{background}_{cut}","{signal}_{background}_{cut}",1000,0,1,1000,0,1)
+        g_eff = ROOT.TGraph()
+        g_eff.SetTitle(f"{signal}_{background}_{cut}")
+        g_eff.SetName(f"{signal}_{background}_{cut}")
+        g_eff.GetXaxis().SetTitle("1 - bkg eff")
+        g_eff.GetYaxis().SetTitle("sig eff")
+        g_eff.SetPoint(0,1-bkg_eff,sig_eff)
+
+        g_eff.Write()
+        
+        
         del h_sig
         del h_bkg
         del h_sig_preselection
         del h_bkg_preselection
-
+        del g_eff
+        
         print("################ \n")
         print("\n")
+
+    output_root_file.Close()
+    

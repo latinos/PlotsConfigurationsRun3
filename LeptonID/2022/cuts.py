@@ -14,6 +14,7 @@ preselections = 'Lepton_pt[0] > 25 && Lepton_pt[1] > 10 \
 
 # && mpmet > 15 \
 
+# Preselections - only needed to calculate efficiencies
 cuts['basic_selections'] = {
     'expr' : 'mll > 12', # transparent selection, already present in preselections
     'categories' : {
@@ -26,6 +27,8 @@ cuts['basic_selections'] = {
     }
 }
 
+# Muon ID: Tight ID POG
+# Ele  ID: wp90iso
 cuts['sr_ele_wp90iso_mu_cut_TightID_POG'] = {
     'expr' : 'LepWPCut__ele_wp90iso__mu_cut_TightID_POG > 0.5',
     'categories' : {
@@ -38,6 +41,8 @@ cuts['sr_ele_wp90iso_mu_cut_TightID_POG'] = {
     }
 }
 
+# Muon ID: Tight HWW
+# Ele  ID: mvaWinter22V2Iso_WP90
 cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW'] = {
     'expr' : 'LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW > 0.5',
     'categories' : {
@@ -50,6 +55,8 @@ cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW'] = {
     }
 }
 
+# Muon ID: Tight ID MiniIso HWW
+# Ele  ID: mvaWinter22V2Iso_WP90
 cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW'] = {
     'expr' : 'LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW > 0.5',
     'categories' : {
