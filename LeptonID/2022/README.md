@@ -55,3 +55,13 @@ E.g.,
 Just run on pre-existing scripts:
 
     bash repeat.sh DATA_0
+
+### Produce efficiencies and plots
+
+Use the histograms to produce the efficiencies:
+
+    bash do_efficiencies.sh
+
+Read the output file to produce nice plots:
+
+    python plot_graph.py
