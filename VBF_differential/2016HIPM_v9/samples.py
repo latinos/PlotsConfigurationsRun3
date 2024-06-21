@@ -248,7 +248,8 @@ samples['ggH_hww'] = {
           'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
           'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
           'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-          'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+          'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+          'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 }
 
@@ -266,7 +267,8 @@ samples['qqH_hww'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 }
 
@@ -284,7 +286,8 @@ samples['VBF_H0M'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -301,7 +304,8 @@ samples['VBF_H0Mf05'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -318,7 +322,8 @@ samples['VBF_H0PH'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -335,7 +340,8 @@ samples['VBF_H0PHf05'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -353,7 +359,8 @@ samples['VBF_H0L1'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -369,7 +376,8 @@ samples['VBF_H0L1f05'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -385,7 +393,8 @@ samples['VBF_H0L1Zgf05'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 } 
 
@@ -401,7 +410,8 @@ samples['GGHjj_H0M'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 }
 
@@ -418,7 +428,8 @@ samples['GGHjj_H0Mf05'] = {
          'GenDeltaPhijj_0nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi()) && GenDeltaPhijj <= -(TMath::Pi())/2)',
          'GenDeltaPhijj_1nonfid' : '(isFID <= 0 && GenDeltaPhijj > -(TMath::Pi())/2 && GenDeltaPhijj <= 0)',
          'GenDeltaPhijj_2nonfid' : '(isFID <= 0 && GenDeltaPhijj > 0 && GenDeltaPhijj <= (TMath::Pi())/2)',
-         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))'
+         'GenDeltaPhijj_3nonfid' : '(isFID <= 0 && GenDeltaPhijj > (TMath::Pi())/2 && GenDeltaPhijj <= (TMath::Pi()))',
+         'noGenDeltaPhijj' : '(isFID <= 0 && GenDeltaPhijj==-9999)'
      }
 }
 

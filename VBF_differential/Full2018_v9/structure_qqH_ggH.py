@@ -147,6 +147,16 @@ structure['qqH_hww_GenDeltaPhijj_3nonfid'] = {
                   'isData'   : 0    
                   }
 
+structure['qqH_hww_noGenDeltaPhijj'] = {
+                  'isSignal' : 0,
+                  'isData'   : 0    
+                  }
+
+structure['ggH_hww_noGenDeltaPhijj'] = {
+                  'isSignal' : 0,
+                  'isData'   : 0    
+                  }
+
 structure['ZH_hww'] = {
                   'isSignal' : 0,
                   'isData'   : 0    

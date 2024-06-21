@@ -41,7 +41,7 @@ plotPath = 'plots_' + tag
 outputDirDatacard = 'datacards'
 
 # structure file for datacard
-structureFile = 'structure.py'
+structureFile = 'structure_qqH_ggH.py'
 
 # nuisances file for mkDatacards and for mkShapes
 nuisancesFile = 'nuisances.py'
