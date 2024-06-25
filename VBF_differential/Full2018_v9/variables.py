@@ -36,8 +36,8 @@ variables['adnn_VBFvsGGH'] = {
 
 # variables['Tree'] = {
 #          'tree': {
-#              'adnn_isVBF' : 'adnns[0]' ,
-#              'adnn_isGGH' : 'adnns[1]' ,
-#                           },
+#             #  'adnn_isVBF' : 'adnns[0]' ,
+#             #  'adnn_isGGH' : 'adnns[1]' ,
+#              },
 #          'cuts': ['hww2l2v_13TeV_of2j_dphijj_4bins']
 #          }

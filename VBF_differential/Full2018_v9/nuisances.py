@@ -135,6 +135,22 @@ nuisances['fake_mu_stat'] = {
 
 ###### B-tagger
 
+# Fixed BTV SF variations
+for flavour in ['bc', 'light']:
+    for corr in ['uncorrelated', 'correlated']:
+        btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
+        if corr == 'correlated':
+            name = f'CMS_btagSF{flavour}_{corr}'
+        else:
+            name = f'CMS_btagSF{flavour}_2018'
+        nuisances[f'btagSF{flavour}{corr}'] = {
+            'name': name,
+            'skipCMS' : 1,
+            'kind': 'weight',
+            'type': 'shape',
+            'samples': dict((skey, btag_syst) for skey in mc),
+        }
+'''
 for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
     btag_syst = ['(btagSF%sup)/(btagSF)' % shift, '(btagSF%sdo)/(btagSF)' % shift]
 
@@ -148,7 +164,7 @@ for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr
         'type': 'shape',
         'samples': dict((skey, btag_syst) for skey in mc),
     }
-
+'''
 ##### Trigger Scale Factors
 
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
@@ -293,35 +309,63 @@ nuisances['PS_ISR']  = {
     'AsLnN'   : '0',
 }
 
+
 nuisances['PS_ISR_higgs']  = {
     'name'    : 'PS_ISR',
     'kind'    : 'weight',
     'type'    : 'shape',
-    'samples' : {
-        'ggH_hww' : ['PSWeight[2]*norm_ggh_PS_ISR_up', 'PSWeight[0]*norm_ggh_PS_ISR_down'],
-        'qqH_hww' : ['PSWeight[2]*norm_qqh_PS_ISR_up', 'PSWeight[0]*norm_qqh_PS_ISR_down'],
-        },
+    'samples' : dict(list((skey, ['PSWeight[2]*norm_ggh_PS_ISR_up', 'PSWeight[0]*norm_ggh_PS_ISR_down']) for skey in ggH_sig) +
+                     list((skey, ['PSWeight[2]*norm_qqh_PS_ISR_up', 'PSWeight[0]*norm_qqh_PS_ISR_down']) for skey in qqH_sig)),
+    # 'samples' : {
+    #     'ggH_hww' : ['PSWeight[2]*norm_ggh_PS_ISR_up', 'PSWeight[0]*norm_ggh_PS_ISR_down'],
+    #     'qqH_hww' : ['PSWeight[2]*norm_qqh_PS_ISR_up', 'PSWeight[0]*norm_qqh_PS_ISR_down'],
+    #     },
     'AsLnN'   : '0',
 }
 
-nuisances['PS_FSR']  = {
-    'name'    : 'PS_FSR',
+
+mc_bkg = [skey for skey in mc if skey not in ['ggH_hww','qqH_hww']]
+for skey in mc_bkg:
+    nuisances['PS_FSR_'+ skey]  = {
+        'name'    : 'PS_FSR_'+ skey,
+        'kind'    : 'weight',
+        'type'    : 'shape',
+        'samples' : {
+            skey : ['PSWeight[3]', 'PSWeight[1]'],
+            },
+        'AsLnN'   : '0',
+    }
+
+# nuisances['PS_FSR']  = {
+#     'name'    : 'PS_FSR',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc if skey not in ['ggH_hww','qqH_hww']),
+#     'AsLnN'   : '0',
+# }
+
+nuisances['PS_FSR_qqH_hww']  = {
+    'name'    : 'PS_FSR_qqH_hww',
     'kind'    : 'weight',
     'type'    : 'shape',
-    'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc if skey not in ['ggH_hww','qqH_hww']),
+    'samples' : dict((skey, ['PSWeight[3]*norm_qqh_PS_FSR_up', 'PSWeight[1]*norm_qqh_PS_FSR_down']) for skey in qqH_sig), 
+    # 'samples' : {
+    #     'qqH_hww' : ['PSWeight[3]*norm_qqh_PS_FSR_up', 'PSWeight[1]*norm_qqh_PS_FSR_down'],
+    #     },
     'AsLnN'   : '0',
 }
 
-nuisances['PS_FSR_higgs']  = {
-    'name'    : 'PS_FSR',
+nuisances['PS_FSR_ggH_hww']  = {
+    'name'    : 'PS_FSR_ggH_hww',
     'kind'    : 'weight',
     'type'    : 'shape',
-    'samples' : {
-        'ggH_hww' : ['PSWeight[3]*norm_ggh_PS_FSR_up', 'PSWeight[1]*norm_ggh_PS_FSR_down'],
-        'qqH_hww' : ['PSWeight[3]*norm_qqh_PS_FSR_up', 'PSWeight[1]*norm_qqh_PS_FSR_down'],
-        },
+    'samples' : dict((skey, ['PSWeight[3]*norm_ggh_PS_FSR_up', 'PSWeight[1]*norm_ggh_PS_FSR_down']) for skey in ggH_sig),
+    # 'samples' : {
+    #     'ggH_hww' : ['PSWeight[3]*norm_ggh_PS_FSR_up', 'PSWeight[1]*norm_ggh_PS_FSR_down'],
+    #     },
     'AsLnN'   : '0',
 }
+
 
 
 nuisances['UE_CP5']  = {
@@ -519,20 +563,20 @@ nuisances['CRSR_accept_top'] = {
 }
 
 
-
 ##### Renormalization & factorization scales
 
 #### QCD scale for VBF and ggH
 
-   
+
 nuisances['QCDscale_ren_ggH_hww'] = {
         'name'    : 'CMS_QCDscale_ren_ggH_hww',
         'skipCMS' : 1,
         'kind'    : 'weight',
         'type'    : 'shape',
-        'samples' : {
-            'ggH_hww' : ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down'],
-        },
+        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down']) for skey in ggH_sig), 
+        # 'samples' : {
+        #     'ggH_hww' : ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down'],
+        # },
         'AsLnN'   : '0'
     }
 
@@ -542,9 +586,10 @@ nuisances['QCDscale_fac_ggH_hww'] = {
         'skipCMS' : 1,
         'kind'    : 'weight',
         'type'    : 'shape',
-        'samples' : {
-            'ggH_hww' : ['Alt(LHEScaleWeight,3,1)*norm_ggh_QCDscale_fac_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*norm_ggh_QCDscale_fac_ggH_hww_down'],
-        },
+        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down']) for skey in ggH_sig), 
+        # 'samples' : {
+        #     'ggH_hww' : ['Alt(LHEScaleWeight,3,1)*norm_ggh_QCDscale_fac_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*norm_ggh_QCDscale_fac_ggH_hww_down'],
+        # },
         'AsLnN'   : '0'
     }
 
@@ -553,9 +598,10 @@ nuisances['QCDscale_ren_qqH_hww'] = {
         'skipCMS' : 1,
         'kind'    : 'weight',
         'type'    : 'shape',
-        'samples' : {
-            'qqH_hww' : ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down'],
-        },
+        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down']) for skey in qqH_sig), 
+        # 'samples' : {
+        #     'qqH_hww' : ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down'],
+        # },
         'AsLnN'   : '0'
     }
 
@@ -565,9 +611,10 @@ nuisances['QCDscale_fac_qqH_hww'] = {
         'skipCMS' : 1,
         'kind'    : 'weight',
         'type'    : 'shape',
-        'samples' : {
-            'qqH_hww' : ['Alt(LHEScaleWeight,3,1)*norm_qqh_QCDscale_fac_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*norm_qqh_QCDscale_fac_qqH_hww_down'],
-        },
+        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down']) for skey in qqH_sig),
+        # 'samples' : {
+        #     'qqH_hww' : ['Alt(LHEScaleWeight,3,1)*norm_qqh_QCDscale_fac_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*norm_qqh_QCDscale_fac_qqH_hww_down'],
+        # },
         'AsLnN'   : '0'
     }
 
@@ -759,9 +806,10 @@ for name, vname in thus:
         'skipCMS': 1,
         'kind': 'weight',
         'type': 'shape',
-        'samples' : {
-            'ggH_hww' : updown,
-            }
+        'samples' : dict((skey, updown) for skey in ggH_sig),
+        # 'samples' : {
+        #     'ggH_hww' : updown,
+        #     }
     }
 
 # Theory uncertainty for qqH 
@@ -795,9 +843,10 @@ for name, vname in thusQQH:
         'skipCMS': 1,
         'kind': 'weight',
         'type': 'shape',
-        'samples' : {
-            'qqH_hww' : updown,
-            }
+        'samples' : dict((skey, updown) for skey in qqH_sig),
+        # 'samples' : {
+        #     'qqH_hww' : updown,
+        #     }
         }
 
 
@@ -878,44 +927,6 @@ nuisances['dytt_DeltaPhi_3']  = {
                  'type'  : 'rateParam',
                  'cuts' : cuts_DeltaPhi_3
                 }
-
-#rate param WW
-# nuisances['WW_DeltaPhi_0']  = {
-#                  'name'  : 'CMS_hww_ww_DeltaPhi_0',
-#                  'samples'  : {
-#                    'WW' : '1.00',
-#                      },
-#                  'type'  : 'rateParam',
-#                  'cuts' : cuts_DeltaPhi_0
-#                 }
-
-
-# nuisances['WW_DeltaPhi_1']  = {
-#                  'name'  : 'CMS_hww_ww_DeltaPhi_1',
-#                  'samples'  : {
-#                    'WW' : '1.00',
-#                      },
-#                  'type'  : 'rateParam',
-#                  'cuts' : cuts_DeltaPhi_1
-#                 }
-
-# nuisances['WW_DeltaPhi_2']  = {
-#                  'name'  : 'CMS_hww_ww_DeltaPhi_2',
-#                  'samples'  : {
-#                    'WW' : '1.00',
-#                      },
-#                  'type'  : 'rateParam',
-#                  'cuts' : cuts_DeltaPhi_2
-#                 }
-
-# nuisances['WW_DeltaPhi_3']  = {
-#                  'name'  : 'CMS_hww_ww_DeltaPhi_3',
-#                  'samples'  : {
-#                    'WW' : '1.00',
-#                      },
-#                  'type'  : 'rateParam',
-#                  'cuts' : cuts_DeltaPhi_3
-#                 }
 
 
 

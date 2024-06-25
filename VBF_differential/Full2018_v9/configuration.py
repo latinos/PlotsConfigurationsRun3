@@ -8,7 +8,7 @@ runnerFile = 'default'
 # outputDir = 'rootFile_' + tag
 
 outputFile    = "mkShapes__{}.root".format(tag)
-outputFolder  = "rootFiles__{}".format(tag)
+outputFolder  = "rootFiles_test__{}".format(tag)
 batchFolder   = 'condor'
 configsFolder = 'configs'
 
