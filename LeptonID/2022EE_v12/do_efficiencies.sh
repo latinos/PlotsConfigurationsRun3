@@ -49,41 +49,41 @@ echo ${CUTS[$idx]}
 echo ${PRESELS[$idx]}
 
 cd ../scripts/
-python mkEff.py --inputFile ../2022/rootFile/mkShapes__LeptonID_2022.root \
+python mkEff.py --inputFile /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/LeptonID_2022EE_v12/rootFile/mkShapes__LeptonID_2022EE_v12.root \
 	   --signals ggH_hww \
 	   --backgrounds WJets \
 	   --cut ${CUTS[$idx]} \
 	   --presel ${PRESELS[$idx]} \
 	   --year 2022 \
 	   --variable pt1 \
-	   --outputDir ../2022/eff_plots/
+	   --outputDir ../2022EE_v12/eff_plots/
 
-python mkEff.py --inputFile ../2022/rootFile/mkShapes__LeptonID_2022.root \
+python mkEff.py --inputFile /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/LeptonID_2022EE_v12/rootFile/mkShapes__LeptonID_2022EE_v12.root \
 	   --signals WW \
 	   --backgrounds WJets \
 	   --cut ${CUTS[$idx]} \
 	   --presel ${PRESELS[$idx]} \
 	   --year 2022 \
 	   --variable pt1 \
-	   --outputDir ../2022/eff_plots/
+	   --outputDir ../2022EE_v12/eff_plots/
 
-python mkEff.py --inputFile ../2022/rootFile/mkShapes__LeptonID_2022.root \
+python mkEff.py --inputFile /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/LeptonID_2022EE_v12/rootFile/mkShapes__LeptonID_2022EE_v12.root \
 	   --signals ggH_hww \
 	   --backgrounds TTToSemiLeptonic \
 	   --cut ${CUTS[$idx]} \
 	   --presel ${PRESELS[$idx]} \
 	   --year 2022 \
 	   --variable pt1 \
-	   --outputDir ../2022/eff_plots/
+	   --outputDir ../2022EE_v12/eff_plots/
 
-python mkEff.py --inputFile ../2022/rootFile/mkShapes__LeptonID_2022.root \
+python mkEff.py --inputFile /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/LeptonID_2022EE_v12/rootFile/mkShapes__LeptonID_2022EE_v12.root \
 	   --signals WW \
 	   --backgrounds TTToSemiLeptonic \
 	   --cut ${CUTS[$idx]} \
 	   --presel ${PRESELS[$idx]} \
 	   --year 2022 \
 	   --variable pt1 \
-	   --outputDir ../2022/eff_plots/
+	   --outputDir ../2022EE_v12/eff_plots/
 cd -
 
 done

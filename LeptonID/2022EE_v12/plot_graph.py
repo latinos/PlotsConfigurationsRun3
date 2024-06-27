@@ -144,6 +144,6 @@ def plot_canvas(input_file_name,
 
 #plot_canvas(input_file_name,"WW", "WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets")
 
-plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"ee","high_pt","ee_ggH_vs_Wjets")
-plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"em","high_pt","em_ggH_vs_Wjets")
-plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"mm","high_pt","mm_ggH_vs_Wjets")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"em","high_pt","em_WW_vs_Wjets")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"mm","high_pt","mm_WW_vs_Wjets")

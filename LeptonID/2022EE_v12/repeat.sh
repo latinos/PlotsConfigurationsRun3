@@ -23,5 +23,5 @@ fi
 cd condor/LeptonID_2022EE_v12/${SAMPLE}/
 cp ../../../../../../../../mkShapesRDF/mkShapesRDF/include/headers.hh ../../../../../../../../mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py  .
 python runner.py
-cp output.root /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/DY2022EE_v12/rootFile/mkShapes__LeptonID_2022EE_v12__ALL__${SAMPLE}.root
+cp output.root /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/LeptonID_2022EE_v12/rootFile/mkShapes__LeptonID_2022EE_v12__ALL__${SAMPLE}.root
 rm output.root
