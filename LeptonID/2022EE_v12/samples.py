@@ -145,11 +145,11 @@ samples['WW'] = {
     'FilesPerJob' : 2,
 }
 
-###### ggF Higgs #######
-files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
+# ###### ggF Higgs #######
+# files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
 
-samples['ggH_hww'] = {
-    'name'        : files,
-    'weight'      : mcCommonWeight,
-    'FilesPerJob' : 2,
-}
+# samples['ggH_hww'] = {
+#     'name'        : files,
+#     'weight'      : mcCommonWeight,
+#     'FilesPerJob' : 2,
+# }

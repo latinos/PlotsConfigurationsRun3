@@ -109,6 +109,19 @@ aliases['bReqSF'] = {
     'samples': mc
 }
 
+# No jet with pt > 30 GeV
+aliases['zeroJet'] = {
+    'expr': 'Alt(CleanJet_pt, 0, 0) < 30.'
+}
+
+aliases['oneJet'] = {
+    'expr': 'Alt(CleanJet_pt, 0, 0) > 30.'
+}
+
+aliases['multiJet'] = {
+    'expr': 'Alt(CleanJet_pt, 1, 0) > 30.'
+}
+    
 # Top control region
 aliases['topcr'] = {
     'expr': 'mtw2>30 && mll>50 && ((zeroJet && !bVeto) || bReq)'
