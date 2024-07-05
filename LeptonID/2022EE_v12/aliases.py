@@ -40,10 +40,34 @@ aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW'] = {
     'samples': mc,
 }
 
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium
+eleWP = 'wp90iso'
+muWP  = 'mvaMuID_WP_medium'
+
+aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[0]] < 0.15 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_'+eleWP+'[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[1]] < 0.15 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_'+eleWP+'[1]>0.5) ) ) ) : 0',
+    'samples' : mc,
+}
+
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_tight
+eleWP = 'wp90iso'
+muWP  = 'mvaMuID_WP_tight'
+
+aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[0]] < 0.15 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] == 2) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_'+eleWP+'[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[1]] < 0.15 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] == 2) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_'+eleWP+'[1]>0.5) ) ) ) : 0',
+    'samples' : mc,
+}
+
+
 # Current list of Lepton IDs inspected:
 # LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightID_POG
 # LepCut2l__ele_wp90iso__mu_cut_Tight_HWW
 # LepCut2l__ele_wp90iso__mu_cut_TightMiniIso_HWW
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_medium
 
 
 ##########################################################################

@@ -94,7 +94,8 @@ def plot_canvas(input_file_name,
                 muon_ids,
                 final_state,
                 pt_range,
-                output_name):
+                output_name,
+                focus):
     """plots a canvas with the requested cuts and processes"""
 
     input_file = ROOT.TFile(input_file_name)
@@ -105,45 +106,67 @@ def plot_canvas(input_file_name,
     c1 = ROOT.TCanvas("c1","c1",800,800)
     c1.cd()
 
+    # Trick to allow legend to get all the graphs --> put them into a list
+    graphs = []
+            
     for ele_id in ele_ids:
         for muon_id in muon_ids:
             
             graph_name = f"{sig}_{bkg}_sr_ele_{ele_id}_mu_{muon_id}_{final_state}_{pt_range}"
             print(f"Graph name: {graph_name}")
-            
+
             if first_graph == 0:
                 print("Preparing first graph")
                 graph = input_file.Get(graph_name)
                 if isinstance(graph, ROOT.TGraph): 
-                    graph.SetMarkerStyle(20)
-                    graph.SetMarkerColor(colors[first_graph])
-                    graph.GetXaxis().SetRangeUser(0,1)
-                    graph.GetYaxis().SetRangeUser(0,1)
-                    graph.Draw("AP")
-                    graph.GetXaxis().SetRangeUser(0,1)
-                    graph.GetYaxis().SetRangeUser(0,1)
-                    first_graph += 1
+                    graphs.append(input_file.Get(graph_name))
+                    graphs[-1].SetMarkerStyle(20)
+                    graphs[-1].SetMarkerColor(colors[first_graph])
+                    graphs[-1].GetXaxis().SetRangeUser(0,1)
+                    graphs[-1].GetYaxis().SetRangeUser(0,1)
+                    if focus == 'muon': graphs[-1].SetName(muon_id)
+                    if focus == 'ele':  graphs[-1].SetName(ele_id)
+                    if focus == 'both': graphs[-1].SetName(ele_id + "_" + muon_id)
+                    graphs[-1].Draw("AP")
+                    graphs[-1].GetXaxis().SetRangeUser(0,1)
+                    graphs[-1].GetYaxis().SetRangeUser(0,1)
                     print("First graph plotted!")
-                    print(f"Values = ({graph.GetPointX(0)},{graph.GetPointY(0)})")
+                    print(f"Values = ({graphs[-1].GetPointX(0)},{graphs[-1].GetPointY(0)})")
+                    first_graph += 1
             else:
                 print(f"Preparing graph number {first_graph+1}")
                 graph = input_file.Get(graph_name)
                 if isinstance(graph, ROOT.TGraph): 
-                    graph.SetMarkerStyle(20)
-                    graph.SetMarkerColor(colors[first_graph])
-                    graph.Draw("P,same")
+                    graphs.append(input_file.Get(graph_name))
+                    graphs[-1].SetMarkerStyle(20)
+                    graphs[-1].SetMarkerColor(colors[first_graph])
+                    if focus == 'muon': graphs[-1].SetName(muon_id)
+                    if focus == 'ele':  graphs[-1].SetName(ele_id)
+                    if focus == 'both': graphs[-1].SetName(ele_id + "_" + muon_id)
+                    graphs[-1].Draw("P,same")
                     print(f"Graph {first_graph+1} plotted!")
-                    print(f"Values = ({graph.GetPointX(0)},{graph.GetPointY(0)})")
+                    print(f"Values = ({graphs[-1].GetPointX(0)},{graphs[-1].GetPointY(0)})")
                     first_graph += 1
 
-
-                    
+    # Legend                
+    leg = ROOT.TLegend(0.12,0.12,0.52,0.52)
+    leg.SetLineColor(0)
+    if focus == 'muon':   leg.SetHeader("Muon ID:")
+    elif focus == 'ele':  leg.SetHeader("Electron ID:")
+    elif focus == 'both': leg.SetHeader("Electron and Muon ID:")
+    else:
+        raise ValueError("Please spcify what I should put my focus on")
+    for g in graphs:
+        leg.AddEntry(g,g.GetName(),"p")
+    
+    print(f"Graphs = {graphs}")
+    leg.Draw("same")
+    print(f"Total legend rows = {leg.GetNRows()}")
     c1.Print(f"eff_plots/{output_name}.png")
     input_file.Close()
     
 
-#plot_canvas(input_file_name,"WW", "WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets")
-
-plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets")
-plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"em","high_pt","em_WW_vs_Wjets")
-plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"mm","high_pt","mm_WW_vs_Wjets")
+# Calling the function to produce plots 
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets","ele")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"em","high_pt","em_WW_vs_Wjets","both")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"mm","high_pt","mm_WW_vs_Wjets","muon")
