@@ -1,81 +1,8 @@
-  # ggH_hww_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_ee_high_pt
-  # WW_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_ee_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_ee_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_ee_high_pt
-  # ggH_hww_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_ee_low_pt
-  # WW_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_ee_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_ee_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_ee_low_pt
-  # ggH_hww_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_em_high_pt
-  # WW_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_em_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_em_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_em_high_pt
-  # ggH_hww_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_em_low_pt
-  # WW_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_em_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_em_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_em_low_pt
-  # ggH_hww_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_mm_high_pt
-  # WW_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_mm_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_mm_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_mm_high_pt
-  # ggH_hww_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_mm_low_pt
-  # WW_WJets_sr_ele_wp90iso_mu_cut_TightID_POG_mm_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_mm_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_wp90iso_mu_cut_TightID_POG_mm_low_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_high_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_high_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_low_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_ee_low_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_high_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_high_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_low_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_em_low_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_high_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_high_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_low_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW_mm_low_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_high_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_high_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_low_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_ee_low_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_high_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_high_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_low_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_em_low_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_high_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_high_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_high_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_high_pt
-  # ggH_hww_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_low_pt
-  # WW_WJets_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_low_pt
-  # ggH_hww_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_low_pt
-  # WW_TTToSemiLeptonic_sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW_mm_low_pt
-
-
 import ROOT
+import sys,os
 
 ele_ids  = ["wp90iso","mvaWinter22V2Iso_WP90"]
-muon_ids = ["cut_TightID_POG","cut_Tight_HWW","cut_TightMiniIso_HWW"] 
+muon_ids = ["cut_TightID_POG","cut_Tight_HWW","cut_TightMiniIso_HWW","mvaMuID_WP_medium","mvaMuID_WP_tight"] 
 
 signals     = ["WW","ggH_hww"]
 backgrounds = ["TTToSemiLeptonic","WJets"]
@@ -85,7 +12,10 @@ pt_ranges    = ["high_pt","low_pt"]
 
 input_file_name = "eff_plots/efficiencies.root"
 
-colors = [ROOT.kGreen+1,ROOT.kRed+1,ROOT.kBlue,ROOT.kOrange,ROOT.kBlack]
+colors = [ROOT.kGreen+1,ROOT.kRed+1,ROOT.kBlue,ROOT.kOrange,ROOT.kMagenta,ROOT.kAzure+10]
+
+sys.argv.append('-b')
+ROOT.gROOT.SetBatch()
 
 def plot_canvas(input_file_name,
                 sig,
@@ -112,7 +42,7 @@ def plot_canvas(input_file_name,
     for ele_id in ele_ids:
         for muon_id in muon_ids:
             
-            graph_name = f"{sig}_{bkg}_sr_ele_{ele_id}_mu_{muon_id}_{final_state}_{pt_range}"
+            graph_name = f"{sig}_{bkg}_sr_ele_{ele_id}__mu_{muon_id}_{final_state}_{pt_range}"
             print(f"Graph name: {graph_name}")
 
             if first_graph == 0:
@@ -149,7 +79,7 @@ def plot_canvas(input_file_name,
                     first_graph += 1
 
     # Legend                
-    leg = ROOT.TLegend(0.12,0.12,0.52,0.52)
+    leg = ROOT.TLegend(0.12,0.12,0.82,0.42)
     leg.SetLineColor(0)
     if focus == 'muon':   leg.SetHeader("Muon ID:")
     elif focus == 'ele':  leg.SetHeader("Electron ID:")
@@ -170,3 +100,32 @@ def plot_canvas(input_file_name,
 plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets","ele")
 plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"em","high_pt","em_WW_vs_Wjets","both")
 plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"mm","high_pt","mm_WW_vs_Wjets","muon")
+
+plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"ee","high_pt","ee_ggH_vs_Wjets","ele")
+plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"em","high_pt","em_ggH_vs_Wjets","both")
+plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"mm","high_pt","mm_ggH_vs_Wjets","muon")
+
+plot_canvas(input_file_name,"WW","TTToSemiLeptonic",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Top","ele")
+plot_canvas(input_file_name,"WW","TTToSemiLeptonic",ele_ids,muon_ids,"em","high_pt","em_WW_vs_Top","both")
+plot_canvas(input_file_name,"WW","TTToSemiLeptonic",ele_ids,muon_ids,"mm","high_pt","mm_WW_vs_Top","muon")
+
+plot_canvas(input_file_name,"ggH_hww","TTToSemiLeptonic",ele_ids,muon_ids,"ee","high_pt","ee_ggH_vs_Top","ele")
+plot_canvas(input_file_name,"ggH_hww","TTToSemiLeptonic",ele_ids,muon_ids,"em","high_pt","em_ggH_vs_Top","both")
+plot_canvas(input_file_name,"ggH_hww","TTToSemiLeptonic",ele_ids,muon_ids,"mm","high_pt","mm_ggH_vs_Top","muon")
+
+
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"ee","low_pt","ee_WW_vs_Wjets_low_pT","ele")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"em","low_pt","em_WW_vs_Wjets_low_pT","both")
+plot_canvas(input_file_name,"WW","WJets",ele_ids,muon_ids,"mm","low_pt","mm_WW_vs_Wjets_low_pT","muon")
+
+plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"ee","low_pt","ee_ggH_vs_Wjets_low_pT","ele")
+plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"em","low_pt","em_ggH_vs_Wjets_low_pT","both")
+plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"mm","low_pt","mm_ggH_vs_Wjets_low_pT","muon")
+
+plot_canvas(input_file_name,"WW","TTToSemiLeptonic",ele_ids,muon_ids,"ee","low_pt","ee_WW_vs_Top_low_pT","ele")
+plot_canvas(input_file_name,"WW","TTToSemiLeptonic",ele_ids,muon_ids,"em","low_pt","em_WW_vs_Top_low_pT","both")
+plot_canvas(input_file_name,"WW","TTToSemiLeptonic",ele_ids,muon_ids,"mm","low_pt","mm_WW_vs_Top_low_pT","muon")
+
+plot_canvas(input_file_name,"ggH_hww","TTToSemiLeptonic",ele_ids,muon_ids,"ee","low_pt","ee_ggH_vs_Top_low_pT","ele")
+plot_canvas(input_file_name,"ggH_hww","TTToSemiLeptonic",ele_ids,muon_ids,"em","low_pt","em_ggH_vs_Top_low_pT","both")
+plot_canvas(input_file_name,"ggH_hww","TTToSemiLeptonic",ele_ids,muon_ids,"mm","low_pt","mm_ggH_vs_Top_low_pT","muon")

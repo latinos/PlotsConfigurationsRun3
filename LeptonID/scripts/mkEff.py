@@ -43,7 +43,7 @@ if __name__ == '__main__':
     print("Presel      = {}".format(opt.presel))
     print("Year        = {}".format(opt.year))
     print("Output dir  = {}".format(opt.outputDir))
-    print("variable    = {}".format(opt.variable))
+    print("Variable    = {}".format(opt.variable))
 
     # Exceptions
     if opt.inputFile == 'DEFAULT' :
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         raise ValueError("Please insert the preselection to analyze")
     presel = opt.presel
 
-    
+
     outputDir = opt.outputDir
     variable  = opt.variable
     

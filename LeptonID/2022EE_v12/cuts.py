@@ -33,7 +33,7 @@ cuts['basic_selections'] = {
 
 # Muon ID: Tight ID POG
 # Ele  ID: wp90iso
-cuts['sr_ele_wp90iso_mu_cut_TightID_POG'] = {
+cuts['sr_ele_wp90iso__mu_cut_TightID_POG'] = {
     'expr' : 'LepWPCut__ele_wp90iso__mu_cut_TightID_POG > 0.5',
     'categories' : {
         'ee_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*11 && Lepton_pt[1] >= 20',
@@ -47,7 +47,7 @@ cuts['sr_ele_wp90iso_mu_cut_TightID_POG'] = {
 
 # Muon ID: Tight HWW
 # Ele  ID: mvaWinter22V2Iso_WP90
-cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW'] = {
+cuts['sr_ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW'] = {
     'expr' : 'LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW > 0.5',
     'categories' : {
         'ee_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*11 && Lepton_pt[1] >= 20',
@@ -61,7 +61,7 @@ cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_Tight_HWW'] = {
 
 # Muon ID: Tight ID MiniIso HWW
 # Ele  ID: mvaWinter22V2Iso_WP90
-cuts['sr_ele_mvaWinter22V2Iso_WP90_mu_cut_TightMiniIso_HWW'] = {
+cuts['sr_ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW'] = {
     'expr' : 'LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW > 0.5',
     'categories' : {
         'ee_high_pt' : 'abs(Lepton_pdgId[0]*Lepton_pdgId[1]) == 11*11 && Lepton_pt[1] >= 20',
