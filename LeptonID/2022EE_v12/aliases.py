@@ -11,34 +11,63 @@ mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb', 'DAT
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
 
 
-### Define different lepton IDs
+###############################
+# Define different lepton IDs #
+###############################
 
 # LepCut2l__ele_wp90iso__mu_cut_TightID_POG
 eleWP = 'wp90iso'
 muWP  = 'cut_TightID_POG'
 
 aliases['LepWPCut__ele_wp90iso__mu_cut_TightID_POG'] = {
-    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
     'samples': mc,
 }
+
+# LepCut2l__ele_wp90iso__mu_cut_TightID_POG + muon_ttHMVA_80
+aliases['LepWPCut__ele_wp90iso__mu_cut_TightID_POG_tthmva_80'] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + \
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+    'samples': mc,
+}
+
 
 # LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW
 eleWP = 'mvaWinter22V2Iso_WP90'
 muWP  = 'cut_Tight_HWW'
 
 aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW'] = {
-    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
     'samples': mc,
 }
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW + muon_ttHMVA_80
+aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW_tthmva_80'] = {
+    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP + \
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+    'samples': mc,
+}
+
 
 # LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW 
 eleWP = 'mvaWinter22V2Iso_WP90'
 muWP  = 'cut_TightMiniIso_HWW '
 
 aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW'] = {
-    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
     'samples': mc,
 }
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW + muon_ttHMVA_80
+aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW_tthmva_80'] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + \
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+    'samples': mc,
+}
+
 
 # LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium
 eleWP = 'wp90iso'
@@ -51,6 +80,15 @@ aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
     'samples' : mc,
 }
 
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium + muon_ttHMVA_80
+aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP+'_tthmva_80'] = {
+    'expr' : 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + \
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+    'samples' : mc,
+}
+
+
 # LepCut2l__ele_wp90iso__mu_mvaMuID_WP_tight
 eleWP = 'wp90iso'
 muWP  = 'mvaMuID_WP_tight'
@@ -62,12 +100,21 @@ aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
     'samples' : mc,
 }
 
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_tight + muon_ttHMVA_80
+aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
+    'expr' : 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + \
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+    'samples' : mc,
+}
+
 
 # Current list of Lepton IDs inspected:
 # LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightID_POG
 # LepCut2l__ele_wp90iso__mu_cut_Tight_HWW
 # LepCut2l__ele_wp90iso__mu_cut_TightMiniIso_HWW
 # LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_medium
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_tight
 
 
 ##########################################################################
