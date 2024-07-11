@@ -107,10 +107,10 @@ mcCommonWeight = 'XSWeight/1000.'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-lumi_ele_low_pt   =  '6.412';
-lumi_ele_high_pt  = '38.906';
-lumi_muon_low_pt  =  '8.561';
-lumi_muon_high_pt = '45.781';
+lumi_ele_low_pt   =  '6.412*(HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)';
+lumi_ele_high_pt  = '38.906*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)';
+lumi_muon_low_pt  =  '8.561*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)';
+lumi_muon_high_pt = '45.781*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)';
 
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50_NLO') + \
@@ -201,25 +201,25 @@ files = nanoGetSampleFiles(mcDirectory, 'WJetsToLNu-LO')
 
 samples['WJets_ele_low_pt'] = {
     'name': files,
-    'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
+    'weight': mcCommonWeight + '*' + lumi_ele_low_pt + '*(XSWeight < 1)',
     'FilesPerJob': 4,
 }
 
 samples['WJets_ele_high_pt'] = {
     'name': files,
-    'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
+    'weight': mcCommonWeight + '*' + lumi_ele_high_pt + '*(XSWeight < 1)',
     'FilesPerJob': 4,
 }
 
 samples['WJets_muon_low_pt'] = {
     'name': files,
-    'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
+    'weight': mcCommonWeight + '*' + lumi_muon_low_pt + '*(XSWeight < 1)',
     'FilesPerJob': 4,
 }
 
 samples['WJets_muon_high_pt'] = {
     'name': files,
-    'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
+    'weight': mcCommonWeight + '*' + lumi_muon_high_pt + '*(XSWeight < 1)',
     'FilesPerJob': 4,
 }
 
@@ -232,7 +232,7 @@ samples['DATA'] = {
   'weight': 'METFilter_DATA',
   'weights': [],
   'isData': ['all'],
-  'FilesPerJob': 50
+  'FilesPerJob': 10
 }
 
 for _, sd in DataRun:

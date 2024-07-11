@@ -14,19 +14,19 @@ aliases = OrderedDict()
 mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 
-# LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW
+# LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW_tthmva_80
 eleWP = 'mvaFall17V2Iso_WP90'
-muWP  = 'cut_Tight_HWWW'
+muWP  = 'cut_Tight_HWWW_tthmva_80'
 
-aliases['LepWPCut'] = {
+aliases['LepWPCut2l'] = {
     'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
     'samples': mc + ['DATA']
 }
 
-    # 'expr': 'LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW*\
-    #  ( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11 && Lepton_mvaTTH_UL[0]>0.90)) \
-    # && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11 && Lepton_mvaTTH_UL[1]>0.90)) )',
-    # 'samples': mc + ['DATA']
+aliases['LepWPCut1l'] = {
+    'expr': '(Lepton_isTightElectron_'+eleWP+'[0]>0.5 || Lepton_isTightMuon_'+muWP+'[0]>0.5)',
+    'samples': mc + ['DATA']
+}
 
 
 # Lepton SF (not considering the ttHMVA discriminant)
