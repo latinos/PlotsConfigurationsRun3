@@ -31,8 +31,11 @@ def plot_canvas(input_file_name,
     graphs = []
 
     # Draw a frame with correct axis ranges. Otherwise, TGraphs will choose their own axis ranges.
-    c1.DrawFrame(0.0,0.0,1.0,1.0)
-            
+    frame = c1.DrawFrame(0.0,0.0,1.0,1.0)
+    frame.GetXaxis().SetTitle("1 - bkg efficiency");
+    frame.GetYaxis().SetTitle("Sig efficiency");
+    c1.Update()
+    
     for ele_id in ele_ids:
         for muon_id in muon_ids:
             
@@ -48,6 +51,8 @@ def plot_canvas(input_file_name,
                     graphs[-1].SetMarkerColor(colors[first_graph])
                     graphs[-1].GetXaxis().SetRangeUser(0.0,1.0)
                     graphs[-1].GetYaxis().SetRangeUser(0.0,1.0)
+                    graphs[-1].GetXaxis().SetTitle("1 - bkg efficiency")
+                    graphs[-1].GetYaxis().SetTitle("Sig efficiency")
                     if focus == 'mm': graphs[-1].SetName(muon_id)
                     if focus == 'ee': graphs[-1].SetName(ele_id)
                     if focus == 'em': graphs[-1].SetName(ele_id + "_" + muon_id)
@@ -86,6 +91,10 @@ def plot_canvas(input_file_name,
     print(f"Graphs = {graphs}")
     leg.Draw("same")
     print(f"Total legend rows = {leg.GetNRows()}")
+
+    frame.SetTitle(output_name)
+    c1.Update()
+    
     c1.Print(f"eff_plots/{output_name}.png")
     input_file.Close()
     
@@ -95,7 +104,7 @@ ele_ids  = ["wp90iso","mvaWinter22V2Iso_WP90"]
 muon_ids = ["cut_TightID_POG","cut_Tight_HWW","cut_TightMiniIso_HWW","mvaMuID_WP_medium","mvaMuID_WP_tight"] 
 
 signals     = ["WW","ggH_hww"]
-backgrounds = ["TTToSemiLeptonic","WJets","TTToSemiLeptonic,WJets"]
+backgrounds = ["TTToSemiLeptonic","WJets"]
 
 final_states = ["ee","em","mm"]
 pt_ranges    = ["high_pt","low_pt"]
