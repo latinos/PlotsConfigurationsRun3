@@ -41,3 +41,5 @@ Merge rootfiles:
 Plot distributions:
 
     mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
+
+### Measure Fake Rate

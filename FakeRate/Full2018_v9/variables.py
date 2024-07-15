@@ -26,14 +26,14 @@ variables['pt1_eta1'] = {
 
 variables['mll'] = {
     'name'  : 'mll',
-    'range' : (20, 40,120),
+    'range' : (20, 60,120),
     'xaxis' : 'm_{ll} [GeV]',
     'fold'  : 0
 }
 
 variables['pt1'] = {
     'name'  : 'Lepton_pt[0]',     
-    'range' : (30,0,150),   
+    'range' : (20,0,100),   
     'xaxis' : 'p_{T} 1st lep',
     'fold'  : 0                         
 }
@@ -47,7 +47,7 @@ variables['eta1']  = {
 
 variables['mtw1'] = {
     'name'  : 'mtw1',
-    'range' : (40,0,200),
+    'range' : (20,0,100),
     'xaxis' : 'm_{T}^{W_{1}} [GeV]',
     'fold'  : 3
 }
@@ -61,7 +61,7 @@ variables['LepWPCut1l'] = {
 
 variables['dRl1j1'] = {
     'name'  : 'dRl1j1',
-    'range' : (50,0,50),
+    'range' : (20,0,10),
     'xaxis' : '#Delta R (#ell1,jet1)',
     'fold'  : 3
 }

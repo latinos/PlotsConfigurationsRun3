@@ -87,14 +87,26 @@ DataRun = [
 ]
 
 #DataSets = ['MuonEG','SingleMuon','EGamma','DoubleMuon']
-DataSets = ['SingleMuon','EGamma']
+DataSets = ['DoubleMuon','EGamma']
+
+# DataTrig = {
+#     'MuonEG'         : 'Trigger_ElMu' ,
+#     'DoubleMuon'     : '!Trigger_ElMu && Trigger_dblMu' ,
+#     'SingleMuon'     : '!Trigger_ElMu && !Trigger_dblMu && Trigger_sngMu' ,
+#     'EGamma'         : '!Trigger_ElMu && !Trigger_dblMu && !Trigger_sngMu && (Trigger_sngEl || Trigger_dblEl)' ,
+# }
+
+# DataTrig = {
+#      'DoubleMuon'     : 'Trigger_dblMu' ,
+#      'SingleMuon'     : '!Trigger_dblMu && Trigger_sngMu' ,
+#      'EGamma'         : '!Trigger_dblMu && !Trigger_sngMu && (Trigger_sngEl || Trigger_dblEl)' ,
+# }
 
 DataTrig = {
-    'MuonEG'         : 'Trigger_ElMu' ,
-    'DoubleMuon'     : '!Trigger_ElMu && Trigger_dblMu' ,
-    'SingleMuon'     : '!Trigger_ElMu && !Trigger_dblMu && Trigger_sngMu' ,
-    'EGamma'         : '!Trigger_ElMu && !Trigger_dblMu && !Trigger_sngMu && (Trigger_sngEl || Trigger_dblEl)' ,
+     'DoubleMuon'     : 'HLT_Mu8_TrkIsoVVL || HLT_Mu17_TrkIsoVVL' ,
+     'EGamma'         : '!HLT_Mu8_TrkIsoVVL && !HLT_Mu17_TrkIsoVVL && (HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30 || HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30)' ,
 }
+# 'SingleMuon'     : '!HLT_Mu8_TrkIsoVVL && HLT_Mu17_TrkIsoVVL' ,
 
 #########################################
 ############ MC COMMON ##################
@@ -141,60 +153,60 @@ samples['DY_muon_high_pt'] = {
 }
 
 
-# Top SemiLeptonic
-files = nanoGetSampleFiles(mcDirectory, 'TTToSemiLeptonic')
+# # Top SemiLeptonic
+# files = nanoGetSampleFiles(mcDirectory, 'TTToSemiLeptonic')
 
-samples['TTToSemiLeptonic_ele_low_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTToSemiLeptonic_ele_low_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
+#     'FilesPerJob': 4,
+# }
 
-samples['TTToSemiLeptonic_ele_high_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTToSemiLeptonic_ele_high_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
+#     'FilesPerJob': 4,
+# }
 
-samples['TTToSemiLeptonic_muon_low_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTToSemiLeptonic_muon_low_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
+#     'FilesPerJob': 4,
+# }
 
-samples['TTToSemiLeptonic_muon_high_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTToSemiLeptonic_muon_high_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
+#     'FilesPerJob': 4,
+# }
 
 
-# Top Fully Leptonic
-files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu')
+# # Top Fully Leptonic
+# files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu')
 
-samples['TTTo2L2Nu_ele_low_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTTo2L2Nu_ele_low_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
+#     'FilesPerJob': 4,
+# }
 
-samples['TTTo2L2Nu_ele_high_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTTo2L2Nu_ele_high_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
+#     'FilesPerJob': 4,
+# }
 
-samples['TTTo2L2Nu_muon_low_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTTo2L2Nu_muon_low_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
+#     'FilesPerJob': 4,
+# }
 
-samples['TTTo2L2Nu_muon_high_pt'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
-    'FilesPerJob': 4,
-}
+# samples['TTTo2L2Nu_muon_high_pt'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
+#     'FilesPerJob': 4,
+# }
 
 ##### WJets #######
 files = nanoGetSampleFiles(mcDirectory, 'WJetsToLNu-LO')
@@ -253,4 +265,4 @@ for _, sd in DataRun:
     files = nanoGetSampleFiles(dataDirectory, tag_data)
 
     samples['DATA']['name'].extend(files)
-    # addSampleWeight(samples, 'DATA', tag_data, DataTrig[pd])
+    addSampleWeight(samples, 'DATA', tag_data, DataTrig[pd])
