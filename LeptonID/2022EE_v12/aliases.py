@@ -2,13 +2,25 @@ import os
 import copy
 import inspect
 
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/LeptonID/2022EE_v12
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
+configurations = os.path.dirname(configurations) # 2022EE_v12
+configurations = os.path.dirname(configurations) # LeptonID
 
 aliases = {}
 aliases = OrderedDict()
 
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb', 'DATA_EG', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
+
+#############################
+# Evaluate BDT discriminant #
+#############################
+aliases['Lepton_ttHMVA_Run3'] = {
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttH_MVA_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('ttH_MVA_reader ttHMVA = ttH_MVA_reader(\"BDTG\",\"{configurations}/data/Electron-mvaTTH.2022EE.weights_mvaISO.xml\",\"BDTG\",\"{configurations}/data/Muon-mvaTTH.2022EE.weights.xml\");')"],
+    'expr'           : 'ttHMVA(nLepton,Lepton_pdgId,Lepton_electronIdx,Electron_jetIdx,Electron_pt,Electron_eta,Electron_pfRelIso03_all,Electron_miniPFRelIso_chg,Electron_miniPFRelIso_all,Electron_jetNDauCharged,Electron_jetPtRelv2,Electron_jetRelIso,Jet_btagDeepFlavB,Electron_sip3d,Electron_dxy,Electron_dz,Electron_mvaIso,Lepton_muonIdx,Muon_jetIdx,Muon_pt,Muon_eta,Muon_pfRelIso03_all,Muon_miniPFRelIso_chg,Muon_miniPFRelIso_all,Muon_jetNDauCharged,Muon_jetPtRelv2,Muon_jetRelIso,Muon_sip3d,Muon_dxy,Muon_dz,Muon_segmentComp)',
+}
 
 
 ###############################
@@ -60,11 +72,11 @@ aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW'] = {
     'samples': mc,
 }
 
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW + muon_ttHMVA_80
-aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW_tthmva_80'] = {
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW + muon_ttHMVA_80 + ele_ttHMVA_90
+aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90_tthmva_90__mu_cut_TightMiniIso_HWW_tthmva_80'] = {
     'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11 && Lepton_ttHMVA_Run3[0] > 0.90)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11 && Lepton_ttHMVA_Run3[1] > 0.90)) )',
     'samples': mc,
 }
 
@@ -80,11 +92,11 @@ aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
     'samples' : mc,
 }
 
-# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium + muon_ttHMVA_80
-aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP+'_tthmva_80'] = {
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium + muon_ttHMVA_80 + ele_ttHMVA_90
+aliases['LepCut2l__ele_'+eleWP+'_tthmva_90__mu_'+muWP+'_tthmva_80'] = {
     'expr' : 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11 && Lepton_ttHMVA_Run3[0] > 0.90)) \
+            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11 && Lepton_ttHMVA_Run3[1] > 0.90)) )',
     'samples' : mc,
 }
 
