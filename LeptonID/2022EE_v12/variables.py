@@ -2,6 +2,20 @@
 
 variables = {}
 
+variables['Lepton_mva1']  = { 
+    'name': 'Lepton_ttHMVA_Run3[0]',     
+    'range' : (40,-1,1),
+    'xaxis' : 'Leading lepton ttH MVA discriminant',
+    'fold'  : 3                         
+}
+
+variables['Lepton_mva2']  = { 
+    'name': 'Lepton_ttHMVA_Run3[1]',     
+    'range' : (40,-1,1),
+    'xaxis' : 'Sub-leading lepton ttH MVA discriminant',
+    'fold'  : 3                         
+}
+
 variables['pt1']  = { 
     'name': 'Lepton_pt[0]',     
     'range' : (20,0,100),
