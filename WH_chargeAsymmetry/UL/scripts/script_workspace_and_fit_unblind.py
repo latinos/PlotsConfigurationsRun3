@@ -84,7 +84,7 @@ workspace_command = f"text2workspace.py \
                      --PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
                      --PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
                      --PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
-                     --PO 'map=.*/WH_h.*_plus:r_WH_plus=expr;;r_WH_plus(\"@0*(1+@1)/(2*0.8380)\",r_S[1.3693,-5,5],r_A[0.224,-1,1])' \
+                     --PO 'map=.*/WH_h.*_plus:r_WH_plus=expr;;r_WH_plus(\"@0*(1+@1)/(2*0.8380)\",r_S[1.3693,0.01,5],r_A[0.224,-1,1])' \
                      --PO 'map=.*/WH_h.*_minus:r_WH_minus=expr;;r_WH_minus(\"@0*(1-@1)/(2*0.5313)\",r_S,r_A)'"
 
 #                     --PO 'map=.*/WH_h.*_minus:r_WH_minus=expr;;r_WH_minus(\"(@0-@1*0.8380)/0.5313\",r_S,r_WH_plus)' \
@@ -105,8 +105,8 @@ workspace_command_WH = f"text2workspace.py \
                         --PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
                         --PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
                         --PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
-                        --PO 'map=.*/WH_h.*_plus:r_WH[1,-5.0,5.0]' \
-                        --PO 'map=.*/WH_h.*_minus:r_WH[1,-5.0,5.0]'"
+                        --PO 'map=.*/WH_h.*_plus:r_WH[1,-10.0,10.0]' \
+                        --PO 'map=.*/WH_h.*_minus:r_WH[1,-10.0,10.0]'"
 
 # Using POIs: r_WH_plus, r_WH_minus
 workspace_command_WH_plus_minus = f"text2workspace.py \
@@ -124,8 +124,8 @@ workspace_command_WH_plus_minus = f"text2workspace.py \
                                    --PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
                                    --PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
                                    --PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
-                                   --PO 'map=.*/WH_h.*_plus:r_WH_plus[1,-5.0,5.0]' \
-                                   --PO 'map=.*/WH_h.*_minus:r_WH_minus[1,-5.0,5.0]'"
+                                   --PO 'map=.*/WH_h.*_plus:r_WH_plus[1,-10.0,10.0]' \
+                                   --PO 'map=.*/WH_h.*_minus:r_WH_minus[1,-10.0,10.0]'"
 
 
 ################
@@ -137,30 +137,30 @@ combine_command = f"combine \
                    -M MultiDimFit \
                    --algo=singles \
                    -d {datacard_name}.root \
-                   -t -1 \
                    --cminDefaultMinimizerStrategy 0 \
                    --stepSize 0.01 --cminPreScan \
                    --setParameters r_S=1.3693,r_A=0.224,{channel_mask} \
-                   --setParameterRanges r_S=0.01,5:r_A=-1,1 \
+                   --setParameterRanges r_S=-5,5,5:r_A=-5,5 \
                    --redefineSignalPOIs r_S,r_A \
+                   --cminFallbackAlgo Minuit2,0:0.2 \
                    {nuisances} \
                    > {output_name}"
 
 #                   --X-rtd MINIMIZER_analytic \
 #                   -v 9 \
 #                   --cminPreFit 2
- 
+
 # Fit to get the total WH signal strength
 combine_command_WH = f"combine \
                       -M MultiDimFit \
                       --algo=singles \
                       -d {datacard_name}_WH_strength.root \
-                      -t -1 \
                       --cminDefaultMinimizerStrategy 0 \
                       --stepSize 0.01 --cminPreScan \
                       --setParameters r_WH=1,{channel_mask} \
-                      --setParameterRanges r_WH=0.01,10 \
+                      --setParameterRanges r_WH=-5,5 \
                       --redefineSignalPOIs r_WH \
+                      --cminFallbackAlgo Minuit2,0:0.2 \
                       {nuisances} \
                       > {output_name.replace('.txt','_WH_strength.txt')}"
 
@@ -169,12 +169,12 @@ combine_command_WH_plus_minus = f"combine \
                                  -M MultiDimFit \
                                  --algo=singles \
                                  -d {datacard_name}_WH_plus_minus.root \
-                                 -t -1 \
                                  --cminDefaultMinimizerStrategy 0 \
                                  --stepSize 0.01 --cminPreScan \
                                  --setParameters r_WH_plus=1,r_WH_minus=1,{channel_mask} \
-                                 --setParameterRanges r_WH_plus=0.01,10:r_WH_minus=0.01,10 \
+                                 --setParameterRanges r_WH_plus=-5,5:r_WH_minus=-5,5 \
                                  --redefineSignalPOIs r_WH_plus,r_WH_minus \
+                                 --cminFallbackAlgo Minuit2,0:0.2 \
                                  {nuisances} \
                                  > {output_name.replace('.txt','_WH_plus_minus.txt')}"
 
@@ -185,7 +185,6 @@ combine_command_WH_plus_minus = f"combine \
 rA_scan_command = f"combine \
                    -M MultiDimFit \
                    --algo grid \
-                   -t -1 \
                    --setParameters r_A=0.224,r_S=1.3693,{channel_mask} \
                    -d {datacard_name}.root \
                    -n _r_A_scan \
@@ -212,7 +211,6 @@ likelihood_scan_command = f"combine \
                            --algo=grid \
                            --points=50 \
                            -d {datacard_name}.root \
-                           -t -1 \
                            --setParameters r_S=1.3693,r_A=0.224,{channel_mask} \
                            --setParameterRanges r_S=-0.01,5:r_A=-1,1 \
                            --redefineSignalPOIs r_A,r_S \
@@ -224,7 +222,6 @@ likelihood_scan_command = f"combine \
 prepare_toy_command = f"combine \
                        -M GenerateOnly \
                        -d {datacard_name}.root \
-                       -t -1 \
                        --saveToys \
                        --setParameters r_S=1.3693,r_A=0.224"
 
@@ -237,7 +234,6 @@ fast_scan_command = f"combineTool.py \
 # Fit diagnostic  
 fit_diagnostics_command = f"combine \
                            -M FitDiagnostics {datacard_name}.root \
-                           -t -1 \
                            --setParameters r_S=1.3693,r_A=0.224 \
                            --saveShapes \
                            --saveWithUncertainties"
