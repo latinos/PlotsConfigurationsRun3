@@ -75,12 +75,12 @@ for k in cuts:
 nuisances['lumi_Uncorrelated'] = {
     'name': 'lumi_13TeV_2016',
     'type': 'lnN',
-    'samples': dict((skey, '1.010') for skey in mc)
+    'samples': dict((skey, '1.010') for skey in mc if skey not in ['top', 'DY', 'WW_minnlo'])
 }
 nuisances['lumi_Correlated_Run2'] = {
     'name': 'lumi_13TeV_correlated',
     'type': 'lnN',
-    'samples': dict((skey, '1.006') for skey in mc)
+    'samples': dict((skey, '1.006') for skey in mc if skey not in ['top', 'DY', 'WW_minnlo'])
 }
 
 #### FAKES
@@ -100,10 +100,12 @@ nuisances['fake_ele'] = {
         'Fake': ['fakeWEleUp', 'fakeWEleDown'],
     },
 }
+# 'Fake': ['abs(fakeWStatEleUp)<10 ? fakeWStatEleUp : 1.0', 'abs(fakeWStatEleUp)<10 ? fakeWStatEleDown : 1.0']
 nuisances['fake_ele_stat'] = {
     'name': 'CMS_fake_stat_e_2016',
     'kind': 'weight',
     'type': 'shape',
+    'cutspost' : [cut for cut in total_cuts if '_sr_RF_Signal_0j' not in cut],
     'samples': {
         'Fake': ['fakeWStatEleUp', 'fakeWStatEleDown']
     },
@@ -259,6 +261,7 @@ nuisances['PU'] = {
     'samples': {
         'DY'      : ['1.008421*(puWeightUp/puWeight)', '0.992494*(puWeightDown/puWeight)'],
         'WW'      : ['1.010428*(puWeightUp/puWeight)', '0.990400*(puWeightDown/puWeight)'],
+        'WW_minnlo': ['1.010428*(puWeightUp/puWeight)', '0.990400*(puWeightDown/puWeight)'],
         'ggWW'    : ['1.012367*(puWeightUp/puWeight)', '0.988402*(puWeightDown/puWeight)'],
         'Vg'      : ['0.995630*(puWeightUp/puWeight)', '1.007076*(puWeightDown/puWeight)'],
         'WZ'      : ['1.002037*(puWeightUp/puWeight)', '0.997721*(puWeightDown/puWeight)'],
@@ -361,6 +364,7 @@ for i in range(1,101):
         'type'  : 'shape',
         'samples'  : {
             'WW'   : pdf_variations,
+            'WW_minnlo'   : pdf_variations,
         },
     }
     nuisances['pdf_top_eigen'+str(i)]  = {
@@ -491,6 +495,7 @@ for ibin in ['0j','1j','2j']:
         'type'  : 'shape',
         'AsLnN': '0',
         'cutspost' : [cut for cut in total_cuts if ibin in cut],
+        'cuts' : [cut for cut in total_cuts if ibin in cut],
         'samples'  : {
             'top' : variations,
         }
@@ -499,23 +504,26 @@ for ibin in ['0j','1j','2j']:
 nuisances['QCDscale_V'] = {
     'name': 'QCDscale_V',
     'skipCMS': 1,
-    'kind'  : 'weight',
+    'kind'  : 'weight_envelope',
     'type': 'shape',
     'samples': {'DY': variations},
     'AsLnN': '1'
 }
 nuisances['QCDscale_VV'] = {
     'name' : 'QCDscale_VV',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
     'samples' : {
         'WW'  : variations,
+        'WW_minnlo'  : variations,
         'Zg'  : variations,
         'Wg'  : variations,
+        'Vg'  : variations,
+        'VgS' : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
         'WgS' : variations,
-        'ZgS' : variations
+        'ZgS' : variations,
     }
 }
 nuisances['QCDscale_ggVV'] = {
@@ -530,143 +538,183 @@ nuisances['QCDscale_ggVV'] = {
 ############ QCD Scales for ggToWW  |  Take into account the amount of ggWW and ggH that contributes to ggToWW and then transmit to the nuisance
 ############
 
-# Signals region ----- 
-# 0-jet category 2016: 25.5% ggWW;  74.5% ggH 
-# 1-jet category 2016: 26.1% ggWW;  73.9% ggH
-# 2-jet category 2016: 21.2% ggWW;  78.8% ggH 
-# vbf   category 2016: 36.8% ggWW;  63.2% ggH
-# 
-# WW Control region ----  
-# 0-jet category 2016: 93.6% ggWW;   6.4% ggH 
-# 1-jet category 2016: 91.3% ggWW;   8.7% ggH 
-# 2-jet category 2016: 88.4% ggWW;  11.6% ggH
-# vbf   category 2016: 95.3% ggWW;   4.7% ggH
-# 
-# Top Control region ---- 
-# 0-jet category 2016: 55.1% ggWW;  44.9% ggH
-# 1-jet category 2016: 52.3% ggWW;  47.7% ggH
-# 2-jet category 2016: 53.0% ggWW;  47.0% ggH
-#
-# DY Control region ---- 
-# 0-jet category 2016: 56.2% ggWW;  43.8% ggH 
-# 1-jet category 2016: 43.0% ggWW;  57.0% ggH 
-# 2-jet category 2016: 40.6% ggWW;  59.4% ggH
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_ss_Inc'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.7936260343325393*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_ss_Inc'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_ss_0j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.8190257246652435*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_ss_0j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_ss_1j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.7878034299309141*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_ss_1j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_ss_2j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.7058457540487197*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_ss_2j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_bkg_0j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.9672985020025341*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_bkg_0j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_bkg_1j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.9538469599462894*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_bkg_1j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_bkg_2j_tot'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.9110617819019117*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_bkg_2j_tot'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_bkg_2j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.908298868937347*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_bkg_2j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_bkg_2j_vbf'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.9666044245099158*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_bkg_2j_vbf'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_0j_pt2gt20'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.46035172153426396*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_0j_pt2gt20'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_0j_pt2lt20'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.28933809887956413*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_0j_pt2lt20'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_1j_pt2gt20'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.4240023465104384*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_1j_pt2gt20'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_1j_pt2lt20'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.31821751668113624*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_1j_pt2lt20'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_2j_tot'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.3079483225673364*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_2j_tot'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_2j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.2463964354738998*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_2j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_sr_RF_Signal_2j_vbf'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.42554112732059396*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_sr_RF_Signal_2j_vbf'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_top_0j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.7245544787750366*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_top_0j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_top_1j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.6931967958833507*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_top_1j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_top_2j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.5843407994369403*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_top_2j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_dytt_0j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.748382869635521*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_dytt_0j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_dytt_1j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.6223162172362862*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_dytt_1j'],
+}
+nuisances['QCDscale_ggVV_hww2l2v_13TeV_dytt_2j'] = {
+    'name': 'QCDscale_ggVV',
+    'type': 'lnN',
+    'samples': {
+        'ggToWW': str(1+0.4760296708246931*(1.15-1.0))
+    },
+    'cuts' : [cut for cut in total_cuts if cut=='hww2l2v_13TeV_dytt_2j'],
+}
 
-nuisances['QCDscale_ggVV_sr_0j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.255*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts0j if 'Signal_0j' in cut],
-}
-nuisances['QCDscale_ggVV_sr_1j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.261*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts1j if 'Signal_1j' in cut],
-}
-nuisances['QCDscale_ggVV_sr_2j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.212*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts2j if 'Signal_2j' in cut],
-}
-nuisances['QCDscale_ggVV_sr_vbf'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.368*(1.15-1.0))
-    },
-    'cuts': [cut for cut in cuts_vbf if 'Signal_2j_vbf' in cut],
-}
-##
-nuisances['QCDscale_ggVV_ww_0j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.936*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts0j if 'bkg_0j' in cut],
-}
-nuisances['QCDscale_ggVV_ww_1j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.913*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts1j if 'bkg_1j' in cut],
-}
-nuisances['QCDscale_ggVV_ww_2j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.884*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts2j if 'bkg_2j' in cut],
-}
-nuisances['QCDscale_ggVV_ww_vbf'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.953*(1.15-1.0))
-    },
-    'cuts': [cut for cut in cuts_vbf if 'bkg_2j_vbf' in cut],
-}
-##
-nuisances['QCDscale_ggVV_top_0j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.551*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts0j if 'top_0j' in cut],
-}
-nuisances['QCDscale_ggVV_top_1j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.523*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts1j if 'top_1j' in cut],
-}
-nuisances['QCDscale_ggVV_top_2j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.53*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts2j if 'top_2j' in cut],
-}
-##
-nuisances['QCDscale_ggVV_dytt_0j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.562*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts0j if 'dytt_0j' in cut],
-}
-nuisances['QCDscale_ggVV_dytt_1j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.43*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts1j if 'dytt_1j' in cut],
-}
-nuisances['QCDscale_ggVV_dytt_2j'] = {
-    'name': 'QCDscale_ggVV',
-    'type': 'lnN',
-    'samples': {
-        'ggToWW': str(1+0.406*(1.15-1.0))
-    },
-    'cuts' : [cut for cut in cuts2j if 'dytt_2j' in cut],
-}
 ## -----------------------------------------------
 
 ##### Renormalization & factorization scales
@@ -680,6 +728,7 @@ nuisances['WWresum0j']  = {
         'WW'   : ['nllW_Rup/nllW', 'nllW_Rdown/nllW'],
     },
     'cutspost' : [cut for cut in total_cuts if '0j' in cut],
+    'cuts' : [cut for cut in total_cuts if '0j' in cut],
 }
 nuisances['WWqscale0j']  = {
     'name'  : 'CMS_hww_WWqscale_0j',
@@ -690,6 +739,7 @@ nuisances['WWqscale0j']  = {
         'WW'   : ['nllW_Qup/nllW', 'nllW_Qdown/nllW'],
     },
     'cutspost' : [cut for cut in total_cuts if '0j' in cut],
+    'cuts' : [cut for cut in total_cuts if '0j' in cut],
 }
 nuisances['WWresum1j']  = {
     'name'  : 'CMS_hww_WWresum_1j',
@@ -700,6 +750,7 @@ nuisances['WWresum1j']  = {
         'WW'   : ['nllW_Rup/nllW', 'nllW_Rdown/nllW'],
     },
     'cutspost' : [cut for cut in total_cuts if '1j' in cut],
+    'cuts' : [cut for cut in total_cuts if '1j' in cut],
 }
 nuisances['WWqscale1j']  = {
     'name'  : 'CMS_hww_WWqscale_1j',
@@ -710,6 +761,7 @@ nuisances['WWqscale1j']  = {
         'WW'   : ['nllW_Qup/nllW', 'nllW_Qdown/nllW'],
     },
     'cutspost' : [cut for cut in total_cuts if '1j' in cut],
+    'cuts' : [cut for cut in total_cuts if '1j' in cut],
 }
 nuisances['WWresum2j']  = {
     'name'  : 'CMS_hww_WWresum_2j',
@@ -720,6 +772,7 @@ nuisances['WWresum2j']  = {
         'WW'   : ['nllW_Rup/nllW', 'nllW_Rdown/nllW'],
     },
     'cutspost' : [cut for cut in total_cuts if '2j' in cut],
+    'cuts' : [cut for cut in total_cuts if '2j' in cut],
 }
 nuisances['WWqscale2j']  = {
     'name'  : 'CMS_hww_WWqscale_2j',
@@ -730,6 +783,7 @@ nuisances['WWqscale2j']  = {
         'WW'   : ['nllW_Qup/nllW', 'nllW_Qdown/nllW'],
     },
     'cutspost' : [cut for cut in total_cuts if '2j' in cut],
+    'cuts' : [cut for cut in total_cuts if '2j' in cut],
 }
 
 # Theory uncertainty for ggH
@@ -948,7 +1002,8 @@ nuisances['DYnorm2j']  = {
 nuisances['WWnorm0j']  = {
                'name'  : 'CMS_hww_WWnorm0j',
                'samples'  : {
-                   'WW' : '1.00',
+                   #'WW' : '1.00',
+                   'WW_minnlo' : '1.00',
                    },
                'type'  : 'rateParam',
                'cuts'  : cuts0j
@@ -956,7 +1011,8 @@ nuisances['WWnorm0j']  = {
 nuisances['WWnorm1j']  = {
                'name'  : 'CMS_hww_WWnorm1j',
                'samples'  : {
-                   'WW' : '1.00',
+                   #'WW' : '1.00',
+                   'WW_minnlo' : '1.00',
                    },
                'type'  : 'rateParam',
                'cuts'  : cuts1j
@@ -964,7 +1020,8 @@ nuisances['WWnorm1j']  = {
 nuisances['WWnorm2j']  = {
                'name'  : 'CMS_hww_WWnorm2j',
                'samples'  : {
-                   'WW' : '1.00',
+                   #'WW' : '1.00',
+                   'WW_minnlo' : '1.00',
                    },
                'type'  : 'rateParam',
 	       'cuts': cuts2j,
@@ -972,7 +1029,8 @@ nuisances['WWnorm2j']  = {
 nuisances['WWnormVBF']  = {
                'name'  : 'CMS_hww_WWnormVBF',
 	       'samples'  : {
-                   'WW' : '1.00',
+                   #'WW' : '1.00',
+                   'WW_minnlo' : '1.00',
                    },
                'type'  : 'rateParam',
                'cuts': cuts_vbf,
@@ -997,6 +1055,32 @@ nuisances['Topnorm2j']  = {
                'name'  : 'CMS_hww_Topnorm2j',
                'samples'  : {
                    'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts_2j
+              }
+
+### Fakes --------------- 
+nuisances['Fakenorm0j']  = {
+               'name'  : 'CMS_hww_Fakenorm0j',
+               'samples'  : {
+                   'Fake' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+nuisances['Fakenorm1j']  = {
+               'name'  : 'CMS_hww_Fakenorm1j',
+               'samples'  : {
+                   'Fake' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+nuisances['Fakenorm2j']  = {
+	       'name'  : 'CMS_hww_Fakenorm2j',
+	       'samples'  : {
+                   'Fake' : '1.00',
                    },
                'type'  : 'rateParam',
                'cuts'  : cuts_2j

@@ -141,7 +141,6 @@ for cutName in ["hww2l2v_13TeV_dytt_0j","hww2l2v_13TeV_dytt_1j","hww2l2v_13TeV_d
     del hist
     inFile.Close()
 
-
             
 print("Fixed!!!")
 print("Now create ggToWW and qqToWW")

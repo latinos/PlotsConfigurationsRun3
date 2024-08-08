@@ -8,7 +8,8 @@ variables['RF_0J_LL']  = {   'name': 'RF_score_0J_LL',
                              'fold' : 3 
                          } 
 variables['RF_0J_TT']  = {   'name': 'RF_score_0J_TT',
-                             'range' : (40,0,1),
+                             #'range' : (40,0,1),
+                             'range' : ([0.0,0.15,0.225,0.30,0.35,0.4,0.45,0.5,0.55,0.60,0.65,0.725,1.0],),
                              'xaxis' : 'Random Forest score 0J TT',
                              'fold' : 3
                          }
@@ -26,7 +27,7 @@ variables['RF_1J_LL']  = {   'name': 'RF_score_1J_LL',
                              'fold' : 3
                          }
 variables['RF_1J_TT']  = {   'name': 'RF_score_1J_TT',
-                             'range' : (40,0,1),
+                             'range' : ([0.0,0.075,0.15,0.225,0.30,0.35,0.425,0.5,0.575,0.65,0.725,0.825,1.0],),
                              'xaxis' : 'Random Forest score 1J TT',
                              'fold' : 3
                          }
@@ -39,7 +40,7 @@ variables['RF_1J_Bkg']  = {   'name': 'RF_score_1J_Bkg',
 
 
 variables['RF_2J_LL']  = {   'name': 'RF_score_2J_LL',
-                             'range' : (40,0,1),
+                             'range' : ([0.0, 0.025, 0.1, 0.225, 0.375, 0.575, 0.8, 1.0],),
                              'xaxis' : 'Random Forest score 2J LL',
                              'fold' : 3
                          }
@@ -57,7 +58,7 @@ variables['RF_2J_Bkg']  = {   'name': 'RF_score_2J_Bkg',
 
 
 variables['RF_VBF_LL']  = {   'name': 'RF_score_VBF_LL',
-                              'range' : (40,0,1),
+                              'range' : ([0.0, 0.125, 0.35, 0.65, 1.0],),
                               'xaxis' : 'Random Forest score VBF LL',
                               'fold' : 3
                           }
@@ -153,11 +154,6 @@ variables['RF_score_VBF_Pol']  = {   'name': 'RF_score_VBF_Pol',
 
 
 #####
-variables['events']  = {   'name': '1',      
-                        'range' : (1,0,2),  
-                        'xaxis' : 'events', 
-                        'fold' : 3
-                        }
 
 variables['nvtx']  = {   'name': 'PV_npvsGood',
                        'range' : (20,0,100),
@@ -267,4 +263,5 @@ variables['mpmet']  = {
                         'xaxis' : 'mpmet [GeV]',
                         'fold'  : 3
                         }
+
 '''

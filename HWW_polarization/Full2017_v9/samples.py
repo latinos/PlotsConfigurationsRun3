@@ -154,20 +154,26 @@ samples['top'] = {
     'name': files,
     'weight': mcCommonWeightMatched,
     'FilesPerJob': 1,
-    #'EventsPerJob': 35000
+    'EventsPerJob': 35000
 }
 
 addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
 
 
 ###### WW ########
-samples['WW'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu'),
-    'weight': mcCommonWeightMatched + '*nllW*ewknloW', 
-    'FilesPerJob': 1,
-    #'EventsPerJob': 35000
-}
+#samples['WW'] = {
+#    'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu'),
+#    'weight': mcCommonWeightMatched + '*nllW*ewknloW', 
+#    'FilesPerJob': 1,
+#    'EventsPerJob': 35000
+#}
 
+samples['WW_minnlo'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WWJTo2L2Nu_minnlo'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 1,
+    'EventsPerJob': 50000
+}
 
 ###### WWewk ########
 
@@ -175,7 +181,7 @@ samples['WWewk'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'WpWmJJ_EWK_noTop'),
     'weight': mcCommonWeight+ '*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)', #filter tops and Higgs
     'FilesPerJob': 1,
-    #'EventsPerJob': 50000
+    'EventsPerJob': 50000
 }
 
 ###### ggWW ########
@@ -192,7 +198,7 @@ samples['ggWW'] = {
             nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNTN'),
     'weight': mcCommonWeight+'*1.53/1.4',
     'FilesPerJob': 1,
-    #'EventsPerJob': 10000
+    'EventsPerJob': 20000
 }
 
 
@@ -215,7 +221,8 @@ samples['Zg'] = {
     'weight': mcCommonWeight + '*(Gen_ZGstar_mass <= 0)',
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob': 2
+    'FilesPerJob': 1,
+    'EventsPerJob': 35000
 }
 
 ######## WgS ######## 
@@ -241,7 +248,8 @@ samples['ZgS'] = {
     'weight': mcCommonWeightMatched,
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob': 2,
+    'FilesPerJob': 1,
+    'EventsPerJob': 35000
 }
 addSampleWeight(samples, 'ZgS', 'ZGToLLG', '(Gen_ZGstar_mass > 0)')
 
@@ -250,7 +258,8 @@ addSampleWeight(samples, 'ZgS', 'ZGToLLG', '(Gen_ZGstar_mass > 0)')
 samples['ZZ'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'ZZTo4L'),
     'weight': mcCommonWeightMatched,
-    'FilesPerJob': 2
+    'FilesPerJob': 1,
+    'EventsPerJob': 35000
 }
 
 
@@ -452,6 +461,7 @@ samples['ggH_gWW_Int'] = {
             nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNTN'),
     'weight': mcCommonWeight + '*ggHWW_Interference',
     'FilesPerJob': 1,
+    'EventsPerJob': 25000
 }
 
 addSampleWeight(samples, 'ggH_gWW_Int', 'GluGluHToWWTo2L2Nu_M125', '(HTXS_stage1_1_cat_pTjet30GeV<107)*Weight2MINLO*1092.7640/1073.2567')
@@ -472,13 +482,13 @@ samples['qqH_qqWW_Int'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu') + nanoGetSampleFiles(mcDirectory, 'WpWmJJ_EWK_noTop'),
     'weight': mcCommonWeight + '*qqHWW_Interference',
     'FilesPerJob': 1,
+    'EventsPerJob': 25000
 }
 
 addSampleWeight(samples, 'qqH_qqWW_Int', 'WpWmJJ_EWK_noTop', '(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)')
 addSampleWeight(samples, 'qqH_qqWW_Int', 'WWTo2L2Nu', 'nllW*ewknloW')
-
-
 '''
+
 ###### Dummy Total histograms for mkDatacards
 
 samples['ggToWW'] = {
@@ -503,7 +513,7 @@ samples['Fake'] = {
   'weight': 'METFilter_DATA*fakeW',
   'weights': [],
   'isData': ['all'],
-  'FilesPerJob': 5
+  'FilesPerJob': 1
 }
 
 for _, sd in DataRun:

@@ -153,20 +153,26 @@ samples['top'] = {
     'name': files,
     'weight': mcCommonWeightMatched,
     'FilesPerJob': 1,
-    #'EventsPerJob': 35000
+    'EventsPerJob': 35000
 }
 
 addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
 
 
 ###### WW ########
-samples['WW'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu'),
-    'weight': mcCommonWeightMatched + '*nllW*ewknloW', 
-    'FilesPerJob': 1,
-    #'EventsPerJob': 35000
-}
+#samples['WW'] = {
+#    'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu'),
+#    'weight': mcCommonWeightMatched + '*nllW*ewknloW', 
+#    'FilesPerJob': 1,
+#    #'EventsPerJob': 35000
+#}
 
+samples['WW_minnlo'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WWJTo2L2Nu_minnlo'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 1,
+    'EventsPerJob': 50000
+}
 
 ###### WWewk ########
 
@@ -191,9 +197,8 @@ samples['ggWW'] = {
             nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNTN'),
     'weight': mcCommonWeight+'*1.53/1.4',
     'FilesPerJob': 1,
-    #'EventsPerJob': 10000
+    'EventsPerJob': 20000
 }
-
 
 ######## Wg ########
 files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J')
@@ -214,10 +219,11 @@ samples['Zg'] = {
     'weight': mcCommonWeight + '*(Gen_ZGstar_mass <= 0)',
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob': 2
+    'FilesPerJob': 1,
+    'EventsPerJob': 35000
 }
 
-######## WgS ######## 
+######## WgS ########
 files = nanoGetSampleFiles(mcDirectory, 'Wg_AMCNLOFXFX_01J') + \
         nanoGetSampleFiles(mcDirectory, 'WZTo3LNu_mllmin0p1')
 
@@ -232,7 +238,7 @@ addSampleWeight(samples, 'WgS', 'Wg_AMCNLOFXFX_01J',  '(Gen_ZGstar_mass > 0 && G
 addSampleWeight(samples, 'WgS', 'WZTo3LNu_mllmin0p1', '(Gen_ZGstar_mass > 0.1)*(0.601644*58.59/4.666)')
 
 
-######## ZgS ########
+######## ZgS ######## 
 files = nanoGetSampleFiles(mcDirectory, 'ZGToLLG')
 
 samples['ZgS'] = {
@@ -240,16 +246,17 @@ samples['ZgS'] = {
     'weight': mcCommonWeightMatched,
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob': 2,
+    'FilesPerJob': 1,
+    'EventsPerJob': 35000
 }
 addSampleWeight(samples, 'ZgS', 'ZGToLLG', '(Gen_ZGstar_mass > 0)')
-
 
 ############ ZZ ############
 samples['ZZ'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'ZZTo4L'),
     'weight': mcCommonWeightMatched,
-    'FilesPerJob': 2
+    'FilesPerJob': 1,
+    'EventsPerJob': 50000
 }
 
 
@@ -299,7 +306,7 @@ samples['qqH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 1,
-    #'EventsPerJob': 25000
+    'EventsPerJob': 25000
 }
 
 
@@ -318,6 +325,7 @@ samples['ggH_gWW_Int'] = {
             nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNTN'),
     'weight': mcCommonWeight + '*ggHWW_Interference',
     'FilesPerJob': 1,
+    'EventsPerJob': 25000
 }
 
 addSampleWeight(samples, 'ggH_gWW_Int', 'GluGluHToWWTo2L2Nu_M125', '(HTXS_stage1_1_cat_pTjet30GeV<107)*Weight2MINLO*1092.7640/1073.2567')
@@ -359,6 +367,7 @@ samples['qqToWW'] = {
     'FilesPerJob': 1,
 }
 '''
+
 #### --------------------------------
 
 
@@ -380,14 +389,14 @@ samples['WH_hww_plus'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWWTo2L2Nu_WToLNu_M125'), 
     'weight': mcCommonWeight,
     'FilesPerJob': 1,
-    #'EventsPerJob': 50000
+    'EventsPerJob': 50000
 }
 
 samples['WH_hww_minus'] = {
     'name':   nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWWTo2L2Nu_WToLNu_M125'),
     'weight': mcCommonWeight,
     'FilesPerJob': 1,
-    #'EventsPerJob': 50000
+    'EventsPerJob': 50000
 }
 
 
@@ -472,7 +481,7 @@ samples['qqH_HWLWL'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
     'weight': mcCommonWeight + '*(Higgs_WW_LL*(Higgs_WW_LL>-5))',
     'FilesPerJob': 1,
-    #'EventsPerJob': 25000
+    'EventsPerJob': 25000
 }
 
 signals.append('qqH_HWLWL')
@@ -520,7 +529,7 @@ samples['Fake'] = {
   'weight': 'METFilter_DATA*fakeW',
   'weights': [],
   'isData': ['all'],
-  'FilesPerJob': 10
+  'FilesPerJob': 1
 }
 
 for _, sd in DataRun:

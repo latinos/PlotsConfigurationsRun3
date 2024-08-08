@@ -34,7 +34,7 @@ subsamplesmap = utils.flatten_samples(samples)
 categoriesmap = utils.flatten_cuts(cuts)
 
 
-outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2018_complete.root"
+outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_complete.root"
 
 #inFile = ROOT.TFile(outputFile, "UPDATE")
 #outFile = ROOT.TFile(outputFile, "RECREATE")
@@ -97,6 +97,70 @@ print("Start computation")
 #hww2l2v_13TeV_WW_2j
 
 
+for cutName in ["hww2l2v_13TeV_top_0j","hww2l2v_13TeV_top_1j","hww2l2v_13TeV_top_2j"]:
+    varName = "events"
+    inFile = ROOT.TFile(outputFile, "UPDATE")
+    inFile.cd(cutName+"/"+varName)
+    for sampleName in samples:
+        if sampleName in ["DATA", "Fake"]:
+            continue
+
+        print(sampleName)
+        for nuisanceName in nuisances:
+            if ("JER"!=nuisanceName and "met"!=nuisanceName):
+                continue
+
+            hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
+            new_hist = hist
+
+            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
+            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
+
+    del new_hist
+    del hist
+    inFile.Close()
+
+for cutName in ["hww2l2v_13TeV_dytt_0j","hww2l2v_13TeV_dytt_1j","hww2l2v_13TeV_dytt_2j"]:
+    varName = "events"
+    inFile = ROOT.TFile(outputFile, "UPDATE")
+    inFile.cd(cutName+"/"+varName)
+    for sampleName in samples:
+        if sampleName in ["DATA", "Fake"]:
+            continue
+        for nuisanceName in nuisances:
+            if ("JER"!=nuisanceName and "met"!=nuisanceName and "JES" not in nuisanceName):
+                continue
+            
+            hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
+            new_hist = hist
+            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
+            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
+
+    del new_hist
+    del hist
+    inFile.Close()
+
+for cutName in ["hww2l2v_13TeV_ss_Inc","hww2l2v_13TeV_ss_0j","hww2l2v_13TeV_ss_1j","hww2l2v_13TeV_ss_2j"]:
+    varName = "events"
+    inFile = ROOT.TFile(outputFile, "UPDATE")
+    inFile.cd(cutName+"/"+varName)
+    for sampleName in samples:
+        if sampleName in ["DATA", "Fake"]:
+            continue
+        for nuisanceName in nuisances:
+            if ("JER"!=nuisanceName and "met"!=nuisanceName and "JES" not in nuisanceName):
+                continue
+
+            hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
+            new_hist = hist
+            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
+            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
+
+    del new_hist
+    del hist
+    inFile.Close()
+
+    
 for cutName in cuts:
     #for cutName in ["hww2l2v_13TeV_sr_BDT95_0j"]:
     print(cutName + "<------")

@@ -6,8 +6,8 @@ It's the only necessary python configuration file, all the other files are impor
 """
 
 #: tag used to identify the configuration folder version
-tag = "WW_2016_preVFP"
-#tag = "WW_2016_preVFP_complete"
+#tag = "WW_2016_preVFP"
+tag = "WW_2016_preVFP_complete"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
