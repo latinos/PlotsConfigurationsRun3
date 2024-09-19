@@ -1,5 +1,5 @@
-#ifndef BTAGSF
-#define BTAGSF
+#ifndef BTAGLIGHTSF
+#define BTAGLIGHTSF
 #include <vector>
 #include <map>
 #include <string>
@@ -20,14 +20,13 @@ using namespace ROOT;
 using namespace ROOT::VecOps;
 using correction::CorrectionSet;
 
-class btagSFbc {
+class btagSFlight {
 
   public:
-    btagSFbc(TString eff_map, const string year);
-    ~btagSFbc();
+    btagSFlight(TString eff_map, const string year);
+    ~btagSFlight();
 
-    TH2F* h_bjet_eff;
-    TH2F* h_cjet_eff;
+    TH2F* h_ljet_eff;
     
     std::unique_ptr<CorrectionSet> cset;
  
@@ -42,18 +41,15 @@ class btagSFbc {
         const string systematic
         ){
       
-      auto cset_deepJet_mujets  = cset->at("deepJet_mujets");
+      auto cset_deepJet_incl    = cset->at("deepJet_incl");
       auto cset_deepJet_wps     = cset->at("deepJet_wp_values");
      
       float btag_sf    = 1.;
       for (unsigned iJ{0}; iJ != nCleanJet; ++iJ) {
         if (CleanJet_pt[iJ] <= 30. || abs(CleanJet_eta[iJ]) >= 2.5) continue;
           if (Jet_btag[CleanJet_jetIdx[iJ]] > cset_deepJet_wps->evaluate({WP})) {
-            if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 5) {
-              btag_sf *= cset_deepJet_mujets->evaluate({systematic, WP, 5, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
-            }
-            else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4) {
-              btag_sf *= cset_deepJet_mujets->evaluate({systematic, WP, 4, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
+            if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 0) {
+              btag_sf *= cset_deepJet_incl->evaluate({systematic, WP, 0, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
             }
             else {
               continue;
@@ -65,11 +61,8 @@ class btagSFbc {
           continue;
         }
         else {
-          if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 5) {
-            btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic, WP, 5, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
-          }
-          else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4) {
-            btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic, WP, 4, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
+          if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 0) {
+            btag_sf *= (1-btag_eff*cset_deepJet_incl->evaluate({systematic, WP, 0, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
           }
           else {
             continue;
@@ -85,7 +78,7 @@ class btagSFbc {
   
 };
 
-btagSFbc::btagSFbc(TString eff_map, const string year) {
+btagSFlight::btagSFlight(TString eff_map, const string year) {
   std::string home;
   home          = std::string(std::getenv("STARTPATH"));
   std::string to_replace  = "start.sh";
@@ -96,25 +89,18 @@ btagSFbc::btagSFbc(TString eff_map, const string year) {
   cset = CorrectionSet::from_file(home + "/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/" + year + "/btagging.json.gz");
  
   TFile *reff = TFile::Open(eff_map, "READ");
-  h_bjet_eff  = (TH2F*)reff->Get("bjet_eff")->Clone();
-  h_cjet_eff  = (TH2F*)reff->Get("cjet_eff")->Clone();
-  h_bjet_eff->SetDirectory(0);
-  h_cjet_eff->SetDirectory(0);
+  h_ljet_eff  = (TH2F*)reff->Get("ljet_eff")->Clone();
+  h_ljet_eff->SetDirectory(0);
   reff->Close();
 }
 
-float btagSFbc::getEff(float pt, float eta, int flavour) {
+float btagSFlight::getEff(float pt, float eta, int flavour) {
   int xbin, ybin;
   float eff;
-  if (flavour == 5) {
-    xbin = h_bjet_eff->GetXaxis()->FindBin(pt);
-    ybin = h_bjet_eff->GetYaxis()->FindBin(eta);
-    eff  = h_bjet_eff->GetBinContent(xbin, ybin);
-  }
-  else if (flavour == 4) {
-    xbin = h_cjet_eff->GetXaxis()->FindBin(pt);
-    ybin = h_cjet_eff->GetYaxis()->FindBin(eta);
-    eff  = h_cjet_eff->GetBinContent(xbin, ybin);
+  if (flavour == 0) {
+    xbin = h_ljet_eff->GetXaxis()->FindBin(pt);
+    ybin = h_ljet_eff->GetYaxis()->FindBin(eta);
+    eff  = h_ljet_eff->GetBinContent(xbin, ybin);
   }
   else {
     eff   = 1.;
@@ -122,10 +108,9 @@ float btagSFbc::getEff(float pt, float eta, int flavour) {
   return eff;
 }
 
-btagSFbc::~btagSFbc(){
+btagSFlight::~btagSFlight(){
   std::cout << "Cleaning up memory" << std::endl;
-  h_bjet_eff->Delete();
-  h_cjet_eff->Delete();
+  h_ljet_eff->Delete();
 }
  
 #endif
