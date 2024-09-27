@@ -2,6 +2,48 @@
 
 variables = {}
 
+# variables['Lepton_hwwMVA_1']  = { 
+#     'name'  : 'Lepton_hwwMVA_Run3[0]',     
+#     'range' : (40,-1,1),
+#     'xaxis' : 'Leading muon hww MVA discriminant',
+#     'fold'  : 3                         
+# }
+
+# variables['Lepton_hwwMVA_2']  = { 
+#     'name'  : 'Lepton_hwwMVA_Run3[1]',     
+#     'range' : (40,-1,1),
+#     'xaxis' : 'Sub-leading muon hww MVA discriminant',
+#     'fold'  : 3                         
+# }
+
+variables['Muon_mvaTTH_1']  = { 
+    'name': 'Muon_mvaTTH[Lepton_muonIdx[0]]',     
+    'range' : (40,-1,1),
+    'xaxis' : 'Leading muon ttH MVA discriminant',
+    'fold'  : 3                         
+}
+
+variables['Muon_mvaTTH_2']  = { 
+    'name': 'Muon_mvaTTH[Lepton_muonIdx[1]]',     
+    'range' : (40,-1,1),
+    'xaxis' : 'Sub-leading muon ttH MVA discriminant',
+    'fold'  : 3                         
+}
+
+variables['Electron_mvaTTH_1']  = { 
+    'name': 'Electron_mvaTTH[Lepton_electronIdx[0]]',     
+    'range' : (40,-1,1),
+    'xaxis' : 'Leading electron ttH MVA discriminant',
+    'fold'  : 3                         
+}
+
+variables['Electron_mvaTTH_2']  = { 
+    'name': 'Electron_mvaTTH[Lepton_electronIdx[1]]',     
+    'range' : (40,-1,1),
+    'xaxis' : 'Sub-leading electron ttH MVA discriminant',
+    'fold'  : 3                         
+}
+
 variables['Lepton_mva1']  = { 
     'name': 'Lepton_ttHMVA_Run3[0]',     
     'range' : (40,-1,1),

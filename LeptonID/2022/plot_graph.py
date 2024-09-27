@@ -124,6 +124,7 @@ def plot_canvas(input_file_name,
                     graph.GetYaxis().SetRangeUser(0,1)
                     first_graph += 1
                     print("First graph plotted!")
+                    print(f"Values = ({graph.GetPointX(0)},{graph.GetPointY(0)})")
             else:
                 print(f"Preparing graph number {first_graph+1}")
                 graph = input_file.Get(graph_name)
@@ -132,6 +133,7 @@ def plot_canvas(input_file_name,
                     graph.SetMarkerColor(colors[first_graph])
                     graph.Draw("P,same")
                     print(f"Graph {first_graph+1} plotted!")
+                    print(f"Values = ({graph.GetPointX(0)},{graph.GetPointY(0)})")
                     first_graph += 1
 
 
@@ -140,7 +142,7 @@ def plot_canvas(input_file_name,
     input_file.Close()
     
 
-plot_canvas(input_file_name,"WW", "WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets")
+#plot_canvas(input_file_name,"WW", "WJets",ele_ids,muon_ids,"ee","high_pt","ee_WW_vs_Wjets")
 
 plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"ee","high_pt","ee_ggH_vs_Wjets")
 plot_canvas(input_file_name,"ggH_hww","WJets",ele_ids,muon_ids,"em","high_pt","em_ggH_vs_Wjets")

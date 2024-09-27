@@ -3,7 +3,7 @@ import sys,os
 
 input_file_name = "eff_plots/efficiencies.root"
 
-colors = [ROOT.kGreen+1,ROOT.kRed+1,ROOT.kBlue,ROOT.kOrange,ROOT.kMagenta,ROOT.kAzure+10]
+colors = [ROOT.kGreen+1,ROOT.kRed+1,ROOT.kBlue,ROOT.kOrange,ROOT.kMagenta,ROOT.kAzure+10,ROOT.kYellow+3,ROOT.kBlack,ROOT.kGray]
 
 sys.argv.append('-b')
 ROOT.gROOT.SetBatch()
@@ -78,7 +78,7 @@ def plot_canvas(input_file_name,
                     first_graph += 1
 
     # Legend                
-    leg = ROOT.TLegend(0.12,0.12,0.82,0.42)
+    leg = ROOT.TLegend(0.12,0.12,0.89,0.42)
     leg.SetLineColor(0)
     if focus == 'mm':   leg.SetHeader("Muon ID:")
     elif focus == 'ee':  leg.SetHeader("Electron ID:")
@@ -100,9 +100,6 @@ def plot_canvas(input_file_name,
     
 
 # Calling the function to produce plots 
-ele_ids  = ["wp90iso","mvaWinter22V2Iso_WP90"]
-muon_ids = ["cut_TightID_POG","cut_Tight_HWW","cut_TightMiniIso_HWW","mvaMuID_WP_medium","mvaMuID_WP_tight"] 
-
 signals     = ["WW","ggH_hww"]
 backgrounds = ["TTToSemiLeptonic","WJets"]
 
@@ -110,43 +107,121 @@ final_states = ["ee","em","mm"]
 pt_ranges    = ["high_pt","low_pt"]
 
 
-# Loop over IDs without tthmva
-for signal in signals:
-    for background in backgrounds:
-        for final_state in final_states:
-            for pt_range in pt_ranges:
-
-                tthmva = ""
-                low_pt = ""
-                if "tthmva" in muon_ids[0]:
-                    tthmva = "_tthmva"
-                if pt_range == "low_pt":
-                    low_pt = "_low_pt"
-
-                background = background.replace(",","_")
-                    
-                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}{tthmva}"
-                    
-                plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
-
-# Loop over IDs with tthmva
-ele_ids  = ["wp90iso","mvaWinter22V2Iso_WP90"]
-muon_ids = ["cut_TightID_POG_tthmva_80","cut_Tight_HWW_tthmva_80","cut_TightMiniIso_HWW_tthmva_80","mvaMuID_WP_medium_tthmva_80","mvaMuID_WP_tight_tthmva_80"] 
+# Loop over "dumb" IDs
+ele_ids  = ["wp90iso"]
+muon_ids = ["cut_TightID_POG","cut_MediumID_POG","mvaMuID_WP_medium","mvaMuID_WP_tight"]
 
 for signal in signals:
     for background in backgrounds:
         for final_state in final_states:
             for pt_range in pt_ranges:
 
-                tthmva = ""
                 low_pt = ""
-                if "tthmva" in muon_ids[0]:
-                    tthmva = "_tthmva"
+                if pt_range == "low_pt":
+                    low_pt = "_low_pt"
+
+                background = background.replace(",","_")
+                    
+                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}_dumb"
+                    
+                plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
+
+
+# Loop over IDs with P.F. Isolation
+ele_ids  = ["mvaWinter22V2Iso_WP90"]
+muon_ids = ["cut_Tight_HWW","cut_Medium_HWW","mvaMuID_WP_medium_HWW","mvaMuID_WP_tight_HWW"]
+
+for signal in signals:
+    for background in backgrounds:
+        for final_state in final_states:
+            for pt_range in pt_ranges:
+
+                low_pt = ""
+                if pt_range == "low_pt":
+                    low_pt = "_low_pt"
+
+                background = background.replace(",","_")
+                    
+                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}_pfIso"
+                    
+                plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
+
+
+# Loop over IDs with Mini Isolation
+ele_ids  = ["mvaWinter22V2Iso_WP90","mvaWinter22V2Iso_WP90_noLostHits"]
+muon_ids = ["cut_TightMiniIso_HWW","cut_MediumMiniIso_HWW","mvaMuID_WP_mediumMiniIso_HWW","mvaMuID_WP_tightMiniIso_HWW"] 
+
+for signal in signals:
+    for background in backgrounds:
+        for final_state in final_states:
+            for pt_range in pt_ranges:
+
+                low_pt = ""
+                if pt_range == "low_pt":
+                    low_pt = "_low_pt"
+
+                background = background.replace(",","_")
+                    
+                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}_MiniIso"
+                    
+                plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
+
+                
+# Loop over IDs with P.F. Isolation and tthmva
+ele_ids  = ["mvaWinter22V2Iso_WP90_ttHMVA_90"]
+muon_ids = ["cut_Tight_HWW_ttHMVA_67","cut_Medium_HWW_ttHMVA_67","mvaMuID_WP_medium_HWW_ttHMVA_67","mvaMuID_WP_tight_HWW_ttHMVA_67"]
+
+for signal in signals:
+    for background in backgrounds:
+        for final_state in final_states:
+            for pt_range in pt_ranges:
+
+                low_pt = ""
                 if pt_range == "low_pt":
                     low_pt = "_low_pt"
 
                 background = background.replace(",","_")
 
-                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}{tthmva}"
+                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}_pfIso_tthmva"
                     
                 plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
+
+
+# Loop over IDs with Mini Isolation and tthmva
+ele_ids  = ["mvaWinter22V2Iso_WP90_ttHMVA_90","mvaWinter22V2Iso_WP90_noLostHits_ttHMVA_90"]
+muon_ids = ["cut_TightMiniIso_HWW_ttHMVA_67","cut_MediumMiniIso_HWW_ttHMVA_67","mvaMuID_WP_mediumMiniIso_HWW_ttHMVA_67","mvaMuID_WP_tightMiniIso_HWW_ttHMVA_67"] 
+
+for signal in signals:
+    for background in backgrounds:
+        for final_state in final_states:
+            for pt_range in pt_ranges:
+
+                low_pt = ""
+                if pt_range == "low_pt":
+                    low_pt = "_low_pt"
+
+                background = background.replace(",","_")
+
+                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}_MiniIso_tthmva"
+                    
+                plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
+                
+# Loop over IDs with Loose P.F. Isolation and tthmva
+ele_ids  = ["mvaWinter22V2Iso_WP90_looseIso_ttHMVA_90"]
+muon_ids = ["cut_Tight_looseIso_ttHMVA_67","cut_Medium_looseIso_ttHMVA_67","mvaMuID_WP_medium_looseIso_ttHMVA_67","mvaMuID_WP_tight_looseIso_ttHMVA_67"] 
+
+for signal in signals:
+    for background in backgrounds:
+        for final_state in final_states:
+            for pt_range in pt_ranges:
+
+                low_pt = ""
+                if pt_range == "low_pt":
+                    low_pt = "_low_pt"
+
+                background = background.replace(",","_")
+
+                output_name = f"{final_state}_{signal}_vs_{background}{low_pt}_looseIso_tthmva"
+                    
+                plot_canvas(input_file_name,signal,background,ele_ids,muon_ids,final_state,pt_range,output_name,final_state)
+                

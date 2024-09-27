@@ -22,111 +22,464 @@ aliases['Lepton_ttHMVA_Run3'] = {
     'expr'           : 'ttHMVA(nLepton,Lepton_pdgId,Lepton_electronIdx,Electron_jetIdx,Electron_pt,Electron_eta,Electron_pfRelIso03_all,Electron_miniPFRelIso_chg,Electron_miniPFRelIso_all,Electron_jetNDauCharged,Electron_jetPtRelv2,Electron_jetRelIso,Jet_btagDeepFlavB,Electron_sip3d,Electron_dxy,Electron_dz,Electron_mvaIso,Lepton_muonIdx,Muon_jetIdx,Muon_pt,Muon_eta,Muon_pfRelIso03_all,Muon_miniPFRelIso_chg,Muon_miniPFRelIso_all,Muon_jetNDauCharged,Muon_jetPtRelv2,Muon_jetRelIso,Muon_sip3d,Muon_dxy,Muon_dz,Muon_segmentComp)',
 }
 
+# aliases['Lepton_hwwMVA_Run3'] = {
+#     'linesToAdd'     : [f'#include "{configurations}/macros/hww_MVA_reader_class.cc"'],
+#     'linesToProcess' : [f"ROOT.gInterpreter.Declare('hww_MVA_reader hwwMVA = hww_MVA_reader(\"BDTG\",\"{configurations}/data/random_forest_xgboost_electron_MVA-HWW_simple.xml\",\"BDTG\",\"{configurations}/data/random_forest_xgboost_muon_MVA-HWW_simple.xml\");')"],
+#     'expr'           : 'ttHMVA(nLepton,Lepton_pdgId,Lepton_electronIdx,Electron_jetIdx,Electron_pt,Electron_eta,Electron_pfRelIso03_all,Electron_miniPFRelIso_chg,Electron_miniPFRelIso_all,Electron_jetNDauCharged,Electron_jetPtRelv2,Electron_jetRelIso,Jet_btagDeepFlavB,Electron_sip3d,Electron_dxy,Electron_dz,Electron_mvaIso,Electron_lostHits,Electron_scEtOverPt,Electron_r9,Electron_sieie,Electron_hoe,Electron_eInvMinusPInv,Electron_dr03TkSumPt,Lepton_muonIdx,Muon_jetIdx,Muon_pt,Muon_eta,Muon_pfRelIso03_all,Muon_miniPFRelIso_chg,Muon_miniPFRelIso_all,Muon_jetNDauCharged,Muon_jetPtRelv2,Muon_jetRelIso,Muon_sip3d,Muon_dxy,Muon_dz,Muon_segmentComp,Muon_nStations,Muon_nTrackerLayers,Muon_highPurity,Muon_bsConstrainedChi2,Muon_tkRelIso)',
+# }
+
 
 ###############################
 # Define different lepton IDs #
 ###############################
 
+### Dumb Selections:
+#
+# - ele_wp90iso
+#
+# - mu_cut_TightID_POG
+# - mu_cut_MediumID_POG
+# - mu_mvaMuID_WP_medium
+# - mu_mvaMuID_WP_tight
+
 # LepCut2l__ele_wp90iso__mu_cut_TightID_POG
 eleWP = 'wp90iso'
 muWP  = 'cut_TightID_POG'
 
-aliases['LepWPCut__ele_wp90iso__mu_cut_TightID_POG'] = {
-    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_tightId[Lepton_muonIdx[0]] == 1) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_tightId[Lepton_muonIdx[1]] == 1) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
     'samples': mc,
 }
 
-# LepCut2l__ele_wp90iso__mu_cut_TightID_POG + muon_ttHMVA_80
-aliases['LepWPCut__ele_wp90iso__mu_cut_TightID_POG_tthmva_80'] = {
-    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+# LepCut2l__ele_wp90iso__mu_cut_MediumID_POG
+eleWP = 'wp90iso'
+muWP  = 'cut_MediumID_POG'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
     'samples': mc,
 }
+
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium
+eleWP = 'wp90iso'
+muWP  = 'mvaMuID_WP_medium'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_tight
+eleWP = 'wp90iso'
+muWP  = 'mvaMuID_WP_tight'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+
+
+### Basic selections
+#
+# - ele_mvaWinter22V2Iso_WP90
+# - ele_mvaWinter22V2Iso_WP90 + Electron_lostHits == 0
+# - ele_mvaWinter22V2Iso_WP90_MiniIso ??
+#
+# - mu_cut_Tight_HWW
+# - mu_cut_MediumID_HWW
+# - mu_mvaMuID_WP_medium_HWW
+# - mu_mvaMuID_WP_tight_HWW
+#
+# - mu_cut_TightMiniIso_HWW
+# - mu_cut_MediumMiniIso_HWW
+# - mu_mvaMuID_WP_medium_MiniIso_HWW
+# - mu_mvaMuID_WP_tight_MiniIso_HWW
 
 
 # LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW
 eleWP = 'mvaWinter22V2Iso_WP90'
 muWP  = 'cut_Tight_HWW'
 
-aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW'] = {
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
     'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
     'samples': mc,
 }
 
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW + muon_ttHMVA_80
-aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_Tight_HWW_tthmva_80'] = {
-    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
-    'samples': mc,
-}
-
-
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW 
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_Medium_HWW
 eleWP = 'mvaWinter22V2Iso_WP90'
-muWP  = 'cut_TightMiniIso_HWW '
+muWP  = 'cut_Medium_HWW'
 
-aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW'] = {
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_medium_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_medium_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_tight_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tight_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_TightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
     'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,
     'samples': mc,
 }
 
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightMiniIso_HWW + muon_ttHMVA_80 + ele_ttHMVA_90
-aliases['LepWPCut__ele_mvaWinter22V2Iso_WP90_tthmva_90__mu_cut_TightMiniIso_HWW_tthmva_80'] = {
-    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11 && Lepton_ttHMVA_Run3[0] > 0.90)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11 && Lepton_ttHMVA_Run3[1] > 0.90)) )',
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_MediumMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_MediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_mediumMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_mediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_tightMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5) ) ) ) : 0',
     'samples': mc,
 }
 
 
-# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium
-eleWP = 'wp90iso'
-muWP  = 'mvaMuID_WP_medium'
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_cut_Tight_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_Tight_HWW'
 
-aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + ' \
+             && ((abs(Lepton_pdgId[0]) == 11 && Electron_lostHits[Lepton_electronIdx[0]] == 0) || (abs(Lepton_pdgId[0]) == 13)) \
+             && ((abs(Lepton_pdgId[1]) == 11 && Electron_lostHits[Lepton_electronIdx[1]] == 0) || (abs(Lepton_pdgId[1]) == 13))',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_cut_Medium_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_Medium_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
     'expr' : 'nLepton > 1 ? \
-              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[0]] < 0.15 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_'+eleWP+'[0]>0.5) ) && \
-              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[1]] < 0.15 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_'+eleWP+'[1]>0.5) ) ) ) : 0',
-    'samples' : mc,
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4) || (abs(Lepton_pdgId[0]) == 11 && (Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0) ) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0) ) ) ) : 0',
+    'samples': mc,
 }
 
-# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_medium + muon_ttHMVA_80 + ele_ttHMVA_90
-aliases['LepCut2l__ele_'+eleWP+'_tthmva_90__mu_'+muWP+'_tthmva_80'] = {
-    'expr' : 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11 && Lepton_ttHMVA_Run3[0] > 0.90)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11 && Lepton_ttHMVA_Run3[1] > 0.90)) )',
-    'samples' : mc,
-}
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_mvaMuID_WP_medium_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_medium_HWW'
 
-
-# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_tight
-eleWP = 'wp90iso'
-muWP  = 'mvaMuID_WP_tight'
-
-aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP] = {
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
     'expr' : 'nLepton > 1 ? \
-              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[0]] < 0.15 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] == 2) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_'+eleWP+'[0]>0.5) ) && \
-              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && Muon_pfRelIso04_all[Lepton_muonIdx[1]] < 0.15 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] == 2) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_'+eleWP+'[1]>0.5) ) ) ) : 0',
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_mvaMuID_WP_tight_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tight_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0) ) ) ) : 0',
+    'samples': mc,
+}
+
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_cut_TightMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_TightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + '\
+             && ((abs(Lepton_pdgId[0]) == 11 && Electron_lostHits[Lepton_electronIdx[0]] == 0) || (abs(Lepton_pdgId[0]) == 13)) \
+             && ((abs(Lepton_pdgId[1]) == 11 && Electron_lostHits[Lepton_electronIdx[1]] == 0) || (abs(Lepton_pdgId[1]) == 13))',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_cut_MediumMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_MediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_mvaMuID_WP_mediumMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_mediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits__mu_mvaMuID_WP_tightMiniIso_HWW
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits__mu_' + muWP] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0) ) ) ) : 0',
+    'samples': mc,
+}
+
+
+### Selections Incuding ttHMVA Run3 discriminant. It could also be tuned on top of the previous steps, looking at expected significance or comparing the fake rate in UL
+#
+# - ele_mvaWinter22V2Iso_WP90_ttHMVA_90
+# - ele_mvaWinter22V2Iso_WP90_looseIso_ttHMVA_90
+# - ele_mvaWinter22V2Iso_WP90_noLostHits_ttHMVA_90
+#
+# - ele_mvaWinter22V2Iso_WP90_MiniIso_ttHMVA_90 ??
+#
+#
+# - mu_cut_Tight_HWW_ttHMVA_67
+# - mu_cut_Medium_HWW_ttHMVA_67
+# - mu_mvaMuID_WP_medium_HWW_ttHMVA_67
+# - mu_mvaMuID_WP_tight_HWW_ttHMVA_67
+#
+# - mu_cut_TightMiniIso_HWW_ttHMVA_67
+# - mu_cut_MediumMiniIso_HWW_ttHMVA_67
+# - mu_mvaMuID_WP_medium_MiniIso_HWW_ttHMVA_67
+# - mu_mvaMuID_WP_tight_MiniIso_HWW_ttHMVA_67
+#
+# - mu_cut_Tight_looseIso_ttHMVA_67
+# - mu_cut_Medium_looseIso_ttHMVA_67
+# - mu_mvaMuID_WP_medium_looseIso_ttHMVA_67
+
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_looseIso_ttHMVA_90__mu_cut_Tight_looseIso_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90_looseIso'
+muWP  = 'cut_Tight_looseIso'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : '( ( (abs(Lepton_pdgId[0]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67 && Muon_tightId[Lepton_muonIdx[0]] == 1) || (abs(Lepton_pdgId[0]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[0]] == 1 && Electron_convVeto[Lepton_electronIdx[0]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[0]] < 0.4 && ((abs(Lepton_eta[0]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.1) || (abs(Lepton_eta[0]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+                ( (abs(Lepton_pdgId[1]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67 && Muon_tightId[Lepton_muonIdx[1]] == 1) || (abs(Lepton_pdgId[1]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[1]] == 1 && Electron_convVeto[Lepton_electronIdx[1]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[1]] < 0.4 && ((abs(Lepton_eta[1]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.1) || (abs(Lepton_eta[1]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) )',
     'samples' : mc,
 }
 
-# LepCut2l__ele_wp90iso__mu_mvaMuID_WP_tight + muon_ttHMVA_80
-aliases['LepCut2l__ele_'+eleWP+'__mu_'+muWP+'_tthmva_80'] = {
-    'expr' : 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + " && " \
-            '( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.80) || (abs(Lepton_pdgId[0])==11)) \
-            && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.80) || (abs(Lepton_pdgId[1])==11)) )',
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_looseIso_ttHMVA_90__mu_cut_Medium_looseIso_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90_looseIso'
+muWP  = 'cut_Medium_looseIso'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : '( ( (abs(Lepton_pdgId[0]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67 && Muon_mediumId[Lepton_muonIdx[0]] == 1) || (abs(Lepton_pdgId[0]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[0]] == 1 && Electron_convVeto[Lepton_electronIdx[0]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[0]] < 0.4 && ((abs(Lepton_eta[0]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.1) || (abs(Lepton_eta[0]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+                ( (abs(Lepton_pdgId[1]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67 && Muon_mediumId[Lepton_muonIdx[1]] == 1) || (abs(Lepton_pdgId[1]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[1]] == 1 && Electron_convVeto[Lepton_electronIdx[1]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[1]] < 0.4 && ((abs(Lepton_eta[1]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.1) || (abs(Lepton_eta[1]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) )',
+    'samples' : mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_looseIso_ttHMVA_90__mu_mvaMuID_WP_medium_looseIso_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90_looseIso'
+muWP  = 'mvaMuID_WP_medium_looseIso'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : '( ( (abs(Lepton_pdgId[0]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67 && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1) || (abs(Lepton_pdgId[0]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[0]] == 1 && Electron_convVeto[Lepton_electronIdx[0]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[0]] < 0.4 && ((abs(Lepton_eta[0]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.1) || (abs(Lepton_eta[0]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+                ( (abs(Lepton_pdgId[1]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67 && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1) || (abs(Lepton_pdgId[1]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[1]] == 1 && Electron_convVeto[Lepton_electronIdx[1]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[1]] < 0.4 && ((abs(Lepton_eta[1]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.1) || (abs(Lepton_eta[1]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) )',
+    'samples' : mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_looseIso_ttHMVA_90__mu_mvaMuID_WP_tight_looseIso_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90_looseIso'
+muWP  = 'mvaMuID_WP_tight_looseIso'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : '( ( (abs(Lepton_pdgId[0]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67 && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2) || (abs(Lepton_pdgId[0]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[0]] == 1 && Electron_convVeto[Lepton_electronIdx[0]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[0]] < 0.4 && ((abs(Lepton_eta[0]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.1) || (abs(Lepton_eta[0]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[0]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[0]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+                ( (abs(Lepton_pdgId[1]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67 && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2) || (abs(Lepton_pdgId[1]) == 11 && Electron_mvaIso_WP90[Lepton_electronIdx[1]] == 1 && Electron_convVeto[Lepton_electronIdx[1]] == 1 && Electron_pfRelIso03_all[Lepton_electronIdx[1]] < 0.4 && ((abs(Lepton_eta[1]) <= 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.05 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.1) || (abs(Lepton_eta[1]) > 1.479 && abs(Electron_dxy[Lepton_electronIdx[1]]) < 0.1 && abs(Electron_dz[Lepton_electronIdx[1]]) < 0.2)) && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) )',
     'samples' : mc,
 }
 
 
-# Current list of Lepton IDs inspected:
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_cut_TightID_POG
-# LepCut2l__ele_wp90iso__mu_cut_Tight_HWW
-# LepCut2l__ele_wp90iso__mu_cut_TightMiniIso_HWW
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_medium
-# LepCut2l__ele_mvaWinter22V2Iso_WP90__mu_mvaMuID_WP_tight
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_cut_Tight_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_Tight_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + ' && \
+            ( ((abs(Lepton_pdgId[0])==13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0])==11 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90)) \
+            && ((abs(Lepton_pdgId[1])==13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1])==11 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90)) )',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_cut_MediumID_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_Medium_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_mvaMuID_WP_medium_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_medium_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_mvaMuID_WP_tight_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tight_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_pfIsoId[Lepton_muonIdx[0]] >= 4 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_pfIsoId[Lepton_muonIdx[1]] >= 4 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_cut_TightMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_TightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + ' && \
+             ( ( (abs(Lepton_pdgId[0]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+               ( (abs(Lepton_pdgId[1]) == 13 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) \
+    ',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_cut_MediumMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_MediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_mvaMuID_WP_mediumMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_mediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_ttHMVA_90__mu_mvaMuID_WP_tightMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits_ttHMVA_90__mu_cut_TightMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_TightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP + ' && \
+             ( ( (abs(Lepton_pdgId[0]) == 13 && Electron_lostHits[Lepton_electronIdx[0]] == 0 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+               ( (abs(Lepton_pdgId[1]) == 13 && Electron_lostHits[Lepton_electronIdx[1]] == 0 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) \
+    ',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits_ttHMVA_90__mu_cut_MediumMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'cut_MediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[0]] == 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mediumId[Lepton_muonIdx[1]] == 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits_ttHMVA_90__mu_mvaMuID_WP_mediumMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_mediumMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 1 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
+
+# LepCut2l__ele_mvaWinter22V2Iso_WP90_noLostHits_ttHMVA_90__mu_mvaMuID_WP_tightMiniIso_HWW_ttHMVA_67
+eleWP = 'mvaWinter22V2Iso_WP90'
+muWP  = 'mvaMuID_WP_tightMiniIso_HWW'
+
+aliases['LepWPCut__ele_' + eleWP + '_noLostHits_ttHMVA_90__mu_' + muWP + '_ttHMVA_67'] = {
+    'expr' : 'nLepton > 1 ? \
+              ( ( (abs(Lepton_pdgId[0]) == 13 && abs(Lepton_eta[0]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[0]]) < 0.1 && ((Lepton_pt[0] <= 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.01) || (Lepton_pt[0] > 20 && abs(Muon_dxy[Lepton_muonIdx[0]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[0]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[0]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[0]]>0.67) || (abs(Lepton_pdgId[0]) == 11 && Lepton_isTightElectron_' + eleWP + '[0]>0.5 && Electron_lostHits[Lepton_electronIdx[0]] == 0 && Lepton_ttHMVA_Run3[Lepton_electronIdx[0]]>0.90) ) && \
+              ( ( (abs(Lepton_pdgId[1]) == 13 && abs(Lepton_eta[1]) < 2.4 && abs(Muon_dz[Lepton_muonIdx[1]]) < 0.1 && ((Lepton_pt[1] <= 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.01) || (Lepton_pt[1] > 20 && abs(Muon_dxy[Lepton_muonIdx[1]]) < 0.02)) && Muon_mvaMuID_WP[Lepton_muonIdx[1]] >= 2 && Muon_miniIsoId[Lepton_muonIdx[1]] >= 3 && Lepton_ttHMVA_Run3[Lepton_muonIdx[1]]>0.67) || (abs(Lepton_pdgId[1]) == 11 && Lepton_isTightElectron_' + eleWP + '[1]>0.5 && Electron_lostHits[Lepton_electronIdx[1]] == 0 && Lepton_ttHMVA_Run3[Lepton_electronIdx[1]]>0.90) ) ) ) : 0',
+    'samples': mc,
+}
 
 
 ##########################################################################
@@ -244,3 +597,119 @@ for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr
 ##########################################################################
 # End of b tagging
 ##########################################################################
+
+# Lepton IDs
+############
+
+### Muons:
+
+# - cut_TightID_POG
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_tightId
+
+# - cut_Tight_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_tightId
+#   + Muon_pfIsoId >= 4
+
+# - cut_TightMiniIso_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_tightId
+#   + Muon_miniIsoId >= 3
+
+
+# - cut_MediumID_POG
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mediumId
+
+# - cut_Medium_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mediumId
+#   + Muon_pfIsoId >= 4
+
+# - cut_MediumMiniIso_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mediumId
+#   + Muon_miniIsoId >= 3
+
+
+# - mvaMuID_WP_medium
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mvaMuID_WP >= 1
+
+# - mvaMuID_WP_medium_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mvaMuID_WP >= 1
+#   + Muon_pfRelIso04_all < 0.15
+
+# - mvaMuID_WP_medium_miniIso_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mvaMuID_WP >= 1
+#   + Muon_miniIsoId >= 3
+
+
+# - mvaMuID_WP_tight
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mvaMuID_WP >= 2
+
+# - mvaMuID_WP_tight_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mvaMuID_WP >= 2
+#   + Muon_pfRelIso04_all < 0.15
+
+# - mvaMuID_WP_tight_miniIso_HWW
+#   + abs(Muon_eta) < 2.4
+#   + abs(Muon_dz) < 0.1
+#   + Muon_pt <= 20.0 : abs(Muon_dxy) < 0.01
+#   + Muon_pt >  20.0 : abs(Muon_dxy) < 0.02
+#   + Muon_mvaMuID_WP >= 2
+#   + Muon_miniIsoId >= 3
+
+
+### Electrons:
+
+# - wp90iso
+#   + abs(Electron_eta) < 2.5
+#   + Electron_mvaIso_WP90
+#   + Electron_convVeto
+
+# - mvaWinter22V2Iso_WP90
+#   + abs(Electron_eta) < 2.5
+#   + Electron_mvaIso_WP90
+#   + Electron_convVeto
+#   + Electron_pfRelIso03_all < 0.06
+#   + abs(Electron_eta) <= 1.479 : abs(Electron_dxy) < 0.05 and abs(Electron_dz)  < 0.1
+#   + abs(Electron_eta) >  1.479 : abs(Electron_dxy) < 0.1  and abs(Electron_dz)  < 0.2
