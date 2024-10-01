@@ -35,6 +35,9 @@ def plot_canvas(input_file_name,
     frame.GetXaxis().SetTitle("1 - bkg efficiency");
     frame.GetYaxis().SetTitle("Sig efficiency");
     c1.Update()
+
+    ele_id_used  = []
+    muon_id_used = []
     
     for ele_id in ele_ids:
         for muon_id in muon_ids:
@@ -45,7 +48,7 @@ def plot_canvas(input_file_name,
             if first_graph == 0:
                 print("Preparing first graph")
                 graph = input_file.Get(graph_name)
-                if isinstance(graph, ROOT.TGraph): 
+                if isinstance(graph, ROOT.TGraph):
                     graphs.append(input_file.Get(graph_name))
                     graphs[-1].SetMarkerStyle(20)
                     graphs[-1].SetMarkerColor(colors[first_graph])
@@ -61,11 +64,17 @@ def plot_canvas(input_file_name,
                     graphs[-1].GetYaxis().SetRangeUser(0.0,1.0)
                     print("First graph plotted!")
                     print(f"Values = ({graphs[-1].GetPointX(0)},{graphs[-1].GetPointY(0)})")
+                    ele_id_used.append(ele_id)
+                    muon_id_used.append(muon_id)
                     first_graph += 1
+                    
             else:
                 print(f"Preparing graph number {first_graph+1}")
                 graph = input_file.Get(graph_name)
-                if isinstance(graph, ROOT.TGraph): 
+                if isinstance(graph, ROOT.TGraph):
+                    if focus == 'ee' and ele_id  in ele_id_used:  continue
+                    if focus == 'mm' and muon_id in muon_id_used: continue
+                    if focus == 'em' and "Lost"  in ele_id:       continue # for now, skip noLostHits
                     graphs.append(input_file.Get(graph_name))
                     graphs[-1].SetMarkerStyle(20)
                     graphs[-1].SetMarkerColor(colors[first_graph])
@@ -75,11 +84,14 @@ def plot_canvas(input_file_name,
                     graphs[-1].Draw("P,same")
                     print(f"Graph {first_graph+1} plotted!")
                     print(f"Values = ({graphs[-1].GetPointX(0)},{graphs[-1].GetPointY(0)})")
+                    ele_id_used.append(ele_id)
+                    muon_id_used.append(muon_id)
                     first_graph += 1
 
     # Legend                
     leg = ROOT.TLegend(0.12,0.12,0.89,0.42)
     leg.SetLineColor(0)
+    leg.SetTextSize(0.02)
     if focus == 'mm':   leg.SetHeader("Muon ID:")
     elif focus == 'ee':  leg.SetHeader("Electron ID:")
     elif focus == 'em': leg.SetHeader("Electron and Muon ID:")
