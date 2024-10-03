@@ -152,9 +152,23 @@ variables['jeteta1']  = {
     'fold' : 0
 }
 
+variables['jeteta1_fine_binning']  = {
+    'name': 'Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
+    'range' : (94,-4.7,4.7),
+    'xaxis' : '#eta 1st jet',
+    'fold' : 0
+}
+
 variables['jeteta2']  = {
     'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
     'range' : (30,-4.7,4.7),
+    'xaxis' : '#eta 2nd jet',
+    'fold' : 0
+}
+
+variables['jeteta2_fine_binning']  = {
+    'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
+    'range' : (94,-4.7,4.7),
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
 }
