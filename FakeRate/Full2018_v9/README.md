@@ -43,3 +43,7 @@ Plot distributions:
     mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
 
 ### Measure Fake Rate
+
+All the instructions are summarized in the `do_fake_rate.sh` bash script:
+
+	bash do_fake_rate.sh
