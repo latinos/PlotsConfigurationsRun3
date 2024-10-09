@@ -24,6 +24,13 @@ variables['pt1_eta1'] = {
     'fold'  : 3,
 }
 
+variables['pt2_eta2'] = {
+    'name'  : 'Alt(Lepton_pt,1,0):abs(Alt(Lepton_eta,1,999))',
+    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 0.5, 1.0, 1.5, 2.0, 2.5],),
+    'xaxis' : 'p_{T}^{#ell 1}:#eta^{#ell 1}',
+    'fold'  : 3,
+}
+
 variables['mll'] = {
     'name'  : 'mll',
     'range' : (20, 60,120),
@@ -41,6 +48,20 @@ variables['pt1'] = {
 variables['eta1']  = {
     'name'  : 'Lepton_eta[0]',     
     'range' : (40,-3,3),   
+    'xaxis' : '#eta 1st lep',
+    'fold'  : 3                         
+}
+
+variables['pt2'] = {
+    'name'  : 'Alt(Lepton_pt,1,0)',
+    'range' : (20,0,100),   
+    'xaxis' : 'p_{T} 1st lep',
+    'fold'  : 0                         
+}
+
+variables['eta2']  = {
+    'name'  : 'Alt(Lepton_eta,1,999)',
+    'range' : (40,-3,3),
     'xaxis' : '#eta 1st lep',
     'fold'  : 3                         
 }

@@ -14,9 +14,9 @@ aliases = OrderedDict()
 mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 
-# LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW_tthmva_80
+# LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW
 eleWP = 'mvaFall17V2Iso_WP90'
-muWP  = 'cut_Tight_HWWW_tthmva_80'
+muWP  = 'cut_Tight_HWWW'
 
 aliases['LepWPCut2l'] = {
     'expr': 'LepCut2l__ele_' + eleWP + '__mu_' + muWP,

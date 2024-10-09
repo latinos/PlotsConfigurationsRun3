@@ -17,7 +17,7 @@ for jet_pt_threshold in jet_pt_thresholds:
     
     # QCD region
     cuts[f'QCD_loose_jet_pt_{jet_pt_threshold}'] = {
-        'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && bVeto && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1',
+        'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1',
         'categories' : {
             'ele'  : 'abs(Lepton_pdgId[0]) == 11',
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
@@ -26,7 +26,7 @@ for jet_pt_threshold in jet_pt_thresholds:
 
     # Z-peak
     cuts[f'Zpeak_loose_jet_pt_{jet_pt_threshold}'] = {
-        'expr'    : f'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && bVeto && Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
+        'expr'    : f'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
         'categories' : {
             'ele'  : 'abs(Lepton_pdgId[0]) == 11',
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
@@ -44,7 +44,7 @@ for jet_pt_threshold in jet_pt_thresholds:
 
     # WJets region
     cuts[f'WJets_loose_jet_pt_{jet_pt_threshold}'] = {
-        'expr'    : f'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bVeto && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
+        'expr'    : f'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
         'categories' : {
             'ele'  : 'abs(Lepton_pdgId[0]) == 11',
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
@@ -57,7 +57,7 @@ for jet_pt_threshold in jet_pt_thresholds:
 
     # QCD region
     cuts[f'QCD_tight_jet_pt_{jet_pt_threshold}'] = {
-        'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && bVeto && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && LepWPCut1l',
+        'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && LepWPCut1l',
         'categories' : {
             'ele'  : 'abs(Lepton_pdgId[0]) == 11',
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
@@ -66,7 +66,7 @@ for jet_pt_threshold in jet_pt_thresholds:
 
     # Z-peak
     cuts[f'Zpeak_tight_jet_pt_{jet_pt_threshold}'] = {
-        'expr'    : f'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && bVeto && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
+        'expr'    : f'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
         'categories' : {
             'ele'  : 'abs(Lepton_pdgId[0]) == 11',
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
@@ -84,7 +84,7 @@ for jet_pt_threshold in jet_pt_thresholds:
 
     # WJets region
     cuts[f'WJets_tight_jet_pt_{jet_pt_threshold}'] = {
-        'expr'    : f'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bVeto && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
+        'expr'    : f'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
         'categories' : {
             'ele'  : 'abs(Lepton_pdgId[0]) == 11',
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
@@ -99,7 +99,7 @@ for jet_pt_threshold in jet_pt_thresholds:
 
 # QCD region
 cuts['QCDCR_loose'] = {
-    'expr'    : 'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bVeto && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1',
+    'expr'    : 'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1',
     'categories' : {
         'ele_high_pt_0j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && zeroJet',
         'ele_high_pt_1j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && oneJet',
@@ -118,7 +118,7 @@ cuts['QCDCR_loose'] = {
 
 # Z-peak
 cuts['ZpeakCR_loose'] = {
-    'expr'    : 'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && bVeto',
+    'expr'    : 'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120',
     'categories' : {
         'ele_high_pt_0j'  : 'abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && zeroJet', 
         'ele_high_pt_1j'  : 'abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && oneJet',  
@@ -156,7 +156,7 @@ cuts['ZpeakCR_loose'] = {
 
 # WJets region
 cuts['WJetsCR_loose'] = {
-    'expr'    : 'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bVeto && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1',
+    'expr'    : 'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1',
     'categories' : {
         'ele_high_pt_0j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && zeroJet', 
         'ele_high_pt_1j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && oneJet',  
@@ -179,7 +179,7 @@ cuts['WJetsCR_loose'] = {
 
 # QCD region
 cuts['QCDCR_tight'] = {
-    'expr'    : 'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bVeto && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && LepWPCut1l',
+    'expr'    : 'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && LepWPCut1l',
     'categories' : {
         'ele_high_pt_0j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && zeroJet',
         'ele_high_pt_1j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && oneJet',
@@ -198,7 +198,7 @@ cuts['QCDCR_tight'] = {
 
 # Z-peak
 cuts['ZpeakCR_tight'] = {
-    'expr'    : 'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && bVeto && LepWPCut2l',
+    'expr'    : 'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && LepWPCut2l',
     'categories' : {
         'ele_high_pt_0j'  : 'abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && zeroJet', 
         'ele_high_pt_1j'  : 'abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && oneJet',  
@@ -236,7 +236,7 @@ cuts['ZpeakCR_tight'] = {
 
 # WJets region
 cuts['WJetsCR_tight'] = {
-    'expr'    : 'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bVeto && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && LepWPCut1l',
+    'expr'    : 'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.4 && dRl1j1 > 1 && LepWPCut1l',
     'categories' : {
         'ele_high_pt_0j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && zeroJet', 
         'ele_high_pt_1j'  : 'abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 25  && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5 && oneJet',  
