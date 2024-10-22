@@ -5,12 +5,12 @@ then
   exit 1
 else
   echo "We got some argument(s)"
-  echo "==========================="
-  echo "Number of arguments. : $#"
-  echo "List of arguments... : $@"
-  echo "Arg #1: Final State  : $1"
-  echo "Arg #1: Final State  : $2"
-  echo "==========================="
+  echo "=========================="
+  echo "Number of arguments.  : $#"
+  echo "List of arguments...  : $@"
+  echo "Arg #1: Final State   : $1"
+  echo "Arg #2: Produce plots : $2"
+  echo "=========================="
   FINAL_STATE=$1
   PLOT=$2
 fi
@@ -21,7 +21,7 @@ cd -
 ulimit -s unlimited
 alias python=python3
 
-# Default parameters. We may want to make them accessible as input parameters
+### Default parameters. We may want to make them accessible as input parameters
 WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning_WH_strength.root
 POI=r_WH
 PARAMETERS=r_WH=1,r_higgs=1
@@ -31,12 +31,16 @@ RANGES=r_WH=-5,5
 ### Prepare list of channels
 WHSS_2018_HIGH_PT=mask_WH_SS_em_1j_minus_2018=1,mask_WH_SS_em_1j_plus_2018=1,mask_WH_SS_mm_1j_minus_2018=1,mask_WH_SS_mm_1j_plus_2018=1,mask_WH_SS_ee_1j_minus_2018=1,mask_WH_SS_ee_1j_plus_2018=1,mask_WH_SS_em_2j_minus_2018=1,mask_WH_SS_em_2j_plus_2018=1,mask_WH_SS_mm_2j_minus_2018=1,mask_WH_SS_mm_2j_plus_2018=1,mask_WH_SS_ee_2j_minus_2018=1,mask_WH_SS_ee_2j_plus_2018=1,mask_WH_SS_WZ_1j_2018=1,mask_WH_SS_WZ_2j_2018=1
 
+WHSS_2018_EE_HIGH_PT=mask_WH_SS_ee_1j_minus_2018=1,mask_WH_SS_ee_1j_plus_2018=1,mask_WH_SS_ee_2j_minus_2018=1,mask_WH_SS_ee_2j_plus_2018=1
+
 WHSS_2018_LOW_PT=mask_WH_SS_em_1j_minus_low_pt_2018=1,mask_WH_SS_em_1j_plus_low_pt_2018=1,mask_WH_SS_mm_1j_minus_low_pt_2018=1,mask_WH_SS_mm_1j_plus_low_pt_2018=1,mask_WH_SS_ee_1j_minus_low_pt_2018=1,mask_WH_SS_ee_1j_plus_low_pt_2018=1,mask_WH_SS_em_2j_minus_low_pt_2018=1,mask_WH_SS_em_2j_plus_low_pt_2018=1,mask_WH_SS_mm_2j_minus_low_pt_2018=1,mask_WH_SS_mm_2j_plus_low_pt_2018=1,mask_WH_SS_ee_2j_minus_low_pt_2018=1,mask_WH_SS_ee_2j_plus_low_pt_2018=1
 
 WH3l_2018=mask_WH_3l_sssf_plus_2018=1,mask_WH_3l_sssf_minus_2018=1,mask_WH_3l_ossf_plus_2018=1,mask_WH_3l_ossf_minus_2018=1,mask_WH_3l_WZ_CR_0j_2018=1
 
 
 WHSS_2017_HIGH_PT=mask_WH_SS_em_1j_minus_2017=1,mask_WH_SS_em_1j_plus_2017=1,mask_WH_SS_mm_1j_minus_2017=1,mask_WH_SS_mm_1j_plus_2017=1,mask_WH_SS_ee_1j_minus_2017=1,mask_WH_SS_ee_1j_plus_2017=1,mask_WH_SS_em_2j_minus_2017=1,mask_WH_SS_em_2j_plus_2017=1,mask_WH_SS_mm_2j_minus_2017=1,mask_WH_SS_mm_2j_plus_2017=1,mask_WH_SS_ee_2j_minus_2017=1,mask_WH_SS_ee_2j_plus_2017=1,mask_WH_SS_WZ_1j_2017=1,mask_WH_SS_WZ_2j_2017=1
+
+WHSS_2017_EE_HIGH_PT=mask_WH_SS_ee_1j_minus_2017=1,mask_WH_SS_ee_1j_plus_2017=1,mask_WH_SS_ee_2j_minus_2017=1,mask_WH_SS_ee_2j_plus_2017=1
 
 WHSS_2017_LOW_PT=mask_WH_SS_em_1j_minus_low_pt_2017=1,mask_WH_SS_em_1j_plus_low_pt_2017=1,mask_WH_SS_mm_1j_minus_low_pt_2017=1,mask_WH_SS_mm_1j_plus_low_pt_2017=1,mask_WH_SS_ee_1j_minus_low_pt_2017=1,mask_WH_SS_ee_1j_plus_low_pt_2017=1,mask_WH_SS_em_2j_minus_low_pt_2017=1,mask_WH_SS_em_2j_plus_low_pt_2017=1,mask_WH_SS=1
 
@@ -45,12 +49,16 @@ WH3l_2017=mask_WH_3l_sssf_plus_2017=1,mask_WH_3l_sssf_minus_2017=1,mask_WH_3l_os
 
 WHSS_2016noHIPM_HIGH_PT=mask_WH_SS_em_1j_minus_2016noHIPM=1,mask_WH_SS_em_1j_plus_2016noHIPM=1,mask_WH_SS_mm_1j_minus_2016noHIPM=1,mask_WH_SS_mm_1j_plus_2016noHIPM=1,mask_WH_SS_ee_1j_minus_2016noHIPM=1,mask_WH_SS_ee_1j_plus_2016noHIPM=1,mask_WH_SS_em_2j_minus_2016noHIPM=1,mask_WH_SS_em_2j_plus_2016noHIPM=1,mask_WH_SS_mm_2j_minus_2016noHIPM=1,mask_WH_SS_mm_2j_plus_2016noHIPM=1,mask_WH_SS_ee_2j_minus_2016noHIPM=1,mask_WH_SS_ee_2j_plus_2016noHIPM=1,mask_WH_SS_WZ_1j_2016noHIPM=1,mask_WH_SS_WZ_2j_2016noHIPM=1
 
+WHSS_2016noHIPM_EE_HIGH_PT=mask_WH_SS_ee_1j_minus_2016noHIPM=1,mask_WH_SS_ee_1j_plus_2016noHIPM=1,mask_WH_SS_ee_2j_minus_2016noHIPM=1,mask_WH_SS_ee_2j_plus_2016noHIPM=1
+
 WHSS_2016noHIPM_LOW_PT=mask_WH_SS_em_1j_minus_low_pt_2016noHIPM=1,mask_WH_SS_em_1j_plus_low_pt_2016noHIPM=1,mask_WH_SS_mm_1j_minus_low_pt_2016noHIPM=1,mask_WH_SS_mm_1j_plus_low_pt_2016noHIPM=1,mask_WH_SS_ee_1j_minus_low_pt_2016noHIPM=1,mask_WH_SS_ee_1j_plus_low_pt_2016noHIPM=1,mask_WH_SS_em_2j_minus_low_pt_2016noHIPM=1,mask_WH_SS_em_2j_plus_low_pt_2016noHIPM=1,mask_WH_SS_mm_2j_minus_low_pt_2016noHIPM=1,mask_WH_SS_mm_2j_plus_low_pt_2016noHIPM=1,mask_WH_SS_ee_2j_minus_low_pt_2016noHIPM=1,mask_WH_SS_ee_2j_plus_low_pt_2016noHIPM=1
 
 WH3l_2016noHIPM=mask_WH_3l_sssf_plus_2016noHIPM=1,mask_WH_3l_sssf_minus_2016noHIPM=1,mask_WH_3l_ossf_plus_2016noHIPM=1,mask_WH_3l_ossf_minus_2016noHIPM=1,mask_WH_3l_WZ_CR_0j_2016noHIPM=1
 
 
 WHSS_2016HIPM_HIGH_PT=mask_WH_SS_em_1j_minus_2016HIPM=1,mask_WH_SS_em_1j_plus_2016HIPM=1,mask_WH_SS_mm_1j_minus_2016HIPM=1,mask_WH_SS_mm_1j_plus_2016HIPM=1,mask_WH_SS_ee_1j_minus_2016HIPM=1,mask_WH_SS_ee_1j_plus_2016HIPM=1,mask_WH_SS_em_2j_minus_2016HIPM=1,mask_WH_SS_em_2j_plus_2016HIPM=1,mask_WH_SS_mm_2j_minus_2016HIPM=1,mask_WH_SS_mm_2j_plus_2016HIPM=1,mask_WH_SS_ee_2j_minus_2016HIPM=1,mask_WH_SS_ee_2j_plus_2016HIPM=1,mask_WH_SS_WZ_1j_2016HIPM=1,mask_WH_SS_WZ_2j_2016HIPM=1
+
+WHSS_2016HIPM_EE_HIGH_PT=mask_WH_SS_ee_1j_minus_2016HIPM=1,mask_WH_SS_ee_1j_plus_2016HIPM=1,mask_WH_SS_ee_2j_minus_2016HIPM=1,mask_WH_SS_ee_2j_plus_2016HIPM=1
 
 WHSS_2016HIPM_LOW_PT=mask_WH_SS_em_1j_minus_low_pt_2016HIPM=1,mask_WH_SS_em_1j_plus_low_pt_2016HIPM=1,mask_WH_SS_mm_1j_minus_low_pt_2016HIPM=1,mask_WH_SS_mm_1j_plus_low_pt_2016HIPM=1,mask_WH_SS_ee_1j_minus_low_pt_2016HIPM=1,mask_WH_SS_ee_1j_plus_low_pt_2016HIPM=1,mask_WH_SS_em_2j_minus_low_pt_2016HIPM=1,mask_WH_SS_em_2j_plus_low_pt_2016HIPM=1,mask_WH_SS_mm_2j_minus_low_pt_2016HIPM=1,mask_WH_SS_mm_2j_plus_low_pt_2016HIPM=1,mask_WH_SS_ee_2j_minus_low_pt_2016HIPM=1,mask_WH_SS_ee_2j_plus_low_pt_2016HIPM=1
 
@@ -68,6 +76,11 @@ if [ $PLOT == True ]; then
 	
 	plotGof.py GoF/GoF_${FINAL_STATE}.json --statistic saturated --mass 120.0 -o GoF/GoF_${FINAL_STATE} --title-right=${FINAL_STATE} --range 0 1000
 	
+	# Clean the mess
+	rm GoF/combine*
+	rm GoF/condor*
+	rm GoF/higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120*.root
+
 else
 	
 	
@@ -77,10 +90,22 @@ else
 	# Full Run 2
 	if [ $FINAL_STATE == FullRun2 ]; then
 		
+		echo "FullRun2"
+
 		combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n FullRun2
 		
 		combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:100:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n FullRun2
 
+
+	# Full Run 2: use WH3l channel and for WHSS channel only high pT mm and em
+	elif [ $FINAL_STATE == FullRun2_mm_em_no_low_pt ]; then
+
+		echo "FullRun2_mm_em_no_low_pt"
+		
+		combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n FullRun2_mm_em_no_low_pt --setParametersForFit ${WHSS_2018_LOW_PT},${WHSS_2017_LOW_PT},${WHSS_2016noHIPM_LOW_PT},${WHSS_2016HIPM_LOW_PT},${WHSS_2018_EE_HIGH_PT},${WHSS_2017_EE_HIGH_PT},${WHSS_2016noHIPM_EE_HIGH_PT},${WHSS_2016HIPM_EE_HIGH_PT}
+		
+		combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:100:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n FullRun2_mm_em_no_low_pt --setParametersForFit ${WHSS_2018_LOW_PT},${WHSS_2017_LOW_PT},${WHSS_2016noHIPM_LOW_PT},${WHSS_2016HIPM_LOW_PT},${WHSS_2018_EE_HIGH_PT},${WHSS_2017_EE_HIGH_PT},${WHSS_2016noHIPM_EE_HIGH_PT},${WHSS_2016HIPM_EE_HIGH_PT}
+		
 		
 		###########
 		

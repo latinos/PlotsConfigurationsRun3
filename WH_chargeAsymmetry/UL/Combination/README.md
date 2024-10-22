@@ -2,106 +2,66 @@
 
 Here we list the instructions needed to run the WH charge asymmetry analysis combination using Full Run 2 UL samples.
 
+
+### Set up the environment:
+
+We need to load combine. Since sourcing mkShapesRDF may introduce conflicts, remember not to source the `start.sh`.
+
+	cd $HOME/work/combine/CMSSW_14_1_0_pre4/src/
+	cmsenv
+	cd -
+	ulimit -s unlimited
+	alias python=python3
+
+
 ### Combine datacards and fit:
 
-To set up the environment, connect to a new terminal. Then:
+Combine datacards:
 
-    cd ~/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Combination
+	script_combine_datacards_binning.py
 
-    mkdir -p Combination
+Produce workspace enabling the channel masking. This way, we can run all the fits on the same workspace, with the possibility of masking certain channels:
 
-    cmssw-cc7
-
-    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+	bash do_workspace.sh
 
 Fit data to get results:
 
-    bash do_fit.sh
+    bash do_fit.sh ${FINAL_STATE}
 
-### Produce Impact Plots
+    bash do_fit_unblind.sh ${FINAL_STATE}
 
-Prepare directory:
+Final state can be, e.g.:
 
-    mkdir -p Impact_plots
+	FINAL_STATE=FullRun2
 
-Actually produce impact plots:
-
-    cd Impact_plots
-
-Using r_A as POI:
-
-    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning.root -m 125 --doInitialFit -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
-
-    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning.root -m 125 --doFits -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --job-mode=condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"'
-
-    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning.root -m 125 -t -1 -o impacts_FullRun2_v9_binning.json --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
-
-    plotImpacts.py -i impacts_FullRun2_v9_binning.json -o Impact_FullRun2_v9_binning
-
-    rm combine_*
-    rm condor_*
-    rm higgsCombine_*
-
-Copy the plots on the web:
-
-    DATE=2024_05_03
-
-    mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/Impacts/
-
-    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/
-    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/Impacts/
-
-    cp impacts_FullRun2_v9_binning.json Impact_FullRun2_v9_binning.pdf /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/Impacts/
-
-### Produce Likelihood scan
-
-    bash do_LH_scan.sh
 
 ### Goodness of Fit Test
 
-Move to the dedicated directory before running the commands:
+Use bash script to run fit on real data and on 1000 toys:
 
-	 mkdir -p GoF
-	 cd GoF
+	bash do_gof_test.sh ${FINAL_STATE} False
 
-Choose the workspace to look at:
+Final state can be, e.g.:
 
-    WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning_WH_strength.root
-	POI=r_WH
-	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	FINAL_STATE=FullRun2
 
-Run fit on real data:
+Once all jobs are done, use bash script to hadd them and produce the summary histogram:
 
-	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreFit 2 --cminPreScan --cminDefaultMinimizerStrategy 0
+	bash do_gof_test.sh ${FINAL_STATE} True
 
-Run fit on many MC toys:
-
-	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:1000:1  --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreFit 2 --cminPreScan --cminDefaultMinimizerStrategy 0
-
-From outside the singularity:
-
-    condor_submit condor_combine_task.sub
-
-Once all the jobs are done:
-
-	hadd higgsCombine.GoF.root higgsCombine.Test.GoodnessOfFit.mH120.*root
-
-Produce plot comparing toys distribution and actual fit:
-
-    cd ..
-
-    python GoF.py
-
-	cp GoF/GoF.pdf GoF/GoF.png /eos/user/n/ntrevisa/www/plots/2024_05_03/FullRun2/Unblinding/
-
-Clean the mess:
-
-    rm GoF/combine*
-    rm GoF/condor*
-	rm GoF/higgsCombine.Test.GoodnessOfFit.mH120.*.root
 
 ### Unblinded Impact Plots
+
+Use bash script to perform initial fit and each fit to evaluate the impact of the individual nuisances:
+
+	bash do_impact_plots.sh ${FINAL_STATE} False
+
+Final state can be, e.g.:
+
+	FINAL_STATE=FullRun2
+
+
+
 
 Create a dedicated directory:
 
@@ -186,4 +146,86 @@ Addiitonal combine commands:
     bash do_postfit_plots.sh binning Combination/FitResults_binning_unblind_FD.root 2017
     bash do_postfit_plots.sh binning Combination/FitResults_binning_unblind_FD.root 2016noHIPM
     bash do_postfit_plots.sh binning Combination/FitResults_binning_unblind_FD.root 2016HIPM
+
+
+
+### Old
+
+GoF: Run fit on real data:
+
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreFit 2 --cminPreScan --cminDefaultMinimizerStrategy 0
+
+GoF: Run fit on many MC toys:
+
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:1000:1  --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreFit 2 --cminPreScan --cminDefaultMinimizerStrategy 0
+
+Run fit on real data:
+
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreFit 2 --cminPreScan --cminDefaultMinimizerStrategy 0
+
+Run fit on many MC toys:
+
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:1000:1  --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreFit 2 --cminPreScan --cminDefaultMinimizerStrategy 0
+
+From outside the singularity:
+
+    condor_submit condor_combine_task.sub
+
+Once all the jobs are done:
+
+	hadd higgsCombine.GoF.root higgsCombine.Test.GoodnessOfFit.mH120.*root
+
+Produce plot comparing toys distribution and actual fit:
+
+    cd ..
+
+    python GoF.py
+
+	cp GoF/GoF.pdf GoF/GoF.png /eos/user/n/ntrevisa/www/plots/2024_05_03/FullRun2/Unblinding/
+
+Clean the mess:
+
+    rm GoF/combine*
+    rm GoF/condor*
+	rm GoF/higgsCombine.Test.GoodnessOfFit.mH120.*.root
+
+
+### Produce Impact Plots
+
+Prepare directory:
+
+    mkdir -p Impact_plots
+
+Actually produce impact plots:
+
+    cd Impact_plots
+
+Using r_A as POI:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning.root -m 125 --doInitialFit -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning.root -m 125 --doFits -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --job-mode=condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"'
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning.root -m 125 -t -1 -o impacts_FullRun2_v9_binning.json --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
+
+    plotImpacts.py -i impacts_FullRun2_v9_binning.json -o Impact_FullRun2_v9_binning
+
+    rm combine_*
+    rm condor_*
+    rm higgsCombine_*
+
+Copy the plots on the web:
+
+    DATE=2024_05_03
+
+    mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/Impacts/
+
+    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/
+    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/Impacts/
+
+    cp impacts_FullRun2_v9_binning.json Impact_FullRun2_v9_binning.pdf /eos/user/n/ntrevisa/www/plots/${DATE}/FullRun2/Impacts/
+
+### Produce Likelihood scan
+
+	bash do_LH_scan.sh
 
