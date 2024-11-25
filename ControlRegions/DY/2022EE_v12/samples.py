@@ -5,18 +5,14 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-# #only data 2022
-# mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-# dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
-# mcSteps = 'MCl1loose2022v12__MCCorr2022v12_NoJER'
-# fakeSteps = 'DATAl1loose2022v12__fakeW'
-# dataSteps = 'DATAl1loose2022v12__fakeW'
+# MC:   /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22EE_130x_nAODv12_Full2022v12/MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight/
+# DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2022EE_Prompt_nAODv12_Full2022v12/DATAl2loose2022EEv12__l2tight/
 
 mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12__l2tight'
+mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
 dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 dataSteps    = 'DATAl2loose2022EEv12__l2tight'
+# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################
 ###### Tree base directory for the site ######
