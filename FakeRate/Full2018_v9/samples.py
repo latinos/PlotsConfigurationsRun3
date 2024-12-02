@@ -4,9 +4,9 @@ import os,glob
 ################# SKIMS ########################
 ################################################
 
-# MC:   /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn__l2tightOR2018v9/
-# DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2018_UL2018_nAODv9_Full2018v9/DATAl1loose2018v9__l2loose__l2tightOR2018v9/
-# FAKE: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2018_UL2018_nAODv9_Full2018v9/DATAl1loose2018v9__l2loose__fakeW/
+# MC:   /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/
+# DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2018_UL2018_nAODv9_Full2018v9/DATAl1loose2018v9/
+# FAKE: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2018_UL2018_nAODv9_Full2018v9/DATAl1loose2018v9/
 
 mcProduction = 'Summer20UL18_106x_nAODv9_Full2018v9'
 dataReco     = 'Run2018_UL2018_nAODv9_Full2018v9'
@@ -113,7 +113,9 @@ DataTrig = {
 #########################################
 
 # SFweight does not include btag weights
-mcCommonWeight = 'XSWeight/1000.'
+# mcCommonWeight = 'XSWeight/1000.'
+# XSWeight = baseW * Generator_weight
+mcCommonWeight = 'baseW*puWeight*Generator_weight/1000.'
 
 ###########################################
 #############  BACKGROUNDS  ###############
