@@ -193,6 +193,12 @@ if __name__ == '__main__':
     pt_binning = [10, 15, 20, 25, 30, 35, 40, 45, 50, 1000]
     
     # Output 2D histograms - fake rate
+    fake_rate_histo_numerator   = ROOT.TH2F("FR_pT_eta_numerator",  "FR_pT_eta_numerator",   pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    fake_rate_histo_denominator = ROOT.TH2F("FR_pT_eta_denominator","FR_pT_eta_denominator", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+
+    fake_rate_histo_EWKcorr_numerator   = ROOT.TH2F("FR_pT_eta_EWKcorr_numerator",  "FR_pT_eta_EWKcorr_numerator",   pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    fake_rate_histo_EWKcorr_denominator = ROOT.TH2F("FR_pT_eta_EWKcorr_denominator","FR_pT_eta_EWKcorr_denominator", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+
     fake_rate_histo         = ROOT.TH2F("FR_pT_eta",        "FR_pT_eta",         pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
     fake_rate_histo_EWKcorr = ROOT.TH2F("FR_pT_eta_EWKcorr","FR_pT_eta_EWKcorr", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
 
@@ -215,6 +221,12 @@ if __name__ == '__main__':
                 fake_rate_EWKsub = tight_yields_DATA_EWKsub / loose_yields_DATA_EWKsub
 
             # Output histogram filling
+            fake_rate_histo_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA)
+            fake_rate_histo_denominator.SetBinContent(pt_bin,eta_bin+1,loose_yields_DATA)
+
+            fake_rate_histo_EWKcorr_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA_EWKsub)
+            fake_rate_histo_EWKcorr_denominator.SetBinContent(pt_bin,eta_bin+1,loose_yields_DATA_EWKsub)
+
             fake_rate_histo        .SetBinContent(pt_bin,eta_bin+1,fake_rate)
             fake_rate_histo_EWKcorr.SetBinContent(pt_bin,eta_bin+1,fake_rate_EWKsub)
                 
@@ -223,7 +235,13 @@ if __name__ == '__main__':
             print(f"Fake rate in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate}")
 
             print(f"Fake rate with EWK subtraction in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate_EWKsub}")
-            
+
+    fake_rate_histo_numerator.Write()
+    fake_rate_histo_denominator.Write()
+
+    fake_rate_histo_EWKcorr_numerator.Write()
+    fake_rate_histo_EWKcorr_denominator.Write()
+
     fake_rate_histo.Write()
     fake_rate_histo_EWKcorr.Write()
 

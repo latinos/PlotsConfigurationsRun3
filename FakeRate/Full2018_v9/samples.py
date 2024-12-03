@@ -25,8 +25,8 @@ def makeMCDirectory(var=''):
     return os.path.join(treeBaseDir, mcProduction, mcSteps.format(var=''))
 
 mcDirectory   = makeMCDirectory()
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 
 samples = {}
 
@@ -86,27 +86,12 @@ DataRun = [
     ['D','Run2018D-UL2018-v1'],
 ]
 
-#DataSets = ['MuonEG','SingleMuon','EGamma','DoubleMuon']
 DataSets = ['DoubleMuon','EGamma']
 
-# DataTrig = {
-#     'MuonEG'         : 'Trigger_ElMu' ,
-#     'DoubleMuon'     : '!Trigger_ElMu && Trigger_dblMu' ,
-#     'SingleMuon'     : '!Trigger_ElMu && !Trigger_dblMu && Trigger_sngMu' ,
-#     'EGamma'         : '!Trigger_ElMu && !Trigger_dblMu && !Trigger_sngMu && (Trigger_sngEl || Trigger_dblEl)' ,
-# }
-
-# DataTrig = {
-#      'DoubleMuon'     : 'Trigger_dblMu' ,
-#      'SingleMuon'     : '!Trigger_dblMu && Trigger_sngMu' ,
-#      'EGamma'         : '!Trigger_dblMu && !Trigger_sngMu && (Trigger_sngEl || Trigger_dblEl)' ,
-# }
-
 DataTrig = {
-     'DoubleMuon'     : 'HLT_Mu8_TrkIsoVVL || HLT_Mu17_TrkIsoVVL' ,
-     'EGamma'         : '!HLT_Mu8_TrkIsoVVL && !HLT_Mu17_TrkIsoVVL && (HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30 || HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30)' ,
+     'DoubleMuon' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
+     'EGamma'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
 }
-# 'SingleMuon'     : '!HLT_Mu8_TrkIsoVVL && HLT_Mu17_TrkIsoVVL' ,
 
 #########################################
 ############ MC COMMON ##################
@@ -127,8 +112,7 @@ lumi_muon_low_pt  =  '8.561*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)';
 lumi_muon_high_pt = '45.781*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)';
 
 # DY
-files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50_NLO') + \
-        nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50')
+files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50')
 
 samples['DY_ele_low_pt'] = {
     'name': files,
@@ -254,10 +238,7 @@ for _, sd in DataRun:
     tag_data = pd + '_' + sd
 
     if (   ('DoubleMuon' in pd and 'Run2018B' in sd)
-        or ('DoubleMuon' in pd and 'Run2018D' in sd)
-        or ('SingleMuon' in pd and 'Run2018A' in sd)
-        or ('SingleMuon' in pd and 'Run2018B' in sd)
-        or ('SingleMuon' in pd and 'Run2018C' in sd)):
+        or ('DoubleMuon' in pd and 'Run2018D' in sd)):
         print("sd      = {}".format(sd))
         print("pd      = {}".format(pd))
         print("Old tag = {}".format(tag_data))
@@ -268,3 +249,7 @@ for _, sd in DataRun:
 
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', tag_data, DataTrig[pd])
+
+# or ('SingleMuon' in pd and 'Run2018A' in sd)
+# or ('SingleMuon' in pd and 'Run2018B' in sd)
+# or ('SingleMuon' in pd and 'Run2018C' in sd)):
