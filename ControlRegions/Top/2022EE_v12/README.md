@@ -10,7 +10,7 @@ Here, we assume `PlotsConfigurationsRun3` was installed in the same directory as
 
 Then, we can source the `mkShapesRDF` environment using these commands:
 
-    cd ../../../mkShapesRDF/
+    cd ../../../../mkShapesRDF/
 
     source start.sh
 
