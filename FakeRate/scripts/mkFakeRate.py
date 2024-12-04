@@ -83,10 +83,12 @@ if __name__ == '__main__':
     # Dictionary with histograms names
     histograms = {
         # DATA
-        "DATA_QCD_loose"   : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
-        "DATA_QCD_tight"   : f"QCD_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
-        "DATA_Zpeak_loose" : f"Zpeak_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
-        "DATA_Zpeak_tight" : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
+        "DATA_QCD_loose"      : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
+        "DATA_QCD_tight"      : f"QCD_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
+        "DATA_Zpeak_loose"    : f"Zpeak_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
+        "DATA_Zpeak_tight"    : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
+        "DATA_Zpeak_PR_loose" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DATA",
+        "DATA_Zpeak_PR_tight" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DATA",
         # DY QCD region
         "DY_QCD_loose_high_pt" : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
         "DY_QCD_loose_low_pt"  : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
@@ -97,6 +99,11 @@ if __name__ == '__main__':
         "DY_Zpeak_loose_low_pt"  : f"Zpeak_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
         "DY_Zpeak_tight_high_pt" : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
         "DY_Zpeak_tight_low_pt"  : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
+        # DY Z-peak region for PR measurement        
+        "DY_Zpeak_PR_loose_high_pt" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
+        "DY_Zpeak_PR_loose_low_pt"  : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
+        "DY_Zpeak_PR_tight_high_pt" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
+        "DY_Zpeak_PR_tight_low_pt"  : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
         # WJets QCD region
         "WJets_QCD_loose_high_pt" : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_WJets_{flavor}_high_pt",
         "WJets_QCD_loose_low_pt"  : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_WJets_{flavor}_low_pt",
@@ -114,9 +121,13 @@ if __name__ == '__main__':
     histo_DATA_QCD_loose = infile.Get(histograms["DATA_QCD_loose"])
     histo_DATA_QCD_tight = infile.Get(histograms["DATA_QCD_tight"])
     
-    # Zpeak region: used for prompt rate estimation and EWK processes normalization
+    # Zpeak region: used for EWK processes normalization
     histo_DATA_Zpeak_loose = infile.Get(histograms["DATA_Zpeak_loose"])
     histo_DATA_Zpeak_tight = infile.Get(histograms["DATA_Zpeak_tight"])
+
+    # Zpeak PR region: used for prompt rate measurement
+    histo_DATA_PR_Zpeak_loose = infile.Get(histograms["DATA_Zpeak_PR_loose"])
+    histo_DATA_PR_Zpeak_tight = infile.Get(histograms["DATA_Zpeak_PR_tight"])
     
     #################
     # DY histograms #
@@ -131,7 +142,7 @@ if __name__ == '__main__':
     histo_DY_QCD_tight_low_pt = infile.Get(histograms["DY_QCD_tight_low_pt"])
     histo_DY_QCD_tight.Add(histo_DY_QCD_tight_low_pt)
 
-    # Zpeak region: used for prompt rate estimation and EWK processes normalization
+    # Zpeak region: used for EWK processes normalization
     histo_DY_Zpeak_loose        = infile.Get(histograms["DY_Zpeak_loose_high_pt"])
     histo_DY_Zpeak_loose_low_pt = infile.Get(histograms["DY_Zpeak_loose_low_pt"])
     histo_DY_Zpeak_loose.Add(histo_DY_Zpeak_loose_low_pt)
@@ -139,6 +150,16 @@ if __name__ == '__main__':
     histo_DY_Zpeak_tight        = infile.Get(histograms["DY_Zpeak_tight_high_pt"])
     histo_DY_Zpeak_tight_low_pt = infile.Get(histograms["DY_Zpeak_tight_low_pt"])
     histo_DY_Zpeak_tight.Add(histo_DY_Zpeak_tight_low_pt)
+
+    # Zpeak PR region: used for prompt rate measurement
+    histo_DY_Zpeak_PR_loose        = infile.Get(histograms["DY_Zpeak_PR_loose_high_pt"])
+    histo_DY_Zpeak_PR_loose_low_pt = infile.Get(histograms["DY_Zpeak_PR_loose_low_pt"])
+    histo_DY_Zpeak_PR_loose.Add(histo_DY_Zpeak_PR_loose_low_pt)
+
+    histo_DY_Zpeak_PR_tight        = infile.Get(histograms["DY_Zpeak_PR_tight_high_pt"])
+    histo_DY_Zpeak_PR_tight_low_pt = infile.Get(histograms["DY_Zpeak_PR_tight_low_pt"])
+    histo_DY_Zpeak_PR_tight.Add(histo_DY_Zpeak_PR_tight_low_pt)
+
 
     ####################
     # WJets histograms #
@@ -172,6 +193,12 @@ if __name__ == '__main__':
     pt_binning = [10, 15, 20, 25, 30, 35, 40, 45, 50, 1000]
     
     # Output 2D histograms - fake rate
+    fake_rate_histo_numerator   = ROOT.TH2F("FR_pT_eta_numerator",  "FR_pT_eta_numerator",   pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    fake_rate_histo_denominator = ROOT.TH2F("FR_pT_eta_denominator","FR_pT_eta_denominator", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+
+    fake_rate_histo_EWKcorr_numerator   = ROOT.TH2F("FR_pT_eta_EWKcorr_numerator",  "FR_pT_eta_EWKcorr_numerator",   pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    fake_rate_histo_EWKcorr_denominator = ROOT.TH2F("FR_pT_eta_EWKcorr_denominator","FR_pT_eta_EWKcorr_denominator", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+
     fake_rate_histo         = ROOT.TH2F("FR_pT_eta",        "FR_pT_eta",         pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
     fake_rate_histo_EWKcorr = ROOT.TH2F("FR_pT_eta_EWKcorr","FR_pT_eta_EWKcorr", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
 
@@ -194,6 +221,12 @@ if __name__ == '__main__':
                 fake_rate_EWKsub = tight_yields_DATA_EWKsub / loose_yields_DATA_EWKsub
 
             # Output histogram filling
+            fake_rate_histo_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA)
+            fake_rate_histo_denominator.SetBinContent(pt_bin,eta_bin+1,loose_yields_DATA)
+
+            fake_rate_histo_EWKcorr_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA_EWKsub)
+            fake_rate_histo_EWKcorr_denominator.SetBinContent(pt_bin,eta_bin+1,loose_yields_DATA_EWKsub)
+
             fake_rate_histo        .SetBinContent(pt_bin,eta_bin+1,fake_rate)
             fake_rate_histo_EWKcorr.SetBinContent(pt_bin,eta_bin+1,fake_rate_EWKsub)
                 
@@ -202,7 +235,13 @@ if __name__ == '__main__':
             print(f"Fake rate in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate}")
 
             print(f"Fake rate with EWK subtraction in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate_EWKsub}")
-            
+
+    fake_rate_histo_numerator.Write()
+    fake_rate_histo_denominator.Write()
+
+    fake_rate_histo_EWKcorr_numerator.Write()
+    fake_rate_histo_EWKcorr_denominator.Write()
+
     fake_rate_histo.Write()
     fake_rate_histo_EWKcorr.Write()
 
@@ -224,11 +263,11 @@ if __name__ == '__main__':
             for pt_bin in range(1,pt_bins+1):
                 print(f"Eta bin: {eta_bin} - pT bin: {pt_bin} - Total bin: {pt_bin + pt_bins*eta_bin}")
 
-                loose_yields_Zpeak_DY = histo_DY_Zpeak_loose.GetBinContent(pt_bin + pt_bins*eta_bin)
-                tight_yields_Zpeak_DY = histo_DY_Zpeak_tight.GetBinContent(pt_bin + pt_bins*eta_bin)
+                loose_yields_Zpeak_DY = histo_DY_Zpeak_PR_loose.GetBinContent(pt_bin + pt_bins*eta_bin)
+                tight_yields_Zpeak_DY = histo_DY_Zpeak_PR_tight.GetBinContent(pt_bin + pt_bins*eta_bin)
                 
-                loose_yields_Zpeak_DATA = histo_DATA_Zpeak_loose.GetBinContent(pt_bin + pt_bins*eta_bin)
-                tight_yields_Zpeak_DATA = histo_DATA_Zpeak_tight.GetBinContent(pt_bin + pt_bins*eta_bin)
+                loose_yields_Zpeak_DATA = histo_DATA_PR_Zpeak_loose.GetBinContent(pt_bin + pt_bins*eta_bin)
+                tight_yields_Zpeak_DATA = histo_DATA_PR_Zpeak_tight.GetBinContent(pt_bin + pt_bins*eta_bin)
             
                 # Ensure we are not dividing by 0
                 prompt_rate = 0
