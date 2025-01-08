@@ -244,7 +244,7 @@ for js in jes_systs:
       'samples'   : dict((skey, ['1', '1']) for skey in mc if skey not in ac_sig),
       'folderUp'  : makeMCDirectory('RDF__JESup_suffix'),
       'folderDown': makeMCDirectory('RDF__JESdo_suffix'),
-      'AsLnN'     : '0'
+      'AsLnN'     : '1'
   }
 
 
@@ -272,6 +272,7 @@ nuisances['met'] = {
     'samples'   : dict((skey, ['1', '1']) for skey in mc if skey not in ac_sig),
     'folderUp'  : makeMCDirectory('METup_suffix'),
     'folderDown': makeMCDirectory('METdo_suffix'),
+    'AsLnN'   : '1',
 }
 
 ##### Pileup
@@ -326,15 +327,26 @@ nuisances['PS_ISR_higgs']  = {
 
 mc_bkg = [skey for skey in mc if skey not in ['ggH_hww','qqH_hww']]
 for skey in mc_bkg:
-    nuisances['PS_FSR_'+ skey]  = {
-        'name'    : 'PS_FSR_'+ skey,
-        'kind'    : 'weight',
-        'type'    : 'shape',
-        'samples' : {
-            skey : ['PSWeight[3]', 'PSWeight[1]'],
-            },
-        'AsLnN'   : '0',
-    }
+    if skey not in ['VgS']:
+        nuisances['PS_FSR_'+ skey]  = {
+            'name'    : 'PS_FSR_'+ skey,
+            'kind'    : 'weight',
+            'type'    : 'shape',
+            'samples' : {
+                skey : ['PSWeight[3]', 'PSWeight[1]'],
+                },
+            'AsLnN'   : '0',
+        }
+    else:
+         nuisances['PS_FSR_'+ skey]  = {
+            'name'    : 'PS_FSR_'+ skey,
+            'kind'    : 'weight',
+            'type'    : 'shape',
+            'samples' : {
+                skey : ['PSWeight[3]', 'PSWeight[1]'],
+                },
+            'AsLnN'   : '1',
+        }
 
 # nuisances['PS_FSR']  = {
 #     'name'    : 'PS_FSR',
@@ -574,9 +586,6 @@ nuisances['QCDscale_ren_ggH_hww'] = {
         'kind'    : 'weight',
         'type'    : 'shape',
         'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down']) for skey in ggH_sig), 
-        # 'samples' : {
-        #     'ggH_hww' : ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down'],
-        # },
         'AsLnN'   : '0'
     }
 
@@ -586,10 +595,7 @@ nuisances['QCDscale_fac_ggH_hww'] = {
         'skipCMS' : 1,
         'kind'    : 'weight',
         'type'    : 'shape',
-        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_ren_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_ren_ggH_hww_down']) for skey in ggH_sig), 
-        # 'samples' : {
-        #     'ggH_hww' : ['Alt(LHEScaleWeight,3,1)*norm_ggh_QCDscale_fac_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*norm_ggh_QCDscale_fac_ggH_hww_down'],
-        # },
+        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_ggh_QCDscale_fac_ggH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_ggh_QCDscale_fac_ggH_hww_down']) for skey in ggH_sig), 
         'AsLnN'   : '0'
     }
 
@@ -599,9 +605,6 @@ nuisances['QCDscale_ren_qqH_hww'] = {
         'kind'    : 'weight',
         'type'    : 'shape',
         'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down']) for skey in qqH_sig), 
-        # 'samples' : {
-        #     'qqH_hww' : ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down'],
-        # },
         'AsLnN'   : '0'
     }
 
@@ -611,10 +614,7 @@ nuisances['QCDscale_fac_qqH_hww'] = {
         'skipCMS' : 1,
         'kind'    : 'weight',
         'type'    : 'shape',
-        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_ren_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_ren_qqH_hww_down']) for skey in qqH_sig),
-        # 'samples' : {
-        #     'qqH_hww' : ['Alt(LHEScaleWeight,3,1)*norm_qqh_QCDscale_fac_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*norm_qqh_QCDscale_fac_qqH_hww_down'],
-        # },
+        'samples' : dict((skey, ['Alt(LHEScaleWeight,1,1)*norm_qqh_QCDscale_fac_qqH_hww_up','Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*norm_qqh_QCDscale_fac_qqH_hww_down']) for skey in qqH_sig),
         'AsLnN'   : '0'
     }
 

@@ -285,54 +285,80 @@ aliases['m_lj'] = {
 }
 
 
-# D_VBF_GGH D_VBF_VH D_GGH_VH
-aliases['memela'] = {
-  'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_707.so","",ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
- 			        'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el9/VBF_differential/macros/ME_class_cc.so","", ROOT.kTRUE)',
-			        'ROOT.gInterpreter.Declare("MEMELA a;")'],
-   'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
-   'afterNuis': True,
+# # D_VBF_GGH D_VBF_VH D_GGH_VH
+# aliases['memela'] = {
+#   'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_707.so","",ROOT.kTRUE)',
+#                     'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
+#  			        'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el9/VBF_differential/macros/ME_class_cc.so","", ROOT.kTRUE)',
+# 			        'ROOT.gInterpreter.Declare("MEMELA a;")'],
+#    'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
+#    'afterNuis': True,
 
 
-}
+# }
 
-# D_VBF_DY
-aliases['MoMEMta_D'] = {
-  'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1.0.1","",ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el9/VBF_differential/macros/MoMEMta_D_cc.so","", ROOT.kTRUE)'],
-#   'linesToAdd': ['#include "%s/macros/MoMEMta_D.cc+"' % configurations],
-  'class': 'MoMEMta_discriminant',
-  'args': 'nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1] ',
-  'afterNuis': True,
+# # D_VBF_DY
+# aliases['MoMEMta_D'] = {
+#   'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1.0.1","",ROOT.kTRUE)',
+#                     'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF/momemta/lib/libmomemta.so.1","", ROOT.kTRUE)',
+#                     'ROOT.gSystem.Load("/afs/cern.ch/work/b/bcamaian/mkShapesRDF_el9/VBF_differential/macros/MoMEMta_D_cc.so","", ROOT.kTRUE)'],
+# #   'linesToAdd': ['#include "%s/macros/MoMEMta_D.cc+"' % configurations],
+#   'class': 'MoMEMta_discriminant',
+#   'args': 'nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1] ',
+#   'afterNuis': True,
 
-}
+# }
 
-#adnns[0] = isVBF  adnns[1]=isGGH
-aliases['adnns'] = {
-  'linesToAdd': ['#include "%s/macros/evaluate_adnns.cc"' % configurations ],
-  'class': 'adversarial_dnn',
-  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2018, event',
-  'afterNuis': True,
+# #adnns[0] = isVBF  adnns[1]=isGGH
+# aliases['adnns'] = {
+#   'linesToAdd': ['#include "%s/macros/evaluate_adnns.cc"' % configurations ],
+#   'class': 'adversarial_dnn',
+#   'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth, m_lj[0], m_lj[1], m_lj[2], m_lj[3], memela[0], memela[1], memela[2], MoMEMta_D[0], 2018, event',
+#   'afterNuis': True,
 
-}
+# }
 
 
-bin_adnnisVBF = ['0.0', '0.04', '0.08', '0.12', '0.16', '0.2', '0.24', '0.28', '0.32', '0.36', '0.4', '0.44', '0.48', '0.52', '0.56', '0.6', '0.64', '0.68', '0.72', '0.76', '0.8', '0.84', '0.88', '0.92', '0.96', '1.0']
-bin_adnnisGGH = ['0.0', '0.50', '0.80', '0.9', '1.0']
-adnn2D = ''
+# bin_adnnisVBF = ['0.0', '0.04', '0.08', '0.12', '0.16', '0.2', '0.24', '0.28', '0.32', '0.36', '0.4', '0.44', '0.48', '0.52', '0.56', '0.6', '0.64', '0.68', '0.72', '0.76', '0.8', '0.84', '0.88', '0.92', '0.96', '1.0']
+# bin_adnnisGGH = ['0.0', '0.50', '0.80', '0.9', '1.0']
+# adnn2D = ''
 
-for i in range(len(bin_adnnisGGH)-1):
-  for j in range(len(bin_adnnisVBF)-1):
-    if i+j != len(bin_adnnisVBF)+len(bin_adnnisGGH)-4: 
-      adnn2D+='('+bin_adnnisGGH[i]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisVBF[j]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[j+1]+')+'
-    else: 
-      adnn2D+='('+bin_adnnisGGH[i]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisVBF[j]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[j+1]+')'
+# for i in range(len(bin_adnnisGGH)-1):
+#   for j in range(len(bin_adnnisVBF)-1):
+#     if i+j != len(bin_adnnisVBF)+len(bin_adnnisGGH)-4: 
+#       adnn2D+='('+bin_adnnisGGH[i]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisVBF[j]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[j+1]+')+'
+#     else: 
+#       adnn2D+='('+bin_adnnisGGH[i]+'<adnns[1])*(adnns[1]<'+bin_adnnisGGH[i+1]+')*(('+str((len(bin_adnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_adnnisVBF[j]+'<adnns[0])*(adnns[0]<'+bin_adnnisVBF[j+1]+')'
  
 
-aliases['adnns_2D'] = {
-    'expr' : adnn2D,
+# aliases['adnns_2D'] = {
+#     'expr' : adnn2D,
+#     'afterNuis': True,
+
+#     }
+
+#dnn[0] = isVBF, dnn[1] = isGGH  
+aliases['dnns'] = {
+  'linesToAdd': ['#include "%s/macros/evaluate_dnn.cc"' % configurations  ],
+  'class': 'evaluate_dnn',
+  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth,  m_lj[0], m_lj[1], m_lj[2], m_lj[3]',
+ 'afterNuis': True,
+}
+
+bin_dnnisVBF = ['0.0', '0.04', '0.08', '0.12', '0.16', '0.2', '0.24', '0.28', '0.32', '0.36', '0.4', '0.44', '0.48', '0.52', '0.56', '0.6', '0.64', '0.68', '0.72', '0.76', '0.8', '0.84', '0.88', '0.92', '0.96', '1.0']
+bin_dnnisGGH = ['0.0', '0.50', '0.80', '0.9', '1.0']
+dnn2D = ''
+
+for i in range(len(bin_dnnisGGH)-1):
+  for j in range(len(bin_dnnisVBF)-1):
+    if i+j != len(bin_dnnisVBF)+len(bin_dnnisGGH)-4: 
+      dnn2D+='('+bin_dnnisGGH[i]+'<dnns[1])*(dnns[1]<'+bin_dnnisGGH[i+1]+')*(('+str((len(bin_dnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnisVBF[j]+'<dnns[0])*(dnns[0]<'+bin_dnnisVBF[j+1]+')+'
+    else: 
+      dnn2D+='('+bin_dnnisGGH[i]+'<dnns[1])*(dnns[1]<'+bin_dnnisGGH[i+1]+')*(('+str((len(bin_dnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnisVBF[j]+'<dnns[0])*(dnns[0]<'+bin_dnnisVBF[j+1]+')'
+ 
+
+aliases['dnns_2D'] = {
+    'expr' : dnn2D,
     'afterNuis': True,
 
     }

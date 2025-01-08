@@ -142,6 +142,20 @@ groupPlot['Higgs']  = {
                    'color'    : 793,                                                                                                                                                               
                    'samples'  : ['ttH_hww', 'qqH_htt', 'ggH_htt', 'ZH_hww', 'ggZH_hww', 'WH_hww', 'ZH_htt', 'WH_htt']
                }
+groupPlot['ggH_nodeptaphi']  = {
+                  'nameHR' : "Higgs ggH (no #Delta#phi_{jj})",
+                  'isSignal' : 0,
+                  'color'    : 432-9,                                                                                                                                                   
+                  'samples'  : ['ggH_hww_noGenDeltaPhijj']
+              }
+
+
+groupPlot['qqH_nodeptaphi']  = {
+                  'nameHR' : "Higgs qqH (no #Delta#phi_{jj})",
+                  'isSignal' : 0,
+                  'color'    : 616-9,                                                                                                                                                   
+                  'samples'  : ['qqH_hww_noGenDeltaPhijj']
+              }              
 
 
 
@@ -277,6 +291,22 @@ plot['ggH_hww_GenDeltaPhijj_3nonfid'] = {
     'isSignal' : 1,
     'isData'   : 0,    
     'scale'    : 1
+}
+
+plot['qqH_hww_noGenDeltaPhijj'] = {
+    'nameHR' : 'nodeltaphi',
+    'color': 416-10, # kRed-10 
+    'isSignal' : 0,
+    'isData'   : 0,    
+    'scale'    : 1,
+}
+
+plot['ggH_hww_noGenDeltaPhijj'] = {
+    'nameHR' : 'nodeltaphi',
+    'color': 416-10, # kRed-10 
+    'isSignal' : 0,
+    'isData'   : 0,    
+    'scale'    : 1,
 }
 
 plot['dytt']  = {  
@@ -430,7 +460,7 @@ plot['DATA']  = {
                   'color': 1 ,  
                   'isSignal' : 0,
                   'isData'   : 1 ,
-                  'isBlind'  : 1  # 1 yes
+                  'isBlind'  : 0  # 1 yes
                   }
 
 # merge cuts

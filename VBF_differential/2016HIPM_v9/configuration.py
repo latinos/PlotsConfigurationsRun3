@@ -1,14 +1,14 @@
 # Configuration file to produce initial root files -- has both merged and binned ggH samples
 
 treeName = 'Events'
-tag = '2016HIPM_v9'
+tag = '2016HIPM_v9_all'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
 # outputDir = 'rootFile_' + tag
 
 outputFile    = "mkShapes__{}.root".format(tag)
-outputFolder  = "rootFiles__{}".format(tag)
+outputFolder  = "rootFiles__{}/rootFiles_all".format(tag)
 batchFolder   = 'condor'
 configsFolder = 'configs'
 

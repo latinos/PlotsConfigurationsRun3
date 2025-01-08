@@ -273,7 +273,7 @@ samples['qqH_hww'] = {
 }
 
 # Original VBF samples 
-'''
+
 samples['VBF_H0M'] = { 
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_H0M_ToWWTo2L2Nu'), 
    'weight': mcCommonWeight+ '*VBF_H0M_W',   
@@ -433,7 +433,7 @@ samples['GGHjj_H0Mf05'] = {
      }
 }
 
-'''
+
 ############ ZH H->WW ############
 
 samples['ZH_hww'] = {

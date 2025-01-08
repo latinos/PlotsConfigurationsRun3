@@ -13,6 +13,7 @@ preselections = 'mll>12 \
             && mjj>120 \
             && ptll>30 \
             && PuppiMET_pt>20 \
+            &&  ((abs(Lepton_pdgId[0])==11 && (abs(Lepton_eta[0])<1.5 || abs(Lepton_eta[1])>2) && Electron_r9[Lepton_electronIdx[0]]< 0.98) || (abs(Lepton_pdgId[1])==11 && (abs(Lepton_eta[1])<1.5 || abs(Lepton_eta[1])>2) && Electron_r9[Lepton_electronIdx[1]]<0.98)) \
             '
 
 

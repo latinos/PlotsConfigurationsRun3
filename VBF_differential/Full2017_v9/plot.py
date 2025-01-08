@@ -25,7 +25,7 @@ groupPlot['WWewk']  = {
 }
 
 groupPlot['DY']  = {  
-                  'nameHR' : "DYtt",
+                  'nameHR' : "DY#tau#tau",
                   'isSignal' : 0,
                   'color': 418,    # kGreen+2
                   'samples'  : ['dytt']

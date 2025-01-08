@@ -14,8 +14,9 @@ print('\n\n\n')
 aliases = {}
 aliases = OrderedDict()
 
-mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb')]
-mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb') and 'H0' not in skey]
+mc_all     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb')]
+mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA') and 'H0' not in skey]
 ggH_sig = ['ggH_hww_GenDeltaPhijj_0fid','ggH_hww_GenDeltaPhijj_1fid','ggH_hww_GenDeltaPhijj_2fid','ggH_hww_GenDeltaPhijj_3fid', 'ggH_hww_GenDeltaPhijj_0nonfid','ggH_hww_GenDeltaPhijj_1nonfid','ggH_hww_GenDeltaPhijj_2nonfid','ggH_hww_GenDeltaPhijj_3nonfid']
 qqH_sig = ['qqH_hww_GenDeltaPhijj_0fid','qqH_hww_GenDeltaPhijj_1fid','qqH_hww_GenDeltaPhijj_2fid','qqH_hww_GenDeltaPhijj_3fid', 'qqH_hww_GenDeltaPhijj_0nonfid','qqH_hww_GenDeltaPhijj_1nonfid','qqH_hww_GenDeltaPhijj_2nonfid','qqH_hww_GenDeltaPhijj_3nonfid']
 
@@ -27,12 +28,12 @@ muWP  = 'cut_Tight80x_tthmva_80' # _tthmva_80'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
-    'samples': mc_emb + ['DATA']
+    'samples': mc_all + ['DATA']
 }
 
 aliases['LepWPSF'] = {
     'expr': 'LepSF2l__ele_'+eleWP+'__mu_'+muWP,
-    'samples': mc_emb
+    'samples': mc_all
 }
 
 
@@ -91,7 +92,7 @@ aliases['fakeWStatMuDown'] = {
 # gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch2l'] = {
             'expr': 'Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0)',
-            'samples': mc
+            'samples': mc_all
             }
 
 aliases['Top_pTrw'] = {
@@ -156,14 +157,14 @@ for flavour in ['bc', 'light']:
             'linesToAdd': [f'#include "{configurations}/macros/evaluate_btagSF{flavour}_2016HIPM.cc"'],
             'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"{btv_path}/bTagEff_2016HIPM_ttbar_DeepFlavB_loose.root\");')"],
             'expr': f'btagSF{flavour}_{shift}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btagDeepFlavB, "L", "{shift}")',
-            'samples' : mc,
+            'samples' : mc_all,
         }
 
 
 
 aliases['Jet_PUIDSF'] = { 
           'expr' : 'TMath::Exp(Sum((Jet_jetId>=2)*LogVec(Jet_PUIDSF_loose)))',
-          'samples': mc
+          'samples': mc_all
           }
 aliases['Jet_PUIDSF_up'] = {
   'expr' : 'TMath::Exp(Sum((Jet_jetId>=2)*LogVec(Jet_PUIDSF_loose_up)))',
@@ -180,7 +181,7 @@ aliases['Jet_PUIDSF_down'] = {
 # data/MC scale factors
 aliases['SFweight'] = {
     'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'PrefireWeight', 'btagSFbc', 'btagSFlight']),
-    'samples': mc
+    'samples': mc_all
 }
 
 # variations
@@ -268,6 +269,33 @@ aliases['adnns_2D'] = {
     }
 
 
+#dnn[0] = isVBF, dnn[1] = isGGH  
+aliases['dnns'] = {
+  'linesToAdd': ['#include "%s/macros/evaluate_dnn.cc"' % configurations  ],
+  'class': 'evaluate_dnn',
+  'args': ' nLepton, nCleanJet, Lepton_pdgId[0], Lepton_pdgId[1], CleanJet_eta[0], CleanJet_eta[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_pt[0], CleanJet_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], Lepton_pt[0], Lepton_pt[1], Jet_qgl[CleanJet_jetIdx[0]], Jet_qgl[CleanJet_jetIdx[1]],  mjj, mll, ptll, detajj, dphill, PuppiMET_pt, PuppiMET_phi, dphillmet, drll, ht, mTi, mth,  m_lj[0], m_lj[1], m_lj[2], m_lj[3]',
+ 'afterNuis': True,
+}
+
+bin_dnnisVBF = ['0.0', '0.04', '0.08', '0.12', '0.16', '0.2', '0.24', '0.28', '0.32', '0.36', '0.4', '0.44', '0.48', '0.52', '0.56', '0.6', '0.64', '0.68', '0.72', '0.76', '0.8', '0.84', '0.88', '0.92', '0.96', '1.0']
+bin_dnnisGGH = ['0.0', '0.50', '0.80', '0.9', '1.0']
+dnn2D = ''
+
+for i in range(len(bin_dnnisGGH)-1):
+  for j in range(len(bin_dnnisVBF)-1):
+    if i+j != len(bin_dnnisVBF)+len(bin_dnnisGGH)-4: 
+      dnn2D+='('+bin_dnnisGGH[i]+'<dnns[1])*(dnns[1]<'+bin_dnnisGGH[i+1]+')*(('+str((len(bin_dnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnisVBF[j]+'<dnns[0])*(dnns[0]<'+bin_dnnisVBF[j+1]+')+'
+    else: 
+      dnn2D+='('+bin_dnnisGGH[i]+'<dnns[1])*(dnns[1]<'+bin_dnnisGGH[i+1]+')*(('+str((len(bin_dnnisVBF)-1)*i)+')+('+str(j+1)+'))*('+bin_dnnisVBF[j]+'<dnns[0])*(dnns[0]<'+bin_dnnisVBF[j+1]+')'
+ 
+
+aliases['dnns_2D'] = {
+    'expr' : dnn2D,
+    'afterNuis': True,
+
+    }
+
+
 
 
 
@@ -283,14 +311,14 @@ aliases['isFID'] = {
   'linesToAdd': ['#include "%s/macros/isFid.cc"' % configurations],
   'class': 'isFiducial',
   'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass, GenMET_pt, GenMET_phi',
-  'samples': mc
+  'samples': mc_all
 }
 
 aliases['GenDeltaPhijj'] = {
   'linesToAdd': ['#include "%s/macros/GetGenJetDeltaPhi.cc"' % configurations],
   'class': 'GenJetDeltaPhi',
   'args': 'nGenDressedLepton, GenDressedLepton_pdgId, GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_hasTauAnc, nGenJet, GenJet_pt, GenJet_eta, GenJet_phi, GenJet_mass',
-  'samples': mc
+  'samples': mc_all
 }
 
 # diffcuts_ggh = samples['ggH_hww']['subsamples'] if 'ggH_hww' in samples  else {}

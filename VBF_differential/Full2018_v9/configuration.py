@@ -2,13 +2,15 @@
 
 treeName = 'Events'
 tag = 'Full2018_v9'
+# tag = 'Full2018_v9_dnn'
 runnerFile = 'default'
 
 # used by mkShape to define output directory for root files
 # outputDir = 'rootFile_' + tag
 
 outputFile    = "mkShapes__{}.root".format(tag)
-outputFolder  = "rootFiles_test__{}".format(tag)
+outputFolder  = "rootFiles__{}".format(tag)
+# outputFolder  = "rootFiles__{}/rootFiles_dnn".format(tag)
 batchFolder   = 'condor'
 configsFolder = 'configs'
 
@@ -41,7 +43,7 @@ plotPath = 'plots_' + tag
 outputDirDatacard = 'datacards'
 
 # structure file for datacard
-structureFile = 'structure_BSM_hp.py'
+structureFile = 'structure_qqH_ggH.py'
 
 # nuisances file for mkDatacards and for mkShape
 nuisancesFile = 'nuisances.py'

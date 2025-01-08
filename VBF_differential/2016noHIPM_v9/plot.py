@@ -25,14 +25,14 @@ groupPlot['WWewk']  = {
 }
 
 groupPlot['DY']  = {  
-                  'nameHR' : "DYtt",
+                  'nameHR' : "DY#tau#tau",
                   'isSignal' : 0,
                   'color': 418,    # kGreen+2
                   'samples'  : ['dytt']
 }
 
 groupPlot['Fake']  = {
-                  'nameHR' : 'nonprompt',
+                  'nameHR' : 'Non-prompt leptons',
                   'isSignal' : 0,
                   'color': 921,    # kGray + 1
                   'samples'  : ['Fake_m', 'Fake_e']
