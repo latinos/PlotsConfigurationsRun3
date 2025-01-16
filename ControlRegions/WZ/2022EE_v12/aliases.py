@@ -15,23 +15,23 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb', 'DATA_EG', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
 
-# LepCut2l__ele_wp90iso__mu_cut_TightID_POG
+# LepCut3l__ele_wp90iso__mu_cut_TightID_POG
 eleWP = 'wp90iso'
 muWP  = 'cut_TightID_POG'
 
 aliases['LepWPCut'] = {
-    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
+    'expr': 'LepCut3l__ele_'+eleWP+'__mu_'+muWP,
     'samples': mc + ['DATA'],
 }
 
 aliases['LepWPSF'] = {
-    'expr': 'LepSF2l__ele_'+eleWP+'__mu_'+muWP,
+    'expr': 'LepSF3l__ele_'+eleWP+'__mu_'+muWP,
     'samples': mc
 }
 
-# gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
-aliases['PromptGenLepMatch2l'] = {
-    'expr': 'Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0)',
+# gen-matching to prompt only (GenLepMatch3l matches to *any* gen lepton)
+aliases['PromptGenLepMatch3l'] = {
+    'expr': 'Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0) * Alt(Lepton_promptgenmatched, 2, 0)',
     'samples': mc
 }
 
@@ -156,24 +156,24 @@ for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr
 
 # Data/MC scale factors and systematic uncertainties
 aliases['SFweight'] = {
-    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','btagSF']),
+    'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF','btagSF']),
     'samples': mc
 }
 
 aliases['SFweightEleUp'] = {
-    'expr': 'LepSF2l__ele_'+eleWP+'__Up',
+    'expr': 'LepSF3l__ele_'+eleWP+'__Up',
     'samples': mc
 }
 aliases['SFweightEleDown'] = {
-    'expr': 'LepSF2l__ele_'+eleWP+'__Down',
+    'expr': 'LepSF3l__ele_'+eleWP+'__Down',
     'samples': mc
 }
 aliases['SFweightMuUp'] = {
-    'expr': 'LepSF2l__mu_'+muWP+'__Up',
+    'expr': 'LepSF3l__mu_'+muWP+'__Up',
     'samples': mc
 }
 aliases['SFweightMuDown'] = {
-    'expr': 'LepSF2l__mu_'+muWP+'__Down',
+    'expr': 'LepSF3l__mu_'+muWP+'__Down',
     'samples': mc
 }
 

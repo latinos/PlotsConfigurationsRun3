@@ -111,7 +111,7 @@ DataTrig = {
 
 # SFweight does not include btag weights
 mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
-mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
+mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch3l*SFweight'
 
 #mcCommonWeight = 'XSWeight*METFilter_Common*SFweight'
 

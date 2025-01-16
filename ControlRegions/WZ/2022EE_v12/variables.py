@@ -22,6 +22,13 @@ variables['mll'] = {
     'fold' : 0
 }
 
+variables['mlll'] = {
+    'name': 'WH3l_mlll',    
+    'range' : (50,0,200), 
+    'xaxis' : 'm_{lll} [GeV]',
+    'fold' : 0
+}
+
 variables['ptll']  = {  
     'name': 'ptll',     
     'range' : (20, 0,200),   
