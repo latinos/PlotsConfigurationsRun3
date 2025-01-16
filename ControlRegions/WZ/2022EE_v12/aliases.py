@@ -208,3 +208,11 @@ aliases['WH3l_flagOSSF'] = {
     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
     'samples'    : ['DATA'],
 }
+
+# WH3l_flagOSSF for data
+aliases['WH3l_chlll'] = {
+    'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/ch_lll.cc"'],
+    'class'      : 'ch_lll',
+    'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
+    'samples'    : ['DATA'],
+}

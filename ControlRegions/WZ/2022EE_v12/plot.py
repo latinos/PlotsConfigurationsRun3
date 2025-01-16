@@ -3,7 +3,7 @@
 groupPlot = {}
 
 groupPlot['DY'] = {
-    'nameHR'   : 'DY_nHardJets_0',
+    'nameHR'   : 'DY',
     'isSignal' : 0,
     'color'    : 418, # kGreen + 2
     'samples'  : ['DY']

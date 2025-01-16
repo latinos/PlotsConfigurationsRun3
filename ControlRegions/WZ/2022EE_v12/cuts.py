@@ -9,9 +9,9 @@ preselections = 'Alt(Lepton_pt,0,0)>25 \
               && (WH3l_mOSll[0] < 0 || WH3l_mOSll[0] > 12) \
               && (WH3l_mOSll[1] < 0 || WH3l_mOSll[1] > 12) \
               && (WH3l_mOSll[2] < 0 || WH3l_mOSll[2] > 12) \
+              && abs(WH3l_chlll) == 1 \
               && bVeto \
 '
-# WH3l_chlll
 
 # Inclusive 
 cuts['wh3l_wz_13TeV_incl'] = 'WH3l_flagOSSF == 1 && PuppiMET_pt > 45 && WH3l_ZVeto < 20 && WH3l_mlll > 100'

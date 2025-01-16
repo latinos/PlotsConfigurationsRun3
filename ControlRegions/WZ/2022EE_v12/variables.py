@@ -52,15 +52,22 @@ variables['ptll_more']  = {
 
 variables['pt1']  = { 
     'name': 'Lepton_pt[0]',     
-    'range' : (20,0,100),
+    'range' : (20,0,200),
     'xaxis' : 'p_{T} 1st lep',
     'fold'  : 3                         
 }
 
 variables['pt2']  = {
     'name': 'Lepton_pt[1]',     
-    'range' : (20,0,100),   
+    'range' : (20,0,140),   
     'xaxis' : 'p_{T} 2nd lep',
+    'fold'  : 3                         
+}
+
+variables['pt3']  = {
+    'name': 'Lepton_pt[1]',     
+    'range' : (20,0,100),   
+    'xaxis' : 'p_{T} 3rd lep',
     'fold'  : 3                         
 }
 
@@ -78,6 +85,12 @@ variables['eta2']  = {
     'fold'  : 3                         
 }
 
+variables['eta3']  = {
+    'name': 'Lepton_eta[2]',     
+    'range' : (40,-3,3),   
+    'xaxis' : '#eta 3rd lep',
+    'fold'  : 3                         
+}
                         
 variables['puppimet']  = {
     'name': 'PuppiMET_pt',
@@ -136,39 +149,3 @@ variables['jeteta2_fine_binning']  = {
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
 }
-
-
-# variables['njet_noHorn']  = {
-#     'name': 'Sum(CleanJet_pt[abs(CleanJet_eta)<=2.5]>30)',
-#     'range' : (5,0,5),
-#     'xaxis' : 'Number of jets',
-#     'fold' : 2
-# }
-
-# variables['jetpt1_noHorn']  = {
-#     'name': 'Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, -99) - 9999.9*(CleanJet_pt[abs(CleanJet_eta)<=2.5][0]<30)',
-#     'range' : (40,0,200),
-#     'xaxis' : 'p_{T} 1st jet',
-#     'fold' : 0
-# }
-
-# variables['jetpt2_noHorn']  = {
-#     'name': 'Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, -99) - 9999.9*(CleanJet_pt[abs(CleanJet_eta)<=2.5][1]<30)',
-#     'range' : (40,0,200),
-#     'xaxis' : 'p_{T} 2nd jet',
-#     'fold' : 0
-# }
-
-# variables['jeteta1_noHorn']  = {
-#     'name': 'Alt(CleanJet_eta[abs(CleanJet_eta)<=2.5], 0, -99) - 9999.9*(CleanJet_pt[abs(CleanJet_eta)<=2.5][0]<30)',
-#     'range' : (30,-2.5,2.5),
-#     'xaxis' : '#eta 1st jet',
-#     'fold' : 0
-# }
-
-# variables['jeteta2_noHorn']  = {
-#     'name': 'Alt(CleanJet_eta[abs(CleanJet_eta)<=2.5], 1, -99) - 9999.9*(CleanJet_pt[abs(CleanJet_eta)<=2.5][1]<30)',
-#     'range' : (30,-2.5,2.5),
-#     'xaxis' : '#eta 2nd jet',
-#     'fold' : 0
-# }
