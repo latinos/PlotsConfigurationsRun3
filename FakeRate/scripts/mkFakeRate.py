@@ -87,8 +87,8 @@ if __name__ == '__main__':
         "DATA_QCD_tight"      : f"QCD_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
         "DATA_Zpeak_loose"    : f"Zpeak_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
         "DATA_Zpeak_tight"    : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
-        "DATA_Zpeak_PR_loose" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DATA",
-        "DATA_Zpeak_PR_tight" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DATA",
+        "DATA_Zpeak_PR_loose" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DATA_unprescaled",
+        "DATA_Zpeak_PR_tight" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DATA_unprescaled",
         # DY QCD region
         "DY_QCD_loose_high_pt" : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
         "DY_QCD_loose_low_pt"  : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
@@ -100,10 +100,12 @@ if __name__ == '__main__':
         "DY_Zpeak_tight_high_pt" : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
         "DY_Zpeak_tight_low_pt"  : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
         # DY Z-peak region for PR measurement        
-        "DY_Zpeak_PR_loose_high_pt" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
-        "DY_Zpeak_PR_loose_low_pt"  : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
-        "DY_Zpeak_PR_tight_high_pt" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
-        "DY_Zpeak_PR_tight_low_pt"  : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
+        # "DY_Zpeak_PR_loose_high_pt" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
+        # "DY_Zpeak_PR_loose_low_pt"  : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
+        # "DY_Zpeak_PR_tight_high_pt" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
+        # "DY_Zpeak_PR_tight_low_pt"  : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
+        "DY_Zpeak_PR_loose"  : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_unprescaled",
+        "DY_Zpeak_PR_tight"  : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_unprescaled",
         # WJets QCD region
         "WJets_QCD_loose_high_pt" : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_WJets_{flavor}_high_pt",
         "WJets_QCD_loose_low_pt"  : f"QCD_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_WJets_{flavor}_low_pt",
@@ -152,13 +154,13 @@ if __name__ == '__main__':
     histo_DY_Zpeak_tight.Add(histo_DY_Zpeak_tight_low_pt)
 
     # Zpeak PR region: used for prompt rate measurement
-    histo_DY_Zpeak_PR_loose        = infile.Get(histograms["DY_Zpeak_PR_loose_high_pt"])
-    histo_DY_Zpeak_PR_loose_low_pt = infile.Get(histograms["DY_Zpeak_PR_loose_low_pt"])
-    histo_DY_Zpeak_PR_loose.Add(histo_DY_Zpeak_PR_loose_low_pt)
+    histo_DY_Zpeak_PR_loose = infile.Get(histograms["DY_Zpeak_PR_loose"])
+    # histo_DY_Zpeak_PR_loose_low_pt = infile.Get(histograms["DY_Zpeak_PR_loose_low_pt"])
+    # histo_DY_Zpeak_PR_loose.Add(histo_DY_Zpeak_PR_loose_low_pt)
 
-    histo_DY_Zpeak_PR_tight        = infile.Get(histograms["DY_Zpeak_PR_tight_high_pt"])
-    histo_DY_Zpeak_PR_tight_low_pt = infile.Get(histograms["DY_Zpeak_PR_tight_low_pt"])
-    histo_DY_Zpeak_PR_tight.Add(histo_DY_Zpeak_PR_tight_low_pt)
+    histo_DY_Zpeak_PR_tight = infile.Get(histograms["DY_Zpeak_PR_tight"])
+    # histo_DY_Zpeak_PR_tight_low_pt = infile.Get(histograms["DY_Zpeak_PR_tight_low_pt"])
+    # histo_DY_Zpeak_PR_tight.Add(histo_DY_Zpeak_PR_tight_low_pt)
 
 
     ####################
@@ -255,8 +257,12 @@ if __name__ == '__main__':
         outfile_PR.cd()
 
         # Output 2D histograms - prompt rate
-        prompt_rate_histo    = ROOT.TH2F("PR_pT_eta",        "PR_pT_eta",         pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
-        prompt_rate_histo_MC = ROOT.TH2F("PR_pT_eta_MC",     "PR_pT_eta_MC",      pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+        PR_histo_name = ""
+        if flavor == 'muon': PR_histo_name = "h_Muon_signal_pt_eta_bin"
+        if flavor == 'ele':  PR_histo_name = "h_Ele_signal_pt_eta_bin"
+                
+        prompt_rate_histo    = ROOT.TH2F(PR_histo_name,        PR_histo_name,       pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+        prompt_rate_histo_MC = ROOT.TH2F(PR_histo_name+"_MC",  PR_histo_name+"_MC", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
         
         # Prompt rate loop. We separate it to avoid ocmputing both when you only want fake rate
         for eta_bin in range(0,eta_bins):

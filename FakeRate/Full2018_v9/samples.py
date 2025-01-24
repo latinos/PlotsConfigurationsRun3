@@ -86,11 +86,26 @@ DataRun = [
     ['D','Run2018D-UL2018-v1'],
 ]
 
+# Pre-scaled triggers for fake rate estimation
 DataSets = ['DoubleMuon','EGamma']
 
 DataTrig = {
      'DoubleMuon' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
      'EGamma'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
+}
+
+# Unprescaled triggers for prompt rate estimation
+DataRunUnprescaled = [
+    ['B','Run2018B-UL2018-v1'],
+    ['C','Run2018C-UL2018-v1'],
+    ['D','Run2018D-UL2018-v1'],
+]
+
+DataSetsUnprescaled = ['SingleMuon','EGamma']
+
+DataTrigUnprescaled = {
+     'SingleMuon' : 'HLT_IsoMu24 > 0.5',
+     'EGamma'     : 'HLT_IsoMu24 < 0.5 && HLT_Ele32_WPTight_Gsf > 0.5',
 }
 
 #########################################
@@ -110,6 +125,7 @@ lumi_ele_low_pt   =  '6.412*(HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lep
 lumi_ele_high_pt  = '38.906*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)';
 lumi_muon_low_pt  =  '8.561*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)';
 lumi_muon_high_pt = '45.781*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)';
+lumi_full_2018    = '59832'
 
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50')
@@ -138,6 +154,11 @@ samples['DY_muon_high_pt'] = {
     'FilesPerJob': 4,
 }
 
+samples['DY_unprescaled'] = {
+    'name': files,
+    'weight': mcCommonWeight + '*' + lumi_full_2018,
+    'FilesPerJob': 4,
+}
 
 # # Top SemiLeptonic
 # files = nanoGetSampleFiles(mcDirectory, 'TTToSemiLeptonic')
@@ -225,6 +246,7 @@ samples['WJets_muon_high_pt'] = {
 ################## DATA ###################
 ###########################################
 
+# Prescaled
 samples['DATA'] = {
   'name': [],
   'weight': 'METFilter_DATA',
@@ -250,6 +272,29 @@ for _, sd in DataRun:
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', tag_data, DataTrig[pd])
 
-# or ('SingleMuon' in pd and 'Run2018A' in sd)
-# or ('SingleMuon' in pd and 'Run2018B' in sd)
-# or ('SingleMuon' in pd and 'Run2018C' in sd)):
+
+# Unprescaled
+samples['DATA_unprescaled'] = {
+  'name': [],
+  'weight': 'METFilter_DATA',
+  'weights': [],
+  'isData': ['all'],
+  'FilesPerJob': 10
+}
+
+for _, sd in DataRunUnprescaled:
+  for pd in DataSetsUnprescaled:
+    tag_data = pd + '_' + sd
+
+    if (   ('SingleMuon' in pd and 'Run2018B' in sd)
+        or ('SingleMuon' in pd and 'Run2018C' in sd)):
+        print("sd      = {}".format(sd))
+        print("pd      = {}".format(pd))
+        print("Old tag = {}".format(tag_data))
+        tag_data = tag_data.replace('v1','v2')
+        print("New tag = {}".format(tag_data))
+
+    files = nanoGetSampleFiles(dataDirectory, tag_data)
+
+    samples['DATA_unprescaled']['name'].extend(files)
+    addSampleWeight(samples, 'DATA_unprescaled', tag_data, DataTrigUnprescaled[pd])    
