@@ -1,6 +1,5 @@
 # Features to implement:
 # - Normalization of EWK contamination using control region.
-# - Proper prompt rate computation: what is the jet threshold to use (if any)? To check with the old code.
 # - Anything else I am missing now.
 
 #!/usr/bin/env python
@@ -72,7 +71,6 @@ if __name__ == '__main__':
     outputFilePR = opt.outputFilePR
     
     
-
     # Open input file
     infile = ROOT.TFile(inputFile)
     
@@ -87,6 +85,7 @@ if __name__ == '__main__':
         "DATA_QCD_tight"      : f"QCD_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
         "DATA_Zpeak_loose"    : f"Zpeak_loose_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
         "DATA_Zpeak_tight"    : f"Zpeak_tight_jet_pt_{jet_pt}_{flavor}/{variable}/histo_DATA",
+        # Unprescaled DATA in Z-peak region: used for prompt rate estimation
         "DATA_Zpeak_PR_loose" : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DATA_unprescaled",
         "DATA_Zpeak_PR_tight" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DATA_unprescaled",
         # DY QCD region
@@ -104,6 +103,7 @@ if __name__ == '__main__':
         # "DY_Zpeak_PR_loose_low_pt"  : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
         # "DY_Zpeak_PR_tight_high_pt" : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_high_pt",
         # "DY_Zpeak_PR_tight_low_pt"  : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_{flavor}_low_pt",
+        # Unprescaled DY in Z-peak region: used for prompt rate estimation
         "DY_Zpeak_PR_loose"  : f"Zpeak_PR_loose_{flavor}/{variable}/histo_DY_unprescaled",
         "DY_Zpeak_PR_tight"  : f"Zpeak_PR_tight_{flavor}/{variable}/histo_DY_unprescaled",
         # WJets QCD region
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     histo_DATA_Zpeak_loose = infile.Get(histograms["DATA_Zpeak_loose"])
     histo_DATA_Zpeak_tight = infile.Get(histograms["DATA_Zpeak_tight"])
 
-    # Zpeak PR region: used for prompt rate measurement
+    # Unprescaled Zpeak PR region: used for prompt rate measurement
     histo_DATA_PR_Zpeak_loose = infile.Get(histograms["DATA_Zpeak_PR_loose"])
     histo_DATA_PR_Zpeak_tight = infile.Get(histograms["DATA_Zpeak_PR_tight"])
     
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     histo_DY_Zpeak_tight_low_pt = infile.Get(histograms["DY_Zpeak_tight_low_pt"])
     histo_DY_Zpeak_tight.Add(histo_DY_Zpeak_tight_low_pt)
 
-    # Zpeak PR region: used for prompt rate measurement
+    # Unprescaled Zpeak PR region: used for prompt rate measurement
     histo_DY_Zpeak_PR_loose = infile.Get(histograms["DY_Zpeak_PR_loose"])
     # histo_DY_Zpeak_PR_loose_low_pt = infile.Get(histograms["DY_Zpeak_PR_loose_low_pt"])
     # histo_DY_Zpeak_PR_loose.Add(histo_DY_Zpeak_PR_loose_low_pt)
