@@ -17,13 +17,14 @@
 
 using namespace ROOT;
 using namespace ROOT::VecOps;
+// using namespace std;
 
 
 RVecF adversarial_dnn(
-        float nLepton,
-        float nCleanJet,
-        float Lepton_pdgId_1,
-        float Lepton_pdgId_2,
+        int nLepton,
+        int nCleanJet,
+        int Lepton_pdgId_1,
+        int Lepton_pdgId_2,
         float CleanJet_eta_1,
 		    float CleanJet_eta_2,
 		    float CleanJet_phi_1,
@@ -58,7 +59,7 @@ RVecF adversarial_dnn(
         float D_VBF_VH,
         float D_QCD_VH,
         float D_VBF_DY,
-        float year,
+        int year,
         int ev_number
         ){
     RVecF adnns;

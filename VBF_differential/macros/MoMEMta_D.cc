@@ -114,11 +114,11 @@ RVecF MoMEMta_discriminant(float nCleanJet, float nLepton, float PuppiMet_pt, fl
     logging::set_level(logging::level::off);
 
     // Higgs                                                                                                                                                                                               
-    ConfigurationReader configuration_VBF("/afs/cern.ch/work/s/sblancof/public/CMSSW_10_6_10/qqH_hww_ME/higgs_jets.lua");
+    ConfigurationReader configuration_VBF("/afs/cern.ch/work/b/bcamaian/CMSSW_10_6_27/src/qqH_hww_ME/higgs_jets.lua");
     MoMEMta weight_VBF(configuration_VBF.freeze());
 
     // DY                                                                                                                                                                                                 
-    ConfigurationReader configuration_DY("/afs/cern.ch/work/s/sblancof/public/CMSSW_10_6_10/DY_ME/DY_ME.lua");
+    ConfigurationReader configuration_DY("/afs/cern.ch/work/b/bcamaian/CMSSW_10_6_27/src/DY_ME/DY_ME.lua");
     MoMEMta weight_DY(configuration_DY.freeze());
 
     ParameterSet lua_parameters;
