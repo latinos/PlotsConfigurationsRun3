@@ -21,13 +21,14 @@ if __name__ == '__main__':
     usage = 'usage: %prog [options]'
     parser = optparse.OptionParser(usage)
     
-    parser.add_option('--inputFile',      dest='inputFile',      help='input file with histograms',                     default='DEFAULT')
-    parser.add_option('--outputFile',     dest='outputFile',     help='output where histograms are stored',             default='DEFAULT')
-    parser.add_option('--jet_pt',         dest='jet_pt',         help='pt threshold of the recoling jet',               default='DEFAULT')
-    parser.add_option('--flavor',         dest='flavor',         help='flavor to inspect (electron or muon)',           default='DEFAULT')
-    parser.add_option('--variable',       dest='variable',       help='variable to use',                                default='DEFAULT')
-    parser.add_option('--do_prompt_rate', dest='do_prompt_rate', help='flag to produce also prompt rate',               default='False')
-    parser.add_option('--outputFilePR',   dest='outputFilePR',   help='output where prompt rate histograms are stored', default='DEFAULT')
+    parser.add_option('--inputFile',        dest='inputFile',        help='input file with histograms',                     default='DEFAULT')
+    parser.add_option('--outputFolder',     dest='outputFolder',     help='folder where output file is stored',             default='DEFAULT')
+    parser.add_option('--outputFileName',   dest='outputFileName',   help='output where histograms are stored',             default='DEFAULT')
+    parser.add_option('--jet_pt',           dest='jet_pt',           help='pt threshold of the recoling jet',               default='DEFAULT')
+    parser.add_option('--flavor',           dest='flavor',           help='flavor to inspect (electron or muon)',           default='DEFAULT')
+    parser.add_option('--variable',         dest='variable',         help='variable to use',                                default='DEFAULT')
+    parser.add_option('--do_prompt_rate',   dest='do_prompt_rate',   help='flag to produce also prompt rate',               default='False')
+    parser.add_option('--outputFileNamePR', dest='outputFileNamePR', help='output where prompt rate histograms are stored', default='DEFAULT')
 
     # jet_pt   = 25
     # flavor   = "muon"
@@ -46,9 +47,13 @@ if __name__ == '__main__':
         raise ValueError("Please insert input file name")
     inputFile = opt.inputFile
 
-    if opt.outputFile == 'DEFAULT' :
+    if opt.outputFolder == 'DEFAULT' :
+        raise ValueError("Please insert output directory")
+    outputFolder = opt.outputFolder
+
+    if opt.outputFileName == 'DEFAULT' :
         raise ValueError("Please insert output file name")
-    outputFile = opt.outputFile
+    outputFileName = opt.outputFileName
 
     if opt.jet_pt == 'DEFAULT' :
         raise ValueError("Please insert a valid jet pt threshold")
@@ -66,15 +71,19 @@ if __name__ == '__main__':
         raise ValueError("Please insert a valid value for the 'do prompt rate' flag: True or False")
     do_prompt_rate = opt.do_prompt_rate
 
-    if opt.do_prompt_rate == 'True' and opt.outputFilePR == 'DEFAULT':
+    if opt.do_prompt_rate == 'True' and opt.outputFileNamePR == 'DEFAULT':
         raise ValueError("Please insert a valid output name for the PR output file")
-    outputFilePR = opt.outputFilePR
+    outputFileNamePR = opt.outputFileNamePR
     
-    
+
     # Open input file
     infile = ROOT.TFile(inputFile)
     
+    # Create output folder
+    os.system(f'mkdir -p {outputFolder}')
+    
     # Create output file
+    outputFile = f'{outputFolder}/{outputFileName}'
     outfile = ROOT.TFile(outputFile,"recreate")
     outfile.cd()
 
@@ -253,7 +262,8 @@ if __name__ == '__main__':
     if do_prompt_rate == 'True':
     
         # Create output file
-        outfile_PR = ROOT.TFile(outputFilePR,"recreate")
+        outputFilePR = f'{outputFolder}/{outputFileNamePR}'
+        outfile_PR   = ROOT.TFile(outputFilePR,"recreate")
         outfile_PR.cd()
 
         # Output 2D histograms - prompt rate
