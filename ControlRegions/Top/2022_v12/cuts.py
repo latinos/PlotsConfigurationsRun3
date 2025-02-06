@@ -9,7 +9,8 @@ preselections = 'mll>12 \
               && abs(Lepton_eta[0])<2.5 && abs(Lepton_eta[1])<2.5 \
               && ptll>30 \
               && PuppiMET_pt > 20 \
-              '
+              && noJetInHorn \
+'
 
 # Inclusive regions
 cuts['Top_ee_incl'] = '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11) && mll > 110 && ((zeroJet && !bVeto) || bReq)'
