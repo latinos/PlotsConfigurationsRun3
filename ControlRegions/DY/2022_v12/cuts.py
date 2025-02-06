@@ -1,9 +1,7 @@
 cuts = {}
 
-cuts = {}
-
 # Preselections - applied to all the cuts
-preselections = 'Lepton_pt[0]>25 && Lepton_pt[1]>13 && (nLepton>=2 && Alt(Lepton_pt,2,0)<10) && abs(Lepton_eta[0])<2.5 && abs(Lepton_eta[1])<2.5 && mll > 60 && mll < 120'
+preselections = 'Lepton_pt[0]>25 && Lepton_pt[1]>13 && (nLepton>=2 && Alt(Lepton_pt,2,0)<10) && abs(Lepton_eta[0])<2.5 && abs(Lepton_eta[1])<2.5 && mll > 60 && mll < 120 && noJetInHorn'
 
 # Individual cuts and categories
 cuts['Zee_incl']  = '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11)'

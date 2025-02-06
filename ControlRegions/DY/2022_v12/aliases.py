@@ -46,6 +46,10 @@ aliases['multiJet'] = {
     'expr': 'Alt(CleanJet_pt, 1, 0) > 30.'
 }
 
+aliases['noJetInHorn'] = {
+    'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.6 && abs(CleanJet_eta) < 3.1) == 0',
+}
+
 ########################################################################
 # B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
 ########################################################################
