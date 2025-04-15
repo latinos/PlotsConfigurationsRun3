@@ -1,6 +1,6 @@
 # variables
 variables = {}
-"""
+
 variables['events'] = {
     'name'  : '1',      
     'range' : (1,0,2),  
@@ -116,44 +116,44 @@ variables['njet']  = {
     'xaxis' : 'Number of jets',
     'fold' : 2
 }
-"""
+
 variables['jetpt1']  = {
-    'name': 'Alt(CleanJet_pt, 0, -99)',# - 9999.9*(CleanJet_pt[0]<30)',
+    'name': 'Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
     'range' : (40,0,200),
     'xaxis' : 'p_{T} 1st jet',
     'fold' : 0
 }
 
 variables['jetpt2']  = {
-    'name': 'Alt(CleanJet_pt, 1, -99)',#  - 9999.9*(CleanJet_pt[1]<30)',
+    'name': 'Alt(CleanJet_pt, 1, -99)  - 9999.9*(CleanJet_pt[1]<30)',
     'range' : (40,0,200),
     'xaxis' : 'p_{T} 2nd jet',
     'fold' : 0
 }
 
 variables['jeteta1']  = {
-    'name': 'Alt(CleanJet_eta, 0, -99)',# - 9999.9*(CleanJet_pt[0]<30)',
+    'name': 'Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
     'range' : (30,-4.7,4.7),
     'xaxis' : '#eta 1st jet',
     'fold' : 0
 }
 
 variables['jeteta1_fine_binning']  = {
-    'name': 'Alt(CleanJet_eta, 0, -99)',# - 9999.9*(CleanJet_pt[0]<30)',
+    'name': 'Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
     'range' : (94,-4.7,4.7),
     'xaxis' : '#eta 1st jet',
     'fold' : 0
 }
 
 variables['jeteta2']  = {
-    'name': 'Alt(CleanJet_eta, 1, -99)',# - 9999.9*(CleanJet_pt[1]<30)',
+    'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
     'range' : (30,-4.7,4.7),
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
 }
 
 variables['jeteta2_fine_binning']  = {
-    'name': 'Alt(CleanJet_eta, 1, -99)',# - 9999.9*(CleanJet_pt[1]<30)',
+    'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
     'range' : (94,-4.7,4.7),
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
