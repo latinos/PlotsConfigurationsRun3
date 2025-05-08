@@ -16,7 +16,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
+outputFolder = "../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"
 
@@ -39,6 +39,7 @@ cutsFile = "cuts.py"
 samplesFile = "samples.py"
 
 #: file with dict of samples
+#plotFile = "plot.py"
 plotFile = "plot_CR.py"
 
 #: file with dict of structure (used to define combine processes)

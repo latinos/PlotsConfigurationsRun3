@@ -34,7 +34,7 @@ subsamplesmap = utils.flatten_samples(samples)
 categoriesmap = utils.flatten_cuts(cuts)
 
 
-outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_preVFP_complete.root"
+outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_postVFP_complete.root"
 
 print("DEBUG!!!!")
 print("Now check ggH and ggWW in ggToWW")

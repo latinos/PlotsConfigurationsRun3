@@ -34,7 +34,7 @@ subsamplesmap = utils.flatten_samples(samples)
 categoriesmap = utils.flatten_cuts(cuts)
 
 
-outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2018_complete.root"
+outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2017_complete.root"
 
 #inFile = ROOT.TFile(outputFile, "UPDATE")
 #outFile = ROOT.TFile(outputFile, "RECREATE")
@@ -96,9 +96,46 @@ print("Start computation")
 #hww2l2v_13TeV_WW_1j
 #hww2l2v_13TeV_WW_2j
 
+df = uproot.open(outputFile)
+
+print("JER and MET not correctly transmitted to TOP and DYTT!!!!!!!!")
+variableNames = ["events", "Ctot"]
+for cutName in ["hww2l2v_13TeV_top_0j","hww2l2v_13TeV_top_1j","hww2l2v_13TeV_top_2j",
+                "hww2l2v_13TeV_dytt_0j","hww2l2v_13TeV_dytt_1j","hww2l2v_13TeV_dytt_2j",
+                "hww2l2v_13TeV_ss_Inc","hww2l2v_13TeV_ss_0j","hww2l2v_13TeV_ss_1j","hww2l2v_13TeV_ss_2j",
+                "hww2l2v_13TeV_sr_0j_pt2lt20","hww2l2v_13TeV_sr_0j_pt2gt20","hww2l2v_13TeV_sr_1j_pt2lt20","hww2l2v_13TeV_sr_1j_pt2gt20","hww2l2v_13TeV_sr_2j","hww2l2v_13TeV_sr_2j_vbf"]:
+    for varName in variables:
+        print(varName)
+        inFile = ROOT.TFile(outputFile, "UPDATE")
+        inFile.cd(cutName+"/"+varName)
+        for sampleName in samples:
+            if sampleName in ["DATA", "Fake"]:
+                continue
+            
+            #print(sampleName)
+            for nuisanceName in nuisances:
+                if ("JER"!=nuisanceName and "met"!=nuisanceName):
+                    continue
+
+                #print("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up;1")
+                if "histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up;1" in df[cutName+"/"+varName].keys():
+                    #print("skipped!")
+                    continue
+                
+                hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
+                new_hist = hist
+                
+                new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
+                new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
+                
+                del new_hist
+                del hist
+        inFile.Close()
+                        
+print("Fixed!!!")
+print("Now create ggToWW and qqToWW")
 
 for cutName in cuts:
-    #for cutName in ["hww2l2v_13TeV_sr_BDT95_0j"]:
     print(cutName + "<------")
     for variableName in variables:
         print("    -->" + variableName)
@@ -126,9 +163,31 @@ for cutName in cuts:
         new_hist_qq.Clone("histo_qqToWW").Write()
         
         for nuisanceName in nuisances:
-            
-            #print(nuisanceName)
 
+            skipNuisance = False
+            #if ("event" in variableName) and ("hww2l2v_13TeV_top" in cutName or "hww2l2v_13TeV_dytt" in cutName) and ("JER"==nuisanceName or "met"==nuisanceName):
+            #    skipNuisance = True
+            #
+            #if ("event" in variableName) and ("hww2l2v_13TeV_dytt" in cutName) and ("JES" in nuisanceName):
+            #    skipNuisance = True
+            
+            if skipNuisance:
+                
+                new_hist_gg_up = new_hist_gg
+                new_hist_gg_do = new_hist_gg
+
+                new_hist_gg_up.Clone("histo_ggToWW_"+nuisances[nuisanceName]["name"]+"Up").Write()
+                new_hist_gg_do.Clone("histo_ggToWW_"+nuisances[nuisanceName]["name"]+"Down").Write()
+
+                new_hist_qq_up = new_hist_qq
+                new_hist_qq_do = new_hist_qq
+                
+                new_hist_qq_up.Clone("histo_qqToWW_"+nuisances[nuisanceName]["name"]+"Up").Write()
+                new_hist_qq_do.Clone("histo_qqToWW_"+nuisances[nuisanceName]["name"]+"Down").Write()
+
+                continue
+                
+            #print(nuisanceName)
             #print(nuisances[nuisanceName])
             
             doggH = False
@@ -161,7 +220,7 @@ for cutName in cuts:
                 doqqInt = True
 
                 
-            if (doggH and doggWW and doggInt):
+            if (doggH and doggWW and doggInt and not skipNuisance):
                 hist_ggH_up = inFile.Get(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Up")
                 hist_ggH_do = inFile.Get(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Down")
                 
@@ -171,6 +230,10 @@ for cutName in cuts:
                 hist_ggInt_up = inFile.Get(cutName+"/"+variableName+"/histo_ggH_gWW_Int_"+nuisances[nuisanceName]["name"]+"Up")
                 hist_ggInt_do = inFile.Get(cutName+"/"+variableName+"/histo_ggH_gWW_Int_"+nuisances[nuisanceName]["name"]+"Down")
 
+                #print(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Up")
+                #print(cutName+"/"+variableName+"/histo_ggWW_"+nuisances[nuisanceName]["name"]+"Up")
+                #print(cutName+"/"+variableName+"/histo_ggH_gWW_Int_"+nuisances[nuisanceName]["name"]+"Up")
+                
                 #print(hist_ggH_up)
                 #print(hist_ggH_do)
                 #print(hist_ggWW_up)
@@ -180,7 +243,7 @@ for cutName in cuts:
                 
                 new_hist_gg_up = hist_ggH_up.Clone() + hist_ggWW_up.Clone() + hist_ggInt_up.Clone()
                 new_hist_gg_do = hist_ggH_do.Clone() + hist_ggWW_do.Clone() + hist_ggInt_do.Clone()
-
+                
                 #new_histos[cutName+"/"+variableName+"/histo_ggToWW_"+nuisances[nuisanceName]["name"]+"Up"] = new_hist_gg_up
                 #new_histos[cutName+"/"+variableName+"/histo_ggToWW_"+nuisances[nuisanceName]["name"]+"Down"] = new_hist_gg_do
 
@@ -190,7 +253,7 @@ for cutName in cuts:
                 del new_hist_gg_up
                 del new_hist_gg_do
                 
-            elif (doggH and doggWW):
+            elif (doggH and doggWW and not skipNuisance):
 
                 hist_ggH_up = inFile.Get(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Up")
                 hist_ggH_do = inFile.Get(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Down")
@@ -210,7 +273,7 @@ for cutName in cuts:
                 del new_hist_gg_up
                 del new_hist_gg_do
                 
-            elif (doggH):
+            elif (doggH and not skipNuisance):
 
                 hist_ggH_up = inFile.Get(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Up")
                 hist_ggH_do = inFile.Get(cutName+"/"+variableName+"/histo_ggH_hww_"+nuisances[nuisanceName]["name"]+"Down")
@@ -227,7 +290,7 @@ for cutName in cuts:
                 del new_hist_gg_up
                 del new_hist_gg_do
                 
-            elif (doggWW):
+            elif (doggWW and not skipNuisance):
 
                 hist_ggWW_up = inFile.Get(cutName+"/"+variableName+"/histo_ggWW_"+nuisances[nuisanceName]["name"]+"Up")
                 hist_ggWW_do = inFile.Get(cutName+"/"+variableName+"/histo_ggWW_"+nuisances[nuisanceName]["name"]+"Down")

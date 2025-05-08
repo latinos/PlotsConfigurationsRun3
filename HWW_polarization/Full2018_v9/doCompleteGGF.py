@@ -96,52 +96,42 @@ print("Start computation")
 #hww2l2v_13TeV_WW_1j
 #hww2l2v_13TeV_WW_2j
 
+df = uproot.open(outputFile)
 
 print("JER and MET not correctly transmitted to TOP and DYTT!!!!!!!!")
-for cutName in ["hww2l2v_13TeV_top_0j","hww2l2v_13TeV_top_1j","hww2l2v_13TeV_top_2j"]:
-    varName = "events"
-    inFile = ROOT.TFile(outputFile, "UPDATE")
-    inFile.cd(cutName+"/"+varName)
-    for sampleName in samples:
-        if sampleName in ["DATA", "Fake"]:
-            continue
-
-        print(sampleName)
-        for nuisanceName in nuisances:
-            if ("JER"!=nuisanceName and "met"!=nuisanceName):
+variableNames = ["events", "Ctot"]
+for cutName in ["hww2l2v_13TeV_top_0j","hww2l2v_13TeV_top_1j","hww2l2v_13TeV_top_2j",
+                "hww2l2v_13TeV_dytt_0j","hww2l2v_13TeV_dytt_1j","hww2l2v_13TeV_dytt_2j",
+                "hww2l2v_13TeV_ss_Inc","hww2l2v_13TeV_ss_0j","hww2l2v_13TeV_ss_1j","hww2l2v_13TeV_ss_2j",
+                "hww2l2v_13TeV_sr_0j_pt2lt20","hww2l2v_13TeV_sr_0j_pt2gt20","hww2l2v_13TeV_sr_1j_pt2lt20","hww2l2v_13TeV_sr_1j_pt2gt20","hww2l2v_13TeV_sr_2j","hww2l2v_13TeV_sr_2j_vbf"]:
+    for varName in variables:
+        print(varName)
+        inFile = ROOT.TFile(outputFile, "UPDATE")
+        inFile.cd(cutName+"/"+varName)
+        for sampleName in samples:
+            if sampleName in ["DATA", "Fake"]:
                 continue
-
-            hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
-            new_hist = hist
             
-            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
-            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
+            #print(sampleName)
+            for nuisanceName in nuisances:
+                if ("JER"!=nuisanceName and "met"!=nuisanceName):
+                    continue
 
-    del new_hist
-    del hist
-    inFile.Close()
-            
-for cutName in ["hww2l2v_13TeV_dytt_0j","hww2l2v_13TeV_dytt_1j","hww2l2v_13TeV_dytt_2j"]:
-    varName = "events"
-    inFile = ROOT.TFile(outputFile, "UPDATE")
-    inFile.cd(cutName+"/"+varName)
-    for sampleName in samples:
-        if sampleName in ["DATA", "Fake"]:
-            continue
-        for nuisanceName in nuisances:
-            if ("JER"!=nuisanceName and "met"!=nuisanceName and "JES" not in nuisanceName):
-                continue
-
-            hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
-            new_hist = hist
-            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
-            new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
-
-    del new_hist
-    del hist
-    inFile.Close()
-
-            
+                #print("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up;1")
+                if "histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up;1" in df[cutName+"/"+varName].keys():
+                    #print("skipped!")
+                    continue
+                
+                hist = inFile.Get(cutName+"/"+varName+"/histo_"+sampleName)
+                new_hist = hist
+                
+                new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Up").Write()
+                new_hist.Clone("histo_"+sampleName+"_"+nuisances[nuisanceName]["name"]+"Down").Write()
+                
+                del new_hist
+                del hist
+        inFile.Close()
+                        
 print("Fixed!!!")
 print("Now create ggToWW and qqToWW")
 
@@ -177,7 +167,7 @@ for cutName in cuts:
             skipNuisance = False
             #if ("event" in variableName) and ("hww2l2v_13TeV_top" in cutName or "hww2l2v_13TeV_dytt" in cutName) and ("JER"==nuisanceName or "met"==nuisanceName):
             #    skipNuisance = True
-            #
+            
             #if ("event" in variableName) and ("hww2l2v_13TeV_dytt" in cutName) and ("JES" in nuisanceName):
             #    skipNuisance = True
             

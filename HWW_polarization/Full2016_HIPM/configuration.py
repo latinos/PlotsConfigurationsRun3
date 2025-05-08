@@ -40,6 +40,8 @@ samplesFile = "samples.py"
 
 #: file with dict of samples
 plotFile = "plot_CR.py"
+#plotFile = "plot.py"
+#plotFile = "plot_only.py"
 
 #: file with dict of structure (used to define combine processes)
 structureFile = "structure.py"

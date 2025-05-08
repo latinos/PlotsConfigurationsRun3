@@ -16,7 +16,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
+outputFolder = "../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"
 

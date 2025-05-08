@@ -6,7 +6,12 @@ variables['RF_0J_LL']  = {   'name': 'RF_score_0J_LL',
                              'range' : (40,0,1),
                              'xaxis' : 'Random Forest score 0J LL',
                              'fold' : 3 
-                         } 
+                         }
+variables['RF_0J_TT_fine']  = {   'name': 'RF_score_0J_TT',
+                                  'range' : (40,0,1),
+                                  'xaxis' : 'Random Forest score 0J TT',
+                                  'fold' : 3
+                               }
 variables['RF_0J_TT']  = {   'name': 'RF_score_0J_TT',
                              #'range' : (40,0,1),
                              'range' : ([0.0,0.15,0.225,0.30,0.35,0.4,0.45,0.5,0.55,0.60,0.65,0.725,1.0],),
@@ -19,11 +24,31 @@ variables['RF_0J_Bkg']  = {   'name': 'RF_score_0J_Bkg',
                               'fold' : 3
                           }
 
+#####
 
+variables['RF_0J_2D']  = {   'name': ('RF_score_0J_Bkg:RF_score_0J_TT'),
+                             'range' : ([0.0, 0.2, 0.4, 0.6, 0.8, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                             'xaxis' : 'Random Forest score: 2D (0J) Bkg:TT',
+                             'fold' : 3
+                          }
+
+
+variables['RF_0J_2D_Wide']  = {   'name': ('RF_score_0J_Bkg:RF_score_0J_TT'),
+                                  'range' : ([0.0, 0.5, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                  'xaxis' : 'Random Forest score: 2D (0J) Bkg:TT',
+                                  'fold' : 3
+                               }
+
+####
 
 variables['RF_1J_LL']  = {   'name': 'RF_score_1J_LL',
                              'range' : (40,0,1),
                              'xaxis' : 'Random Forest score 1J LL',
+                             'fold' : 3
+                         }
+variables['RF_1J_TT_fine']  = {   'name': 'RF_score_1J_TT',
+                             'range' : (40,0,1),
+                             'xaxis' : 'Random Forest score 1J TT',
                              'fold' : 3
                          }
 variables['RF_1J_TT']  = {   'name': 'RF_score_1J_TT',
@@ -37,12 +62,31 @@ variables['RF_1J_Bkg']  = {   'name': 'RF_score_1J_Bkg',
                               'fold' : 3
                           }
 
+##### 
 
+variables['RF_1J_2D']  = {   'name': ('RF_score_1J_Bkg:RF_score_1J_TT'),
+                             'range' : ([0.0, 0.2, 0.4, 0.6, 0.8, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                             'xaxis' : 'Random Forest score: 2D (1J) Bkg:TT',
+                             'fold' : 3
+                          }
+
+variables['RF_1J_2D_Wide']  = {   'name': ('RF_score_1J_Bkg:RF_score_1J_TT'),
+                                  'range' : ([0.0, 0.5, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                  'xaxis' : 'Random Forest score: 2D (1J) Bkg:TT',
+                                  'fold' : 3
+                               }
+
+####
 
 variables['RF_2J_LL']  = {   'name': 'RF_score_2J_LL',
                              'range' : ([0.0, 0.025, 0.1, 0.225, 0.375, 0.575, 0.8, 1.0],),
                              'xaxis' : 'Random Forest score 2J LL',
                              'fold' : 3
+                         }
+variables['RF_2J_LL_fine']  = {   'name': 'RF_score_2J_LL',
+                                  'range' : (40,0,1),
+                                  'xaxis' : 'Random Forest score 2J LL',
+                                  'fold' : 3
                          }
 variables['RF_2J_TT']  = {   'name': 'RF_score_2J_TT',
                              'range' : (40,0,1),
@@ -55,10 +99,29 @@ variables['RF_2J_Bkg']  = {   'name': 'RF_score_2J_Bkg',
                               'fold' : 3
                           }
 
+##### 
 
+variables['RF_2J_2D']  = {   'name': ('RF_score_2J_Bkg:RF_score_2J_LL'),
+                             'range' : ([0.0, 0.2, 0.4, 0.7, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                             'xaxis' : 'Random Forest score: 2D (2J) Bkg:LL',
+                             'fold' : 3
+                          }
+
+variables['RF_2J_2D_Wide']  = {   'name': ('RF_score_2J_Bkg:RF_score_2J_LL'),
+                                  'range' : ([0.0, 0.5, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                  'xaxis' : 'Random Forest score: 2D (2J) Bkg:LL',
+                                  'fold' : 3
+                               }
+
+####
 
 variables['RF_VBF_LL']  = {   'name': 'RF_score_VBF_LL',
                               'range' : ([0.0, 0.125, 0.35, 0.65, 1.0],),
+                              'xaxis' : 'Random Forest score VBF LL',
+                              'fold' : 3
+                          }
+variables['RF_VBF_LL_fine']  = {   'name': 'RF_score_VBF_LL',
+                              'range' : (40,0,1),
                               'xaxis' : 'Random Forest score VBF LL',
                               'fold' : 3
                           }
@@ -73,105 +136,78 @@ variables['RF_VBF_Bkg']  = {   'name': 'RF_score_VBF_Bkg',
                                'fold' : 3
                            }
 
+##### 
+
+variables['RF_VBF_2D']  = {   'name': ('RF_score_VBF_Bkg:RF_score_VBF_LL'),
+                             'range' : ([0.0, 0.2, 0.4, 0.6, 1.0],[0.0, 0.05, 0.2, 0.4, 1.0],),
+                             'xaxis' : 'Random Forest score: 2D (VBF) Bkg:LL',
+                             'fold' : 3
+                          }
+
+variables['RF_VBF_2D_Wide']  = {   'name': ('RF_score_VBF_Bkg:RF_score_VBF_LL'),
+                                   'range' : ([0.0, 0.2, 1.0],[0.0, 0.125, 0.35, 0.65, 1.0],),
+                                   'xaxis' : 'Random Forest score: 2D (VBF) Bkg:LL',
+                                   'fold' : 3
+                                }
+
+####
+
 variables['events']  = {   'name': '1',
                         'range' : (1,0,2),
                         'xaxis' : 'events',
                         'fold' : 3
                         }
 
-'''
-variables['BDT_0J']  = {   'name': 'BDTG4D3_0J',
-                           'range' : (40,-1,1),
-                           'xaxis' : 'BDT 0J',
+variables['Ctot']  = {   'name': 'Ctot',
+                         'range' : (40,0,5),
+                         'xaxis' : 'Collinearity',
+                         'fold' : 3
+                      }
+variables['dphilmet1']  = {   'name': 'abs(dphilmet1)',
+			      'range' : (40,0,3.15),
+                              'xaxis' : 'dphilmet1',
+                              'fold' : 3
+                           }
+variables['dphilmet2']  = {   'name': 'abs(dphilmet2)',
+                              'range' : (40,0,3.15),
+			      'xaxis' : 'dphilmet2',
+                              'fold' : 3
+                           }
+variables['dphijj']  = {   'name': 'abs(dphijj)',
+                           'range' : (40,0,3.15),
+			   'xaxis' : 'dphijj',
                            'fold' : 3
-                        }
-variables['BDT_0J_WP50']  = {   'name': 'BDTG4D3_0J',
-                                'range' : (20, 0.5, 1),
-                                'xaxis' : 'BDT 0J',
-                                'fold' : 0
-                        }
-
-variables['BDT_1J']  = {   'name': 'BDTG4D3_1J',
-                           'range' : (40,-1,1),
-                           'xaxis' : 'BDT 1J',
-                           'fold' : 3
-                        }
-variables['BDT_1J_WP50']  = {   'name': 'BDTG4D3_1J',
-                                'range' : (20, 0.5, 1),
-                                'xaxis' : 'BDT 1J',
-                                'fold' : 0
-                        }
-
-variables['BDT_2J']  = {   'name': 'BDTG4D3_2J',
-                           'range' : (40,-1,1),
-                           'xaxis' : 'BDT 2J',
-                           'fold' : 3
-                        }
-variables['BDT_2J_WP50']  = {   'name': 'BDTG4D3_2J',
-                                'range' : (20, 0.5, 1),
-                                'xaxis' : 'BDT 2J',
-                                'fold' : 0
-                        }
-
-
-variables['BDT_VBF']  = {   'name': 'BDTG4D3_VBF',
-                            'range' : (40,-1,1),
-                            'xaxis' : 'BDT VBF',
-                            'fold' : 3
-                        }
-variables['BDT_VBF_WP50']  = {   'name': 'BDTG4D3_VBF',
-                                'range' : (20, 0.5, 1),
-                                'xaxis' : 'BDT VBF',
-                                'fold' : 0
-                        }
-
-
-###### POLARIZATION
-
-variables['RF_score_0J_Pol']  = {   'name': 'RF_score_0J_Pol',
-                                    'range' : (40, 0.0, 1.0),
-                                    'xaxis' : 'Random forest for Polarization 0J (XGBoost)',
-                                    'fold' : 3
-                                 }
-
-variables['RF_score_1J_Pol']  = {   'name': 'RF_score_1J_Pol',
-                                    'range' : (40, 0.0, 1.0),
-                                    'xaxis' : 'Random forest for Polarization 1J (XGBoost)',
-                                    'fold' : 3
-                                 }
-
-variables['RF_score_2J_Pol']  = {   'name': 'RF_score_2J_Pol',
-                                    'range' : (40, 0.0, 1.0),
-                                    'xaxis' : 'Random forest for Polarization 2J (XGBoost)',
-                                    'fold' : 3
-                                 }
-
-variables['RF_score_VBF_Pol']  = {   'name': 'RF_score_VBF_Pol',
-                                     'range' : (40, 0.0, 1.0),
-                                     'xaxis' : 'Random forest for Polarization VBF (XGBoost)',
-                                     'fold' : 3
-                                  }
-
+                    }
+variables['dphil1j1']  = {   'name': 'abs(dphilep1jet1)',
+                             'range' : (40,0,3.15),
+			     'xaxis' : 'dphilep1jet1',
+                             'fold' : 3
+                          }
+variables['dphil1j2']  = {   'name': 'abs(dphilep1jet2)',
+                             'range' : (40,0,3.15),
+                             'xaxis' : 'dphilep1jet2',
+                             'fold' : 3
+                          }
+variables['mTi']  = {   'name': 'mTi',
+                        'range' : (40, 0., 150.),
+                        'xaxis' : 'm_{T}^{i} [GeV]',
+                        'fold' : 3
+                     }
 
 #####
 
-variables['nvtx']  = {   'name': 'PV_npvsGood',
-                       'range' : (20,0,100),
-                       'xaxis' : 'nvtx',
-                        'fold' : 3
-                     }
+#variables['nvtx']  = {   'name': 'PV_npvsGood',
+#                       'range' : (20,0,100),
+#                       'xaxis' : 'nvtx',
+#                        'fold' : 3
+#                     }
 variables['mll']  = {   'name': 'mll',
-                        'range' : (40, 20., 100.),
+                        'range' : (40, 20., 150.),
                         'xaxis' : 'm_{ll} [GeV]',
                         'fold' : 3
                         }
-variables['mjj'] = {      'name'  : 'mjj',                                                                                                                                                  
-                          'range' : (30, 0., 400.),
-                          'xaxis' : 'm_{jj} [GeV]',
-                          'fold'  : 3
-                   }
 variables['mth']  = {   'name': 'mth',
-                        'range' : (30, 50.,150),
+                        'range' : (30, 40.,150),
                         'xaxis' : 'm_{T}^{H} [GeV]',
                         'fold' : 0
                         }
@@ -184,11 +220,6 @@ variables['mtw2']  = {   'name': 'mtw2',
                         'range' : (50, 0.,100),
                          'xaxis' : 'm_{T}^{W_{2}} [GeV]',
                          'fold' : 0
-                        }
-variables['mth_DY']  = {   'name': 'mth',
-                        'range' : (30, 0, 60),
-                        'xaxis' : 'm_{T}^{H} [GeV]',
-                        'fold' : 0
                         }
 variables['ptll']  = {   'name': 'ptll',
                         'range' : (50, 0,200),
@@ -226,18 +257,12 @@ variables['phi2']  = {  'name': 'Lepton_phi[1]',
                         'fold'  : 3
                         }
 
-
 variables['dphijjmet'] = {'name'  : 'abs(dphijjmet)',
                           'range' : (20, 0., 3.2),
                           'xaxis' : '#Delta#phi_{jjmet}',
                           'fold'  : 3
                          }
-variables['dphill'] = {   'name'  : 'dphill',
-                          'range' : (20, 0.0, 2.3),
-                          'xaxis' : '#Delta#phi_{ll}',
-                          'fold'  : 3
-                      }
-variables['dphill_2'] = {   'name'  : 'dphill',
+variables['dphill'] = {   'name'  : 'abs(dphill)',
                           'range' : (25, 0.0, 3.15),
                           'xaxis' : '#Delta#phi_{ll}',
                           'fold'  : 3
@@ -248,7 +273,7 @@ variables['detall'] = { 'name'  : 'abs(detall)',
                         'fold'  : 3
                       }
 variables['drll'] = {     'name'  : 'drll',
-                          'range' : (30, 0.5, 2.5),
+                          'range' : (30, 0.5, 5.0),
                           'xaxis' : '#DeltaR_{ll}',
                           'fold'  : 3}
 variables['puppimet']  = {
@@ -264,4 +289,4 @@ variables['mpmet']  = {
                         'fold'  : 3
                         }
 
-'''
+
