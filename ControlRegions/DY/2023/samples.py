@@ -9,7 +9,7 @@ mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
 mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
 dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
 dataSteps    = 'DATAl2loose2023v12__l2tight'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -28,7 +28,7 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -103,6 +103,7 @@ DataTrig = {
 }
 
 
+
 #########################################
 ############ MC COMMON ##################
 #########################################
@@ -146,8 +147,6 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    if (pd == "MuonEG" and _ in ["Cv4"]):
-        continue
     files = nanoGetSampleFiles(dataDirectory, datatag)
     
     print(datatag)
