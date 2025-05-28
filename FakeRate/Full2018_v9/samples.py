@@ -1,4 +1,4 @@
-import os,glob
+import os,sys,glob
 
 ################################################
 ################# SKIMS ########################
@@ -12,13 +12,16 @@ mcProduction = 'Summer20UL18_106x_nAODv9_Full2018v9'
 dataReco     = 'Run2018_UL2018_nAODv9_Full2018v9'
 
 mcSteps      = 'MCl1loose2018v9__MCCorr2018v9NoJERInHorn'
-dataSteps    = 'DATAl1loose2018v9'
+dataSteps    = 'DATAl1loose2018v9__fakeSel'
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+if 'portal' in os.uname()[1]:
+    treeBaseDir = '/ceph/ntrevisa/HWWNano'
+
 limitFiles  = -1
 
 def makeMCDirectory(var=''):
@@ -35,6 +38,8 @@ s = SearchFiles()
 
 useXROOTD = True
 redirector = 'root://eoscms.cern.ch/'
+if 'portal' in os.uname()[1]:
+    redirector = ''
 
 def nanoGetSampleFiles(path, name):
     _files = s.searchFiles(path, name, redirector=redirector)

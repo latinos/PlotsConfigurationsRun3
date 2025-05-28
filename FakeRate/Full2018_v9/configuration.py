@@ -11,6 +11,8 @@ outputFile = "mkShapes__{}.root".format(tag)
 
 # Path to ouput folder
 outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+if 'portal' in os.uname()[1]:
+    outputFolder = '/ceph/' + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 
 # Path to batch folder (used for condor submission)
 batchFolder = "condor"
