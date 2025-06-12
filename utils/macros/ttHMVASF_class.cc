@@ -37,7 +37,7 @@ class ttHMVASF{
  
 public:
   
-  ttHMVASF( const char* year, const int nLeptons, const char* muOrEle, std::string requested_SF );
+  ttHMVASF( const char* year, const int nLeptons, const char* muOrEle, std::string requested_SF, std::string mkShapesRDF_base );
   ~ttHMVASF();
 // protected:
   
@@ -166,20 +166,19 @@ private:
 };
 
 // Load scale factors from files
-ttHMVASF::ttHMVASF( const char* year, const int nLeptons, const char* muOrEle, std::string requested_SF ) {
-  std::cout << "Year:         " << year         << std::endl;
-  std::cout << "nLeptons:     " << nLeptons     << std::endl;
-  std::cout << "Requested SF: " << requested_SF << std::endl;
-  std::cout << "muOrEle:      " << muOrEle      << std::endl;
+ttHMVASF::ttHMVASF( const char* year, const int nLeptons, const char* muOrEle, std::string requested_SF, std::string mkShapesRDF_base ) {
+  std::cout << "Year:         " << year             << std::endl;
+  std::cout << "nLeptons:     " << nLeptons         << std::endl;
+  std::cout << "Requested SF: " << requested_SF     << std::endl;
+  std::cout << "muOrEle:      " << muOrEle          << std::endl;
+  std::cout << "base_dir:     " << mkShapesRDF_base << std::endl;
 
   year_         = year;
   nLeptons_     = nLeptons;
   requested_SF_ = requested_SF;
   muOrEle_      = muOrEle;
 
-  // std::string mkShapesRDF_base = std::getenv("CMSSW_BASE");
-  //std::string mkShapesRDF_base = "/afs/cern.ch/work/b/bcamaian/mkShapesRDF";
-  std::string mkShapesRDF_base = "/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/data/";
+  // std::string mkShapesRDF_base = "/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/data/";
 
   // Build map of SF files names
   map_dict SF_files_map;
