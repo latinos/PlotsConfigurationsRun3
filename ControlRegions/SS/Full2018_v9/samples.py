@@ -18,7 +18,14 @@ dataSteps    = 'DATAl1loose2018v9__l2loose__l2tightOR2018v9'
 ###### Tree base directory for the site ######
 ##############################################
 
+# Site definition
+site = 'cern'
+if any(machine in os.uname()[1] for machine in ['portal','bms']):
+    site = 'kit'
+
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+if site == 'kit':
+    treeBaseDir = '/ceph/ntrevisa/HWWNano'
 limitFiles  = -1
 
 def makeMCDirectory(var=''):
@@ -35,6 +42,8 @@ s = SearchFiles()
 
 useXROOTD = True
 redirector = 'root://eoscms.cern.ch/'
+if site == 'kit':
+    redirector = ''
 
 def nanoGetSampleFiles(path, name):
     _files = s.searchFiles(path, name, redirector=redirector)

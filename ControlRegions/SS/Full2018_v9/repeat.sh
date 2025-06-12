@@ -15,13 +15,24 @@ else
 	COMPILE=$2
 fi
 
+# Site definition
+hostname=$(uname -a | awk '{print $2}')
+
 
 if [ "$COMPILE" == "True" ]; then
 	mkShapesRDF -c 1
 	mkShapesRDF -o 0 -f . -b 1 -dR 1
 fi
 cd condor/SS_2018_v9/${SAMPLE}/
-cp ../../../../../../../../mkShapesRDF/mkShapesRDF/include/headers.hh ../../../../../../../../mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py  .
+cp ../../../../../../../mkShapesRDF/mkShapesRDF/include/headers.hh ../../../../../../../mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py  .
 python runner.py
-cp output.root /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/SS_2018_v9/rootFile/mkShapes__SS_2018_v9__ALL__${SAMPLE}.root
+
+if [[ "$hostname" == *portal* || "$hostname" == *bms* ]]; then
+    echo "We are at KIT"
+    cp output.root /ceph/${USER}/mkShapesRDF_rootfiles/SS_2018_v9/rootFile/mkShapes__SS_2018_v9__ALL__${SAMPLE}.root
+else
+    echo "We are on lxplus"
+    cp output.root /eos/user/${USER:0:1}/${USER}/mkShapesRDF_rootfiles/SS_2018_v9/rootFile/mkShapes__SS_2018_v9__ALL__${SAMPLE}.root
+fi
+
 rm output.root
