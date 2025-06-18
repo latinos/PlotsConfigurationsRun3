@@ -24,33 +24,52 @@ def defaultParser():
         help="Submit files",
         default=False,
     )
+
+    parser.add_argument(
+        "-MC",
+        "--Sample",
+        type=str,
+        help="Production name to run",
+        required=False,
+        default=None,
+    )
     
     return parser
 
-def run(submit=False):
+def run(submit=False, onlySample=None):
 
 
     prePath = os.path.abspath(os.path.dirname(__file__))
 
-    if "examples" in prePath:
-        prePath = prePath.split("examples/")[0]   ## Assume you work in processor folder
-        
-    path = prePath + "examples/Full2018_v9/condor/DoubleMuon_Run2018D-UL2018-v2/"
+    if "sendEOSJobs" in prePath:
+        prePath = prePath.split("sendEOSJobs/")[0]   ## Assume you work in processor folder
+
+
+    path = prePath + "sendEOSJobs/Full2018_v9/condor/DoubleMuon_Run2018D-UL2018-v2/"
+    #path = prePath + "sendEOSJobs/Full2018_v9/condor/WW_2018_complete/"
     output_path = "/eos/user/s/sblancof/MC/rootFiles/"
     jobDir = path
 
     cmd = "find {} -type d -name '*'".format(path)
+    if onlySample:
+        cmd = "find {} -type d -name '{}*'".format(path,onlySample)
+        print(cmd)
     
     fnames = subprocess.check_output(cmd, shell=True).strip().split(b'\n')
-    fnames = [fname.decode('ascii').split("DoubleMuon_Run2018D-UL2018-v2/")[1] for fname in fnames] 
+    fnames = [fname.decode('ascii').split("DoubleMuon_Run2018D-UL2018-v2/")[1] for fname in fnames]
+    #fnames = [fname.decode('ascii').split("WW_2018_complete/")[1] for fname in fnames]
     
     failed_jobs = []
     error_files = []
     script_files = []
     
     for fname in fnames:
+
+        if onlySample:           
+            if not fname.startswith(onlySample):
+                continue
         
-        file_name = output_path + "/mkShapes__WW_2018_el9__ALL__" + fname + ".root"
+        file_name = output_path + "/mkShapes__WW_2018_complete__ALL__" + fname + ".root"
         error_file = jobDir + fname + "/" + "err.txt"
         script_file = jobDir + fname + "/" + "script.py"
 
@@ -73,7 +92,7 @@ universe = vanilla
 executable = run.sh
 arguments = $(Folder)
 should_transfer_files = YES
-transfer_input_files = $(Folder)/script.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/mkShapesRDF/include/headers.hh, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/examples/Full2018_v9/NNLOPS_reweight.root
+transfer_input_files = $(Folder)/script.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/mkShapesRDF/include/headers.hh, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/examples/Full2018_v9/NNLOPS_reweight.root,/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/examples/Full2018_v9/jetvetomaps.json,/afs/cern.ch/work/s/sblancof/private/Run2Analysis/sendEOSJobs/jsonpog-integration/POG/BTV/2018_UL/btagging.json.gz,/afs/cern.ch/work/s/sblancof/private/Run2Analysis/sendEOSJobs/Full2018_v9/BtagEff/bTagEff_2018_ttbar_DeepFlavB_loose.root
 output = $(Folder)/out.txt
 error  = $(Folder)/err.txt
 log    = $(Folder)/log.txt
@@ -99,5 +118,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     doSubmit = args.Submit
+    onlySample = args.Sample
 
-    run(doSubmit)
+    run(doSubmit, onlySample)

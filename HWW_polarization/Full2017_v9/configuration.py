@@ -16,7 +16,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
+outputFolder = "../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"
 
@@ -39,10 +39,13 @@ cutsFile = "cuts.py"
 samplesFile = "samples.py"
 
 #: file with dict of samples
-plotFile = "plot_CR.py"
+plotFile = "plot.py"
+#plotFile = "plot_CR.py"
 
 #: file with dict of structure (used to define combine processes)
-structureFile = "structure.py"
+#structureFile = "structure.py"
+structureFile = "structure_LL.py"
+#structureFile = "structure_hww.py"
 
 # nuisances file for mkDatacards and for mkShape
 nuisancesFile = "nuisances_ALL.py"

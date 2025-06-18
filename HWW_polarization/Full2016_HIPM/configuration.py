@@ -39,10 +39,14 @@ cutsFile = "cuts.py"
 samplesFile = "samples.py"
 
 #: file with dict of samples
-plotFile = "plot_CR.py"
+#plotFile = "plot_CR.py"
+plotFile = "plot.py"
+#plotFile = "plot_only.py"
 
 #: file with dict of structure (used to define combine processes)
-structureFile = "structure.py"
+#structureFile = "structure.py"
+structureFile = "structure_LL.py"
+#structureFile = "structure_hww.py"
 
 # nuisances file for mkDatacards and for mkShape
 nuisancesFile = "nuisances_ALL.py"

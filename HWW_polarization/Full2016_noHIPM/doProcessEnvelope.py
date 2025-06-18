@@ -18,7 +18,7 @@ import ROOT
 ######
 ######
 
-filename = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_preVFP_complete.root"
+filename = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_postVFP_complete.root"
 
 ######
 ######

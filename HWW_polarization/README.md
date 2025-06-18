@@ -50,6 +50,10 @@ Process the envelope uncertainties to get Up/Down variations:
 
     python doProcessEnvelope.py
 
+Process tau-embedded veto uncertainties:
+
+    python doVetoUncertainty.py
+
 Get the ggToWW (S+B+I) scale variation uncertainty as a function of the amount of ggWW. Copy the output in nuisances_ALL.py:
 
     python doGluGluRatios.py
@@ -78,6 +82,8 @@ Combine datacards:
     ./doAnalysis.sh
 
 Fit data to get impacts:
+
+    text2workspace.py datacard_combined.txt -m 125 -P HiggsAnalysis.CombinedLimit.HiggsHelicity:higgshelicity --PO doOnlyPolarization -o datacard_combined.root
 
     combineTool.py -M Impacts -d datacards/datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 --doInitialFit
 

@@ -24,18 +24,27 @@ def defaultParser():
         help="Submit files",
         default=False,
     )
-    
+
+    parser.add_argument(
+        "-MC",
+        "--Sample",
+        type=str,
+        help="Production name to run",
+        required=False,
+        default=None,
+    )
+
     return parser
 
-def run(submit=False):
-
+def run(submit=False, onlySample=None):
 
     prePath = os.path.abspath(os.path.dirname(__file__))
 
-    if "examples" in prePath:
-        prePath = prePath.split("examples/")[0]   ## Assume you work in processor folder
+    if "sendEOSJobs" in prePath:
+        prePath = prePath.split("sendEOSJobs/")[0]   ## Assume you work in processor folder
         
-    path = prePath + "examples/Full2016_HIPM/condor/DoubleEG_Run2016F-HIPM_UL2016-v2/"
+    path = prePath + "sendEOSJobs/Full2016_HIPM/condor/DoubleEG_Run2016F-HIPM_UL2016-v2/"    
+
     #output_path = prePath + "examples/Full2017_v9/rootFiles/"
     output_path = "/eos/user/s/sblancof/MC/rootFiles/"
     jobDir = path
@@ -50,8 +59,13 @@ def run(submit=False):
     script_files = []
     
     for fname in fnames:
+
+        if onlySample:
+            if not fname.startswith(onlySample):
+                continue
         
-        file_name = output_path + "/mkShapes__WW_2016__ALL__" + fname + ".root"
+        file_name = output_path + "/mkShapes__WW_2016_complete__ALL__" + fname + ".root"
+
         error_file = jobDir + fname + "/" + "err.txt"
         script_file = jobDir + fname + "/" + "script.py"
 
@@ -66,7 +80,6 @@ def run(submit=False):
 
     print("=========================")
     print("Ratio of failed jobs: " + str(len(failed_jobs)) + "/" + str(len(fnames)) + " = " + str(round(100*len(failed_jobs)/len(fnames), 2)) + "%")
-    
 
     if submit:
         resubmit = """
@@ -74,12 +87,12 @@ universe = vanilla
 executable = run.sh
 arguments = $(Folder)
 should_transfer_files = YES
-transfer_input_files = $(Folder)/script.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/mkShapesRDF/include/headers.hh, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/examples/Full2017_v9/NNLOPS_reweight.root
+transfer_input_files = $(Folder)/script.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/mkShapesRDF/include/headers.hh, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py, /afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/examples/Full2017_v9/NNLOPS_reweight.root,/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/examples/Full2016_HIPM/jetvetomaps.json,/afs/cern.ch/work/s/sblancof/private/Run2Analysis/sendEOSJobs/jsonpog-integration/POG/BTV/2016preVFP_UL/btagging.json.gz,/afs/cern.ch/work/s/sblancof/private/Run2Analysis/sendEOSJobs/Full2016_HIPM/BtagEff/bTagEff_2016_ttbar_DeepFlavB_loose.root
 output = $(Folder)/out.txt
 error  = $(Folder)/err.txt
-log    = $(Folder)/log.txt
+log    = $(Folder)/log.txt 
 request_cpus   = 1
-+JobFlavour = "testmatch"
++JobFlavour = "nextweek"
 requirements = (OpSysAndVer =?= "AlmaLinux9")
 queue 1 Folder in  RPLME_ALLSAMPLES"""
         
@@ -101,5 +114,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     doSubmit = args.Submit
+    onlySample = args.Sample
 
-    run(doSubmit)
+    run(doSubmit, onlySample)
