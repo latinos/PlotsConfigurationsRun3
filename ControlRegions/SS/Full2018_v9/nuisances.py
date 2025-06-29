@@ -58,6 +58,48 @@ nuisances['lumi_Correlated_2017_2018'] = {
     'samples' : dict((skey, '1.002') for skey in mc if skey not in ['WZ'])
 }
 
+
+# Fakes
+nuisances['fake_ele'] = {
+    'name'    : 'CMS_WH_hww_fake_e_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_ee' : ['fakeWEleUp', 'fakeWEleDown'],
+        'Fake_em' : ['fakeWEleUp', 'fakeWEleDown'],
+    }
+}
+
+# nuisances['fake_ele_stat'] = {
+#     'name'    : 'CMS_WH_hww_fake_stat_e_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_ee' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
+#         'Fake_em' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
+#     }
+# }
+
+nuisances['fake_mu'] = {
+    'name'    : 'CMS_WH_hww_fake_m_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_mm' : ['fakeWMuUp', 'fakeWMuDown'],
+        'Fake_em' : ['fakeWMuUp', 'fakeWMuDown'],
+    }   
+}       
+
+# nuisances['fake_mu_stat'] = {
+#     'name'    : 'CMS_WH_hww_fake_stat_m_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_mm' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+#         'Fake_em' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+#     }
+# }
+
 # ###### B-tagger
 
 # for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
@@ -578,259 +620,260 @@ nuisances['lumi_Correlated_2017_2018'] = {
 #     ],
 # }
 
-# Nonprompt leptons normalization per category
-nuisances['CMS_WH_hww_fake_syst_2jee_plus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jee_plus_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_2jee_plus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jee_plus_lowpt_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2lt20',
-    ],
-}
+# # Nonprompt leptons normalization per category
+# nuisances['CMS_WH_hww_fake_syst_2jee_plus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jee_plus_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_2jee_plus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jee_plus_lowpt_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_2jem_plus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jem_plus_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_2jem_plus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jem_plus_lowpt_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_2jem_plus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jem_plus_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_2jem_plus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jem_plus_lowpt_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_2jmm_plus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jmm_plus_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_plus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_2jmm_plus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jmm_plus_lowpt_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_plus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_2jmm_plus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jmm_plus_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_plus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_2jmm_plus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jmm_plus_lowpt_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_plus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_1jee_plus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jee_plus_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_1jee_plus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jee_plus_lowpt_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_1jee_plus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jee_plus_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_1jee_plus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jee_plus_lowpt_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_1jem_plus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jem_plus_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_1jem_plus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jem_plus_lowpt_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_1jem_plus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jem_plus_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_1jem_plus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jem_plus_lowpt_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_1jmm_plus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jmm_plus_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_plus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_1jmm_plus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jmm_plus_lowpt_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_plus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_1jmm_plus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jmm_plus_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_plus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_1jmm_plus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jmm_plus_lowpt_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_plus_pt2lt20',
+#     ],
+# }
 
 
-nuisances['CMS_WH_hww_fake_syst_2jee_minus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jee_minus_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_2jee_minus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jee_minus_lowpt_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_2jee_minus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jee_minus_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_2jee_minus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jee_minus_lowpt_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_2jem_minus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jem_minus_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_2jem_minus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jem_minus_lowpt_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_2jem_minus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jem_minus_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_2jem_minus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jem_minus_lowpt_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_2jmm_minus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jmm_minus_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_minus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_2jmm_minus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_2jmm_minus_lowpt_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_minus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_2jmm_minus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jmm_minus_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_minus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_2jmm_minus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_2jmm_minus_lowpt_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_2j_minus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_1jee_minus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jee_minus_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_1jee_minus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jee_minus_lowpt_2018',
-    'samples' : {
-        'Fake_ee' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_1jee_minus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jee_minus_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_1jee_minus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jee_minus_lowpt_2018',
+#     'samples' : {
+#         'Fake_ee' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_1jem_minus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jem_minus_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_1jem_minus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jem_minus_lowpt_2018',
-    'samples' : {
-        'Fake_em' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_1jem_minus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jem_minus_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_1jem_minus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jem_minus_lowpt_2018',
+#     'samples' : {
+#         'Fake_em' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2lt20',
+#     ],
+# }
 
-nuisances['CMS_WH_hww_fake_syst_1jmm_minus']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jmm_minus_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_minus_pt2ge20',
-    ],
-}
-nuisances['CMS_WH_hww_fake_syst_1jmm_minus_lowpt']  = {
-    'name'    : 'CMS_WH_hww_fake_syst_1jmm_minus_lowpt_2018',
-    'samples' : {
-        'Fake_mm' : '1.50',
-    },
-    'type' : 'lnN',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_minus_pt2lt20',
-    ],
-}
+# nuisances['CMS_WH_hww_fake_syst_1jmm_minus']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jmm_minus_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_minus_pt2ge20',
+#     ],
+# }
+# nuisances['CMS_WH_hww_fake_syst_1jmm_minus_lowpt']  = {
+#     'name'    : 'CMS_WH_hww_fake_syst_1jmm_minus_lowpt_2018',
+#     'samples' : {
+#         'Fake_mm' : '1.50',
+#     },
+#     'type' : 'lnN',
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZeto_mm_1j_minus_pt2lt20',
+#     ],
+# }
+
 # End of Nonprompt leptons normalization per category
 
 ## Use the following if you want to apply the automatic combine MC stat nuisances.

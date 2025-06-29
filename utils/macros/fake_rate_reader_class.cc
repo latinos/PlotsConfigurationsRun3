@@ -124,7 +124,8 @@ public:
 				       Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 				       fake_rate_ele_35_, fake_rate_muon_35_, "Nominal");
       
-      float fakeWeight = fakeWeight_2l0j*( nCleanJet == 0 || CleanJet_pt[0] <  30) +
+      float fakeWeight =
+	fakeWeight_2l0j*( nCleanJet == 0 || CleanJet_pt[0] <  30) +
 	fakeWeight_2l1j*((nCleanJet == 1 && CleanJet_pt[0] >= 30) ||
 			 (nCleanJet >  1 && CleanJet_pt[0] >= 30  && CleanJet_pt[1] < 30)) +
 	fakeWeight_2l2j*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -157,7 +158,8 @@ public:
         
         float fakeWeightEleUp = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jElUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jElUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jElUp*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
 				 (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jElUp*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -185,7 +187,8 @@ public:
         
         float fakeWeightEleDown = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jElDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jElDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jElDown*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
 				   (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jElDown*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -213,7 +216,8 @@ public:
         
         float fakeWeightMuUp = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jMuUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jMuUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jMuUp*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
 				 (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jMuUp*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -241,11 +245,12 @@ public:
         
         float fakeWeightMuDown = 0.;
         if (fakeWeight != 0.){
-		  float num = fakeWeight_2l0jMuDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
-			          fakeWeight_2l1jMuDown*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
-							 (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
-			          fakeWeight_2l2jMuDown*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
-    
+		  float num =
+		    fakeWeight_2l0jMuDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+		    fakeWeight_2l1jMuDown*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
+					   (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
+		    fakeWeight_2l2jMuDown*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
+		  
 		  fakeWeightMuDown = num / fakeWeight;
         }
 
@@ -269,9 +274,10 @@ public:
         
         float fakeWeightstatEleUp = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jstatElUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jstatElUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jstatElUp*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
-											   (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
+				     (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jstatElUp*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
 	  
 	  fakeWeightstatEleUp = num / fakeWeight;
@@ -297,7 +303,8 @@ public:
         
         float fakeWeightstatEleDown = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jstatElDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jstatElDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jstatElDown*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
 				       (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jstatElDown*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -325,7 +332,8 @@ public:
         
         float fakeWeightstatMuUp = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jstatMuUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jstatMuUp*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jstatMuUp*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
 				     (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jstatMuUp*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -353,7 +361,8 @@ public:
         
         float fakeWeightstatMuDown = 0.;
         if (fakeWeight != 0.){
-	  float num = fakeWeight_2l0jstatMuDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
+	  float num =
+	    fakeWeight_2l0jstatMuDown*( nCleanJet == 0 || CleanJet_pt[0] <  30) + 
 	    fakeWeight_2l1jstatMuDown*((nCleanJet == 1 && CleanJet_pt[0] >= 30) || 
 				       (nCleanJet >  1 && CleanJet_pt[0] >= 30 && CleanJet_pt[1] < 30)) + 
 	    fakeWeight_2l2jstatMuDown*( nCleanJet >  1 && CleanJet_pt[1] >= 30);
@@ -603,9 +612,9 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
 // Get fake rate and its statistical uncertainty
 std::tuple<double,double> 
 fake_rate_reader::GetRate(TH2F* fake_rate_histo,
-						  double pt, 
-						  double eta,
-						  double lepton_pt_max){
+			  double pt, 
+			  double eta,
+			  double lepton_pt_max){
 
   double aeta = abs(eta);
   int nbinsx  = fake_rate_histo->GetNbinsX();
@@ -628,10 +637,10 @@ fake_rate_reader::GetRate(TH2F* fake_rate_histo,
 // std::tuple<double,double>
 float
 fake_rate_reader::GetFR_2l( double pt1 , double eta1, double pdg1, double isTight1,
-							double pt2 , double eta2, double pdg2, double isTight2,
-							TH2F* fake_rate_ele_, TH2F*  fake_rate_muon_, 
-							TString stat
-							){
+			    double pt2 , double eta2, double pdg2, double isTight2,
+			    TH2F* fake_rate_ele_, TH2F*  fake_rate_muon_, 
+			    TString stat
+			    ){
   
   double p1  = 1.; // leading lepton prompt rate
   double f1  = 0.; // leading lepton fake rate
@@ -761,11 +770,11 @@ fake_rate_reader::GetFR_2l( double pt1 , double eta1, double pdg1, double isTigh
 // std::tuple<double,double>
 float
 fake_rate_reader::GetFR_3l( double pt1 , double eta1, double pdg1, double isTight1,
-							double pt2 , double eta2, double pdg2, double isTight2,
-							double pt3 , double eta3, double pdg3, double isTight3,
-							TH2F* fake_rate_ele_, TH2F*  fake_rate_muon_, 
-							TString stat
-							){
+			    double pt2 , double eta2, double pdg2, double isTight2,
+			    double pt3 , double eta3, double pdg3, double isTight3,
+			    TH2F* fake_rate_ele_, TH2F*  fake_rate_muon_, 
+			    TString stat
+			    ){
   
   double p1  = 1.; // leading lepton prompt rate
   double f1  = 0.; // leading lepton fake rate
