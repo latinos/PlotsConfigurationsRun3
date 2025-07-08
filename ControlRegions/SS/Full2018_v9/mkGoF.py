@@ -1,106 +1,121 @@
-import sys,os
+import os
+import subprocess
+from variables import variables
+
 
 output_dir = 'GoF'
-
-cut      = 'hww2l2v_13TeV_WH_SS_mm_1j_SS_CR_plus_pt2ge20'
-variable = 'mll'
-n_toys   = '100'
-
-combine_directory = '/work/ntrevisa/combine/CMSSW_14_1_0_pre4/src/'
-
-os.system(f'mkdir -p {output_dir}')
-
+n_toys = 100
+combine_dir = '/work/halnasri/bachelor/CMSSW_14_1_0_pre4/src/'
+base_dir = '/work/halnasri/bachelor/PlotsConfigurationsRun3/ControlRegions/SS/Full2018_v9'
 current_dir = os.getcwd()
 
-# Preparing executable
-script_name = f'{output_dir}/script_gof.sh'
 
-script_text_indent = f'''
-#!/bin/bash
+variables = variables.keys()
+cuts = [d for d in os.listdir('datacards') if os.path.isdir(os.path.join('datacards', d))]
 
-# Setup environment
+cut_control = ['wh3l_13TeV_SS_CR_plus_pt2ge20']
+variable_control = ['pt1', 'mll']
+
+
+scripts_dir = os.path.join(output_dir, "scripts")
+outputs_dir = os.path.join(output_dir, "outputs")
+plots_dir = os.path.join(output_dir, "plots")
+
+os.makedirs(scripts_dir, exist_ok=True)
+os.makedirs(outputs_dir, exist_ok=True)
+os.makedirs(plots_dir, exist_ok=True)
+
+
+wrapper_path = os.path.join(scripts_dir, "run_one_job.sh")
+with open(wrapper_path, "w") as wrapper:
+    wrapper.write("""#!/bin/bash
+bash "$1"
+""")
+os.chmod(wrapper_path, 0o755)
+
+
+sub_path = os.path.join(scripts_dir, "job_gof_all.sub")
+with open(sub_path, "w") as sub:
+    sub.write(f"""universe       = container
+container_image= /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cverstege/alma9-gridjob:latest
+executable     = {wrapper_path}
+arguments      = $(script_path)
+error          = $(script_path).err
+output         = $(script_path).out
+log            = {scripts_dir}/gof_combined.log
+run_as_owner   = true
+RequestMemory  = 2000
+RequestDisk    = 100000
++RequestWalltime = 3600
+requirements   = TARGET.ProvidesETPResources
+accounting_group = cms.higgs
+
+""")
+
+    
+    script_paths = []
+
+    for cut in cuts:
+        for variable in variables:
+            
+            tag = f"{cut}_{variable}"
+            card_dir = os.path.join(current_dir, "datacards", cut, variable)
+            card_txt = os.path.join(card_dir, "datacard.txt")
+            card_root = os.path.join(card_dir, "datacard.root")
+
+            if not os.path.exists(card_txt):
+                print(f"Skipping {tag}: datacard.txt missing")
+                continue
+
+            script_name = f"job_{tag}.sh"
+            script_path = os.path.join(scripts_dir, script_name)
+            script_paths.append(script_path)
+
+            with open(script_path, "w") as sh:
+                sh.write(f"""#!/bin/bash
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-cd {combine_directory}
+cd {combine_dir}
 eval `scramv1 runtime -sh`
 cd -
 
-# Prepare workspace
-combineTool.py -M T2W -m 125 \
-    -o datacard.root \
-    -i {current_dir}/datacards/{cut}/{variable}/datacard.txt \
-    --channel-masks \
-    -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
-    --PO 'map=.*/WH_h.*_plus:r_WH[1,-10.0,10.0]' \
-    --PO 'map=.*/WH_h.*_minus:r_WH[1,-10.0,10.0]'
+cd {base_dir}/{outputs_dir}
 
-# Fit on data
-combineTool.py -M GoodnessOfFit {current_dir}/datacards/{cut}/{variable}/datacard.root \
-    --algo=saturated \
-    --setParameters r_WH=1 \
-    --setParameterRanges r_WH=-5,5 \
-    --redefineSignalPOIs r_WH \
-    -n _{cut}_{variable}
+combineTool.py -M T2W -m 125 -o {card_root} -i {card_txt} \\
+  --channel-masks \\
+  -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \\
+  --PO 'map=.*/WH_h.*_plus:r_WH[1,-10.0,10.0]' \\
+  --PO 'map=.*/WH_h.*_minus:r_WH[1,-10.0,10.0]'
 
-# Produce toys and fit on pseudodata
-combineTool.py -M GoodnessOfFit {current_dir}/datacards/{cut}/{variable}/datacard.root \
-    --algo=saturated \
-    -t 1 \
-    -s 0:{n_toys}:1 \
-    --setParameters r_WH=1 \
-    --setParameterRanges r_WH=-5,5 \
-    --redefineSignalPOIs r_WH \
-    -n _{cut}_{variable}
+combineTool.py -M GoodnessOfFit {card_root} --algo=saturated \\
+  --setParameters r_WH=1 --setParameterRanges r_WH=-5,5 \\
+  --redefineSignalPOIs r_WH -n _{tag}
 
-# Hadd the fit to toys
-hadd -f higgsCombine_{cut}_{variable}.GoodnessOfFit.mH120.toys.root higgsCombine_{cut}_{variable}.GoodnessOfFit.mH120.*.root
+combineTool.py -M GoodnessOfFit {card_root} --algo=saturated -t 1 -s 0:{n_toys}:1 \\
+  --setParameters r_WH=1 --setParameterRanges r_WH=-5,5 \\
+  --redefineSignalPOIs r_WH -n _{tag}
 
-# Collect fit results and produce json file
-combineTool.py -M CollectGoodnessOfFit --input higgsCombine_{cut}_{variable}.GoodnessOfFit.mH120.root higgsCombine_{cut}_{variable}.GoodnessOfFit.mH120.toys.root -m 125 -o GoF_{cut}_{variable}.json
-	
-# Plot
-plotGof.py GoF_{cut}_{variable}.json --statistic saturated --mass 120.0 -o GoF_{cut}_{variable} --title-right=_{cut}_{variable} --range 0 200
-'''
+hadd -f higgsCombine_{tag}.GoodnessOfFit.mH120.toys.root higgsCombine_{tag}.GoodnessOfFit.mH120.*.root
 
-# Printing executable
-with open(script_name, 'w') as outfile:
-    outfile.write(script_text_indent)
+combineTool.py -M CollectGoodnessOfFit --input \\
+  higgsCombine_{tag}.GoodnessOfFit.mH120.root \\
+  higgsCombine_{tag}.GoodnessOfFit.mH120.toys.root \\
+  -m 125 -o GoF_{tag}.json
 
+mv GoF_{tag}.json {base_dir}/{plots_dir}/
+
+cd {base_dir}/{plots_dir}
+plotGof.py GoF_{tag}.json --statistic saturated --mass 120.0 \\
+  -o GoF_{tag} --title-right={tag} --range 0 200
+""")
+            os.chmod(script_path, 0o755)
 
     
-# Preparing submission file
-submission_name = f'{output_dir}/submit_gof.sub'
-
-submission_text_indent = f'''
-universe         = container                                          
-container_image  = /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cverstege/alma9-gridjob:latest
-
-executable       = /bin/bash
-arguments        = {current_dir}/GoF/script_gof.sh
-
-error            = {cut}_{variable}.err
-log              = {cut}_{variable}.log
-output           = {cut}_{variable}.out
-
-run_as_owner     = true
-RequestMemory    = 1800
-RequestDisk      = 100000
-+RequestWalltime = 7200
-
-requirements     = TARGET.ProvidesETPResources
-
-accounting_group = cms.higgs
-
-queue 1
-'''
-
-# Are these arguments needed?
-# JobBatchName     = {os.path.basename(os.path.normpath(sim_dir))} 
-
-# Printing submission file
-with open(submission_name, 'w') as outfile:
-    outfile.write(submission_text_indent)
+    sub.write("queue script_path in (\n")
+    for path in script_paths:
+        abs_path = os.path.abspath(path)
+        sub.write(f"  {abs_path}\n")
+    sub.write(")\n")
 
 
-# Submit job
-os.chdir(f'{output_dir}')
-os.system('condor_submit submit_gof.sub')
+subprocess.run(["condor_submit", sub_path])
+
