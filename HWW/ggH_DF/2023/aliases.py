@@ -61,7 +61,7 @@ aliases['Top_pTrw'] = {
 
 # Algo / WP / WP cut
 btagging_WPs = {
-    "DeepFlavB" : {"loose" : "0.0614", "medium" : "0.3196", "tight" : "0.73", "xtight" : "0.8184", "xxtight" : "0.9542"},
+    "DeepFlavB" : {"loose" : "0.0583", "medium" : "0.3196", "tight" : "0.73", "xtight" : "0.8184", "xxtight" : "0.9542"},
     "RobustParTAK4B" : {"loose" : "0.0897", "medium" : "0.451", "tight" : "0.8604", "xtight" : "0.9234", "xxtight" : "0.9893"},
     "PNetB" : {"loose" : "0.0499", "medium" : "0.2605", "tight" : "0.6915", "xtight" : "0.8033", "xxtight" : "0.9664"}
 }

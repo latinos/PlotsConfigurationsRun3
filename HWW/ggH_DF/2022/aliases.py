@@ -59,47 +59,47 @@ aliases['noJetInHorn'] = {
 
 Tag = 'ele_'+eleWP+'_mu_'+muWP
 
-aliases["fakeW"] = {
-    "expr": f"fakeW_{Tag}_2l0j*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1j*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2j*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWEleUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWEleDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWMuUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWMuDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatEleUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatEleDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatMuUp"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
-aliases["fakeWStatMuDown"] = {
-    "expr": f"fakeW_{Tag}_2l0jstatMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
-    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
-}
+#aliases["fakeW"] = {
+#    "expr": f"fakeW_{Tag}_2l0j*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1j*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2j*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples': ['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWEleUp"] = {
+#    "expr": f"fakeW_{Tag}_2l0jElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWEleDown"] = {
+#    "expr": f"fakeW_{Tag}_2l0jElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWMuUp"] = {
+#    "expr": f"fakeW_{Tag}_2l0jMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWMuDown"] = {
+#    "expr": f"fakeW_{Tag}_2l0jMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWStatEleUp"] = {
+#    "expr": f"fakeW_{Tag}_2l0jstatElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWStatEleDown"] = {
+#    "expr": f"fakeW_{Tag}_2l0jstatElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatElDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWStatMuUp"] = {
+#    "expr": f"fakeW_{Tag}_2l0jstatMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuUp*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
+#aliases["fakeWStatMuDown"] = {
+#    "expr": f"fakeW_{Tag}_2l0jstatMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)<30.0) + fakeW_{Tag}_2l1jstatMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 0, 0)>30.0 && Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)<30.0) + fakeW_{Tag}_2l2jstatMuDown*(Alt(CleanJet_pt[abs(CleanJet_eta)<=2.5], 1, 0)>30.0)",
+#    'samples':['Fake', 'Fake_EG', 'Fake_Mu', 'Fake_EMu']
+#}
 
 
 aliases['Top_pTrw'] = {
     'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
-    'samples': ['ttbar']
+    'samples': ['top']
 }
 
 
@@ -284,124 +284,24 @@ aliases['SFweightMuDown'] = {
     'samples': mc
 }
 
-"""
-#####################################
-####### 2D Histogram mllvsmth ####### 
-#####################################     
-bin_mll = ['12.', '17.', '25.', '30.', '35.', '40.', '45.', '65.', '200.']
-bin_mth = ['60.', '95.', '110.', '135.', '200.']
-mllmt2D = ''
-for i in range(len(bin_mth)-1):
-  for j in range(len(bin_mll)-1):
-    if i+j != len(bin_mth)+len(bin_mll)-4: 
-      mllmt2D+='('+bin_mth[i]+'<mth)*(mth<'+bin_mth[i+1]+')*(('+str((len(bin_mll)-1)*i)+')+('+str(j+1)+'))*('+bin_mll[j]+'<mll)*(mll<'+bin_mll[j+1]+')+'
-    else: 
-      mllmt2D+='('+bin_mth[i]+'<mth)*(mth<'+bin_mth[i+1]+')*(('+str((len(bin_mll)-1)*i)+')+('+str(j+1)+'))*('+bin_mll[j]+'<mll)*(mll<'+bin_mll[j+1]+')'
-
-aliases['mllVSmth_optim'] = {
-    'expr' : mllmt2D,
-    'afterNuis' : True
-}
-
-
-aliases['adnn_SigVSBkg'] = {
-  'linesToAdd': ['#include "%s/adnn_jer_sigVSbkg.cc"' % configurations],
-  'class': 'adnn_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
+aliases['snn_SigVSBkg'] = {
+    'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/ggH_DF/2022/macros/snn_sigVSbkg.cc"'],
+    'class': 'snn_SigVSBkg',
+    'args': 'PV_npvsGood, mll, mth, ptll, drll, dphill, \
             Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
+            PuppiMET_pt, Sum(CleanJet_pt>30), \
+            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
+            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
     'afterNuis' : True
-  #'samples': mc
 }
 
-aliases['snn_SigVSBkg_0j'] = {
-  # 'linesToAdd': ['#include "%s/snn_sigVSbkg.cc"' % configurations],
-  'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/macros/snn0j_sigVSbkg.cc"'],
-  'class': 'snn0j_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
-    'afterNuis' : True
-  #'samples': mc
-}
-
-aliases['snn_SigVSBkg_1j'] = {
-  # 'linesToAdd': ['#include "%s/snn_sigVSbkg.cc"' % configurations],
-  'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/macros/snn1j_sigVSbkg.cc"'],
-  'class': 'snn1j_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
-    'afterNuis' : True
-  #'samples': mc
-}
-
-aliases['snn_SigVSBkg_2j'] = {
-  # 'linesToAdd': ['#include "%s/snn_sigVSbkg.cc"' % configurations],
-  'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/macros/snn2j_sigVSbkg.cc"'],
-  'class': 'snn2j_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
-    'afterNuis' : True
-  #'samples': mc
-}
-
-aliases['dbnn_SigVSBkg_0j'] = {
-  'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/macros/dbnn0j_sigVSbkg.cc"'],
-  'class': 'dbnn0j_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
-    'afterNuis' : True
-  #'samples': mc
-}
-
-aliases['dbnn_SigVSBkg_1j'] = {
-  'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/macros/dbnn1j_sigVSbkg.cc"'],
-  'class': 'dbnn1j_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
-    'afterNuis' : True
-  #'samples': mc
-}
-
-aliases['dbnn_SigVSBkg_2j'] = {
-  'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/macros/dbnn2j_sigVSbkg.cc"'],
-  'class': 'dbnn2j_SigVSBkg',
-  'args': ' PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99), TkMET_pt, PuppiMET_pt, \
-            Alt(CleanJet_pt, 0, 0)*(CleanJet_pt[0]>30), Alt(CleanJet_pt, 1, 0)*(CleanJet_pt[1]>30), \
-            Alt(CleanJet_eta, 0, -99)*(Alt(CleanJet_pt, 0, 0)>30)-99*(Alt(CleanJet_pt,0,0)<30), \
-            Alt(CleanJet_eta, 1, -99)*(Alt(CleanJet_pt, 1, 0)>30)-99*(Alt(CleanJet_pt,1,0)<30), \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            Sum(CleanJet_pt>30)',
-    'afterNuis' : True
-  #'samples': mc
-}
-"""
+#aliases['sns_SigVSBkg'] = {
+#    'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/ggH_DF/2022/macros/sns_sigVSbkg.cc"'],
+#    'class': 'sns_SigVSBkg',
+#    'args': 'PV_npvsGood, mll, mth, ptll, drll, dphill, \
+#            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
+#            PuppiMET_pt, Sum(CleanJet_pt>30), \
+#            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
+#            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
+#    'afterNuis' : True
+#}

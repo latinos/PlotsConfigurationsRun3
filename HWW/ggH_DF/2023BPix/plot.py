@@ -1,101 +1,145 @@
-# Group of plots
-
 groupPlot = {}
 
-groupPlot['DY']  = {  
-    'nameHR'   : 'DY',
+groupPlot['top']  = {
+    'nameHR' : 'top',
     'isSignal' : 0,
-    'color'    : '#832db6', #kGreen+4
-    'samples'  : ['DY']
+    'color': '#ffa90e',   # 400 kYellow                                                                                                                                                                                                                                  
+    'samples'  : ['top']
 }
+
+"""
+groupPlot['Fake']  = {
+    'nameHR' : 'nonprompt',
+    'isSignal' : 0,
+    'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
+    'samples'  : ['Fake']
+}
+"""
 
 groupPlot['WW']  = {
     'nameHR' : 'WW',
     'isSignal' : 0,
     'color': '#3f90da', # 851 kAzure -9                                                                                                                                                                                                                                  
-    'samples'  : ['WW']
+    'samples'  : ['WW', 'ggWW']
 }
 
-groupPlot['ttbar']  = {
-    'nameHR' : 't#bar{t}',
+groupPlot['DY']  = {
+    'nameHR' : "DY",
     'isSignal' : 0,
-    'color': '#ffa90e',   # 400 kYellow                                                                                                                                                                                                                                  
-    'samples'  : ['ttbar']
+    'color'    : '#832db6',    # 418 kGreen+2
+    'samples'  : ['DY']
 }
 
-groupPlot['tW']  = {
-    'nameHR' : 'tW',
+
+groupPlot['Vg']  = {
+    'nameHR' : 'Vg',
     'isSignal' : 0,
-    'color': '#92dadd',   # 400 kYellow                                                                                                                                                                                                                                  
-    'samples'  : ['tW']
+    'color': '#e76300', 
+    'samples'  : ['Vg']
 }
 
-groupPlot['WZ']  = {  
-    'nameHR'   : 'WZ',
+groupPlot['VZ']  = {
+    'nameHR' : "VZ",
     'isSignal' : 0,
-    'color'    : '#e76300', # kViolet + 1
-    'samples'  : ['WZ']
+    'color'    : '#a96b59',   # 617 kViolet + 1 
+    'samples'  : ['WZ', 'ZZ']
 }
+
 
 groupPlot['ggF']  = {
     'nameHR' : "ggF",
     'isSignal' : 1,
     'color'    : '#bd1f01',   # 632 kRed
-    'samples'  : ['ggH_hww', 'qqH_hww']
+    'samples'  : ['ggH_hww']
 }
 
 groupPlot['VBF']  = {
     'nameHR' : "VBF",
     'isSignal' : 1,
-    'color'    : '#a96b59',   # 632 kRed
+    'color'    : '#b9ac70',   # 632 kRed
     'samples'  : ['qqH_hww']
 }
 
-# Plots
 
 plot = {}
-
+# keys here must match keys in samples.py    
+                    
 plot['DY']  = {  
-    'color'    : 418, # kGreen + 2
+    'nameHR'   : 'DY',
+    'color'    : 418,
     'isSignal' : 0,
     'isData'   : 0, 
-    'scale'    : 1.0,
+    'scale'    : 1.,
 }
 
-plot['ttbar']  = {
-    'nameHR'   : 'ttbar',
+
+plot['top']  = {
+    'nameHR'   : 'top',
     'color'    : 400,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.,
 }
 
-plot['tW']  = {
-    'nameHR'   : 'tW',
-    'color'    : 400,
+
+"""
+plot['Fake']  = {
+    'nameHR'   : 'nonprompt',
+    'color'    : 921,
     'isSignal' : 0,
     'isData'   : 0,
-    'scale'    : 1.,
+    'scale'    : 1.0,
 }
+"""
 
-plot['WW']  = {  
-    'color'    : 851, # kKYellow
+plot['WW']  = {
+    'nameHR'   : 'WW',
+    'color'    : 851,
     'isSignal' : 0,
-    'isData'   : 0, 
+    'isData'   : 0,
     'scale'    : 1.0,
 }
 
-plot['WZ']  = {  
-    'color'    : 619, # kKYellow
+plot['ggWW']  = {
+    'nameHR'   : 'ggWW',
+    'color'    : 921,
     'isSignal' : 0,
-    'isData'   : 0, 
+    'isData'   : 0,
     'scale'    : 1.0,
 }
+
+
+plot['Vg']  = {
+    'nameHR'   : 'Vg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['WZ']  = {
+    'nameHR'   : 'WZ',
+    'color'    : '#a96b59',
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+"""
+plot['ZZ']  = {
+    'nameHR'   : 'ZZ',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+"""
 
 # Higgs
 
 plot['ggH_hww'] = {
-    'nameHR'   : 'HWW',
+    'nameHR'   : 'ggF',
     'color'    : 632,
     'isSignal' : 1,
     'isData'   : 0,
@@ -104,14 +148,15 @@ plot['ggH_hww'] = {
 
 
 plot['qqH_hww'] = {
-    'nameHR'   : 'HWW',
+    'nameHR'   : 'VBF',
     'color'    : 632,
     'isSignal' : 1,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
-# Data
+
+# data
 
 plot['DATA']  = { 
     'nameHR'   : 'Data',

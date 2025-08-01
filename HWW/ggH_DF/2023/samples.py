@@ -5,11 +5,11 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
-mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
-dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
-dataSteps    = 'DATAl2loose2023BPixv12__l2tight'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
+mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
+dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
+dataSteps    = 'DATAl2loose2023v12__l2tight'
+fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -84,23 +84,23 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['Dv1','Run2023D-Prompt-v1'],
-    ['Dv2','Run2023D-Prompt-v2'],
+    ['Cv1','Run2023C-Prompt-v1'],
+    ['Cv2','Run2023C-Prompt-v2'],
+    ['Cv3','Run2023C-Prompt-v3'],
+    ['Cv4','Run2023C-Prompt-v4'],
 ]
 
 
 DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'         : ' Trigger_ElMu' ,
+    'MuonEG'          : 'Trigger_ElMu' ,
     #'SingleMuon'     : '!Trigger_ElMu && Trigger_sngMu' ,
     'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
     'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
     'EGamma0'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
-    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
 }
-
-
 
 #########################################
 ############ MC COMMON ##################

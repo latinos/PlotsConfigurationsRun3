@@ -116,25 +116,38 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-# DY
+    ##########
+    ### DY ###
+    ##########
 files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
 
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 2,
-}
+    'FilesPerJob': 10,
+    }
 
-# Top
-files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu')
+    ####################
+    ### ttbar and tW ###
+    ####################
 
-samples['ttbar'] = {
+files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu')
+
+samples['top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 2,
+    'FilesPerJob': 1,
 }
 
-# WW
+addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
+
+
+    ##########
+    ### WW ###
+    ########## 
+
 files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
 samples['WW'] = {
@@ -143,25 +156,52 @@ samples['WW'] = {
     'FilesPerJob': 2,
 }
 
-files = nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
-        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') 
+    ############
+    ### ggWW ###
+    ############
 
+files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu') + \
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu') +	\
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu') +	\
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu') +	\
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') +	\
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu') +	\
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') +	\
+    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu')
 
-samples['tW'] = {
+samples['ggWW'] = {
     'name': files,
-    #'weight': mcCommonWeight, # To use with fixed WP btag SFs
-    'weight': mcCommonWeight, # To use with shape correction SFs, the multiplicative factor is the ratio r, calculated with the macro btag_ratio.cc
-    'FilesPerJob': 5,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 8,
 }
 
+    ##########
+    ### WZ ###
+    ##########
 
-# WZ
 files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
 
 samples['WZ'] = {
     'name': files,
     'weight': mcCommonWeight,
     'FilesPerJob': 2,
+}
+
+    ##########
+    ### Vg ###
+    ##########
+
+files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG10to100') + \
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100to200') + \
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG200to400') +	\
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG400to600') +	\
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG600')
+
+samples['Vg'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 5,
 }
 
     ###########
@@ -187,7 +227,6 @@ samples['qqH_hww'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 2,
 }
-
 
 ###########################################
 ################## DATA ###################

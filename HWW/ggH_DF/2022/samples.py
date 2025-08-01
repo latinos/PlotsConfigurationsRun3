@@ -123,25 +123,18 @@ samples['DY'] = {
     ### ttbar and tW ###
     ####################
 
-files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu')
+files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu')
 
-samples['ttbar'] = {
+samples['top'] = {
     'name': files,
     'weight': mcCommonWeight,
     'FilesPerJob': 5,
 }
 
-addSampleWeight(samples,'ttbar','TTTo2L2Nu','Top_pTrw')
+addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
 
-files = nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
-        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') 
-
-
-samples['tW'] = {
-    'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 5,
-}
 
     ##########
     ### WW ###

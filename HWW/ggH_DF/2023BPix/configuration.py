@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "HWW_2023BPix"   
+tag = "ggH_DF_2023BPix_test"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -43,7 +43,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "Plots/HWW/" + tag
+plotPath = "Plots/{}".format(tag)
 
 # this lines are executed right before the runner on the condor node
 mountEOS = [

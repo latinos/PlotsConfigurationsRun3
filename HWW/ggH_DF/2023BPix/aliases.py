@@ -50,33 +50,20 @@ aliases['noJetInHorn'] = {
     'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.5 && abs(CleanJet_eta) < 3.0) == 0',
 }
 
+aliases['Top_pTrw'] = {
+    'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
+    'samples': ['top']
+}
+
 ############################################################################
 # B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer23BPix/
 ############################################################################
 
 # Algo / WP / WP cut
 btagging_WPs = {
-    "DeepFlavB" : {
-        "loose"    : "0.0480",
-        "medium"   : "0.3086",
-        "tight"    : "0.7183",
-        "xtight"   : "0.8111",
-        "xxtight"  : "0.9512",
-    },
-    "RobustParTAK4B" : {
-        "loose"    : "0.0849",
-        "medium"   : "0.4319",
-        "tight"    : "0.8482",
-        "xtight"   : "0.9151",
-        "xxtight"  : "0.9874",
-    },
-    "PNetB" : {
-        "loose"    : "0.0470",
-        "medium"   : "0.2450",
-        "tight"    : "0.6734",    
-        "xtight"   : "0.7862",
-        "xxtight"  : "0.9610",
-    }
+    "DeepFlavB" : {"loose" : "0.048", "medium" : "0.3196", "tight" : "0.73", "xtight" : "0.8184", "xxtight" : "0.9542"},
+    "RobustParTAK4B" : {"loose" : "0.0897", "medium" : "0.451", "tight" : "0.8604", "xtight" : "0.9234", "xxtight" : "0.9893"},
+    "PNetB" : {"loose" : "0.0499", "medium" : "0.2605", "tight" : "0.6915", "xtight" : "0.8033", "xxtight" : "0.9664"}
 }
 
 
@@ -114,15 +101,17 @@ aliases['bReqSF'] = {
     'samples': mc
 }
 
-# Top control region
+# CR definition
 aliases['topcr'] = {
-    'expr': 'mtw2>30 && mll>50 && ((zeroJet && !bVeto) || bReq)'
+    'expr': 'mtw2 > 30 && mll > 50 && ((zeroJet && !bVeto) || bReq)'
+}
+aliases['dycr'] = {
+    'expr': 'mth < 60 && mll > 30 && mll < 80 && bVeto'
+}
+aliases['wwcr'] = {
+    'expr': 'mth > 60 && mtw2 > 30 && mll > 100 && bVeto'
 }
 
-# WW control region
-aliases['wwcr'] = {
-    'expr': 'mth>60 && mtw2>30 && mll>100 && bVeto'
-}
 
 # SR definition
 aliases['sr'] = {
@@ -187,4 +176,15 @@ aliases['SFweightMuUp'] = {
 aliases['SFweightMuDown'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Down',
     'samples': mc
+}
+
+aliases['snn_SigVSBkg'] = {
+    'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/ggH_DF/2022/macros/snn_sigVSbkg.cc"'],
+    'class': 'snn_SigVSBkg',
+    'args': 'PV_npvsGood, mll, mth, ptll, drll, dphill, \
+            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
+            PuppiMET_pt, Sum(CleanJet_pt>30), \
+            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
+            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
+    'afterNuis' : True
 }

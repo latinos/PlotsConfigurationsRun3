@@ -1,8 +1,8 @@
-mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
-mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
-dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
-dataSteps    = 'DATAl2loose2023BPixv12__l2tight'
-#fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
+mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
+dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
+dataSteps    = 'DATAl2loose2023v12__l2tight'
+fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
@@ -49,15 +49,15 @@ nuisances = {}
 
 ### Luminosity
 #
-nuisances['lumi_2023BPix'] = {
-    'name'    : 'lumi_2023BPix',
+nuisances['lumi_2023'] = {
+    'name'    : 'lumi_2023',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.013') for skey in mc)
 }
 
 
 nuisances['JER'] = {
-    'name': 'CMS_res_j_2023BPix',
+    'name': 'CMS_res_j_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -71,7 +71,7 @@ nuisances['JER'] = {
 }
 
 nuisances['JES'] = {
-    'name': 'CMS_jes_2023BPix',
+    'name': 'CMS_jes_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -86,7 +86,7 @@ nuisances['JES'] = {
 
 
 nuisances['MET'] = {
-    'name': 'CMS_MET_2023BPix',
+    'name': 'CMS_MET_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -101,7 +101,7 @@ nuisances['MET'] = {
 
 ##### Lepton scale
 nuisances['lepscale'] = {
-    'name': 'CMS_lepscale_2023BPix',
+    'name': 'CMS_lepscale_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -116,7 +116,7 @@ nuisances['lepscale'] = {
 
 ##### Lepton resolution
 nuisances['lepres'] = {
-    'name': 'CMS_lepres_2023BPix',
+    'name': 'CMS_lepres_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -132,7 +132,7 @@ nuisances['lepres'] = {
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2023BPix',
+    'name': 'CMS_eff_e_2023',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
@@ -141,7 +141,7 @@ nuisances['eff_e'] = {
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2023BPix',
+    'name': 'CMS_eff_m_2023',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
@@ -152,7 +152,7 @@ nuisances['eff_m'] = {
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2023BPix',
+    'name': 'CMS_eff_hwwtrigger_2023',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, trig_syst) for skey in mc)
@@ -160,7 +160,7 @@ nuisances['trigg'] = {
 
 ##### Lepton scale
 nuisances['lepscale'] = {
-    'name': 'CMS_lepscale_2023BPix',
+    'name': 'CMS_lepscale_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -175,7 +175,7 @@ nuisances['lepscale'] = {
 
 ##### Lepton resolution
 nuisances['lepres'] = {
-    'name': 'CMS_lepres_2023BPix',
+    'name': 'CMS_lepres_2023',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
