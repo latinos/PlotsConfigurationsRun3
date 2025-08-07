@@ -95,6 +95,8 @@ def syst_analyzer(input_file_name, cut, variable, sample, systematic, output_dir
     c1.Print(f"{output_file_name}.png")
     # c1.Print(f"{output_file_name}.pdf")
 
+    c1.Close()
+    
     del c1
     del pad1
     del pad2
