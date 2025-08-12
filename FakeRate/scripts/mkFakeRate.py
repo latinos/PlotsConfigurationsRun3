@@ -14,6 +14,8 @@ from array import array
 
 import ROOT
 
+ROOT.gStyle.SetOptStat(0)
+
 if __name__ == '__main__':
 
     sys.argv = argv
@@ -196,10 +198,10 @@ if __name__ == '__main__':
     
     # Bins structure:
     # pt bins  = 8: [10, 15, 20, 25, 30, 35, 40, 45, 50]
-    # eta bins = 5: [0, 0.5, 1.0, 1.5, 2.0, 2.5]
+    # eta bins = 5: [0, 1.479, 2.5]
     # variable: Lepton_pt[0]:abs(Lepton_eta[0]) --> Need to loop over abs(eta) and then on pT
-    eta_bins = 5
-    eta_binning = [0, 0.5, 1.0, 1.5, 2.0, 2.5, 100]
+    eta_bins = 2
+    eta_binning = [0, 1.479, 2.5, 100]
     pt_bins  = 8
     pt_binning = [10, 15, 20, 25, 30, 35, 40, 45, 50, 1000]
     
@@ -225,11 +227,19 @@ if __name__ == '__main__':
             
             # Ensure we are not dividing by 0
             fake_rate = 0
+            fake_rate_error = 0
+            
             if loose_yields_DATA > 0:
                 fake_rate = tight_yields_DATA / loose_yields_DATA
+                if tight_yields_DATA > 0:
+                    fake_rate_error = fake_rate * math.sqrt(1./tight_yields_DATA + 1./loose_yields_DATA)
+                
             fake_rate_EWKsub = 0
+            fake_rate_EWKsub_error = 0
             if loose_yields_DATA_EWKsub > 0:
                 fake_rate_EWKsub = tight_yields_DATA_EWKsub / loose_yields_DATA_EWKsub
+                if tight_yields_DATA_EWKsub > 0:
+                    fake_rate_EWKsub_error = fake_rate_EWKsub * math.sqrt(1/tight_yields_DATA_EWKsub + 1/loose_yields_DATA_EWKsub)
 
             # Output histogram filling
             fake_rate_histo_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA)
@@ -238,8 +248,11 @@ if __name__ == '__main__':
             fake_rate_histo_EWKcorr_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA_EWKsub)
             fake_rate_histo_EWKcorr_denominator.SetBinContent(pt_bin,eta_bin+1,loose_yields_DATA_EWKsub)
 
-            fake_rate_histo        .SetBinContent(pt_bin,eta_bin+1,fake_rate)
+            fake_rate_histo.SetBinContent(pt_bin,eta_bin+1,fake_rate)
+            fake_rate_histo.SetBinError(pt_bin,eta_bin+1,fake_rate_error)
+            
             fake_rate_histo_EWKcorr.SetBinContent(pt_bin,eta_bin+1,fake_rate_EWKsub)
+            fake_rate_histo_EWKcorr.SetBinError(pt_bin,eta_bin+1,fake_rate_EWKsub_error)            
                 
             # Printout - for debugging
             print(f"Number of tight events: {tight_yields_DATA} - Number of loose events: {loose_yields_DATA}")
@@ -256,8 +269,22 @@ if __name__ == '__main__':
     fake_rate_histo.Write()
     fake_rate_histo_EWKcorr.Write()
 
-    outfile.Close()    
+    # Plot 2D histograms containing the fake rates
+    output_plot_name = f'{outputFolder}/{outputFileName.replace(".root",".png")}'
+    
+    c_fake_rate = ROOT.TCanvas('c_fake_rate', 'c_fake_rate', 800, 600)
+    c_fake_rate.cd()
+    fake_rate_histo.Draw('colz,text')
+    c_fake_rate.SaveAs(output_plot_name)
+    c_fake_rate.Close()
 
+    c_fake_rate_ewk = ROOT.TCanvas('c_fake_rate_ewk', 'c_fake_rate_ewk', 800, 600)
+    c_fake_rate_ewk.cd()
+    fake_rate_histo_EWKcorr.Draw('colz,text')
+    c_fake_rate_ewk.SaveAs(output_plot_name)
+    c_fake_rate_ewk.Close()
+    
+    outfile.Close()    
 
     if do_prompt_rate == 'True':
     
@@ -287,16 +314,25 @@ if __name__ == '__main__':
             
                 # Ensure we are not dividing by 0
                 prompt_rate = 0
+                prompt_rate_error = 0
                 if loose_yields_Zpeak_DATA > 0:
                     prompt_rate = tight_yields_Zpeak_DATA / loose_yields_Zpeak_DATA
+                    if tight_yields_Zpeak_DATA > 0:
+                        prompt_rate_error = prompt_rate * math.sqrt(1/tight_yields_Zpeak_DATA + 1/loose_yields_Zpeak_DATA)
 
                 prompt_rate_MC = 0
+                prompt_rate_MC_error = 0
                 if loose_yields_Zpeak_DY > 0:
                     prompt_rate_MC = tight_yields_Zpeak_DY / loose_yields_Zpeak_DY
+                    if tight_yields_Zpeak_DY > 0:
+                        prompt_rate_MC_error = prompt_rate_MC * math.sqrt(1/tight_yields_Zpeak_DY + 1/loose_yields_Zpeak_DY)
 
                 # Output histogram filling
                 prompt_rate_histo   .SetBinContent(pt_bin,eta_bin+1,prompt_rate)
+                prompt_rate_histo   .SetBinError(pt_bin,eta_bin+1,prompt_rate_error)
                 prompt_rate_histo_MC.SetBinContent(pt_bin,eta_bin+1,prompt_rate_MC)
+                prompt_rate_histo_MC.SetBinError(pt_bin,eta_bin+1,prompt_rate_MC_error)
+                
                 
                 # Printout - for debugging
                 print(f"Number of tight events in data: {tight_yields_Zpeak_DATA} - Number of loose events in data: {loose_yields_Zpeak_DATA}")
@@ -308,4 +344,20 @@ if __name__ == '__main__':
         prompt_rate_histo.Write()
         prompt_rate_histo_MC.Write()
 
+        # Plot 2D histograms containing the fake rates
+        output_plot_name_PR = f'{outputFolder}/{outputFileNamePR.replace(".root",".png")}'
+        output_plot_name_PR = f'{outputFolder}/{outputFileNamePR.replace(".root",".png")}'
+        
+        c_prompt_rate = ROOT.TCanvas('c_prompt_rate', 'c_prompt_rate', 800, 600)
+        c_prompt_rate.cd()
+        prompt_rate_histo.Draw('colz,text')
+        c_prompt_rate.SaveAs(output_plot_name_PR)
+        c_prompt_rate.Close()
+        
+        # c_prompt_rate_MC = ROOT.TCanvas('c_prompt_rate_MC', 'c_prompt_rate_MC', 800, 600)
+        # c_prompt_rate_MC.cd()
+        # prompt_rate_histo_MC.Draw('colz,text')
+        # c_prompt_rate_MC.SaveAs(output_plot_name_PR)
+        # c_prompt_rate_MC.Close()
+        
         outfile_PR.Close()
