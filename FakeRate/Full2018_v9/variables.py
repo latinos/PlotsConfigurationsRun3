@@ -16,18 +16,35 @@ variables['events'] = {
 ###################
 
 # ptbins[8]  = {10, 15, 20, 25, 30, 35, 40, 45, 50};
-# etabins[5] = {0, 0.5, 1.0, 1.5, 2.0, 2.5};
+# etabins[2] = {0, 1.479, 2.5};
+
+# variables['pt1_eta1'] = {
+#     'name'  : 'Lepton_pt[0]:abs(Lepton_eta[0])',
+#     'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 0.5, 1.0, 1.5, 2.0, 2.5],),
+#     'xaxis' : 'p_{T}^{#ell 1}:#eta^{#ell 1}',
+#     'fold'  : 3,
+# }
+
+# Cone_pt1 vs eta1
 variables['pt1_eta1'] = {
-    'name'  : 'Lepton_pt[0]:abs(Lepton_eta[0])',
-    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 0.5, 1.0, 1.5, 2.0, 2.5],),
-    'xaxis' : 'p_{T}^{#ell 1}:#eta^{#ell 1}',
+    'name'  : 'Lepton_conept[0]:abs(Lepton_eta[0])',
+    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 1.479, 2.5]),
+    'xaxis' : 'p_{T}^{cone}(#ell 1):|#eta(#ell 1})|',
     'fold'  : 3,
 }
 
+# variables['pt2_eta2'] = {
+#     'name'  : 'Alt(Lepton_pt,1,0):abs(Alt(Lepton_eta,1,999))',
+#     'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 0.5, 1.0, 1.5, 2.0, 2.5],),
+#     'xaxis' : 'p_{T}^{#ell 2}:#eta^{#ell 2}',
+#     'fold'  : 3,
+# }
+
+# Cone_pt2 vs eta2
 variables['pt2_eta2'] = {
-    'name'  : 'Alt(Lepton_pt,1,0):abs(Alt(Lepton_eta,1,999))',
-    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 0.5, 1.0, 1.5, 2.0, 2.5],),
-    'xaxis' : 'p_{T}^{#ell 2}:#eta^{#ell 2}',
+    'name'  : 'Lepton_conept[1]:abs(Lepton_eta[1])',
+    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 1.479, 2.5]),
+    'xaxis' : 'p_{T}^{cone}(#ell 2):|#eta^{#ell 2}|',
     'fold'  : 3,
 }
 
@@ -45,6 +62,13 @@ variables['pt1'] = {
     'fold'  : 0                         
 }
 
+variables['conept1'] = {
+    'name'  : 'Lepton_conept[0]',
+    'range' : (20,0,100),
+    'xaxis' : 'p_{T}^{cone} 1st lep',
+    'fold'  : 0
+}
+
 variables['eta1']  = {
     'name'  : 'Lepton_eta[0]',     
     'range' : (40,-3,3),   
@@ -57,6 +81,13 @@ variables['pt2'] = {
     'range' : (20,0,100),   
     'xaxis' : 'p_{T} 2nd lep',
     'fold'  : 0                         
+}
+
+variables['conept2'] = {
+    'name'  : 'Lepton_conept[1]',
+    'range' : (20,0,100),
+    'xaxis' : 'p_{T}^{cone} 2nd lep',
+    'fold'  : 0
 }
 
 variables['eta2']  = {
@@ -94,27 +125,12 @@ variables['dphilep1jet1'] = {
     'fold'  : 3
 }
 
-
-# variables['puppimet'] = {
-#     'name'  : 'PuppiMET_pt',    
-#     'range' : (20,0,200),
-#     'xaxis' : 'PUPPI met [GeV]',
-#     'fold'  : 3
-# }
-
-# variables['mtw2'] = {
-#     'name'  : 'mtw2',
-#     'range' : (40,0,200),
-#     'xaxis' : 'm_{T}^{W_{2}} [GeV]',
-#     'fold'  : 3
-# }
-
-# variables['eta2']  = {
-#     'name'  : 'Lepton_eta[1]',     
-#     'range' : (40,-3,3),   
-#     'xaxis' : '#eta 2nd lep',
-#     'fold'  : 3                         
-# }
+variables['puppimet'] = {
+    'name'  : 'PuppiMET_pt',    
+    'range' : (20,0,200),
+    'xaxis' : 'PUPPI met [GeV]',
+    'fold'  : 3
+}
 
 # variables['jetpt1']  = {
 #     'name'  : 'CleanJet_pt[0]*(CleanJet_pt[0]>30)',     
@@ -122,32 +138,3 @@ variables['dphilep1jet1'] = {
 #     'xaxis' : 'p_{T} 1st jet',
 #     'fold'  : 2   
 # }
-
-# variables['jetpt2'] = {
-#     'name'  : 'CleanJet_pt[1]*(CleanJet_pt[1]>30)',     
-#     'range' : (40,0,200),   
-#     'xaxis' : 'p_{T} 2nd jet',
-#     'fold'  : 0
-# }
-
-# variables['pt2'] = {
-#     'name'  : 'Lepton_pt[1]',     
-#     'range' : (20,0,100),   
-#     'xaxis' : 'p_{T} 2nd lep',
-#     'fold'  : 3                         
-# }
-
-# variables['mth']  = {  
-#     'name'  : 'mth',
-#     'range' : (40,0,200),
-#     'xaxis' : 'm_{T}^{H} [GeV]',
-#     'fold'  : 0
-# }
-
-# variables['ptll'] = {
-#     'name'  : 'ptll',     
-#     'range' : (40, 0,200),   
-#     'xaxis' : 'p_{T}^{ll} [GeV]',
-#     'fold'  : 0
-# }
-

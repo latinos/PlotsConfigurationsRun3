@@ -46,4 +46,4 @@ Plot distributions:
 
 All the instructions are summarized in the `do_fake_rate.sh` bash script:
 
-	bash do_fake_rate.sh
+    bash do_fake_rate.sh 
