@@ -81,7 +81,7 @@ variables['eta2']  = {
 variables['detall']  = {  
     'name'  : 'abs(Lepton_eta[0] - Lepton_eta[1])',
     'range' : (20,0.,5.),
-    'xaxis' : '#Delta#eta_{jj}',
+    'xaxis' : '#Delta#eta_{#ell #ell}',
     'fold'  : 3
 }
 

@@ -121,16 +121,16 @@ cuts['hww2l2v_13TeV_WH_SS_ee_0j'] = {
 }
 
 
-## SR 3 leptons: only 0 jet bin
-cuts['hww2l2v_13TeV_WH_3l'] = {
-    'expr' : 'nLepton>=3 && Alt(Lepton_pt,3,0)<10 && Alt(CleanJet_pt,0,0)<30 && (WH3l_mOSll[0]<0 || WH3l_mOSll[0]>12) && (WH3l_mOSll[1]<0 || WH3l_mOSll[1]>12) && (WH3l_mOSll[2]<0 || WH3l_mOSll[2]>12)',
-    'categories' : {
-        'sssf_plus_pt2ge20'  : 'WH3l_flagOSSF == 0 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
-        'sssf_minus_pt2ge20' : 'WH3l_flagOSSF == 0 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
-        'ossf_plus_pt2ge20'  : 'WH3l_flagOSSF == 1 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15 && WH3l_ZVeto > 20 && PuppiMET_pt > 40',
-        'ossf_minus_pt2ge20' : 'WH3l_flagOSSF == 1 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15 && WH3l_ZVeto > 20 && PuppiMET_pt > 40',
-    }
-}
+# ## SR 3 leptons: only 0 jet bin
+# cuts['hww2l2v_13TeV_WH_3l'] = {
+#     'expr' : 'nLepton>=3 && Alt(Lepton_pt,3,0)<10 && Alt(CleanJet_pt,0,0)<30 && (WH3l_mOSll[0]<0 || WH3l_mOSll[0]>12) && (WH3l_mOSll[1]<0 || WH3l_mOSll[1]>12) && (WH3l_mOSll[2]<0 || WH3l_mOSll[2]>12)',
+#     'categories' : {
+#         'sssf_plus_pt2ge20'  : 'WH3l_flagOSSF == 0 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
+#         'sssf_minus_pt2ge20' : 'WH3l_flagOSSF == 0 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15',
+#         'ossf_plus_pt2ge20'  : 'WH3l_flagOSSF == 1 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]>0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15 && WH3l_ZVeto > 20 && PuppiMET_pt > 40',
+#         'ossf_minus_pt2ge20' : 'WH3l_flagOSSF == 1 && abs(WH3l_chlll) == 1 && Lepton_pdgId[0]*Lepton_pdgId[1]*Lepton_pdgId[2]<0 && Lepton_pt[1]>=20 && Lepton_pt[2]>=15 && WH3l_ZVeto > 20 && PuppiMET_pt > 40',
+#     }
+# }
 
 # mlljj20_whss:
 # inv_mass of: (jet1, jet2, 2*closest_lep_to_jets)
