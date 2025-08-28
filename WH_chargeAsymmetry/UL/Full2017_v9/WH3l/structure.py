@@ -14,22 +14,12 @@ structure['WW']  = {
     'isData'   : 0
 }
 
-structure['Wg']  = {
+structure['Vg']  = {
     'isSignal' : 0,
     'isData'   : 0
 }
 
-structure['Zg']  = {
-    'isSignal' : 0,
-    'isData'   : 0
-}
-
-structure['WgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0
-}
-
-structure['ZgS']  = {
+structure['VgS']  = {
     'isSignal' : 0,
     'isData'   : 0
 }

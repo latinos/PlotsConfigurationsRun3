@@ -2,7 +2,7 @@
 
 # keys here must match keys in samples.py
 
-signal_normalization = 10.0
+signal_normalization = 1.0
 
 # BTag normalization factors
 # Cut = wh3l_13TeV_wz_CR_1j
@@ -11,7 +11,11 @@ scale_histo_WW           = 0.221627122008/0.225379330479      # 0.983351585685
 scale_histo_DY           = 27.3544775078/23.5067325226        # 1.16368693444
 scale_histo_WZ           = 722.070081358/716.566611969        # 1.00768033187
 scale_histo_Wg           = 0.0/1                              # 0.0
+scale_histo_Zg           = 58.2570110455/56.2180396662        # 1.03626898752
+scale_histo_Vg           = 58.2570110455/56.2180396662
 scale_histo_WgS          = 0.710087842293/0.711699783483      # 0.997735082646
+scale_histo_ZgS          = 33.8991848421/33.7916805742        # 1.0031813827
+scale_histo_VgS          = (33.8991848421+0.710087842293)/(33.7916805742+0.711699783483)
 scale_histo_ZH_htt       = 1.37625922962/1.35915496252        # 1.01258448637
 scale_histo_WH_hww_minus = 0.791654241601/0.790021361161      # 1.00206688138
 scale_histo_ggZH_hww     = 0.218323940327/0.215454720114      # 1.01331704505
@@ -24,11 +28,9 @@ scale_histo_WH_hww_plus  = 1.26668107714/1.25683714289        # 1.00783230692
 scale_histo_ggH_htt      = 0.0/1                              # 0.0
 scale_histo_qqH_htt      = 0.00379935083794/0.00403252685479  # 0.942176202354
 scale_histo_ggWW         = 0.0168164351893/0.0170486129502    # 0.986381428121
-scale_histo_ZgS          = 33.8991848421/33.7916805742        # 1.0031813827
 scale_histo_top          = 4.6780838878/3.14856433695         # 1.48578316565
 scale_histo_WWewk        = 0.00556482676262/0.00546926964109  # 1.01747164206
 scale_histo_ZH_hww       = 3.32473121988/3.2753136817         # 1.01508787951
-scale_histo_Zg           = 58.2570110455/56.2180396662        # 1.03626898752
 scale_histo_WH_htt_plus  = 0.448634894474/0.44505006683       # 1.00805488621
 
 structure = {}
@@ -45,28 +47,16 @@ structure['WW']  = {
     'scaleSampleForDatacard' : scale_histo_WW,
 }
 
-structure['Wg']  = {
+structure['Vg']  = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Wg,
+    'scaleSampleForDatacard' : scale_histo_Vg,
 }
 
-structure['Zg']  = {
+structure['VgS']  = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Zg,
-}
-
-structure['WgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WgS,
-}
-
-structure['ZgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_ZgS,
+    'scaleSampleForDatacard' : scale_histo_VgS,
 }
 
 structure['ZZ']  = {
