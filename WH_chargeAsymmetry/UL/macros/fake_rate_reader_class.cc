@@ -72,9 +72,13 @@ public:
   TH2F* fake_rate_muon_25_;
   TH2F* fake_rate_muon_30_;
   TH2F* fake_rate_muon_35_;
+  TH2F* fake_rate_muon_40_;
   TH2F* fake_rate_muon_45_;
+  TH2F* fake_rate_ele_20_;
   TH2F* fake_rate_ele_25_;
+  TH2F* fake_rate_ele_30_;
   TH2F* fake_rate_ele_35_;
+  TH2F* fake_rate_ele_40_;
   TH2F* fake_rate_ele_45_;
   TH2F* prompt_rate_muon_;
   TH2F* prompt_rate_ele_;
@@ -118,7 +122,8 @@ public:
       
       float fakeWeight_2l1j = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 									   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-									   fake_rate_ele_35_, fake_rate_muon_25_, "Nominal");
+									   fake_rate_ele_30_, fake_rate_muon_30_, "Nominal");
+	                                   // fake_rate_ele_35_, fake_rate_muon_25_, "Nominal");
       
       float fakeWeight_2l2j = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 									   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -143,7 +148,8 @@ public:
         
         float fakeWeight_2l1jElUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					     Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-					     fake_rate_ele_45_, fake_rate_muon_25_, "Nominal");
+					     fake_rate_ele_40_, fake_rate_muon_30_, "Nominal");
+		                 // fake_rate_ele_45_, fake_rate_muon_25_, "Nominal");
         
         float fakeWeight_2l2jElUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					     Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -173,7 +179,8 @@ public:
         
         float fakeWeight_2l1jElDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					       Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-					       fake_rate_ele_25_, fake_rate_muon_25_, "Nominal");
+					       fake_rate_ele_20_, fake_rate_muon_30_, "Nominal");
+            		       // fake_rate_ele_25_, fake_rate_muon_25_, "Nominal");
         
         float fakeWeight_2l2jElDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					       Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -203,7 +210,8 @@ public:
         
         float fakeWeight_2l1jMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					     Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-					     fake_rate_ele_35_, fake_rate_muon_35_, "Nominal");
+					     fake_rate_ele_30_, fake_rate_muon_40_, "Nominal");
+		                 // fake_rate_ele_35_, fake_rate_muon_35_, "Nominal");
         
         float fakeWeight_2l2jMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					     Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -233,7 +241,8 @@ public:
         
         float fakeWeight_2l1jMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					       Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-					       fake_rate_ele_35_, fake_rate_muon_15_, "Nominal");
+					       fake_rate_ele_30_, fake_rate_muon_20_, "Nominal");
+		                   // fake_rate_ele_35_, fake_rate_muon_15_, "Nominal");
         
         float fakeWeight_2l2jMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 					       Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -263,7 +272,8 @@ public:
         
         float fakeWeight_2l1jstatElUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-						 fake_rate_ele_35_, fake_rate_muon_25_, "ElUp");
+						 fake_rate_ele_30_, fake_rate_muon_30_, "ElUp");
+		                 // fake_rate_ele_35_, fake_rate_muon_25_, "ElUp");
         
         float fakeWeight_2l2jstatElUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -294,7 +304,8 @@ public:
         
         float fakeWeight_2l1jstatElDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-						   fake_rate_ele_35_, fake_rate_muon_25_, "ElDown");
+						   fake_rate_ele_30_, fake_rate_muon_30_, "ElDown");
+		                   // fake_rate_ele_35_, fake_rate_muon_25_, "ElDown");
         
         float fakeWeight_2l2jstatElDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -324,7 +335,8 @@ public:
         
         float fakeWeight_2l1jstatMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-						 fake_rate_ele_35_, fake_rate_muon_25_, "MuUp");
+						 fake_rate_ele_30_, fake_rate_muon_30_, "MuUp");
+		                 // fake_rate_ele_35_, fake_rate_muon_25_, "MuUp");
         
         float fakeWeight_2l2jstatMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -355,7 +367,8 @@ public:
         
         float fakeWeight_2l1jstatMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
-						   fake_rate_ele_35_, fake_rate_muon_25_, "MuDown");
+						   fake_rate_ele_30_, fake_rate_muon_30_, "MuDown");
+		                   // fake_rate_ele_35_, fake_rate_muon_25_, "MuDown");
         
         float fakeWeight_2l2jstatMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 						   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -386,7 +399,8 @@ public:
       float fakeWeight_3l = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 									 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 									 Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-									 fake_rate_ele_35_, fake_rate_muon_25_, "Nominal");
+									 fake_rate_ele_30_, fake_rate_muon_30_, "Nominal");
+	                                 // fake_rate_ele_35_, fake_rate_muon_25_, "Nominal");
                            	         // fake_rate_ele_35_, fake_rate_muon_35_, "Nominal");
       
       if (kind_ == "nominal") return fakeWeight_3l;
@@ -396,7 +410,8 @@ public:
 		float fakeWeight_3lElUp = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 										   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 										   Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-										   fake_rate_ele_45_, fake_rate_muon_25_, "Nominal");
+										   fake_rate_ele_40_, fake_rate_muon_30_, "Nominal");
+		                                   // fake_rate_ele_45_, fake_rate_muon_25_, "Nominal");
 		                                   // fake_rate_ele_45_, fake_rate_muon_35_, "Nominal");
 		
 		float fakeWeightEleUp = fakeWeight_3lElUp / fakeWeight_3l;
@@ -409,7 +424,8 @@ public:
 		float fakeWeight_3lElDown = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											 Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-											 fake_rate_ele_25_, fake_rate_muon_25_, "Nominal");
+											 fake_rate_ele_20_, fake_rate_muon_30_, "Nominal");
+		                                     // fake_rate_ele_25_, fake_rate_muon_25_, "Nominal");
 		                                     // fake_rate_ele_25_, fake_rate_muon_35_, "Nominal");
 		
 		float fakeWeightEleDown = fakeWeight_3lElDown / fakeWeight_3l;
@@ -422,7 +438,8 @@ public:
 		float fakeWeight_3lMuUp = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 										   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 										   Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-										   fake_rate_ele_35_, fake_rate_muon_35_, "Nominal");
+										   fake_rate_ele_30_, fake_rate_muon_40_, "Nominal");
+		                                   // fake_rate_ele_35_, fake_rate_muon_35_, "Nominal");
 		                                   // fake_rate_ele_35_, fake_rate_muon_45_, "Nominal");
 		
 		
@@ -436,7 +453,8 @@ public:
 		float fakeWeight_3lMuDown = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											 Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-											 fake_rate_ele_35_, fake_rate_muon_15_, "Nominal");
+											 fake_rate_ele_30_, fake_rate_muon_20_, "Nominal");
+		                                     // fake_rate_ele_35_, fake_rate_muon_15_, "Nominal");
 		                                     // fake_rate_ele_35_, fake_rate_muon_25_, "Nominal");
 		
 		float fakeWeightMuDown = fakeWeight_3lMuDown / fakeWeight_3l;
@@ -449,7 +467,8 @@ public:
 		float fakeWeight_3lstatEleUp = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-												fake_rate_ele_35_, fake_rate_muon_25_, "ElUp");
+												fake_rate_ele_30_, fake_rate_muon_20_, "ElUp");
+		                                        // fake_rate_ele_35_, fake_rate_muon_25_, "ElUp");
 		                                        // fake_rate_ele_35_, fake_rate_muon_35_, "ElUp");
 		
 		float fakeWeightstatEleUp = fakeWeight_3lstatEleUp / fakeWeight_3l;
@@ -462,7 +481,8 @@ public:
 		float fakeWeight_3lstatEleDown = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												  Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												  Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-												  fake_rate_ele_35_, fake_rate_muon_25_, "ElDown");
+												  fake_rate_ele_30_, fake_rate_muon_30_, "ElDown");
+		                                          // fake_rate_ele_35_, fake_rate_muon_25_, "ElDown");
 		                                          // fake_rate_ele_35_, fake_rate_muon_35_, "ElDown");
 		
 		float fakeWeightstatEleDown = fakeWeight_3lstatEleDown / fakeWeight_3l;
@@ -475,7 +495,8 @@ public:
 		float fakeWeight_3lstatMuUp = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											   Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-											   fake_rate_ele_35_, fake_rate_muon_25_, "MuUp");
+											   fake_rate_ele_30_, fake_rate_muon_30_, "MuUp");
+		                                       // fake_rate_ele_35_, fake_rate_muon_25_, "MuUp");
 		                                       // fake_rate_ele_35_, fake_rate_muon_35_, "MuUp");
 		
 		float fakeWeightstatMuUp = fakeWeight_3lstatMuUp / fakeWeight_3l;
@@ -488,7 +509,8 @@ public:
 		float fakeWeight_3lstatMuDown = GetFR_3l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												 Lepton_pt[2], Lepton_eta[2], Lepton_pdgId[2], isTight_[2],
-												 fake_rate_ele_35_, fake_rate_muon_25_, "MuDown");
+												 fake_rate_ele_30_, fake_rate_muon_30_, "MuDown");
+		                                         // fake_rate_ele_35_, fake_rate_muon_25_, "MuDown");
 		                                         // fake_rate_ele_35_, fake_rate_muon_35_, "MuDown");
 		
 		float fakeWeightstatMuDown = fakeWeight_3lstatMuDown / fakeWeight_3l;
@@ -551,6 +573,7 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
   TString fake_muon_file_name_25 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet25.root";
   TString fake_muon_file_name_30 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet30.root";
   TString fake_muon_file_name_35 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet35.root";
+  TString fake_muon_file_name_40 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet40.root";
   TString fake_muon_file_name_45 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet45.root";
 
   if (year_ == "2016_HIPM" || year_ == "2016_noHIPM"){
@@ -563,8 +586,11 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
     fake_muon_file_name_45 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet45.root";
   }
 
+  TString fake_ele_file_name_20  = mkShapesRDF_base + "/data/fakerate/" + year + "/mvaFall17V2Iso_WP90" + ele_tight_suffix + "_tthmva_UL_" + ele_WP  + "/EleFR_jet20.root";
   TString fake_ele_file_name_25  = mkShapesRDF_base + "/data/fakerate/" + year + "/mvaFall17V2Iso_WP90" + ele_tight_suffix + "_tthmva_UL_" + ele_WP  + "/EleFR_jet25.root";
+  TString fake_ele_file_name_30  = mkShapesRDF_base + "/data/fakerate/" + year + "/mvaFall17V2Iso_WP90" + ele_tight_suffix + "_tthmva_UL_" + ele_WP  + "/EleFR_jet30.root";
   TString fake_ele_file_name_35  = mkShapesRDF_base + "/data/fakerate/" + year + "/mvaFall17V2Iso_WP90" + ele_tight_suffix + "_tthmva_UL_" + ele_WP  + "/EleFR_jet35.root";
+  TString fake_ele_file_name_40  = mkShapesRDF_base + "/data/fakerate/" + year + "/mvaFall17V2Iso_WP90" + ele_tight_suffix + "_tthmva_UL_" + ele_WP  + "/EleFR_jet40.root";
   TString fake_ele_file_name_45  = mkShapesRDF_base + "/data/fakerate/" + year + "/mvaFall17V2Iso_WP90" + ele_tight_suffix + "_tthmva_UL_" + ele_WP  + "/EleFR_jet45.root";
 
   // Prompt rate input files
@@ -593,6 +619,9 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
   TFile* f_muon_35   = new TFile(fake_muon_file_name_35);
   fake_rate_muon_35_ = (TH2F*) f_muon_35 -> Get("FR_pT_eta_EWKcorr");
 
+  TFile* f_muon_40   = new TFile(fake_muon_file_name_40);
+  fake_rate_muon_40_ = (TH2F*) f_muon_40 -> Get("FR_pT_eta_EWKcorr");
+
   TFile* f_muon_45   = new TFile(fake_muon_file_name_45);
   fake_rate_muon_45_ = (TH2F*) f_muon_45 -> Get("FR_pT_eta_EWKcorr");
 
@@ -600,11 +629,20 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
   prompt_rate_muon_ = (TH2F*) f_muon_PR -> Get("h_Muon_signal_pt_eta_bin");
 
   // Electrons
+  TFile* f_ele_20   = new TFile(fake_ele_file_name_20);
+  fake_rate_ele_20_ = (TH2F*) f_ele_20 -> Get("FR_pT_eta_EWKcorr");
+
   TFile* f_ele_25   = new TFile(fake_ele_file_name_25);
   fake_rate_ele_25_ = (TH2F*) f_ele_25 -> Get("FR_pT_eta_EWKcorr");
 
+  TFile* f_ele_30   = new TFile(fake_ele_file_name_30);
+  fake_rate_ele_30_ = (TH2F*) f_ele_30 -> Get("FR_pT_eta_EWKcorr");
+
   TFile* f_ele_35   = new TFile(fake_ele_file_name_35);
   fake_rate_ele_35_ = (TH2F*) f_ele_35 -> Get("FR_pT_eta_EWKcorr");
+
+  TFile* f_ele_40   = new TFile(fake_ele_file_name_40);
+  fake_rate_ele_40_ = (TH2F*) f_ele_40 -> Get("FR_pT_eta_EWKcorr");
 
   TFile* f_ele_45   = new TFile(fake_ele_file_name_45);
   fake_rate_ele_45_ = (TH2F*) f_ele_45 -> Get("FR_pT_eta_EWKcorr");
