@@ -65,13 +65,18 @@ nuisances['lumi_Correlated_2017_2018'] = {
 
 
 #### FAKES
+
+# Need to think about:
+# - charge-dependent uncertainty --> How much? How do we correlate across eras? Maybe correlated
+# - jet-dependent uncertainty    --> How much? How do we correlate across eras? Maybe correlated
+
+# Systematic uncertainty split into barrel and endcap, and per final state: 10% per bin
 fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1])>1.479)',
                     '1.0*(abs(Lepton_eta[1])<=1.479) + 1.0/1.1*(abs(Lepton_eta[1])>1.479)']
 
 fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
                     '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
 
-# Systematic uncertainty splitted into barrel and endcap, and per final state: 10% per bin
 nuisances['fake_syst_mm_barrel'] = {
     'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
     'kind'    : 'weight',
@@ -129,25 +134,55 @@ nuisances['fake_syst_ee_endcap'] = {
     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
 }
 
+# Overall 30% normalization
+nuisances['fake_syst'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake_mm' : '1.3',
+        'Fake_em' : '1.3',
+        'Fake_ee' : '1.3',
+    },
+}
+
 # Overall 30% normalization: split per charge
-nuisances['fake_syst_plus'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_plus_2018',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake' : 1.3,
-    },
-    'cuts'    : [cut for cut in cuts if ('_plus_' in cut)]
-}
-nuisances['fake_syst_minus'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_minus_2018',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake' : 1.3,
-    },
-    'cuts'    : [cut for cut in cuts if ('_minus_' in cut)]
-}
+# nuisances['fake_syst_plus'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_plus_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'Fake_mm' : '1.3',
+#         'Fake_em' : '1.3',
+#         'Fake_ee' : '1.3',
+#     },
+#     'cuts'    : [
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
+#     ]
+# }
+# nuisances['fake_syst_minus'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_minus_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'Fake_mm' : '1.3',
+#         'Fake_em' : '1.3',
+#         'Fake_ee' : '1.3',
+#     },
+#     'cuts'    : [
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
+#     ]
+# }
 
 
 # Statistical and systematic uncertainty on the fake rates
@@ -686,7 +721,6 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 }
 
 # WZ normalization from control region
-
 nuisances['WZ2jnorm']  = {
     'name'    : 'CMS_hww_WZ3l2jnorm',
     'samples' : {
