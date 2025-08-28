@@ -2,8 +2,12 @@
 
 import sys,inspect
 
-# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2017_v9/WHSS/
+# Site definition
+site = 'cern'
+if any(machine in os.uname()[1] for machine in ['portal','bms']):
+    site = 'kit'
 
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2017_v9/WHSS/
 configurations_nuisance = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 configurations_nuisance = os.path.dirname(configurations_nuisance) # WHSS
 configurations_nuisance = os.path.dirname(configurations_nuisance) # Full2017_v9
@@ -19,7 +23,9 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 # Path to ouput folder
-outputFolder = "../../../../../../../../../../../../../eos/user/n/ntrevisa/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+if site == 'kit':
+    outputFolder = '/ceph/' + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 
 # Path to batch folder (used for condor submission)
 batchFolder = "condor"

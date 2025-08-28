@@ -65,11 +65,13 @@ nuisances['lumi_Correlated_2017_2018'] = {
 
 
 #### FAKES
-fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.4) +     1.3*(abs(Lepton_eta[1])>1.4)',
-                    '1.0*(abs(Lepton_eta[1])<=1.4) + 1.0/1.3*(abs(Lepton_eta[1])>1.4)']
 
-fake_syst_barrel = ['    1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)',
-                    '1.0/1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
+# Systematic uncertainty split into barrel and endcap, and per final state: 10% per bin
+fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1])>1.479)',
+                    '1.0*(abs(Lepton_eta[1])<=1.479) + 1.0/1.1*(abs(Lepton_eta[1])>1.479)']
+
+fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
+                    '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
 
 nuisances['fake_syst_mm_barrel'] = {
     'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
@@ -128,6 +130,19 @@ nuisances['fake_syst_ee_endcap'] = {
     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
 }
 
+# Overall 30% normalization
+nuisances['fake_syst'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_2017',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake_mm' : '1.3',
+        'Fake_em' : '1.3',
+        'Fake_ee' : '1.3',
+    },
+}
+
+# Statistical and systematic uncertainty on the fake rates
 nuisances['fake_ele'] = {
     'name'    : 'CMS_WH_hww_fake_e_2017',
     'kind'    : 'weight',
