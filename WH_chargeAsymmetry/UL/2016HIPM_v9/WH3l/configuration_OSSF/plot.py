@@ -62,20 +62,6 @@ groupPlot['VVV']  = {
     'samples'  : ['VVV']
 }
 
-# groupPlot['Zg']  = {
-#     'nameHR' : "Z#gamma",
-#     'isSignal' : 0,
-#     'color'    : 810,   # kOrange + 10
-#     'samples'  : ['Zg']
-# }
-
-# groupPlot['ZgS']  = {
-#     'nameHR' : "Z#gamma*",
-#     'isSignal' : 0,
-#     'color'    : 617,
-#     'samples'  : ['ZgS']
-# }
-
 groupPlot['Vg']  = {
     'nameHR' : "W#gamma",
     'isSignal' : 0,
@@ -152,26 +138,12 @@ plot['Vg']  = {
     'scale'    : scale_histo_Vg,
 }
 
-# plot['Zg']  = {
-#     'color'    : 859, # kAzure -1  
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scale'    : scale_histo_Zg,
-# }
-
 plot['VgS']  = { 
     'color'    : 859, # kAzure -1  
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : scale_histo_VgS,
 }
-
-# plot['ZgS'] = { 
-#     'color'    : 617, # kViolet + 1  
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scale'    : scale_histo_ZgS,
-# }
 
 plot['ZZ']  = { 
     'color'    : 858, # kAzure -2  
