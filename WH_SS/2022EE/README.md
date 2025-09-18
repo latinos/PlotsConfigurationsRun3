@@ -1,6 +1,6 @@
-# WZ Control Region
+# WH_SS 
 
-This configuration is used to plot the WZ control region looking at 2022 data.
+This configuration is used to plot the WH Same-Sign signal region.
 
 The instructions to run the analysis follow.
 
