@@ -15,7 +15,7 @@ preselections = '(nLepton>=3 && Alt(Lepton_pt,3,0)<10) \
              && (WH3l_mOSll[2] < 0 || WH3l_mOSll[2] > 12) \
              && abs(WH3l_chlll) == 1 \
              && bVeto \
-             '
+'
 
 ## Signal region
 

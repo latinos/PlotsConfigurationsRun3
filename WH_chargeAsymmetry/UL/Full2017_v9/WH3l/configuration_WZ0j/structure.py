@@ -2,17 +2,21 @@
 
 # keys here must match keys in samples.py
 
-signal_normalization = 10.0
+signal_normalization = 1.0
 
 # BTag normalization factors
 # Cut = wh3l_13TeV_wz_CR_0j
-scale_histo_ttH_hww       = 0.0600514388024/0.0557181657263    # 1.07777128015
-scale_histo_WW            = 0.97562681523/0.996830323807       # 0.97872906946
-scale_histo_DY            = 711.435735309/715.111215738        # 0.994860267398
-scale_histo_WZ            = 1556.55933721/1554.57978184        # 1.00127337007
-scale_histo_Wg            = 0.0/1                              # 0.0
-scale_histo_WgS           = 1.06562071754/1.04184261722        # 1.0228231212
-scale_histo_ZH_htt        = 2.7110692999/2.7019385121          # 1.003379347
+scale_histo_ttH_hww      = 0.0600514388024/0.0557181657263     # 1.07777128015
+scale_histo_WW           = 0.97562681523/0.996830323807        # 0.97872906946
+scale_histo_DY           = 711.435735309/715.111215738         # 0.994860267398
+scale_histo_WZ           = 1556.55933721/1554.57978184         # 1.00127337007
+scale_histo_Wg           = 0.0/1                               # 0.0
+scale_histo_Zg           = 26.2884437686/26.153795853          # 1.00514831256
+scale_histo_Vg           = 26.2884437686/26.153795853
+scale_histo_WgS          = 1.06562071754/1.04184261722         # 1.0228231212
+scale_histo_ZgS          = 19.366256454/19.0663702478          # 1.01572854205
+scale_histo_VgS          = (19.366256454+1.06562071754)/(19.0663702478+1.04184261722)
+scale_histo_ZH_htt       = 2.7110692999/2.7019385121           # 1.003379347
 scale_histo_WH_hww_minus = 0.640533519325/0.637266941276       # 1.00512591794
 scale_histo_ggZH_hww     = 0.3997111456/0.402788768724         # 0.992359213156
 scale_histo_qqH_hww      = 0.00176102931298/0.00182305213908   # 0.965978578029
@@ -24,11 +28,9 @@ scale_histo_WH_hww_plus  = 0.991534206167/0.993656169059       # 0.997864489792
 scale_histo_ggH_htt      = 0.000105894615393/0.000105894615393 # 1.0
 scale_histo_qqH_htt      = 0.0/1                               # 0.0
 scale_histo_ggWW         = 0.120607876449/0.118508228293       # 1.01771731959
-scale_histo_ZgS          = 19.366256454/19.0663702478          # 1.01572854205
 scale_histo_top          = 128.289756342/123.755416369         # 1.03663952744
 scale_histo_WWewk        = 0.00876213859711/0.0090490051931    # 0.968298548861
 scale_histo_ZH_hww       = 6.00887802682/6.01445939408         # 0.999072008489
-scale_histo_Zg           = 26.2884437686/26.153795853          # 1.00514831256
 scale_histo_WH_htt_plus  = 0.398605092444/0.396353094968       # 1.00568179612
 
 structure = {}
@@ -45,28 +47,16 @@ structure['WW']  = {
     'scaleSampleForDatacard' : scale_histo_WW,
 }
 
-structure['Wg']  = {
+structure['Vg']  = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Wg,
+    'scaleSampleForDatacard' : scale_histo_Vg,
 }
 
-structure['Zg']  = {
+structure['VgS']  = {
     'isSignal' : 0,
     'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_Zg,
-}
-
-structure['WgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WgS,
-}
-
-structure['ZgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_ZgS,
+    'scaleSampleForDatacard' : scale_histo_VgS,
 }
 
 structure['ZZ']  = {
@@ -159,10 +149,10 @@ structure['WH_htt_minus'] = {
     'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
-structure['Fake']  = {
-    'isSignal' : 0,
-    'isData'   : 0
-}
+# structure['Fake']  = {
+#     'isSignal' : 0,
+#     'isData'   : 0
+# }
 
 
 # Data

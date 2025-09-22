@@ -1,5 +1,12 @@
 # Configuration file for charge asymmetry WHSS analysis using the UL 2017 dataset
 
+import sys,inspect
+
+# Site definition
+site = 'cern'
+if any(machine in os.uname()[1] for machine in ['portal','bms']):
+    site = 'kit'
+
 # Tag used to identify the configuration folder version
 tag = 'WHSS_OSCR_2017_v9_chargeAsymmetry_Mu82_EleUL90'
 
@@ -9,8 +16,13 @@ runnerFile = "default"
 # Output file name
 outputFile = "mkShapes__{}.root".format(tag)
 
+# Output file name
+outputFile = "mkShapes__{}.root".format(tag)
+
 # Path to ouput folder
-outputFolder = "../../../../../../../../../../../../../eos/user/n/ntrevisa/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+if site == 'kit':
+    outputFolder = '/ceph/' + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 
 # Path to batch folder (used for condor submission)
 batchFolder = "condor"

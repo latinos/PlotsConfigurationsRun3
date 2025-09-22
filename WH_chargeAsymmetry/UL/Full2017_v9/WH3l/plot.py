@@ -33,32 +33,18 @@ groupPlot['VVV']  = {
     'samples'  : ['VVV']
 }
 
-groupPlot['Zg']  = {
-    'nameHR' : "Z#gamma",
+groupPlot['Vg']  = {
+    'nameHR' : "V#gamma",
     'isSignal' : 0,
     'color'    : 810,   # kOrange + 10
-    'samples'  : ['Zg']
+    'samples'  : ['Vg']
 }
 
-groupPlot['ZgS']  = {
-    'nameHR' : "Z#gamma*",
-    'isSignal' : 0,
-    'color'    : 617,
-    'samples'  : ['ZgS']
-}
-
-groupPlot['Wg']  = {
-    'nameHR' : "W#gamma",
-    'isSignal' : 0,
-    'color'    : 859,
-    'samples'  : ['Wg']
-}
-
-groupPlot['WgS']  = {
+groupPlot['VgS']  = {
     'nameHR' : "W#gamma*",
     'isSignal' : 0,
     'color'    : 409,   # kGreen - 9
-    'samples'  : ['WgS']
+    'samples'  : ['VgS']
 }
 
 groupPlot['ZZ']  = {  
@@ -116,28 +102,14 @@ plot['WW']  = {
     'scale'    : 1.0
 }
 
-plot['Wg']  = { 
+plot['Vg']  = { 
     'color'    : 859, # kAzure -1  
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0
 }
 
-plot['Zg']  = {
-    'color'    : 859, # kAzure -1  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0
-}
-
-plot['WgS']  = { 
-    'color'    : 859, # kAzure -1  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0
-}
-
-plot['ZgS'] = { 
+plot['VgS'] = { 
     'color'    : 617, # kViolet + 1  
     'isSignal' : 0,
     'isData'   : 0,
