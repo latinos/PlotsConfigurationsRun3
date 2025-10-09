@@ -583,6 +583,7 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
     fake_muon_file_name_25 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet25.root";
     fake_muon_file_name_30 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet30.root";
     fake_muon_file_name_35 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet35.root";
+    fake_muon_file_name_40 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet40.root";
     fake_muon_file_name_45 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet45.root";
   }
 

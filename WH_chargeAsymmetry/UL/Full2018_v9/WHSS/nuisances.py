@@ -77,113 +77,90 @@ fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1
 fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
                     '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
 
-nuisances['fake_syst_mm_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-nuisances['fake_syst_mm_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
+# nuisances['fake_syst_mm_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_mm' : fake_syst_barrel,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
+# }
+# nuisances['fake_syst_mm_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_mm' : fake_syst_endcap,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
+# }
 
-nuisances['fake_syst_em_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-nuisances['fake_syst_em_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
+# nuisances['fake_syst_em_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_em' : fake_syst_barrel,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
+# }
+# nuisances['fake_syst_em_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_em' : fake_syst_endcap,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
+# }
 
-nuisances['fake_syst_ee_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-nuisances['fake_syst_ee_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
+# nuisances['fake_syst_ee_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_ee' : fake_syst_barrel,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
+# }
+# nuisances['fake_syst_ee_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_ee' : fake_syst_endcap,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
+# }
 
 # Overall 30% normalization
-nuisances['fake_syst'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_2018',
+nuisances['fake_syst_ee'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_ee_2018',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : {
-        'Fake_mm' : '1.3',
-        'Fake_em' : '1.3',
         'Fake_ee' : '1.3',
     },
 }
 
-# Overall 30% normalization: split per charge
-# nuisances['fake_syst_plus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_plus_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3',
-#         'Fake_em' : '1.3',
-#         'Fake_ee' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
-#     ]
-# }
-# nuisances['fake_syst_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_minus_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3',
-#         'Fake_em' : '1.3',
-#         'Fake_ee' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
-#     ]
-# }
+nuisances['fake_syst_em'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_em_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake_em' : '1.3',
+    },
+}
 
+nuisances['fake_syst_mm'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_mm_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake_mm' : '1.3',
+    },
+}
 
 # Statistical and systematic uncertainty on the fake rates
 nuisances['fake_ele'] = {
@@ -722,7 +699,7 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 
 # WZ normalization from control region
 nuisances['WZ2jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l2jnorm',
+    'name'    : 'CMS_hww_WZ3l2jnorm_2018',
     'samples' : {
         'WZ' : '1.00',
     },
@@ -731,7 +708,7 @@ nuisances['WZ2jnorm']  = {
 }
 
 nuisances['WZ1jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l1jnorm',
+    'name'    : 'CMS_hww_WZ3l1jnorm_2018',
     'samples' : {
         'WZ' : '1.00',
     },

@@ -35,36 +35,36 @@ aliases['LepWPSF'] = {
 
 # ttHMVA SFs and uncertainties
 aliases['LepWPttHMVASF'] = {
-    'linesToAdd': ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
-    'linesToProcess': ["ROOT.gInterpreter.Declare('ttHMVASF ttH = ttHMVASF(\"2018\", 2, \"all\", \"nominal\");')"],
-    'expr' : 'ttH(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': mc
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH = ttHMVASF(\"2018\", 2, \"all\", \"nominal\");')"],
+    'expr'           : 'ttH(Lepton_pt, Lepton_eta, Lepton_pdgId)',
+    'samples'        : mc
 }
 
 aliases['LepWPttHMVASFEleUp'] = {
-    'linesToAdd': ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
-    'linesToProcess': ["ROOT.gInterpreter.Declare('ttHMVASF ttH_EleUp = ttHMVASF(\"2018\", 2, \"all\", \"eleUp\");')"],
-    'expr' : 'ttH_EleUp(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': mc
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_EleUp = ttHMVASF(\"2018\", 2, \"all\", \"eleUp\");')"],
+    'expr'           : 'ttH_EleUp(Lepton_pt, Lepton_eta, Lepton_pdgId)',
+    'samples'        : mc
 }
 aliases['LepWPttHMVASFEleDown'] = {
-    'linesToAdd': ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
-    'linesToProcess': ["ROOT.gInterpreter.Declare('ttHMVASF ttH_EleDown = ttHMVASF(\"2018\", 2, \"all\", \"eleDown\");')"],
-    'expr' : 'ttH_EleDown(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': mc
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_EleDown = ttHMVASF(\"2018\", 2, \"all\", \"eleDown\");')"],
+    'expr'           : 'ttH_EleDown(Lepton_pt, Lepton_eta, Lepton_pdgId)',
+    'samples'        : mc
 }
 
 aliases['LepWPttHMVASFMuUp'] = {
-    'linesToAdd': ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
-    'linesToProcess': ["ROOT.gInterpreter.Declare('ttHMVASF ttH_MuUp = ttHMVASF(\"2018\", 2, \"all\", \"muUp\");')"],
-    'expr' : 'ttH_MuUp(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': mc
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_MuUp = ttHMVASF(\"2018\", 2, \"all\", \"muUp\");')"],
+    'expr'           : 'ttH_MuUp(Lepton_pt, Lepton_eta, Lepton_pdgId)',
+    'samples'        : mc
 }
 aliases['LepWPttHMVASFMuDown'] = {
-    'linesToAdd': ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
-    'linesToProcess': ["ROOT.gInterpreter.Declare('ttHMVASF ttH_MuDown = ttHMVASF(\"2018\", 2, \"all\", \"muDown\");')"],
-    'expr' : 'ttH_MuDown(Lepton_pt, Lepton_eta, Lepton_pdgId)',
-    'samples': mc
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
+    'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_MuDown = ttHMVASF(\"2018\", 2, \"all\", \"muDown\");')"],
+    'expr'           : 'ttH_MuDown(Lepton_pt, Lepton_eta, Lepton_pdgId)',
+    'samples'        : mc
 }
 
 

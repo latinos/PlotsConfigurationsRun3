@@ -73,72 +73,88 @@ fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1
 fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
                     '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
 
-nuisances['fake_syst_mm_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-nuisances['fake_syst_mm_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
+# nuisances['fake_syst_mm_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_mm' : fake_syst_barrel,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
+# }
+# nuisances['fake_syst_mm_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_mm' : fake_syst_endcap,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
+# }
 
-nuisances['fake_syst_em_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-nuisances['fake_syst_em_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
+# nuisances['fake_syst_em_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_em' : fake_syst_barrel,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
+# }
+# nuisances['fake_syst_em_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_em' : fake_syst_endcap,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
+# }
 
-nuisances['fake_syst_ee_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-nuisances['fake_syst_ee_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
+# nuisances['fake_syst_ee_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_ee' : fake_syst_barrel,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
+# }
+# nuisances['fake_syst_ee_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake_ee' : fake_syst_endcap,
+#     },
+#     'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
+# }
 
 # Overall 30% normalization
-nuisances['fake_syst'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_2017',
+nuisances['fake_syst_ee'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_ee_2017',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake_ee' : '1.3',
+    },
+}
+
+nuisances['fake_syst_em'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_em_2017',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake_em' : '1.3',
+    },
+}
+
+nuisances['fake_syst_mm'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_mm_2017',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : {
         'Fake_mm' : '1.3',
-        'Fake_em' : '1.3',
-        'Fake_ee' : '1.3',
     },
 }
 
@@ -643,7 +659,7 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 
 # WZ normalization from control region
 nuisances['WZ2jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l2jnorm',
+    'name'    : 'CMS_hww_WZ3l2jnorm_2017',
     'samples' : {
         'WZ' : '1.00',
     },
@@ -652,164 +668,12 @@ nuisances['WZ2jnorm']  = {
 }
 
 nuisances['WZ1jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l1jnorm',
+    'name'    : 'CMS_hww_WZ3l1jnorm_2017',
     'samples' : {
         'WZ' : '1.00',
     },
     'type' : 'rateParam',
     'cuts' : [cut for cut in cuts if '1j' in cut],
-}
-
-# Nonprompt leptons normalization from control region - split per charge
-nuisances['Nonpromptee2jnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonpromptee2jnorm_plus',
-    'samples' : {
-        'Fake_ee' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_plus_pt2ge20',
-    ],
-}
-nuisances['Nonpromptee2jnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonpromptee2jnorm_minus',
-    'samples' : {
-        'Fake_ee' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_ee_2j_SS_CR_minus_pt2ge20',
-    ],
-}
-
-nuisances['Nonpromptee1jnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonpromptee1jnorm_plus',
-    'samples' : {
-        'Fake_ee' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_plus_pt2ge20',
-    ],
-}
-nuisances['Nonpromptee1jnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonpromptee1jnorm_minus',
-    'samples' : {
-        'Fake_ee' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_ee_1j_SS_CR_minus_pt2ge20',
-    ],
-}
-
-
-nuisances['Nonpromptem2jnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonpromptem2jnorm_plus',
-    'samples' : {
-        'Fake_em' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_plus_pt2ge20',
-    ],
-}
-nuisances['Nonpromptem2jnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonpromptem2jnorm_minus',
-    'samples' : {
-        'Fake_em' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_em_2j_SS_CR_minus_pt2ge20',
-    ],
-}
-
-nuisances['Nonpromptem1jnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonpromptem1jnorm_plus',
-    'samples' : {
-        'Fake_em' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_plus_pt2ge20',
-    ],
-}
-nuisances['Nonpromptem1jnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonpromptem1jnorm_minus',
-    'samples' : {
-        'Fake_em' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_em_1j_SS_CR_minus_pt2ge20',
-    ],
-}
-
-nuisances['Nonpromptmm2jnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonpromptmm2jnorm_plus',
-    'samples' : {
-        'Fake_mm' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_plus_pt2ge20',
-    ],
-}
-nuisances['Nonpromptmm2jnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonpromptmm2jnorm_minus',
-    'samples' : {
-        'Fake_mm' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_SS_CR_minus_pt2ge20',
-    ],
-}
-
-nuisances['Nonpromptmm1jnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonpromptmm1jnorm_plus',
-    'samples' : {
-        'Fake_mm' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_plus_pt2ge20',
-    ],
-}
-nuisances['Nonpromptmm1jnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonpromptmm1jnorm_minus',
-    'samples' : {
-        'Fake_mm' : '1.00',
-    },
-    'type' : 'rateParam',
-    'cuts' : [
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2lt20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_SS_CR_minus_pt2ge20',
-    ],
 }
 
 # Use the following if you want to apply the automatic combine MC stat nuisances.

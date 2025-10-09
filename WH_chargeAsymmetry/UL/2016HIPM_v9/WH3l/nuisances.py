@@ -65,26 +65,26 @@ fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1
 fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
                     '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
 
-nuisances['fake_syst_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake' : fake_syst_barrel,
-    },
-}
-nuisances['fake_syst_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake' : fake_syst_endcap,
-    },
-}
+# nuisances['fake_syst_barrel'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_barrel',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake' : fake_syst_barrel,
+#     },
+# }
+# nuisances['fake_syst_endcap'] = {
+#     'name'    : 'CMS_WH_hww_fake_syst_endcap',
+#     'kind'    : 'weight',
+#     'type'    : 'shape',
+#     'samples' : {
+#         'Fake' : fake_syst_endcap,
+#     },
+# }
 
 # Overall 30% normalization
 nuisances['fake_syst'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_2018',
+    'name'    : 'CMS_WH_hww_fake_syst_2016',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : {
@@ -549,17 +549,38 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 }
 
 # WZ normalization from control region
+nuisances['WZ2jnorm']  = {
+    'name'    : 'CMS_hww_WZ3l2jnorm_2016',
+    'samples' : {
+        'WZ' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_WZ_2j'],
+}
+
+nuisances['WZ1jnorm']  = {
+    'name'    : 'CMS_hww_WZ3l1jnorm_2016',
+    'samples' : {
+        'WZ' : '1.00',
+    },
+    'type' : 'rateParam',
+    'cuts' : [
+        'hww2l2v_13TeV_WH_SS_WZ_1j'
+    ],
+}
+
 nuisances['WZ3lnorm']  = {
-    'name'    : 'CMS_hww_WZ3lnorm',
+    'name'    : 'CMS_hww_WZ0j3lnorm_2016',
     'samples' : {
         'WZ' : '1.00',
     },
     'type'  : 'rateParam',
     'cuts'  : [
-        'wh3l_13TeV_ossf_plus',
-        'wh3l_13TeV_ossf_minus',
-        'wh3l_13TeV_sssf_plus',
-        'wh3l_13TeV_sssf_minus',
+        'wh3l_13TeV_ossf_plus_pt2ge20',
+        'wh3l_13TeV_ossf_minus_pt2ge20',
+        'wh3l_13TeV_sssf_plus_pt2ge20',
+        'wh3l_13TeV_sssf_minus_pt2ge20',
         'wh3l_wz_13TeV',
     ]
 }
