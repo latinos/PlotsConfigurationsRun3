@@ -98,6 +98,13 @@ nuisances['fake_syst'] = {
     'samples' : {
         'Fake' : '1.3',
     },
+    'cuts'    : [
+        'wh3l_13TeV_sssf_plus_pt2ge20',
+        'wh3l_13TeV_ossf_plus_pt2ge20',
+        'wh3l_13TeV_sssf_minus_pt2ge20',
+        'wh3l_13TeV_ossf_minus_pt2ge20',
+        'wh3l_wz_13TeV',
+    ],
 }
 
 # Statistical and systematic uncertainty on the fake rates
@@ -371,12 +378,10 @@ nuisances['pdf_qqbar'] = {
     'name'    : 'pdf_qqbar',
     'type'    : 'lnN',
     'samples' : {
-        'Wg'  : '1.04',
-        'Zg'  : '1.04',
         'ZZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'WZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'WgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'ZgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+        'Vg'  : '1.04',
+        'VgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
     },
 }
 
@@ -455,12 +460,10 @@ nuisances['QCDscale_VV'] = {
     'type' : 'shape',
     'samples' : {
         'WW'  : variations,
-        'Zg'  : variations,
-        'Wg'  : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
-        'WgS' : variations,
-        'ZgS' : variations
+        # 'Vg'  : variations, TO BE PUT BACK ON THE NEXT ITERATION!
+        # 'VgS' : variations, TO BE PUT BACK ON THE NEXT ITERATION!
     }
 }
 
@@ -472,8 +475,44 @@ nuisances['QCDscale_ggVV'] = {
     },
 }
 
-#### QCD scale uncertainties for Higgs signals other than ggH
+# Vg and VgS scale uncertainty
+nuisances['VgStarScale2j'] = {
+    'name'    : 'CMS_hww_VgStarScale2j_2017',
+    'type'    : 'lnN',
+    'samples' : {
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
 
+nuisances['VgScale2j'] = {
+    'name'    : 'CMS_hww_VgScale2j_2017',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgStarScale1j'] = {
+    'name'    : 'CMS_hww_VgStarScale1j_2017',
+    'type'    : 'lnN',
+    'samples' : {
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
+}
+
+nuisances['VgScale1j'] = {
+    'name'    : 'CMS_hww_VgScale1j_2017',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
+}
+
+#### QCD scale uncertainties for Higgs signals other than ggH
 values = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','vbfH','125.09','scale','sm')
 
 nuisances['QCDscale_qqH'] = {

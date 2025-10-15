@@ -6,19 +6,19 @@ import optparse
 usage = 'usage: %prog [options]'
 parser = optparse.OptionParser(usage)
 
-parser.add_option('--datacard_name',    dest='datacard_name',    help='datacard to use for the fit',           default="DEFAULT")
-parser.add_option('--output_name',      dest='output_name',      help='txt file where fit results are saved',  default="DEFAULT")
-parser.add_option('--sanity_check',     dest='sanity_check',     help='flag for additional fit sanity checks', default=False)
-parser.add_option('--freeze_nuisances', dest='freeze_nuisances', help='freeze systematic uncertainties',       default=False)
-parser.add_option('--only_workspace',   dest='only_workspace',   help='flag to create only workspace',         default=False)
-parser.add_option('--only_fit',         dest='only_fit',         help='flag to only perform fit',              default=False)
-parser.add_option('--channel_mask',     dest='channel_mask',     help='channels to mask',                      default=False)
+parser.add_option('--datacard_name',    dest='datacard_name',    help='datacard to use for the fit',                          default="DEFAULT")
+parser.add_option('--output_name',      dest='output_name',      help='txt file where fit results are saved',                 default="DEFAULT")
+parser.add_option('--sanity_check',     dest='sanity_check',     help='comma-separated list of additional fit sanity checks', default=False)
+parser.add_option('--freeze_nuisances', dest='freeze_nuisances', help='freeze systematic uncertainties',                      default=False)
+parser.add_option('--only_workspace',   dest='only_workspace',   help='flag to create only workspace',                        default=False)
+parser.add_option('--only_fit',         dest='only_fit',         help='flag to only perform fit',                             default=False)
+parser.add_option('--channel_mask',     dest='channel_mask',     help='channels to mask',                                     default=False)
 
 (opt, args) = parser.parse_args()
 
 print("Datacard name    = {}".format(opt.datacard_name))
 print("Output name      = {}".format(opt.output_name))
-print("Do santy checks  = {}".format(opt.sanity_check))
+print("Sanity checks    = {}".format(opt.sanity_check))
 print("Freeze nuisances = {}".format(opt.freeze_nuisances))
 print("Only workspace   = {}".format(opt.only_workspace))
 print("Only fit         = {}".format(opt.only_fit))
@@ -36,11 +36,14 @@ if opt.output_name == 'DEFAULT' :
 datacard_name = opt.datacard_name
 output_name   = opt.output_name
 
-sanity_check = False
-if opt.sanity_check == "True" or opt.sanity_check == "1":
-    opt.sanity_check = True
-else:
-    sanity_check = opt.sanity_check
+sanity_check = [] # False
+# if opt.sanity_check == "True" or opt.sanity_check == "1":
+#     opt.sanity_check = True
+# else:
+#     sanity_check = opt.sanity_check
+
+if opt.sanity_check != False:
+    sanity_check = opt.sanity_check.split(',')
 
 nuisances = ""
 if opt.freeze_nuisances == "True" or opt.freeze_nuisances == "1" or opt.freeze_nuisances == "all":
@@ -246,6 +249,12 @@ fit_diagnostics_command = f"combine \
                            --saveShapes \
                            --saveWithUncertainties"
 
+fit_diagnostics_WH_command = f"combine \
+                             -M FitDiagnostics {datacard_name}_WH_strength.root \
+                             --setParameters r_WH=1 \
+                             --saveShapes \
+                             --saveWithUncertainties"
+
 # --saveOverallShapes \
 # --numToysForShapes 200 \
 
@@ -330,34 +339,11 @@ if only_workspace == False:
     print("\n")
     print("\n")
 
-# # Using original asymmetry definition
-# print("Preparing workspace...")
-# print(workspace_command_original)
-# os.system(workspace_command_original)
-# print("\n")
-# print("\n")
-
-# print("Fitting the asymmetry value...")
-# print(combine_command_original)
-# os.system(combine_command_original)
-# print("\n")
-# print("\n")
-
-# print("Moving output to Combine folder...")
-# root_output_name_original = output_name_original.replace(".txt",".root")
-# if (opt.freeze_nuisances) == "1" or (opt.freeze_nuisances) == "True":
-#     root_output_name = output_name.replace(".txt","_freeze.root")
-# move_command = "mv higgsCombineTest.MultiDimFit.mH120.root {}".format(root_output_name_original)
-# os.system(move_command)
-# print(move_command)
-# print("\n")
-# print("\n")
-
 
 # Additional sanity checks
 if only_workspace == False:
-    print("Sanity check flag: {}".format(sanity_check))
-    if sanity_check != False:
+    print("Sanity checks: {}".format(sanity_check))
+    if sanity_check != []:
 
         # To read output file:
         # limit->Draw("deltaNLL:r_A","r_S < 1.5 && r_S > 0 && r_higgs > 0 && r_higgs < 2.5","colz")
@@ -429,3 +415,19 @@ if only_workspace == False:
             os.system(move_command)
             print("\n")
             print("\n")
+
+        if "FD_WH_strength" in sanity_check:
+            print("Doing FitDiagnistics...")
+            print(fit_diagnostics_WH_command)
+            os.system(fit_diagnostics_WH_command)
+            print("\n")
+            print("\n")
+            FD_output_name = output_name.replace(".txt","_fitDiagnostics_WH_strength.root")
+            if (opt.freeze_nuisances) == "1" or (opt.freeze_nuisances) == "True" or (opt.freeze_nuisances) == "all":
+                rA_output_name = output_name.replace(".txt","_fitDiagnostics_WH_strength_freeze.root")
+            move_command = "mv fitDiagnosticsTest.root {}".format(FD_output_name)
+            print(move_command)
+            os.system(move_command)
+            print("\n")
+            print("\n")
+            

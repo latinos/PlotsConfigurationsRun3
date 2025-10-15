@@ -105,13 +105,13 @@ structure['ZH_htt'] = {
 structure['WH_htt_plus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : 1 # scaling signal to have sensitivity
 }
 
 structure['WH_htt_minus'] = {
     'isSignal' : 1,
     'isData'   : 0,
-    'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+    'scaleSampleForDatacard' : 1 # scaling signal to have sensitivity
 }
 
 structure['Fake']  = {

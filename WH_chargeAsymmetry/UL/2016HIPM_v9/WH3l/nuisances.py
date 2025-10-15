@@ -363,12 +363,10 @@ nuisances['pdf_qqbar'] = {
     'name'    : 'pdf_qqbar',
     'type'    : 'lnN',
     'samples' : {
-        'Wg'  : '1.04',
-        'Zg'  : '1.04',
         'ZZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'WZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'WgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'ZgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+        'Vg'  : '1.04',
+        'VgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
     },
 }
 
@@ -447,12 +445,10 @@ nuisances['QCDscale_VV'] = {
     'type' : 'shape',
     'samples' : {
         'WW'  : variations,
-        'Zg'  : variations,
-        'Wg'  : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
-        'WgS' : variations,
-        'ZgS' : variations
+        # 'Vg'  : variations, TO BE PUT BACK ON THE NEXT ITERATION!
+        # 'VgS' : variations, TO BE PUT BACK ON THE NEXT ITERATION!
     }
 }
 
@@ -462,6 +458,43 @@ nuisances['QCDscale_ggVV'] = {
     'samples' : {
         'ggWW' : '1.15',
     },
+}
+
+# Vg and VgS scale uncertainty
+nuisances['VgStarScale2j'] = {
+    'name'    : 'CMS_hww_VgStarScale2j_2016',
+    'type'    : 'lnN',
+    'samples' : {
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgScale2j'] = {
+    'name'    : 'CMS_hww_VgScale2j_2016',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgStarScale1j'] = {
+    'name'    : 'CMS_hww_VgStarScale1j_2016',
+    'type'    : 'lnN',
+    'samples' : {
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
+}
+
+nuisances['VgScale1j'] = {
+    'name'    : 'CMS_hww_VgScale1j_2016',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
 }
 
 #### QCD scale uncertainties for Higgs signals other than ggH

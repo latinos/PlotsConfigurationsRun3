@@ -1,9 +1,9 @@
 import sys
  
-# Enable reading YR for Higgs XS and uncertainties
-sys.path.append('../../../macros/')
-import HiggsXSection
-HiggsXS = HiggsXSection.HiggsXSection()
+# # Enable reading YR for Higgs XS and uncertainties
+# sys.path.append('../../../macros/')
+# import HiggsXSection
+# HiggsXS = HiggsXSection.HiggsXSection()
 
 nuisances = {}
 

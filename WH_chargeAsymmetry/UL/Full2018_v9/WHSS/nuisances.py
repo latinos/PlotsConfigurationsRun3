@@ -442,7 +442,6 @@ nuisances['chargeFlip_syst'] = {
 # }
 
 ## Top pT reweighting uncertainty
-
 nuisances['TopPtRew'] = {
     'name'       : 'CMS_top_pT_reweighting',   # Theory uncertainty
     'kind'       : 'weight',
@@ -453,16 +452,44 @@ nuisances['TopPtRew'] = {
     'symmetrize' : True
 }
 
-nuisances['WgStar'] = {
-    'name'    : 'CMS_hww_WgStarScale',
+# Vg and VgS scale uncertainty
+nuisances['VgStarScale2j'] = {
+    'name'    : 'CMS_hww_VgStarScale2j_2018',
     'type'    : 'lnN',
     'samples' : {
-        'WgS' : '1.25'
-    }
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgScale2j'] = {
+    'name'    : 'CMS_hww_VgScale2j_2018',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgStarScale1j'] = {
+    'name'    : 'CMS_hww_VgStarScale1j_2018',
+    'type'    : 'lnN',
+    'samples' : {
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
+}
+
+nuisances['VgScale1j'] = {
+    'name'    : 'CMS_hww_VgScale1j_2018',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
 }
 
 ###### pdf uncertainties
-
 valuesggh  = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ggH', '125.09','pdf','sm')
 valuesggzh = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ggZH','125.09','pdf','sm')
 valuesbbh  = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','bbH', '125.09','pdf','sm')
@@ -512,12 +539,10 @@ nuisances['pdf_qqbar'] = {
     'name'    : 'pdf_qqbar',
     'type'    : 'lnN',
     'samples' : {
-        'Wg'  : '1.04',
-        'Zg'  : '1.04',
         'ZZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'WZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'WgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'ZgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+        'Vg'  : '1.04',
+        'VgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
     },
 }
 
@@ -596,12 +621,10 @@ nuisances['QCDscale_VV'] = {
     'type' : 'shape',
     'samples' : {
         'WW'  : variations,
-        'Zg'  : variations,
-        'Wg'  : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
-        'WgS' : variations,
-        'ZgS' : variations
+        # 'Vg'  : variations, TO BE INCLUDED IN THE NEXT ITERATION!
+        # 'VgS' : variations, TO BE INCLUDED IN THE NEXT ITERATION!
     }
 }
 
@@ -715,6 +738,87 @@ nuisances['WZ1jnorm']  = {
     'type' : 'rateParam',
     'cuts' : [cut for cut in cuts if '1j' in cut],
 }
+
+# # WZ charge asymmetry uncertainty
+# nuisances['WZ2j_charge_plus_ee'] = {
+#     'name'    : 'CMS_WH_hww_WZ2j_charge_asymm_ee_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'WZ' : '1.05',
+#     },
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
+#     ],
+# }
+
+# nuisances['WZ2j_charge_em'] = {
+#     'name'    : 'CMS_WH_hww_WZ2j_charge_asymm_em_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'WZ' : '1.05',
+#     },
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
+#     ],
+# }
+
+# nuisances['WZ2j_charge_mm'] = {
+#     'name'    : 'CMS_WH_hww_WZ2j_charge_asymm_mm_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'WZ' : '1.05',
+#     },
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
+#     ],
+# }
+
+
+# nuisances['WZ1j_charge_ee'] = {
+#     'name'    : 'CMS_WH_hww_WZ1j_charge_asymm_ee_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'WZ' : '1.05',
+#     },
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
+#     ],
+# }
+
+# nuisances['WZ1j_charge_em'] = {
+#     'name'    : 'CMS_WH_hww_WZ1j_charge_asymm_em_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'WZ' : '1.05',
+#     },
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
+#     ],
+# }
+
+# nuisances['WZ1j_charge_mm'] = {
+#     'name'    : 'CMS_WH_hww_WZ1j_charge_asymm_mm_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : {
+#         'WZ' : '1.05',
+#     },
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
+#     ],
+# }
+
 
 ## Use the following if you want to apply the automatic combine MC stat nuisances.
 nuisances['stat']  = {
