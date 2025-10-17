@@ -57,32 +57,7 @@ nuisances['lumi_Correlated_Run2'] = {
     'samples' : dict((skey, '1.006') for skey in mc if skey not in ['WZ'])
 }
 
-
 #### FAKES
-
-# Systematic uncertainty split into barrel and endcap, and per final state: 10% per bin
-fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.4) +     1.1*(abs(Lepton_eta[1])>1.4)',
-                    '1.0*(abs(Lepton_eta[1])<=1.4) + 1.0/1.1*(abs(Lepton_eta[1])>1.4)']
-
-fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)',
-                    '1.0/1.1*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
-
-# nuisances['fake_syst_barrel'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_barrel',
-#     'kind'    : 'weight',
-#     'type'    : 'shape',
-#     'samples' : {
-#         'Fake' : fake_syst_barrel,
-#     },
-# }
-# nuisances['fake_syst_endcap'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_endcap',
-#     'kind'    : 'weight',
-#     'type'    : 'shape',
-#     'samples' : {
-#         'Fake' : fake_syst_endcap,
-#     },
-# }
 
 # Overall 30% normalization
 nuisances['fake_syst'] = {
@@ -130,7 +105,6 @@ nuisances['fake_mu_stat'] = {
 }
 
 ###### B-tagger
-
 for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
     btag_syst = ['(btagSF%sup)/(btagSF)' % shift, '(btagSF%sdown)/(btagSF)' % shift]
 
@@ -146,7 +120,6 @@ for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr
     }
 
 ##### Trigger Scale Factors
-
 trig_syst = ['TriggerSFWeight_3l_u/TriggerSFWeight_3l', 'TriggerSFWeight_3l_d/TriggerSFWeight_3l']
 
 nuisances['trigg'] = {
@@ -157,7 +130,6 @@ nuisances['trigg'] = {
 }
 
 ##### Electron Efficiency and energy scale
-
 nuisances['eff_e'] = {
     'name'    : 'CMS_eff_e_2016',
     'kind'    : 'weight',
@@ -185,7 +157,6 @@ nuisances['electronpt'] = {
 }
 
 ##### Muon Efficiency and energy scale
-
 nuisances['eff_m'] = {
     'name'    : 'CMS_eff_m_2016',
     'kind'    : 'weight',
@@ -279,7 +250,6 @@ nuisances['PU'] = {
 }
 
 ### PU ID SF uncertainty
-
 puid_syst = ['Jet_PUIDSF_up/Jet_PUIDSF', 'Jet_PUIDSF_down/Jet_PUIDSF']
 
 nuisances['jetPUID'] = {
@@ -290,7 +260,6 @@ nuisances['jetPUID'] = {
 }
 
 ### PS and UE
-
 nuisances['PS_ISR']  = {
     'name'    : 'PS_WH_hww_ISR',
     'kind'    : 'weight',
@@ -315,7 +284,6 @@ nuisances['UE_CP5']  = {
 }
 
 ###### pdf uncertainties
-
 valuesggh  = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ggH', '125.09','pdf','sm')
 valuesggzh = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ggZH','125.09','pdf','sm')
 valuesbbh  = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','bbH', '125.09','pdf','sm')
@@ -449,8 +417,8 @@ nuisances['QCDscale_VV'] = {
         'WW'  : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
-        # 'Vg'  : variations, TO BE PUT BACK ON THE NEXT ITERATION!
-        # 'VgS' : variations, TO BE PUT BACK ON THE NEXT ITERATION!
+        'Vg'  : variations,
+        'VgS' : variations,
     }
 }
 
@@ -463,40 +431,22 @@ nuisances['QCDscale_ggVV'] = {
 }
 
 # Vg and VgS scale uncertainty
-nuisances['VgStarScale2j'] = {
-    'name'    : 'CMS_hww_VgStarScale2j_2016',
+nuisances['VgStarScale0j'] = {
+    'name'    : 'CMS_hww_VgStarScale0j_2016',
     'type'    : 'lnN',
     'samples' : {
         'VgS' : '1.25'
     },
-    'cuts' : [cut for cut in cuts if '2j' in cut],
+    'cuts' : [cut for cut in cuts if 'ssf' in cut],
 }
 
-nuisances['VgScale2j'] = {
-    'name'    : 'CMS_hww_VgScale2j_2016',
+nuisances['VgScale0j'] = {
+    'name'    : 'CMS_hww_VgScale0j_2016',
     'type'    : 'lnN',
     'samples' : {
         'Vg' : '1.25'
     },
-    'cuts' : [cut for cut in cuts if '2j' in cut],
-}
-
-nuisances['VgStarScale1j'] = {
-    'name'    : 'CMS_hww_VgStarScale1j_2016',
-    'type'    : 'lnN',
-    'samples' : {
-        'VgS' : '1.25'
-    },
-    'cuts' : [cut for cut in cuts if '1j' in cut],
-}
-
-nuisances['VgScale1j'] = {
-    'name'    : 'CMS_hww_VgScale1j_2016',
-    'type'    : 'lnN',
-    'samples' : {
-        'Vg' : '1.25'
-    },
-    'cuts' : [cut for cut in cuts if '1j' in cut],
+    'cuts' : [cut for cut in cuts if 'ssf' in cut],
 }
 
 #### QCD scale uncertainties for Higgs signals other than ggH
@@ -617,6 +567,60 @@ nuisances['WZ3lnorm']  = {
         'wh3l_13TeV_sssf_minus_pt2ge20',
         'wh3l_wz_13TeV',
     ]
+}
+
+### WZ charge asymmetry uncertainty
+
+# SSSF plus
+nuisances['WZ0j_charge_plus_sssf'] = {
+    'name'    : 'CMS_WH_hww_WZ0j_charge_plus_sssf_2016',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'WZ' : '1.05',
+    },
+    'cuts' : [
+        'wh3l_13TeV_sssf_plus_pt2ge20',
+    ],
+}
+
+# SSSF minus
+nuisances['WZ0j_charge_minus_sssf'] = {
+    'name'    : 'CMS_WH_hww_WZ0j_charge_minus_sssf_2016',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'WZ' : '1.05',
+    },
+    'cuts' : [
+        'wh3l_13TeV_sssf_minus_pt2ge20',
+    ],
+}
+
+# OSSF plus
+nuisances['WZ0j_charge_plus_ossf'] = {
+    'name'    : 'CMS_WH_hww_WZ0j_charge_plus_ossf_2016',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'WZ' : '1.05',
+    },
+    'cuts' : [
+        'wh3l_13TeV_ossf_plus_pt2ge20',
+    ],
+}
+
+# OSSF minus
+nuisances['WZ0j_charge_minus_ossf'] = {
+    'name'    : 'CMS_WH_hww_WZ0j_charge_minus_ossf_2016',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'WZ' : '1.05',
+    },
+    'cuts' : [
+        'wh3l_13TeV_ossf_minus_pt2ge20',
+    ],
 }
 
 # Use the following if you want to apply the automatic combine MC stat nuisances.

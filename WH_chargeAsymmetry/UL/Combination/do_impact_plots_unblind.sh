@@ -28,7 +28,7 @@ ulimit -s unlimited
 alias python=python3
 
 
-### Default parameters.
+### Default parameters
 WORKSPACE=WORKSPACE # ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_high_pt_binning_WH_strength.root
 POI=r_WH
 PARAMETERS=r_WH=1,r_higgs=1
@@ -84,13 +84,22 @@ elif [ $FINAL_STATE == 2016HIPM ]; then
 # Default case
 else
 
- 	echo "I still don't know this final state"
+ 	echo "I still don't know this final state. Here is the list of the available final states:"
+	echo ""
+	echo "bash do_impact_plots_unblind.sh FullRun2"
+	echo ""
+	echo "bash do_impact_plots_unblind.sh Full2018"
+	echo "bash do_impact_plots_unblind.sh Full2017"
+	echo "bash do_impact_plots_unblind.sh 2016noHIPM"
+	echo "bash do_impact_plots_unblind.sh 2016HIPM"
  	exit 1
 	
 fi
 
 ### Create directory and move into it:
 mkdir -p Impact_unblind/
+
+cp ~/public/utils/index.php Impact_unblind/
 
 cd Impact_unblind/
 

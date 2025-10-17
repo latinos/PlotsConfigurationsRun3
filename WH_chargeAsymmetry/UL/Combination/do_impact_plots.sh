@@ -1,7 +1,13 @@
 #!/bin/bash
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments"
+  echo "$0: Missing arguments 'final state':"
+	echo ""
+	echo "bash do_impact_plots.sh FullRun2"
+	echo "bash do_impact_plots.sh Full2018"
+	echo "bash do_impact_plots.sh Full2017"
+	echo "bash do_impact_plots.sh 2016noHIPM"
+	echo "bash do_impact_plots.sh 2016HIPM"
   exit 1
 else
   echo "We got some argument(s)"
@@ -26,7 +32,7 @@ alias python=python3
 WORKSPACE=WORKSPACE # ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_high_pt_binning_WH_strength.root
 POI=r_WH
 PARAMETERS=r_WH=1,r_higgs=1
-RANGES=r_WH=-2,3
+RANGES=r_WH=-10,10
 NAME=Impacts_${FINAL_STATE}_v9_binning_blind_WH_strength
 
 
@@ -78,7 +84,14 @@ elif [ $FINAL_STATE == 2016HIPM ]; then
 # Default case
 else
 
- 	echo "I still don't know this final state"
+ 	echo "I still don't know this final state. Here is the list of the available final states:"
+	echo ""
+	echo "bash do_impact_plots.sh FullRun2"
+	echo ""
+	echo "bash do_impact_plots.sh Full2018"
+	echo "bash do_impact_plots.sh Full2017"
+	echo "bash do_impact_plots.sh 2016noHIPM"
+	echo "bash do_impact_plots.sh 2016HIPM"
  	exit 1
 	
 fi
@@ -86,13 +99,15 @@ fi
 ### Create directory and move into it:
 mkdir -p Impact/
 
+cp ~/public/utils/index.php Impact/
+
 cd Impact/
 
 
 # Plot (after all the jobs are done)
 if [ $PLOT == True ]; then
 
-	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 -o ${NAME}.json --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs -n ${FINAL_STATE} -t -1
+	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 -o ${NAME}.json --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs -n ${FINAL_STATE}_blind -t -1
 
 	plotImpacts.py -i ${NAME}.json -o ${NAME}
 

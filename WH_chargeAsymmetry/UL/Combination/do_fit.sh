@@ -1,7 +1,24 @@
 #!/bin/bash
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments"
+  echo "$0: Missing arguments. Please specify the final state:"
+  echo "bash do_fit.sh FullRun2_high_pt"
+  echo ""
+  echo "bash do_fit.sh Full2018_high_pt"
+  echo "bash do_fit.sh 2018_WHSS_high_pt"
+  echo "bash do_fit.sh 2018_WH3l"
+  echo ""
+  echo "bash do_fit.sh Full2017_high_pt"
+  echo "bash do_fit.sh 2017_WHSS_high_pt"
+  echo "bash do_fit.sh 2017_WH3l"
+  echo ""
+  echo "bash do_fit.sh 2016noHIPM_high_pt"
+  echo "bash do_fit.sh 2016noHIPM_WHSS_high_pt"
+  echo "bash do_fit.sh 2016noHIPM_WH3l"
+  echo ""
+  echo "bash do_fit.sh 2016HIPM_high_pt"
+  echo "bash do_fit.sh 2016HIPM_WHSS_high_pt"
+  echo "bash do_fit.sh 2016HIPM_WH3l"
   exit 1
 else
   echo "We got some argument(s)"
@@ -162,6 +179,24 @@ elif [ $FINAL_STATE == 2016HIPM_WH3l ]; then
 ###########
 	
 else
-	echo "I still don't know this final state"
+	echo "I still don't know this final state. Here is the list of the available final states:"
+	echo ""
+	echo "bash do_fit.sh FullRun2_high_pt"
+	echo ""
+	echo "bash do_fit.sh Full2018_high_pt"
+	echo "bash do_fit.sh 2018_WHSS_high_pt"
+	echo "bash do_fit.sh 2018_WH3l"
+	echo ""
+	echo "bash do_fit.sh Full2017_high_pt"
+	echo "bash do_fit.sh 2017_WHSS_high_pt"
+	echo "bash do_fit.sh 2017_WH3l"
+	echo ""
+	echo "bash do_fit.sh 2016noHIPM_high_pt"
+	echo "bash do_fit.sh 2016noHIPM_WHSS_high_pt"
+	echo "bash do_fit.sh 2016noHIPM_WH3l"
+	echo ""
+	echo "bash do_fit.sh 2016HIPM_high_pt"
+	echo "bash do_fit.sh 2016HIPM_WHSS_high_pt"
+	echo "bash do_fit.sh 2016HIPM_WH3l"
 	exit 1
 fi
