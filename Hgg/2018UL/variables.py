@@ -30,6 +30,14 @@ variables['qglj1'] = {
         'fold' :3
 }
 
+
+variables['qglj1morebins'] = {
+        'name': 'Alt(Jet_qgl,CleanJet_jetIdx[0],2)',
+        'range': (20, -0.01, 0.3),
+        'xaxis': 'QGL 1st jet',
+        'fold' :3
+}
+
 variables['qglj2'] = {
         'name': 'Alt(Jet_qgl,CleanJet_jetIdx[1],2)',
         'range': (100, -1, 1),
@@ -120,6 +128,13 @@ variables['mll']  = {   'name': 'mll',
 
 variables['ptl1']  = {   'name': 'Lepton_pt[0]',
                         'range' : (60,0,300),
+                        'xaxis' : 'p_{T} 1st lep',
+                        'fold'  : 3
+                        }
+
+
+variables['ptl1lessbins']  = {   'name': 'Lepton_pt[0]',
+                        'range' : (20,0,300),
                         'xaxis' : 'p_{T} 1st lep',
                         'fold'  : 3
                         }

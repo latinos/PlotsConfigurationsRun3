@@ -43,7 +43,8 @@ groupPlot['top']  = {
 groupPlot['DY'] = {
     'nameHR'   : 'DY',
     'isSignal' : 0,
-    'color'    : ROOT.kGreen-7,
+    #'color'    : ROOT.kGreen-7,
+    'color'    : ROOT.kGreen+2,
     'samples'  : ['DY']
 }
 
@@ -60,7 +61,7 @@ groupPlot['Multiboson']  = {
 
 groupPlot['Zjj']  = {  
     'nameHR': 'Zjj',
-    'isSignal' : 1,
+    'isSignal' : 0,
     'color': 600,    # kBlue
     'samples'    : ['Zjj']
 }

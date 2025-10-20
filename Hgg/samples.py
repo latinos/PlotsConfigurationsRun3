@@ -105,6 +105,23 @@ mcCommonWeightNoMatch = "XSWeight*SFweight*METFilter_MC"
 mcCommonWeight = "XSWeight*SFweight*PromptGenLepMatch2l*METFilter_MC"
 
 
+
+
+###### H>gluglu #######
+
+#files = nanoGetSampleFiles("/eos/user/a/amassiro/HIG/", "ZHgg")
+#files = nanoGetSampleFiles("/eos/user/a/amassiro/HIG/ZHggPostProc/Summer20UL18_106x_nAODv9_Full2018v9/MCFull2018v9/", "")
+
+#samples["Hgluglu"] = {
+    #"name": files,
+    #"weight": mcCommonWeight,
+    #"FilesPerJob": 1,
+#}
+
+
+
+
+
 ###### Zjj EWK #######
 
 files = nanoGetSampleFiles(mcDirectory, "EWK_LLJJ_MLL-50_MJJ-120")

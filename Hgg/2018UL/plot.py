@@ -91,7 +91,7 @@ groupPlot['Higgs']  = {
 #}
 
 groupPlot['Hgluglu']  = {  
-    'nameHR'   : 'H>gluglu',
+    'nameHR'   : 'H>gluglu x 100',
     'isSignal' : 1,
     'color'    : 632, # kRed 
     'samples'  : ['Hgluglu']
@@ -172,7 +172,7 @@ plot['Hgluglu'] = {
     'color'    : 632, # kRed 
     'isSignal' : 2,
     'isData'   : 0,    
-    'scale'    : 1
+    'scale'    : 100
     #'scale'    : 0.000033658   # I missed the BR Z>ll and a *1000 too much
 }
 

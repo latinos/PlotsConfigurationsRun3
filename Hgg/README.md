@@ -56,3 +56,12 @@ Once all the jobs have finished, you can merge them:
     mkPlot
 
 
+### to check kerberos
+
+    klist
+    
+
+### make datacards
+    
+    mkDatacards --outputDirDatacard datacards
+

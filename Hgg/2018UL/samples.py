@@ -131,7 +131,7 @@ samples["Hgluglu"] = {
     "name": files,
     #"weight": mcCommonWeight,  --> missing post processing
     #"weight": 1,
-    "weight": "baseW*genWeight*0.8839*0.08187*0.033658",
+    "weight": "baseW*genWeight*0.8839*0.08187*0.033658*3",
     "FilesPerJob": 1,
 }
 
@@ -145,12 +145,12 @@ samples["Hgluglu"] = {
 # and the branching ratio: 
 # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
 # 8.187E-02
-# BR Z>ll:  3.3658% 
+# BR Z>ll:  3.3658% x 3
 # From https://pdg.lbl.gov/2018/listings/rpp2018-list-z-boson.pdf
 #
 # ZH_HToGluGlu_ZToLL_13TeV_powheg_pythia8
 #
-# 59000×0.8839×0.08187×0.033658
+# 59000×0.8839×0.08187×0.033658×3
 #
 
 ###########################################
