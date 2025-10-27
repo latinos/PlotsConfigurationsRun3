@@ -1,13 +1,15 @@
 #!/bin/bash
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments 'final state':"
+	echo "$0: Missing arguments 'final state':"
 	echo ""
 	echo "bash do_impact_plots.sh FullRun2"
+	echo ""
 	echo "bash do_impact_plots.sh Full2018"
 	echo "bash do_impact_plots.sh Full2017"
 	echo "bash do_impact_plots.sh 2016noHIPM"
 	echo "bash do_impact_plots.sh 2016HIPM"
+	echo ""
   exit 1
 else
   echo "We got some argument(s)"
@@ -42,7 +44,7 @@ if [ $FINAL_STATE == FullRun2 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-2,3
+	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_blind_WH_strength
 
 # Full 2018
@@ -51,7 +53,7 @@ elif [ $FINAL_STATE == Full2018 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_Full2018_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-3,4
+	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_blind_WH_strength
 
 # Full 2017
@@ -60,7 +62,7 @@ elif [ $FINAL_STATE == Full2017 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_Full2017_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-3,4
+	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_blind_WH_strength
 
 # 2016noHIPM
@@ -69,7 +71,7 @@ elif [ $FINAL_STATE == 2016noHIPM ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_2016noHIPM_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-3,4
+	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_blind_WH_strength
 	
 # 2016HIPM
@@ -78,7 +80,7 @@ elif [ $FINAL_STATE == 2016HIPM ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_2016HIPM_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-3,4
+	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_blind_WH_strength
 
 # Default case
@@ -92,6 +94,7 @@ else
 	echo "bash do_impact_plots.sh Full2017"
 	echo "bash do_impact_plots.sh 2016noHIPM"
 	echo "bash do_impact_plots.sh 2016HIPM"
+	echo ""
  	exit 1
 	
 fi

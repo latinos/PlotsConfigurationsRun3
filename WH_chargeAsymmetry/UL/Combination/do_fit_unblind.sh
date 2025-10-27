@@ -1,33 +1,35 @@
 #!/bin/bash
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments. Please specify the final state:"
-  echo "bash do_fit_unblind.sh FullRun2_high_pt"
-  echo ""
-  echo "bash do_fit_unblind.sh Full2018_high_pt"
-  echo "bash do_fit_unblind.sh 2018_WHSS_high_pt"
-  echo "bash do_fit_unblind.sh 2018_WH3l"
-  echo ""
-  echo "bash do_fit_unblind.sh Full2017_high_pt"
-  echo "bash do_fit_unblind.sh 2017_WHSS_high_pt"
-  echo "bash do_fit_unblind.sh 2017_WH3l"
-  echo ""
-  echo "bash do_fit_unblind.sh 2016noHIPM_high_pt"
-  echo "bash do_fit_unblind.sh 2016noHIPM_WHSS_high_pt"
-  echo "bash do_fit_unblind.sh 2016noHIPM_WH3l"
-  echo ""
-  echo "bash do_fit_unblind.sh 2016HIPM_high_pt"
-  echo "bash do_fit_unblind.sh 2016HIPM_WHSS_high_pt"
-  echo "bash do_fit_unblind.sh 2016HIPM_WH3l"
-  exit 1
+	echo "$0: Missing arguments. Please specify the final state:"
+	echo ""
+	echo "bash do_fit_unblind.sh FullRun2_high_pt"
+	echo ""
+	echo "bash do_fit_unblind.sh Full2018_high_pt"
+	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh Full2017_high_pt"
+	echo "bash do_fit_unblind.sh 2017_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2017_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh 2016noHIPM_high_pt"
+	echo "bash do_fit_unblind.sh 2016noHIPM_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2016noHIPM_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh 2016HIPM_high_pt"
+	echo "bash do_fit_unblind.sh 2016HIPM_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2016HIPM_WH3l"
+	echo ""
+	exit 1
 else
-  echo "We got some argument(s)"
-  echo "==========================="
-  echo "Number of arguments. : $#"
-  echo "List of arguments... : $@"
-  echo "Arg #1: Final State  : $1"
-  echo "==========================="
-  FINAL_STATE=$1
+	echo "We got some argument(s)"
+	echo "==========================="
+	echo "Number of arguments. : $#"
+	echo "List of arguments... : $@"
+	echo "Arg #1: Final State  : $1"
+	echo "==========================="
+	FINAL_STATE=$1
 fi
 
 ##################
@@ -199,5 +201,6 @@ else
 	echo "bash do_fit_unblind.sh 2016HIPM_high_pt"
 	echo "bash do_fit_unblind.sh 2016HIPM_WHSS_high_pt"
 	echo "bash do_fit_unblind.sh 2016HIPM_WH3l"
+	echo ""
 	exit 1
 fi

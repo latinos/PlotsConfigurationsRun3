@@ -2,6 +2,7 @@
 if [ $# -eq 0 ];
 then
   echo "$0: Missing arguments. Please specify the final state:"
+  echo ""
   echo "bash do_fit.sh FullRun2_high_pt"
   echo ""
   echo "bash do_fit.sh Full2018_high_pt"
@@ -19,6 +20,7 @@ then
   echo "bash do_fit.sh 2016HIPM_high_pt"
   echo "bash do_fit.sh 2016HIPM_WHSS_high_pt"
   echo "bash do_fit.sh 2016HIPM_WH3l"
+  echo ""
   exit 1
 else
   echo "We got some argument(s)"
@@ -198,5 +200,6 @@ else
 	echo "bash do_fit.sh 2016HIPM_high_pt"
 	echo "bash do_fit.sh 2016HIPM_WHSS_high_pt"
 	echo "bash do_fit.sh 2016HIPM_WH3l"
+  echo ""
 	exit 1
 fi

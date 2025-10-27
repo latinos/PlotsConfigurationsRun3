@@ -1,13 +1,15 @@
 #!/bin/bash
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments 'final state':"
+	echo "$0: Missing arguments 'final state':"
 	echo ""
 	echo "bash do_gof_test.sh FullRun2"
+	echo ""
 	echo "bash do_gof_test.sh Full2018"
 	echo "bash do_gof_test.sh Full2017"
 	echo "bash do_gof_test.sh 2016noHIPM"
 	echo "bash do_gof_test.sh 2016HIPM"
+	echo ""
   exit 1
 else
   echo "We got some argument(s)"
@@ -31,7 +33,7 @@ alias python=python3
 WORKSPACE=WORKSPACE # ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_binning_WH_strength.root
 POI=r_WH
 PARAMETERS=r_WH=1,r_higgs=1
-RANGES=r_WH=-5,5
+RANGES=r_WH=-10,10
 
 # Full Run 2
 if [ $FINAL_STATE == FullRun2 ]; then
@@ -39,7 +41,7 @@ if [ $FINAL_STATE == FullRun2 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	RANGES=r_WH=-10,10
 	NAME=${FINAL_STATE}_WH_strength
 
 # Full 2018
@@ -48,7 +50,7 @@ elif [ $FINAL_STATE == Full2018 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_Full2018_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	RANGES=r_WH=-10,10
 	NAME=${FINAL_STATE}_WH_strength
 
 # Full 2017
@@ -57,7 +59,7 @@ elif [ $FINAL_STATE == Full2017 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_Full2017_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	RANGES=r_WH=-10,10
 	NAME=${FINAL_STATE}_WH_strength
 
 # 2016noHIPM
@@ -66,7 +68,7 @@ elif [ $FINAL_STATE == 2016noHIPM ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_2016noHIPM_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	RANGES=r_WH=-10,10
 	NAME=${FINAL_STATE}_WH_strength
 
 # 2016HIPM
@@ -75,7 +77,7 @@ elif [ $FINAL_STATE == 2016HIPM ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_2016HIPM_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	RANGES=r_WH=-10,10
 	NAME=${FINAL_STATE}_WH_strength
 
 # Default case
@@ -83,10 +85,12 @@ else
 	echo "I still don't know this final state. This is the list of available final states:"
 	echo ""
 	echo "bash do_gof_test.sh FullRun2"
+	echo ""
 	echo "bash do_gof_test.sh Full2018"
 	echo "bash do_gof_test.sh Full2017"
 	echo "bash do_gof_test.sh 2016noHIPM"
 	echo "bash do_gof_test.sh 2016HIPM"
+	echo ""
 	exit 1
 fi
 
@@ -120,11 +124,11 @@ else
 	
 	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
 		
-	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:100:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:199:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
 
 		
 	# Modify the sh file in order to submit 100 jobs running 10 toys each
-	sed -i 's/-t 1/-t 10/g' condor_combine_task.sh
+	sed -i 's/-t 1/-t 5/g' condor_combine_task.sh
 
 	# Finally, submit jobs to condor
 	condor_submit condor_combine_task.sub

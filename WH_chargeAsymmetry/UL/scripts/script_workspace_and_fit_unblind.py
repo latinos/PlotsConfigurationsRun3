@@ -156,7 +156,7 @@ combine_command_WH = f"combine \
                       --cminDefaultMinimizerStrategy 0 \
                       --stepSize 0.01 --cminPreScan \
                       --setParameters r_WH=1 \
-                      --setParameterRanges r_WH=-5,5 \
+                      --setParameterRanges r_WH=-10,10 \
                       --redefineSignalPOIs r_WH \
                       --cminFallbackAlgo Minuit2,0:0.2 \
                       {nuisances} \
@@ -172,7 +172,7 @@ combine_command_WH_plus_minus = f"combine \
                                  --cminDefaultMinimizerStrategy 0 \
                                  --stepSize 0.01 --cminPreScan \
                                  --setParameters r_WH_plus=1,r_WH_minus=1 \
-                                 --setParameterRanges r_WH_plus=-5,5:r_WH_minus=-5,5 \
+                                 --setParameterRanges r_WH_plus=-10,10:r_WH_minus=-10,10 \
                                  --redefineSignalPOIs r_WH_plus,r_WH_minus \
                                  --cminFallbackAlgo Minuit2,0:0.2 \
                                  {nuisances} \

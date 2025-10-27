@@ -4,10 +4,12 @@ then
 	echo "$0: Missing arguments 'final state':"
 	echo ""
 	echo "bash do_impact_plots_unblind.sh FullRun2"
+	echo ""
 	echo "bash do_impact_plots_unblind.sh Full2018"
 	echo "bash do_impact_plots_unblind.sh Full2017"
 	echo "bash do_impact_plots_unblind.sh 2016noHIPM"
 	echo "bash do_impact_plots_unblind.sh 2016HIPM"
+	echo ""
 	exit 1
 else
 	echo "We got some argument(s)"
@@ -32,7 +34,7 @@ alias python=python3
 WORKSPACE=WORKSPACE # ../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_high_pt_binning_WH_strength.root
 POI=r_WH
 PARAMETERS=r_WH=1,r_higgs=1
-RANGES=r_WH=-2,3
+RANGES=r_WH=-10,10
 NAME=Impacts_${FINAL_STATE}_v9_binning_WH_strength
 
 
@@ -42,7 +44,7 @@ if [ $FINAL_STATE == FullRun2 ]; then
 	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_high_pt_binning_WH_strength.root
 	POI=r_WH
 	PARAMETERS=r_WH=1,r_higgs=1
-	RANGES=r_WH=-5,5
+	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_WH_strength
 
 # Full 2018
@@ -92,6 +94,7 @@ else
 	echo "bash do_impact_plots_unblind.sh Full2017"
 	echo "bash do_impact_plots_unblind.sh 2016noHIPM"
 	echo "bash do_impact_plots_unblind.sh 2016HIPM"
+	echo ""
  	exit 1
 	
 fi
@@ -107,7 +110,7 @@ cd Impact_unblind/
 # Plot (after all the jobs are done)
 if [ $PLOT == True ]; then
 
-	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 -o ${NAME}.json --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs -n ${FINAL_STATE}
+	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 -o ${NAME}.json --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} -n ${FINAL_STATE} --freezeParameters r_higgs
 
 	plotImpacts.py -i ${NAME}.json -o ${NAME} --blind
 
@@ -125,8 +128,8 @@ elif [ $PLOT == Clean ]; then
 # Produce initial fit and fits for each nuisance:
 else
 
-	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 --doInitialFit --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminDefaultMinimizerStrategy 0 --cminFallbackAlgo Minuit2,0:0.2 --stepSize 0.01 --cminPreScan -n ${FINAL_STATE}
+	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 --doInitialFit --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --cminDefaultMinimizerStrategy 0 --cminFallbackAlgo Minuit2,0:0.2 --stepSize 0.01 --cminPreScan -n ${FINAL_STATE} --freezeParameters r_higgs
 
-	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 --doFits --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --job-mode=condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"' --cminDefaultMinimizerStrategy 0 --cminFallbackAlgo Minuit2,0:0.01 --stepSize 0.01 --cminPreScan -n ${FINAL_STATE}
+	combineTool.py -M Impacts -d ${WORKSPACE} -m 125 --doFits --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --job-mode=condor --sub-opts='+JobFlavour="workday"' --cminDefaultMinimizerStrategy 0 --cminFallbackAlgo Minuit2,0:0.01 --stepSize 0.01 --cminPreScan -n ${FINAL_STATE} --freezeParameters r_higgs
 
 fi
