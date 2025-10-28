@@ -195,8 +195,8 @@ if __name__ == '__main__':
     histo_DATA_QCD_tight_EWKsub.Add(histo_DY_QCD_tight,    -1)
     histo_DATA_QCD_tight_EWKsub.Add(histo_WJets_QCD_tight, -1)
     
-      # --- EWK ±5% Varianten (separate Systematik) ---
-    ewk_rel_unc = 0.05  # 5 %
+    # EWK 10% variation to consider systematic on EWK subtraction
+    ewk_rel_unc = 0.10
 
     def make_scaled_ewk_sub(loose_data, tight_data, loose_dy, tight_dy, loose_wj, tight_wj, scale):
         lo = loose_data.Clone()
@@ -208,14 +208,14 @@ if __name__ == '__main__':
         return lo, ti
 
     h_lo_up, h_ti_up = make_scaled_ewk_sub(
-        histo_DATA_QCD_loose, histo_DATA_QCD_tight,
-        histo_DY_QCD_loose,   histo_DY_QCD_tight,
+        histo_DATA_QCD_loose,  histo_DATA_QCD_tight,
+        histo_DY_QCD_loose,    histo_DY_QCD_tight,
         histo_WJets_QCD_loose, histo_WJets_QCD_tight,
         1.0 + ewk_rel_unc
     )
     h_lo_dn, h_ti_dn = make_scaled_ewk_sub(
-        histo_DATA_QCD_loose, histo_DATA_QCD_tight,
-        histo_DY_QCD_loose,   histo_DY_QCD_tight,
+        histo_DATA_QCD_loose,  histo_DATA_QCD_tight,
+        histo_DY_QCD_loose,    histo_DY_QCD_tight,
         histo_WJets_QCD_loose, histo_WJets_QCD_tight,
         1.0 - ewk_rel_unc
     )
@@ -286,7 +286,7 @@ if __name__ == '__main__':
             fake_rate_histo_EWKcorr.SetBinContent(pt_bin,eta_bin+1,fake_rate_EWKsub)
             fake_rate_histo_EWKcorr.SetBinError(pt_bin,eta_bin+1,fake_rate_EWKsub_error)
             
-            # --- Separate EWK ±5% shapes ---
+            # Histograms for EWK subtraction uncertainty estimation
             ibin = pt_bin + pt_bins*eta_bin
             N_up = h_ti_up.GetBinContent(ibin)
             D_up = h_lo_up.GetBinContent(ibin)
