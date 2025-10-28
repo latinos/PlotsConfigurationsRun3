@@ -64,22 +64,53 @@ public:
 
   map_dict fake_rate_reader_map_;
 
-  TH2F* fake_rate_muon_10_, fake_rate_muon_10EWKUp_, fake_rate_muon_10EWKDown_;
-  TH2F* fake_rate_muon_15_, fake_rate_muon_15EWKUp_, fake_rate_muon_15EWKDown_;
-  TH2F* fake_rate_muon_20_, fake_rate_muon_20EWKUp_, fake_rate_muon_20EWKDown_;
-  TH2F* fake_rate_muon_25_, fake_rate_muon_25EWKUp_, fake_rate_muon_25EWKDown_;
-  TH2F* fake_rate_muon_30_, fake_rate_muon_30EWKUp_, fake_rate_muon_30EWKDown_;
-  TH2F* fake_rate_muon_35_, fake_rate_muon_35EWKUp_, fake_rate_muon_35EWKDown_;
-  TH2F* fake_rate_muon_40_, fake_rate_muon_40EWKUp_, fake_rate_muon_40EWKDown_;
-  TH2F* fake_rate_muon_45_, fake_rate_muon_45EWKUp_, fake_rate_muon_45EWKDown_;
-  TH2F* fake_rate_ele_20_,  fake_rate_ele_20EWKUp_,  fake_rate_ele_20EWKDown_;
-  TH2F* fake_rate_ele_25_,  fake_rate_ele_25EWKUp_,  fake_rate_ele_25EWKDown_;
-  TH2F* fake_rate_ele_30_,  fake_rate_ele_30EWKUp_,  fake_rate_ele_30EWKDown_;
-  TH2F* fake_rate_ele_35_,  fake_rate_ele_35EWKUp_,  fake_rate_ele_35EWKDown_;
-  TH2F* fake_rate_ele_40_,  fake_rate_ele_40EWKUp_,  fake_rate_ele_40EWKDown_;
-  TH2F* fake_rate_ele_45_,  fake_rate_ele_45EWKUp_,  fake_rate_ele_45EWKDown_;
+  TH2F* fake_rate_muon_10_;        
+  TH2F* fake_rate_muon_15_;        
+  TH2F* fake_rate_muon_20_;        
+  TH2F* fake_rate_muon_25_;        
+  TH2F* fake_rate_muon_30_;        
+  TH2F* fake_rate_muon_35_;        
+  TH2F* fake_rate_muon_40_;        
+  TH2F* fake_rate_muon_45_;        
+  TH2F* fake_rate_muon_10EWKUp_;   
+  TH2F* fake_rate_muon_15EWKUp_;   
+  TH2F* fake_rate_muon_20EWKUp_;   
+  TH2F* fake_rate_muon_25EWKUp_;   
+  TH2F* fake_rate_muon_30EWKUp_;   
+  TH2F* fake_rate_muon_35EWKUp_;   
+  TH2F* fake_rate_muon_40EWKUp_;   
+  TH2F* fake_rate_muon_45EWKUp_;   
+  TH2F* fake_rate_muon_10EWKDown_; 
+  TH2F* fake_rate_muon_15EWKDown_; 
+  TH2F* fake_rate_muon_20EWKDown_; 
+  TH2F* fake_rate_muon_25EWKDown_; 
+  TH2F* fake_rate_muon_30EWKDown_; 
+  TH2F* fake_rate_muon_35EWKDown_; 
+  TH2F* fake_rate_muon_40EWKDown_; 
+  TH2F* fake_rate_muon_45EWKDown_; 
+
+  TH2F* fake_rate_ele_20_;         
+  TH2F* fake_rate_ele_25_;         
+  TH2F* fake_rate_ele_30_;         
+  TH2F* fake_rate_ele_35_;         
+  TH2F* fake_rate_ele_40_;         
+  TH2F* fake_rate_ele_45_;         
+  TH2F* fake_rate_ele_20EWKUp_;    
+  TH2F* fake_rate_ele_25EWKUp_;    
+  TH2F* fake_rate_ele_30EWKUp_;    
+  TH2F* fake_rate_ele_35EWKUp_;    
+  TH2F* fake_rate_ele_40EWKUp_;    
+  TH2F* fake_rate_ele_45EWKUp_;    
+  TH2F* fake_rate_ele_20EWKDown_;  
+  TH2F* fake_rate_ele_25EWKDown_;  
+  TH2F* fake_rate_ele_30EWKDown_;  
+  TH2F* fake_rate_ele_35EWKDown_;  
+  TH2F* fake_rate_ele_40EWKDown_;  
+  TH2F* fake_rate_ele_45EWKDown_; 
+
   TH2F* prompt_rate_muon_;
   TH2F* prompt_rate_ele_;
+
   int   isTight_[3];
 
   float operator()(RVecI Lepton_pdgId,
@@ -132,7 +163,7 @@ public:
       
       
       // Calculate the per-event fake rate - EleUp
-      if (kind_ == "EleUp"){
+      else if (kind_ == "EleUp"){
         float fakeWeight_2l0jElUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											 fake_rate_ele_45_, fake_rate_muon_20_, "Nominal");
@@ -158,7 +189,7 @@ public:
       
       
       // Calculate the per-event fake rate - EleDown
-      if (kind_ == "EleDown"){
+      else if (kind_ == "EleDown"){
         float fakeWeight_2l0jElDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											   fake_rate_ele_25_, fake_rate_muon_20_, "Nominal");
@@ -184,7 +215,7 @@ public:
       
       
       // Calculate the per-event fake rate - MuUp
-      if (kind_ == "MuUp"){
+      else if (kind_ == "MuUp"){
         float fakeWeight_2l0jMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											 fake_rate_ele_35_, fake_rate_muon_30_, "Nominal");
@@ -210,7 +241,7 @@ public:
       
       
       // Calculate the per-event fake rate - MuDown
-      if (kind_ == "MuDown"){
+      else if (kind_ == "MuDown"){
         float fakeWeight_2l0jMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 											   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 											   fake_rate_ele_35_, fake_rate_muon_10_, "Nominal");
@@ -236,7 +267,7 @@ public:
       
       
       // Calculate the per-event fake rate - StatEleUp
-      if (kind_ == "StatEleUp"){
+      else if (kind_ == "StatEleUp"){
         float fakeWeight_2l0jstatElUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												 fake_rate_ele_35_, fake_rate_muon_20_, "ElUp");
@@ -262,7 +293,7 @@ public:
       
       
       // Calculate the per-event fake rate - StatEleDown
-      if (kind_ == "StatEleDown"){
+      else if (kind_ == "StatEleDown"){
         float fakeWeight_2l0jstatElDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												   fake_rate_ele_35_, fake_rate_muon_20_, "ElDown");
@@ -288,7 +319,7 @@ public:
       
       
       // Calculate the per-event fake rate - StatMuUp
-      if (kind_ == "StatMuUp"){
+      else if (kind_ == "StatMuUp"){
         float fakeWeight_2l0jstatMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												 fake_rate_ele_35_, fake_rate_muon_20_, "MuUp");
@@ -314,7 +345,7 @@ public:
       
       
       // Calculate the per-event fake rate - StatMuDown
-      if (kind_ == "StatMuDown"){
+      else if (kind_ == "StatMuDown"){
         float fakeWeight_2l0jstatMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
 												   fake_rate_ele_35_, fake_rate_muon_20_, "MuDown");
@@ -339,7 +370,7 @@ public:
       }
       
       // Calculate the per-event fake rate - EWKEleUp
-      if (kind_ == "EWKEleUp"){
+      else if (kind_ == "EWKEleUp"){
 
 		float fakeWeight_2l0jEWKEleUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												 Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -365,7 +396,7 @@ public:
       }
 
       // Calculate the per-event fake rate - EWKEleDown
-      if (kind_ == "EWKEleDown"){
+      else if (kind_ == "EWKEleDown"){
 
 		float fakeWeight_2l0jEWKEleDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												   Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -391,7 +422,7 @@ public:
       }
 	  
       // Calculate the per-event fake rate - EWKMuUp
-      if (kind_ == "EWKMuUp"){
+      else if (kind_ == "EWKMuUp"){
 
 		float fakeWeight_2l0jEWKMuUp = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -417,7 +448,7 @@ public:
       }
 	  
       // Calculate the per-event fake rate - EWKMuDown
-      if (kind_ == "EWKMuDown"){
+      else if (kind_ == "EWKMuDown"){
 		
 		float fakeWeight_2l0jEWKMuDown = GetFR_2l(Lepton_pt[0], Lepton_eta[0], Lepton_pdgId[0], isTight_[0],
 												  Lepton_pt[1], Lepton_eta[1], Lepton_pdgId[1], isTight_[1],
@@ -654,6 +685,8 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
   TString fake_muon_file_name_40 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet40.root";
   TString fake_muon_file_name_45 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight_HWWW_tthmva_" + muon_WP + "/MuonFR_jet45.root";
 
+  std::cout << "Input files are in: " << fake_muon_file_name_10 << std::endl;
+  
   if (year_ == "2016_HIPM" || year_ == "2016_noHIPM"){
     fake_muon_file_name_10 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet10.root";
     fake_muon_file_name_15 = mkShapesRDF_base + "/data/fakerate/" + year + "/cut_Tight80x_tthmva_" + muon_WP + "/MuonFR_jet15.root";
@@ -684,7 +717,7 @@ fake_rate_reader::fake_rate_reader( TString year , TString ele_WP, TString muon_
   fake_rate_muon_10_        = (TH2F*) f_muon_10 -> Get("FR_pT_eta_EWKcorr");
   fake_rate_muon_10EWKUp_   = (TH2F*) f_muon_10 -> Get("FR_pT_eta_EWKcorr_EWK5Up");
   fake_rate_muon_10EWKDown_ = (TH2F*) f_muon_10 -> Get("FR_pT_eta_EWKcorr_EWK5Down");
-  
+
   TFile* f_muon_15          = new TFile(fake_muon_file_name_15);
   fake_rate_muon_15_        = (TH2F*) f_muon_15 -> Get("FR_pT_eta_EWKcorr");
   fake_rate_muon_15EWKUp_   = (TH2F*) f_muon_15 -> Get("FR_pT_eta_EWKcorr_EWK5Up");
