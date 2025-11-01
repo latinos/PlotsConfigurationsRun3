@@ -44,6 +44,15 @@ if [ $FINAL_STATE == FullRun2 ]; then
 	RANGES=r_WH=-10,10
 	NAME=${FINAL_STATE}_WH_strength
 
+# Full Run 2 WHSS
+elif [ $FINAL_STATE == FullRun2_WHSS ]; then
+
+	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_WHSS_high_pt_binning_WH_strength.root
+	POI=r_WH
+	PARAMETERS=r_WH=1,r_higgs=1
+	RANGES=r_WH=-10,10
+	NAME=${FINAL_STATE}_WH_strength
+
 # Full 2018
 elif [ $FINAL_STATE == Full2018 ]; then
 
@@ -106,7 +115,7 @@ if [ $PLOT == True ]; then
 	
 	combineTool.py -M CollectGoodnessOfFit --input GoF/higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120.root GoF/higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120.toys.root -m 120.0 -o GoF/GoF_${FINAL_STATE}.json
 	
-	plotGof.py GoF/GoF_${FINAL_STATE}.json --statistic saturated --mass 120.0 -o GoF/GoF_${FINAL_STATE} --title-right=${FINAL_STATE} --range 0 1000
+	plotGof.py GoF/GoF_${FINAL_STATE}.json --statistic saturated --mass 120.0 -o GoF/GoF_${FINAL_STATE} --title-right=${FINAL_STATE} --range 0 500
 	
 	echo "Cleaning ..."
 
@@ -122,9 +131,9 @@ else
 	### Fit on data and 100 toys
 	cd GoF/
 	
-	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --stepSize 0.01 --cminDefaultMinimizerTolerance 0.01 --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
 		
-	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:199:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
+	combineTool.py -M GoodnessOfFit ${WORKSPACE} --algo=saturated -t 1 -s 0:199:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' --setParameters ${PARAMETERS} --setParameterRanges ${RANGES} --redefineSignalPOIs ${POI} --freezeParameters r_higgs --stepSize 0.01 --cminDefaultMinimizerTolerance 0.01 --cminPreScan --cminPreFit 2 --cminDefaultMinimizerStrategy 0 -n $FINAL_STATE
 
 		
 	# Modify the sh file in order to submit 100 jobs running 10 toys each

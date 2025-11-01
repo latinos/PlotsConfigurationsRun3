@@ -4,6 +4,8 @@ then
 	echo "$0: Missing arguments. Please specify the final state:"
 	echo ""
 	echo "bash do_fit_unblind.sh FullRun2_high_pt"
+	echo "bash do_fit_unblind.sh FullRun2_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh FullRun2_WH3l"
 	echo ""
 	echo "bash do_fit_unblind.sh Full2018_high_pt"
 	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt"
@@ -46,6 +48,23 @@ if [ $FINAL_STATE == FullRun2_high_pt ]; then
 			--output_name   Combination/FitResults_FullRun2_high_pt_binning_unblind.txt \
 			--freeze_nuisances r_higgs
 
+elif [ $FINAL_STATE == FullRun2_WHSS_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_FullRun2_v9_WHSS_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_FullRun2_v9_WHSS_high_pt_binning \
+			--output_name   Combination/FitResults_FullRun2_WHSS_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == FullRun2_WH3l ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_FullRun2_v9_WH3l_binning \
+			--output_name   Combination/FitResults_FullRun2_WH3l_binning_unblind.txt \
+			--freeze_nuisances r_higgs
 
 #################
 ### Full 2018 ###
@@ -185,6 +204,8 @@ else
 	echo "I still don't know this final state. Here is the list of the available final states:"
 	echo ""
 	echo "bash do_fit_unblind.sh FullRun2_high_pt"
+	echo "bash do_fit_unblind.sh FullRun2_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh FullRun2_WH3l"
 	echo ""
 	echo "bash do_fit_unblind.sh Full2018_high_pt"
 	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt"
