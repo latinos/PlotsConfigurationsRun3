@@ -61,183 +61,42 @@ nuisances['lumi_Correlated_Run2'] = {
 #### FAKES
 
 # Overall 30% normalization
-# nuisances['fake_syst_2j'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_2j_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_ee' : '1.3',
-#         'Fake_em' : '1.3',
-#         'Fake_mm' : '1.3',
-#     },
-#     'cuts'    : [cut for cut in cuts if '2j' in cut ],
-# }
+channels = ['ee', 'em', 'mm']
+jet_bins = ['2j', '1j']
+charges  = ['plus','minus']
+cut_name = {
+    'ee' : 'ee',
+    'em' : 'em',
+    'mm' : 'noZveto_mm',
+}
 
-# nuisances['fake_syst_1j'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_1j_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_ee' : '1.3',
-#         'Fake_em' : '1.3',
-#         'Fake_mm' : '1.3',
-#     },
-#     'cuts'    : [cut for cut in cuts if '1j' in cut ],
-# }
+for channel in channels:
+    # for jet_bin in jet_bins:
+    # for charge in charges:
+        nuisances[f'fake_syst_{channel}'] = {
+            'name'    : f'CMS_WH_hww_fake_syst_{channel}_2016HIPM',
+            'kind'    : 'weight',
+            'type'    : 'lnN',
+            'samples' : {
+                f'Fake_{channel}' : '1.3',
+            },
+            'cuts'    : [cut for cut in cuts if f'_{channel}_' in cut]
+        }
 
-nuisances['fake_syst_ee_2j'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_2j_2016',
+# 2-jets mm plus additional uncertainty from closure
+nuisances[f'fake_syst_mm_2j'] = {
+    'name'    : f'CMS_WH_hww_fake_syst_mm_2j_plus_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : {
-        'Fake_ee' : '1.3',
+        f'Fake_mm' : '1.3',
     },
-    'cuts'    : [
-        'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
-    ],
+    'cuts'    : ['hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20']
 }
 
-# nuisances['fake_syst_ee_2j_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_ee_2j_minus_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_ee' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
-#     ],
-# }
-
-nuisances['fake_syst_em_2j'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_2j_2016',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake_em' : '1.3',
-    },
-    'cuts'    : [
-        'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
-    ],
-}
-
-# nuisances['fake_syst_em_2j_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_em_2j_minus_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_em' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
-#     ],
-# }
-
-nuisances['fake_syst_mm_2j'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_2j_2016',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake_mm' : '1.3',
-    },
-    'cuts'    : [
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
-    ]
-}
-
-# nuisances['fake_syst_mm_2j_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_mm_2j_minus_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
-#     ]
-# }
-
-nuisances['fake_syst_ee_1j'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_1j_2016',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake_ee' : '1.3',
-    },
-    'cuts'    : [
-        'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
-    ],
-}
-
-# nuisances['fake_syst_ee_1j_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_ee_1j_minus_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_ee' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
-#     ],
-# }
-
-nuisances['fake_syst_em_1j'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_1j_2016',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake_em' : '1.3',
-    },
-    'cuts'    : [
-        'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
-    ],
-}
-
-# nuisances['fake_syst_em_1j_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_em_1j_minus_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_em' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
-#     ],
-# }
-
-nuisances['fake_syst_mm_1j'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_1j_2016',
-    'kind'    : 'weight',
-    'type'    : 'lnN',
-    'samples' : {
-        'Fake_mm' : '1.3',
-    },
-    'cuts'    : [
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
-        'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
-    ]
-}
-
-# nuisances['fake_syst_mm_1j_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_mm_1j_minus_2016',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
-#     ]
-# }
-
-# Statistical and systematic uncertainty on the fake rates
+# Statistical and systematic uncertainties on the fake rates
 nuisances['fake_ele'] = {
-    'name'    : 'CMS_WH_hww_fake_e_2016',
+    'name'    : 'CMS_WH_hww_fake_e_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -245,8 +104,9 @@ nuisances['fake_ele'] = {
         'Fake_em' : ['fakeWEleUp', 'fakeWEleDown'],
     }
 }
+
 nuisances['fake_ele_stat'] = {
-    'name'    : 'CMS_WH_hww_fake_stat_e_2016',
+    'name'    : 'CMS_WH_hww_fake_stat_e_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -255,22 +115,43 @@ nuisances['fake_ele_stat'] = {
     }
 }
 
+nuisances['fake_ele_EWK'] = {
+    'name'    : 'CMS_WH_hww_fake_EWK_sub_e_2016HIPM',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_ee' : ['fakeWEWKEleUp', 'fakeWEWKEleDown'],
+        'Fake_em' : ['fakeWEWKEleUp', 'fakeWEWKEleDown'],
+    }
+}
+
 nuisances['fake_mu'] = {
-    'name'    : 'CMS_WH_hww_fake_m_2016',
+    'name'    : 'CMS_WH_hww_fake_m_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
         'Fake_mm' : ['fakeWMuUp', 'fakeWMuDown'],
         'Fake_em' : ['fakeWMuUp', 'fakeWMuDown'],
     }   
-}       
+}
+
 nuisances['fake_mu_stat'] = {
-    'name'    : 'CMS_WH_hww_fake_stat_m_2016',
+    'name'    : 'CMS_WH_hww_fake_stat_m_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
         'Fake_mm' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
         'Fake_em' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+    }
+}
+
+nuisances['fake_mu_EWK'] = {
+    'name'    : 'CMS_WH_hww_fake_EWK_sub_m_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_ee' : ['fakeWEWKMuUp', 'fakeWEWKMuDown'],
+        'Fake_em' : ['fakeWEWKMuUp', 'fakeWEWKMuDown'],
     }
 }
 
@@ -458,7 +339,7 @@ nuisances['UE_CP5']  = {
 
 # Charge flip efficiency
 nuisances['chargeFlipEff'] = {
-    'name'    : 'CMS_whss_chargeFlipEff_2016',
+    'name'    : 'CMS_whss_chargeFlipEff_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : dict((skey, ['1-ttHMVA_eff_err_flip_2l', '1+ttHMVA_eff_err_flip_2l']) for skey in ['DY','ChargeFlip']),
@@ -467,7 +348,7 @@ nuisances['chargeFlipEff'] = {
 
 # Charge flip: uncertainty on opposite sign processes not affected by charge-flip
 nuisances['chargeFlip_syst'] = {
-    'name'    : 'CMS_ChargeFlip_syst_2016',
+    'name'    : 'CMS_ChargeFlip_syst_2016HIPM',
     'type'    : 'lnN',
     'samples' : {
         'ChargeFlip' : '1.10',
@@ -488,7 +369,7 @@ nuisances['TopPtRew'] = {
 
 # Vg and VgS scale uncertainty
 nuisances['VgStarScale2j'] = {
-    'name'    : 'CMS_hww_VgStarScale2j_2016',
+    'name'    : 'CMS_hww_VgStarScale2j_2016HIPM',
     'type'    : 'lnN',
     'samples' : {
         'VgS' : '1.25'
@@ -497,7 +378,7 @@ nuisances['VgStarScale2j'] = {
 }
 
 nuisances['VgScale2j'] = {
-    'name'    : 'CMS_hww_VgScale2j_2016',
+    'name'    : 'CMS_hww_VgScale2j_2016HIPM',
     'type'    : 'lnN',
     'samples' : {
         'Vg' : '1.25'
@@ -506,7 +387,7 @@ nuisances['VgScale2j'] = {
 }
 
 nuisances['VgStarScale1j'] = {
-    'name'    : 'CMS_hww_VgStarScale1j_2016',
+    'name'    : 'CMS_hww_VgStarScale1j_2016HIPM',
     'type'    : 'lnN',
     'samples' : {
         'VgS' : '1.25'
@@ -515,7 +396,7 @@ nuisances['VgStarScale1j'] = {
 }
 
 nuisances['VgScale1j'] = {
-    'name'    : 'CMS_hww_VgScale1j_2016',
+    'name'    : 'CMS_hww_VgScale1j_2016HIPM',
     'type'    : 'lnN',
     'samples' : {
         'Vg' : '1.25'
@@ -755,7 +636,7 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 
 # WZ normalization from control region
 nuisances['WZ2jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l2jnorm_2016',
+    'name'    : 'CMS_hww_WZ3l2jnorm_2016HIPM',
     'samples' : {
         'WZ' : '1.00',
     },
@@ -764,7 +645,7 @@ nuisances['WZ2jnorm']  = {
 }
 
 nuisances['WZ1jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l1jnorm_2016',
+    'name'    : 'CMS_hww_WZ3l1jnorm_2016HIPM',
     'samples' : {
         'WZ' : '1.00',
     },
@@ -828,7 +709,7 @@ nuisances['WZ1jnorm']  = {
 
 # 2 jets plus
 nuisances['charge_2j_plus_ee'] = {
-    'name'    : 'CMS_WH_hww_charge_2j_plus_ee_2016',
+    'name'    : 'CMS_WH_hww_charge_2j_plus_ee_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
@@ -838,7 +719,7 @@ nuisances['charge_2j_plus_ee'] = {
 }
 
 nuisances['charge_2j_plus_em'] = {
-    'name'    : 'CMS_WH_hww_charge_2j_plus_em_2016',
+    'name'    : 'CMS_WH_hww_charge_2j_plus_em_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
@@ -848,7 +729,7 @@ nuisances['charge_2j_plus_em'] = {
 }
 
 nuisances['charge_2j_plus_mm'] = {
-    'name'    : 'CMS_WH_hww_charge_2j_plus_mm_2016',
+    'name'    : 'CMS_WH_hww_charge_2j_plus_mm_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
@@ -891,7 +772,7 @@ nuisances['charge_2j_plus_mm'] = {
 
 # 1 jet plus
 nuisances['charge_1j_plus_ee'] = {
-    'name'    : 'CMS_WH_hww_charge_1j_plus_ee_2016',
+    'name'    : 'CMS_WH_hww_charge_1j_plus_ee_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
@@ -901,7 +782,7 @@ nuisances['charge_1j_plus_ee'] = {
 }
 
 nuisances['charge_1j_plus_em'] = {
-    'name'    : 'CMS_WH_hww_charge_1j_plus_em_2016',
+    'name'    : 'CMS_WH_hww_charge_1j_plus_em_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
@@ -911,7 +792,7 @@ nuisances['charge_1j_plus_em'] = {
 }
 
 nuisances['charge_1j_plus_mm'] = {
-    'name'    : 'CMS_WH_hww_charge_1j_plus_mm_2016',
+    'name'    : 'CMS_WH_hww_charge_1j_plus_mm_2016HIPM',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),

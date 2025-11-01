@@ -59,69 +59,6 @@ nuisances['lumi_Correlated_Run2'] = {
 
 
 #### FAKES
-fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.4) +     1.3*(abs(Lepton_eta[1])>1.4)',
-                    '1.0*(abs(Lepton_eta[1])<=1.4) + 1.0/1.3*(abs(Lepton_eta[1])>1.4)']
-
-fake_syst_barrel = ['    1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)',
-                    '1.0/1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
-
-nuisances['fake_syst_mm_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-nuisances['fake_syst_mm_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-
-nuisances['fake_syst_em_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-nuisances['fake_syst_em_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-
-nuisances['fake_syst_ee_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-nuisances['fake_syst_ee_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-
 nuisances['fake_ele'] = {
     'name'    : 'CMS_WH_hww_fake_e_2016',
     'kind'    : 'weight',
