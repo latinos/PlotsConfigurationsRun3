@@ -59,11 +59,11 @@ nuisances['lumi_Correlated_Run2'] = {
 
 
 #### FAKES
-fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.4) +     1.3*(abs(Lepton_eta[1])>1.4)',
-                    '1.0*(abs(Lepton_eta[1])<=1.4) + 1.0/1.3*(abs(Lepton_eta[1])>1.4)']
+fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1])>1.479)',
+                    '1.0*(abs(Lepton_eta[1])<=1.479) + 1.0/1.1*(abs(Lepton_eta[1])>1.479)']
 
-fake_syst_barrel = ['    1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)',
-                    '1.0/1.3*(abs(Lepton_eta[1])<=1.4) + 1.0*(abs(Lepton_eta[1])>1.4)']
+fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
+                    '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
 
 nuisances['fake_syst_barrel'] = {
     'name'    : 'CMS_WH_hww_fake_syst_barrel',
@@ -82,6 +82,17 @@ nuisances['fake_syst_endcap'] = {
     },
 }
 
+# Overall 30% normalization
+nuisances['fake_syst'] = {
+    'name'    : 'CMS_WH_hww_fake_syst_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        'Fake' : '1.3',
+    },
+}
+
+# Statistical and systematic uncertainty on the fake rates
 nuisances['fake_ele'] = {
     'name'    : 'CMS_WH_hww_fake_e_2016',
     'kind'    : 'weight',
@@ -98,6 +109,7 @@ nuisances['fake_ele_stat'] = {
         'Fake' : ['fakeWStatEleUp', 'fakeWStatEleDown']
     }
 }
+
 nuisances['fake_mu'] = {
     'name'    : 'CMS_WH_hww_fake_m_2016',
     'kind'    : 'weight',
@@ -549,31 +561,6 @@ nuisances['WZ3lnorm']  = {
         'wh3l_13TeV_sssf_plus',
         'wh3l_13TeV_sssf_minus',
         'wh3l_wz_13TeV',
-    ]
-}
-
-# Fakes normalization from control region
-nuisances['Nonprompt2lnorm_plus']  = {
-    'name'    : 'CMS_hww_Nonprompt2lnorm_plus',
-    'samples' : {
-        'Fake' : '1.00',
-    },
-    'type'  : 'rateParam',
-    'cuts'  : [
-        'wh3l_13TeV_ossf_plus',
-        'wh3l_13TeV_sssf_plus',
-    ]
-}
-
-nuisances['Nonprompt2lnorm_minus']  = {
-    'name'    : 'CMS_hww_Nonprompt2lnorm_minus',
-    'samples' : {
-        'Fake' : '1.00',
-    },
-    'type'  : 'rateParam',
-    'cuts'  : [
-        'wh3l_13TeV_ossf_minus',
-        'wh3l_13TeV_sssf_minus',
     ]
 }
 

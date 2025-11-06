@@ -2,8 +2,12 @@
 
 import sys,inspect
 
-# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2017_v9/WHSS/configuration_1j_mm
+# Site definition
+site = 'cern'
+if any(machine in os.uname()[1] for machine in ['portal','bms']):
+    site = 'kit'
 
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2017_v9/WHSS/configuration_1j_mm
 configurations_nuisance = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 configurations_nuisance = os.path.dirname(configurations_nuisance) # configuration_1j_mm
 configurations_nuisance = os.path.dirname(configurations_nuisance) # WHSS
@@ -20,7 +24,9 @@ runnerFile = "default"
 outputFile = "plots_WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90_DYflip_data.root" # "mkShapes__{}.root".format(tag)
 
 # Path to ouput folder
-outputFolder = "../../../../../../../../../../../../../eos/user/n/ntrevisa/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+if site == 'kit':
+    outputFolder = '/ceph/' + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 
 # Path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -28,10 +34,10 @@ batchFolder = "condor"
 # Path to configuration folder (will contain all the compiled configuration files)
 configsFolder = "configs"
 
-# Luminosity to normalize to (in 1/fb)
-# https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L868 (874)
-#  59.832475339
-lumi = 59.83
+# luminosity to normalize to (in 1/fb)
+# https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/TrigMaker_cfg.py#L514 (519, 589, 660, 729, 798)
+# 4.803371586 + 9.574029838 + 4.247792714 + 9.314581016 + 13.53990537 = 41.479680524
+lumi = 41.48
 
 # File with dict of aliases to define
 aliasesFile = "../aliases.py"

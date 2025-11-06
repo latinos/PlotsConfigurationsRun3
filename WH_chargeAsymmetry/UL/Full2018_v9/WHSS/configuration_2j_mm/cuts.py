@@ -18,14 +18,14 @@ preselections = 'mll>12  \
 
 # mu-mu
 cuts['hww2l2v_13TeV_WH_SS_noZveto_mm_2j'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) && nLepton==2 && Alt(CleanJet_pt,0,0)>30 && Alt(CleanJet_pt,1,0)>30 && mjj < 100 && mlljj20_whss > 50.',
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) && nLepton==2 && Alt(CleanJet_pt,0,0)>30 && Alt(CleanJet_pt,1,0)>30 && mjj < 400 && mlljj20_whss > 50.',
     'categories' : {
         # Sub-leading lepton pT >= 20 GeV
         'plus_pt2ge20'  : 'Lepton_pdgId[0] == -13 && Lepton_pdgId[1] == -13 && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',
         'minus_pt2ge20' : 'Lepton_pdgId[0] == +13 && Lepton_pdgId[1] == +13 && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',
-        # Sub-leading lepton pT < 20 GeV
-        'plus_pt2lt20'  : 'Lepton_pdgId[0] == -13 && Lepton_pdgId[1] == -13 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',
-        'minus_pt2lt20' : 'Lepton_pdgId[0] == +13 && Lepton_pdgId[1] == +13 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',
+        # # Sub-leading lepton pT < 20 GeV
+        # 'plus_pt2lt20'  : 'Lepton_pdgId[0] == -13 && Lepton_pdgId[1] == -13 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',
+        # 'minus_pt2lt20' : 'Lepton_pdgId[0] == +13 && Lepton_pdgId[1] == +13 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',
     }
 }
 

@@ -35,98 +35,105 @@ aliases['LepWPSF'] = {
 
 # ttHMVA SFs and uncertainties
 aliases['LepWPttHMVASF'] = {
-    'linesToAdd'     : ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH = ttHMVASF(\"2017\", 3, \"all\", \"nominal\");')"],
     'expr'           : 'ttH(Lepton_pt, Lepton_eta, Lepton_pdgId)',
     'samples'        : mc
 }
 
 aliases['LepWPttHMVASFEleUp'] = {
-    'linesToAdd'     : ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_EleUp = ttHMVASF(\"2017\", 3, \"all\", \"eleUp\");')"],
     'expr'           : 'ttH_EleUp(Lepton_pt, Lepton_eta, Lepton_pdgId)',
     'samples'        : mc
 }
 aliases['LepWPttHMVASFEleDown'] = {
-    'linesToAdd'     : ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_EleDown = ttHMVASF(\"2017\", 3, \"all\", \"eleDown\");')"],
     'expr'           : 'ttH_EleDown(Lepton_pt, Lepton_eta, Lepton_pdgId)',
     'samples'        : mc
 }
 
 aliases['LepWPttHMVASFMuUp'] = {
-    'linesToAdd'     : ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_MuUp = ttHMVASF(\"2017\", 3, \"all\", \"muUp\");')"],
     'expr'           : 'ttH_MuUp(Lepton_pt, Lepton_eta, Lepton_pdgId)',
     'samples'        : mc
 }
 aliases['LepWPttHMVASFMuDown'] = {
-    'linesToAdd'     : ['#include "%s/macros/ttHMVASF_class.cc"' % configurations],
+    'linesToAdd'     : [f'#include "{configurations}/macros/ttHMVASF_class.cc"'],
     'linesToProcess' : ["ROOT.gInterpreter.Declare('ttHMVASF ttH_MuDown = ttHMVASF(\"2017\", 3, \"all\", \"muDown\");')"],
     'expr'           : 'ttH_MuDown(Lepton_pt, Lepton_eta, Lepton_pdgId)',
     'samples'        : mc
 }
 
 
+# Conept
+aliases['Lepton_conept'] = {
+    'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
+    'linesToAdd': [f'#include "{configurations}/macros/LeptonConePt_class.cc"'],
+    'samples': mc + ['Fake', 'DATA', 'DATA_unprescaled']
+}
+
 # Fake leptons transfer factor
 aliases['fakeW'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"nominal\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"nominal\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
 
 # And variations - already divided by central values in formulas !
 aliases['fakeWEleUp'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EleUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"EleUp\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_EleUp(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EleUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"EleUp\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_EleUp(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 aliases['fakeWEleDown'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EleDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"EleDown\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_EleDown(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EleDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"EleDown\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_EleDown(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 
 aliases['fakeWMuUp'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_MuUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"MuUp\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_MuUp(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_MuUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"MuUp\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_MuUp(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 aliases['fakeWMuDown'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_MuDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"MuDown\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_MuDown(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_MuDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"MuDown\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_MuDown(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 
 aliases['fakeWStatEleUp'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatEleUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatEleUp\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_StatEleUp(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatEleUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatEleUp\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_StatEleUp(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 aliases['fakeWStatEleDown'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatEleDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatEleDown\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_StatEleDown(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatEleDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatEleDown\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_StatEleDown(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 
 aliases['fakeWStatMuUp'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatMuUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatMuUp\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_StatMuUp(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatMuUp = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatMuUp\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_StatMuUp(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 aliases['fakeWStatMuDown'] = {
-    'linesToAdd'     : ['#include "%s/macros/fake_rate_reader_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatMuDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatMuDown\", 3, \"std\", \"/afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/\");')"],
-    'expr': 'fr_reader_StatMuDown(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-        'samples'    : ['Fake']
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_StatMuDown = fake_rate_reader(\"2017\", \"90\", \"82\", 0.90, 0.82, \"StatMuDown\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_StatMuDown(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight_HWWW, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
 }
 
 # No jet with pt > 30 GeV
@@ -308,22 +315,22 @@ aliases['SFtriggDown'] = {
 
 # Evaluate BDT discriminants
 aliases['BDT_WH3l_OSSF_new_v9'] = {
-    'linesToAdd'     : ['#include "%s/macros/BDT_WH3l_OSSF_v9_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('BDT_WH3l_OSSF_v9 BDT_WH3l_OSSF = BDT_WH3l_OSSF_v9(\"BDTG4C3\",\"{0}/data/BDT/2017/WH3l/OSSF/weights/TMVAClassification_BDTG4C3.weights.xml\");')".format(configurations)],
+    'linesToAdd'     : [f'#include "{configurations}/macros/BDT_WH3l_OSSF_v9_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('BDT_WH3l_OSSF_v9 BDT_WH3l_OSSF = BDT_WH3l_OSSF_v9(\"BDTG4C3\",\"{configurations}/data/BDT/2017/WH3l/OSSF/weights/TMVAClassification_BDTG4C3.weights.xml\");')"],
     'expr'           : 'BDT_WH3l_OSSF(WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_ZVeto,WH3l_mtlmet,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt)',
     'samples'        : mc + ['DATA','Fake'],
 }
     
 aliases['BDT_WH3l_SSSF_new_v9'] = {
-    'linesToAdd'     : ['#include "%s/macros/BDT_WH3l_SSSF_v9_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('BDT_WH3l_SSSF_v9 BDT_WH3l_SSSF = BDT_WH3l_SSSF_v9(\"BDTG4C3\",\"{0}/data/BDT/2017/WH3l/SSSF/weights/TMVAClassification_BDTG4SK01_05shrinkage.weights.xml\");')".format(configurations)],
+    'linesToAdd'     : [f'#include "{configurations}/macros/BDT_WH3l_SSSF_v9_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('BDT_WH3l_SSSF_v9 BDT_WH3l_SSSF = BDT_WH3l_SSSF_v9(\"BDTG4C3\",\"{configurations}/data/BDT/2017/WH3l/SSSF/weights/TMVAClassification_BDTG4SK01_05shrinkage.weights.xml\");')"],
     'expr'           : 'BDT_WH3l_SSSF(WH3l_dphilllmet,WH3l_mOSll,WH3l_ptOSll,WH3l_drOSll,WH3l_dphilmet,WH3l_ptWWW,PuppiMET_pt,Lepton_pt)',
     'samples'        : mc + ['DATA','Fake'],
 }
 
 aliases['BDT_WHSS_TopSemileptonic_v9'] = {
-    'linesToAdd'     : ['#include "%s/macros/BDT_WHSS_TopSemileptonic_v9_class.cc"' % configurations],
-    'linesToProcess' : ["ROOT.gInterpreter.Declare('BDT_WHSS_TopSemileptonic_v9 BDT_WHSS = BDT_WHSS_TopSemileptonic_v9(\"BDTG_6\",\"{0}/data/BDT/2017/WHSS/weights/TMVAClassification_BDTG_6.weights.xml\");')".format(configurations)],
+    'linesToAdd'     : [f'#include "{configurations}/macros/BDT_WHSS_TopSemileptonic_v9_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('BDT_WHSS_TopSemileptonic_v9 BDT_WHSS = BDT_WHSS_TopSemileptonic_v9(\"BDTG_6\",\"{configurations}/data/BDT/2017/WHSS/weights/TMVAClassification_BDTG_6.weights.xml\");')"],
     'expr'           : 'BDT_WHSS(mll,mjj,mtw1,mtw2,ptll,mlljj20_whss,PuppiMET_pt,dphill,dphijj,dphillmet,dphilmet2,dphijet1met,CleanJet_pt,Jet_btagDeepB,CleanJet_jetIdx)',
     'samples'        : mc + ['DATA','Fake'],
 }

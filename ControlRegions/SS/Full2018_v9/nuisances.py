@@ -59,7 +59,9 @@ nuisances['lumi_Correlated_2017_2018'] = {
 }
 
 
-# Fakes
+### Fakes
+
+# Per lepton
 nuisances['fake_ele'] = {
     'name'    : 'CMS_WH_hww_fake_e_2018',
     'kind'    : 'weight',
@@ -70,15 +72,16 @@ nuisances['fake_ele'] = {
     }
 }
 
-# nuisances['fake_ele_stat'] = {
-#     'name'    : 'CMS_WH_hww_fake_stat_e_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'shape',
-#     'samples' : {
-#         'Fake_ee' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
-#         'Fake_em' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
-#     }
-# }
+nuisances['fake_ele_stat'] = {
+    'name'    : 'CMS_WH_hww_fake_stat_e_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_ee' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
+        'Fake_em' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
+    }
+}
+
 
 nuisances['fake_mu'] = {
     'name'    : 'CMS_WH_hww_fake_m_2018',
@@ -90,15 +93,90 @@ nuisances['fake_mu'] = {
     }   
 }       
 
-# nuisances['fake_mu_stat'] = {
-#     'name'    : 'CMS_WH_hww_fake_stat_m_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'shape',
-#     'samples' : {
-#         'Fake_mm' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
-#         'Fake_em' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
-#     }
-# }
+nuisances['fake_mu_stat'] = {
+    'name'    : 'CMS_WH_hww_fake_stat_m_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_mm' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+        'Fake_em' : ['fakeWStatMuUp', 'fakeWStatMuDown'],
+    }
+}
+
+
+# Normalization per final state
+jet_bins = ['0j','1j','2j']
+channels = ['ee', 'em', 'mm']
+charges  = ['plus', 'minus']
+
+eta_regimes = ['barrel', 'endcap']
+pt_regimes  = ['high', 'medium']
+
+fake_syst_dict = {
+    'endcap_medium_pt': ['1.0*(abs(Lepton_eta[1])<=1.479) + 1.0*(Lepton_pt[1]> 35) +     1.1*(abs(Lepton_eta[1])> 1.479 && Lepton_pt[1]<=35)',
+                         '1.0*(abs(Lepton_eta[1])<=1.479) + 1.0*(Lepton_pt[1]> 35) + 1.0/1.1*(abs(Lepton_eta[1])> 1.479 && Lepton_pt[1]<=35)'],
+    'barrel_medium_pt': ['1.0*(abs(Lepton_eta[1])> 1.479) + 1.0*(Lepton_pt[1]> 35) +     1.1*(abs(Lepton_eta[1])<=1.479 && Lepton_pt[1]<=35)',
+                         '1.0*(abs(Lepton_eta[1])> 1.479) + 1.0*(Lepton_pt[1]> 35) + 1.0/1.1*(abs(Lepton_eta[1])<=1.479 && Lepton_pt[1]<=35)'],
+    'endcap_high_pt'  : ['1.0*(abs(Lepton_eta[1])<=1.479) + 1.0*(Lepton_pt[1]<=35) +     1.1*(abs(Lepton_eta[1])> 1.479 && Lepton_pt[1]> 35)',
+                         '1.0*(abs(Lepton_eta[1])<=1.479) + 1.0*(Lepton_pt[1]<=35) + 1.0/1.1*(abs(Lepton_eta[1])> 1.479 && Lepton_pt[1]> 35)'],
+    'barrel_high_pt'  : ['1.0*(abs(Lepton_eta[1])> 1.479) + 1.0*(Lepton_pt[1]<=35) +     1.1*(abs(Lepton_eta[1])<=1.479 && Lepton_pt[1]> 35)',
+                         '1.0*(abs(Lepton_eta[1])> 1.479) + 1.0*(Lepton_pt[1]<=35) + 1.0/1.1*(abs(Lepton_eta[1])<=1.479 && Lepton_pt[1]> 35)'],   
+}
+
+for jet_bin in jet_bins:
+    for channel in channels:
+        for charge in charges:
+
+            nuisances[f'CMS_WH_hww_fake_syst_{jet_bin}_{channel}_{charge}']  = {
+                'name'    : f'CMS_WH_hww_fake_syst_{jet_bin}_{channel}_{charge}_2018',
+                'samples' : {
+                    f'Fake_{channel}' : '1.30',
+                },
+                'type'    : 'lnN',
+                'cuts'    : [
+                    f'hww2l2v_13TeV_WH_SS_{channel}_{jet_bin}_SS_CR_{charge}_pt2ge20',
+                ],
+            }
+
+            # for eta_regime in eta_regimes:
+            #     for pt_regime in pt_regimes:
+            #         nuisances[f'CMS_WH_hww_fake_syst_{eta_regime}_{pt_regime}_{channel}']  = {
+            #             'name'    : f'CMS_WH_hww_fake_syst_{eta_regime}_{pt_regime}_{channel}_2018',
+            #             'samples' : {
+            #                 f'Fake_{channel}' : f'{eta_regime}_{pt_regime}_pt',
+            #             },
+            #             'type'    : 'shape',
+            #             'cuts'    : [cut for cut in cuts if (f'_{channel}_' in cut)],
+            #         }
+            
+
+flavors  = ['sssf', 'ossf']
+
+for flavor in flavors:
+    for charge in charges:
+        
+        nuisances[f'CMS_WH_hww_fake_syst_{flavor}_{charge}']  = {
+            'name'    : f'CMS_WH_hww_fake_syst_{flavor}_{charge}_2018',
+            'samples' : {
+                'Fake' : '1.30',
+            },
+            'type'    : 'lnN',
+            'cuts'    : [
+                f'hww2l2v_13TeV_WH_3l_{flavor}_{charge}_pt2ge20',
+            ],
+        }
+        
+        # for eta_regime in eta_regimes:
+        #     for pt_regime in pt_regimes:
+        #         nuisances[f'CMS_WH_hww_fake_syst_{eta_regime}_{pt_regime}_{flavor}']  = {
+        #             'name'    : f'CMS_WH_hww_fake_syst_{eta_regime}_{pt_regime}_{flavor}_2018',
+        #             'samples' : {
+        #                 f'Fake' : f'{eta_regime}_{pt_regime}_pt',
+        #             },
+        #             'type'    : 'shape',
+        #             'cuts'    : [cut for cut in cuts if (f'_{flavor}_' in cut)],
+        #         }
+
 
 # ###### B-tagger
 

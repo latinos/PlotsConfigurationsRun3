@@ -78,6 +78,12 @@ aliases['dRl1j1'] = {
     'expr': 'CleanJet_pt[0] >= 10 ? TMath::Sqrt(dphilep1jet1*dphilep1jet1 + (Lepton_eta[0]-CleanJet_eta[0])*(Lepton_eta[0]-CleanJet_eta[0])) : -9999',
 }
 
+aliases['Lepton_conept'] = {
+    'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
+    'linesToAdd': [f'#include "{configurations}/../utils/macros/LeptonConePt_class.cc"'],
+    'samples': mc + ['DATA', 'DATA_unprescaled']
+}
+
 
 # # Lepton SF (not considering the ttHMVA discriminant)
 # aliases['LepWPSF'] = {

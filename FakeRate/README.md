@@ -2,6 +2,11 @@
 
 Configurations to estimate fake and prompt rates.
 
+### Run 2 Effective Luminosities
+
+You can find a summary of the Run 2 effective luminosities at this link:
+https://github.com/NTrevisani/FakeRateMeasurement/blob/master/certification/BRILCALC.md
+
 ### Run 3 Effective Luminosities
 
 Since we are using some pre-scaled triggers, we need to calculate their effective luminosities.

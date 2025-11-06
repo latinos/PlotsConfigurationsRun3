@@ -2,8 +2,12 @@
 
 import sys,inspect
 
-# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2018_v9/WHSS/configuration_2j_mm
+# Site definition
+site = 'cern'
+if any(machine in os.uname()[1] for machine in ['portal','bms']):
+    site = 'kit'
 
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/WH_chargeAsymmetry/UL/Full2018_v9/WHSS/configuration_2j_mm
 configurations_nuisance = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 configurations_nuisance = os.path.dirname(configurations_nuisance) # configuration_2j_mm
 configurations_nuisance = os.path.dirname(configurations_nuisance) # WHSS
@@ -20,7 +24,9 @@ runnerFile = "default"
 outputFile = "plots_WHSS_2018_v9_chargeAsymmetry_Mu82_EleUL90_DYflip_data.root" # "mkShapes__{}.root".format(tag)
 
 # Path to ouput folder
-outputFolder = "../../../../../../../../../../../../../eos/user/n/ntrevisa/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+if site == 'kit':
+    outputFolder = '/ceph/' + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 
 # Path to batch folder (used for condor submission)
 batchFolder = "condor"
