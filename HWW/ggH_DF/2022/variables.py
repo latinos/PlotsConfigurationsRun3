@@ -13,79 +13,54 @@ cuts2j = _mergedCuts
 variables = {}
 
 
-#variables['tree'] = {
-#    'tree' : {
-#        'nvtx' : 'PV_npvsGood',
-#        'mll' : 'mll',
-#        'mth' : 'mth',
-#        'ptll' : 'ptll',
-#        'drll' : 'drll',
-#        'dphill' : 'dphill',
-#        'pt1' : 'Lepton_pt[0]',
-#        'pt2' : 'Lepton_pt[1]',
-#        'eta1' : 'Lepton_eta[0]',
-#        'eta2' : 'Lepton_eta[1]',
-#        'phi1' : 'Lepton_phi[0]',
-#        'phi2' : 'Lepton_phi[1]',
-#        'puppimet' : 'PuppiMET_pt',
-#        'njet' : 'Sum(CleanJet_pt>30)',
-#        'jetpt1' : 'Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
-#        'jetpt2' : 'Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
-#        'jeteta1' : 'Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
-#        'jeteta2' : 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
-#        #'trig_syst_u' : 'TriggerSFWeight_2l_u/TriggerSFWeight_2l',
-#        #'trig_syst_d' : 'TriggerSFWeight_2l_d/TriggerSFWeight_2l',
-#        #'eff_e_u' : 'SFweightEleUp',
-#        #'eff_e_d' : 'SFweightEleDown',
-#        #'eff_m_u' : 'SFweightMuUp',
-#        #'eff_m_d' : 'SFweightMuDown', 
-#        #'PU' : '1.05',
-#        #'PS_ISR_d' : 'PSWeight[2]',
-#        #'PS_ISR_u' : 'PSWeight[0]',
-#        #'PS_FSR_d' : 'PSWeight[3]',
-#        #'PS_FSR_u' : 'PSWeight[1]',
-#        #'UE_CP5' : '1.015',
-#        #'QCDscale_1' : 'Alt(LHEScaleWeight,0,1)',
-#        #'QCDscale_6' : 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)'
-#    },
-#    'cuts' : ['hww_sr'],
-#    'blind' : dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-
-
-
-
 variables['events'] = {
     'name'  : '1',      
-    'range' : (1,0,2),  
+    'range' : (1,0,1),  
     'xaxis' : 'events', 
     'fold'  : 3,
     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 }
 
-variables['mllVSmth'] = {
+variables['mllVSmth01leq20'] = {
     'name'  : 'mll:mth',
-    'range' : ([12, 17, 25, 30, 35, 40, 45, 65, 200],[60, 95, 110, 135, 200],),
+    'range' : ([12, 25, 40, 50, 70, 90, 210],[60, 80, 90, 110, 130, 150, 200],),
     'xaxis' : 'm_{ll} : m_{T}^{H}',
     'fold'  : 3,
     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 }
 
-variables['snn_isSig']  = {   
-    'name': 'snn_SigVSBkg[0]',      
-    'range' : (10,0,1),
-    'xaxis' : 'SNN(isSig)', 
-    'fold' : 0,
+variables['mllVSmth01geq20'] = {
+    'name'  : 'mll:mth',
+    'range' : ([12, 25, 35, 40, 45, 50, 55, 70, 90, 210],[60, 80, 90, 100, 110, 120, 130, 150, 200],),
+    'xaxis' : 'm_{ll} : m_{T}^{H}',
+    'fold'  : 3,
     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 }
 
-#variables['sns_isSig']  = {
-#    'name': 'sns_SigVSBkg[0]',
+variables['mllVSmth2'] = {
+    'name'  : 'mll:mth',
+    'range' : ([12, 25, 40, 50, 70, 90, 210],[60, 80, 90, 110, 130, 150, 200],),
+    'xaxis' : 'm_{ll} : m_{T}^{H}',
+    'fold'  : 3,
+    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+}
+
+#variables['snn_isSig']  = {   
+#    'name': 'snn_SigVSBkg[0]',      
 #    'range' : (10,0,1),
-#    'xaxis' : 'SNS(isSig)',
+#    'xaxis' : 'SNN(isSig)', 
 #    'fold' : 0,
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
+#
+#variables['dbnn_isSig']  = {   
+#    'name': 'dbnn_SigVSBkg[0]',      
+#    'range' : (10,0,1),
+#    'xaxis' : 'DBNN(isSig)', 
+#    'fold' : 0,
+#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+
 
 #variables['nvtx'] = {     
 #    'name'  : 'PV_npvsGood',      

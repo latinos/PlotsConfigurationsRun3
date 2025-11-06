@@ -7,14 +7,14 @@ groupPlot['top']  = {
     'samples'  : ['top']
 }
 
-"""
+
 groupPlot['Fake']  = {
     'nameHR' : 'nonprompt',
     'isSignal' : 0,
     'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
     'samples'  : ['Fake']
 }
-"""
+
 
 groupPlot['WW']  = {
     'nameHR' : 'WW',
@@ -82,7 +82,6 @@ plot['top']  = {
 }
 
 
-"""
 plot['Fake']  = {
     'nameHR'   : 'nonprompt',
     'color'    : 921,
@@ -90,7 +89,6 @@ plot['Fake']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
-"""
 
 plot['WW']  = {
     'nameHR'   : 'WW',

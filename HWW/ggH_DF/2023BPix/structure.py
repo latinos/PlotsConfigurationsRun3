@@ -11,15 +11,20 @@ structure['DY']  = {
                   'isData'   : 0,
               }
 
-structure['Fake_e']  = {  
-                  'isSignal' : 0,
-                  'isData'   : 0,                  
-              }
-
-structure['Fake_m']  = {  
+structure['Fake']  = {  
                   'isSignal' : 0,
                   'isData'   : 0,
               }
+
+#structure['Fake_e']  = {  
+#                  'isSignal' : 0,
+#                  'isData'   : 0,                  
+#              }
+#
+#structure['Fake_m']  = {  
+#                  'isSignal' : 0,
+#                  'isData'   : 0,
+#              }
 
 structure['top'] = {   
                   'isSignal' : 0,
