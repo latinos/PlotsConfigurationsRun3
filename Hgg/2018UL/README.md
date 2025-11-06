@@ -219,6 +219,6 @@ Once all the jobs have finished, you can merge them:
     
     
     
-    
+    combine -M AsymptoticLimits  datacards/Sig_opt6future/mjj/datacard.txt   -t -1    --setParameters lumiscale=1     --expectSignal=1
     
     
