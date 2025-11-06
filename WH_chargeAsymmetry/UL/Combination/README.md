@@ -18,13 +18,9 @@ We need to load combine. Since sourcing mkShapesRDF may introduce conflicts, rem
 
 Combine datacards:
 
-	script_combine_datacards_binning.py
+	python script_combine_datacards_binning.py
 
-Produce workspace enabling the channel masking. This way, we can run all the fits on the same workspace, with the possibility of masking certain channels:
-
-	bash do_workspace.sh
-
-Fit data to get results:
+Produce workspace and fit data to get results:
 
     bash do_fit.sh ${FINAL_STATE}
 
@@ -32,7 +28,43 @@ Fit data to get results:
 
 Final state can be, e.g.:
 
-	FINAL_STATE=FullRun2
+    bash do_fit.sh FullRun2_high_pt
+
+    bash do_fit.sh Full2018_high_pt
+    bash do_fit.sh Full2018_WHSS_high_pt
+    bash do_fit.sh Full2018_WH3l
+
+    bash do_fit.sh Full2017_high_pt
+    bash do_fit.sh Full2017_WHSS_high_pt
+    bash do_fit.sh Full2017_WH3l
+
+    bash do_fit.sh 2016noHIPM_high_pt
+    bash do_fit.sh 2016noHIPM_WHSS_high_pt
+    bash do_fit.sh 2016noHIPM_WH3l
+
+    bash do_fit.sh 2016HIPM_high_pt
+    bash do_fit.sh 2016HIPM_WHSS_high_pt
+    bash do_fit.sh 2016HIPM_WH3l
+
+And for unblind fit:
+
+    bash do_fit_unblind.sh FullRun2_high_pt
+
+    bash do_fit_unblind.sh Full2018_high_pt
+    bash do_fit_unblind.sh Full2018_WHSS_high_pt
+    bash do_fit_unblind.sh Full2018_WH3l
+
+    bash do_fit_unblind.sh Full2017_high_pt
+    bash do_fit_unblind.sh Full2017_WHSS_high_pt
+    bash do_fit_unblind.sh Full2017_WH3l
+
+    bash do_fit_unblind.sh 2016noHIPM_high_pt
+    bash do_fit_unblind.sh 2016noHIPM_WHSS_high_pt
+    bash do_fit_unblind.sh 2016noHIPM_WH3l
+
+    bash do_fit_unblind.sh 2016HIPM_high_pt
+    bash do_fit_unblind.sh 2016HIPM_WHSS_high_pt
+    bash do_fit_unblind.sh 2016HIPM_WH3l
 
 
 ### Goodness of Fit Test

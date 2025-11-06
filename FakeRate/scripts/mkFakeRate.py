@@ -11,6 +11,7 @@ sys.argv = argv[:1]
 import optparse
 import math
 from array import array
+import math
 
 import ROOT
 
@@ -194,12 +195,39 @@ if __name__ == '__main__':
     histo_DATA_QCD_tight_EWKsub.Add(histo_DY_QCD_tight,    -1)
     histo_DATA_QCD_tight_EWKsub.Add(histo_WJets_QCD_tight, -1)
     
+    # EWK 10% variation to consider systematic on EWK subtraction
+    ewk_rel_unc = 0.10
+
+    def make_scaled_ewk_sub(loose_data, tight_data, loose_dy, tight_dy, loose_wj, tight_wj, scale):
+        lo = loose_data.Clone()
+        ti = tight_data.Clone()
+        lo.Add(loose_dy, -scale)
+        lo.Add(loose_wj, -scale)
+        ti.Add(tight_dy, -scale)
+        ti.Add(tight_wj, -scale)
+        return lo, ti
+
+    h_lo_up, h_ti_up = make_scaled_ewk_sub(
+        histo_DATA_QCD_loose,  histo_DATA_QCD_tight,
+        histo_DY_QCD_loose,    histo_DY_QCD_tight,
+        histo_WJets_QCD_loose, histo_WJets_QCD_tight,
+        1.0 + ewk_rel_unc
+    )
+    h_lo_dn, h_ti_dn = make_scaled_ewk_sub(
+        histo_DATA_QCD_loose,  histo_DATA_QCD_tight,
+        histo_DY_QCD_loose,    histo_DY_QCD_tight,
+        histo_WJets_QCD_loose, histo_WJets_QCD_tight,
+        1.0 - ewk_rel_unc
+    )
+    
     # Bins structure:
     # pt bins  = 8: [10, 15, 20, 25, 30, 35, 40, 45, 50]
     # eta bins = 5: [0, 0.5, 1.0, 1.5, 2.0, 2.5]
     # variable: Lepton_pt[0]:abs(Lepton_eta[0]) --> Need to loop over abs(eta) and then on pT
-    eta_bins = 5
-    eta_binning = [0, 0.5, 1.0, 1.5, 2.0, 2.5, 100]
+    # eta_bins = 5
+    # eta_binning = [0, 0.5, 1.0, 1.5, 2.0, 2.5, 100]
+    eta_bins = 2
+    eta_binning = [0, 1.479, 2.5, 100]  # For electrons, we use barrel and endcap regions
     pt_bins  = 8
     pt_binning = [10, 15, 20, 25, 30, 35, 40, 45, 50, 1000]
     
@@ -213,6 +241,14 @@ if __name__ == '__main__':
     fake_rate_histo         = ROOT.TH2F("FR_pT_eta",        "FR_pT_eta",         pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
     fake_rate_histo_EWKcorr = ROOT.TH2F("FR_pT_eta_EWKcorr","FR_pT_eta_EWKcorr", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
 
+    
+    fake_rate_histo_EWKcorr_up   = ROOT.TH2F("FR_pT_eta_EWKcorr_EWK5Up",   "FR_pT_eta_EWKcorr_EWK5Up",   pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    fake_rate_histo_EWKcorr_down = ROOT.TH2F("FR_pT_eta_EWKcorr_EWK5Down", "FR_pT_eta_EWKcorr_EWK5Down", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    
+    def safe_ratio(n, d):
+        return (n/d) if (d > 0 and n >= 0) else 0.0
+
+
     # Fake rate loop
     for eta_bin in range(0,eta_bins):
         for pt_bin in range(1,pt_bins+1):
@@ -225,11 +261,18 @@ if __name__ == '__main__':
             
             # Ensure we are not dividing by 0
             fake_rate = 0
+            fake_rate_error = 0
             if loose_yields_DATA > 0:
                 fake_rate = tight_yields_DATA / loose_yields_DATA
+                if tight_yields_DATA > 0:
+                    fake_rate_error = fake_rate * math.sqrt(1/tight_yields_DATA + 1/loose_yields_DATA)
+                    
             fake_rate_EWKsub = 0
+            fake_rate_EWKsub_error = 0
             if loose_yields_DATA_EWKsub > 0:
                 fake_rate_EWKsub = tight_yields_DATA_EWKsub / loose_yields_DATA_EWKsub
+                if tight_yields_DATA_EWKsub > 0:
+                    fake_rate_EWKsub_error = fake_rate_EWKsub * math.sqrt(1/tight_yields_DATA_EWKsub + 1/loose_yields_DATA_EWKsub)
 
             # Output histogram filling
             fake_rate_histo_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA)
@@ -238,15 +281,32 @@ if __name__ == '__main__':
             fake_rate_histo_EWKcorr_numerator.SetBinContent(pt_bin,eta_bin+1,tight_yields_DATA_EWKsub)
             fake_rate_histo_EWKcorr_denominator.SetBinContent(pt_bin,eta_bin+1,loose_yields_DATA_EWKsub)
 
-            fake_rate_histo        .SetBinContent(pt_bin,eta_bin+1,fake_rate)
+            fake_rate_histo.SetBinContent(pt_bin,eta_bin+1,fake_rate)
+            fake_rate_histo.SetBinError(pt_bin,eta_bin+1,fake_rate_error)
             fake_rate_histo_EWKcorr.SetBinContent(pt_bin,eta_bin+1,fake_rate_EWKsub)
+            fake_rate_histo_EWKcorr.SetBinError(pt_bin,eta_bin+1,fake_rate_EWKsub_error)
+            
+            # Histograms for EWK subtraction uncertainty estimation
+            ibin = pt_bin + pt_bins*eta_bin
+            N_up = h_ti_up.GetBinContent(ibin)
+            D_up = h_lo_up.GetBinContent(ibin)
+            N_dn = h_ti_dn.GetBinContent(ibin)
+            D_dn = h_lo_dn.GetBinContent(ibin)
+
+            fr_up = safe_ratio(N_up, D_up) if (D_up > 0) else fake_rate_EWKsub
+            fr_dn = safe_ratio(N_dn, D_dn) if (D_dn > 0) else fake_rate_EWKsub
+
+            fake_rate_histo_EWKcorr_up  .SetBinContent(pt_bin, eta_bin+1, fr_up)
+            fake_rate_histo_EWKcorr_down.SetBinContent(pt_bin, eta_bin+1, fr_dn)
+            # Leave errors = 0 for pure systematic templates
                 
             # Printout - for debugging
             print(f"Number of tight events: {tight_yields_DATA} - Number of loose events: {loose_yields_DATA}")
             print(f"Fake rate in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate}")
 
             print(f"Fake rate with EWK subtraction in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate_EWKsub}")
-
+            print(f"   EWK5Up = {fr_up} | EWK5Down = {fr_dn}")
+            
     fake_rate_histo_numerator.Write()
     fake_rate_histo_denominator.Write()
 
@@ -255,6 +315,9 @@ if __name__ == '__main__':
 
     fake_rate_histo.Write()
     fake_rate_histo_EWKcorr.Write()
+    fake_rate_histo_EWKcorr_up.Write()
+    fake_rate_histo_EWKcorr_down.Write()
+
 
     outfile.Close()    
 
@@ -287,16 +350,25 @@ if __name__ == '__main__':
             
                 # Ensure we are not dividing by 0
                 prompt_rate = 0
+                prompt_rate_error = 0
                 if loose_yields_Zpeak_DATA > 0:
                     prompt_rate = tight_yields_Zpeak_DATA / loose_yields_Zpeak_DATA
+                    if tight_yields_Zpeak_DATA > 0:
+                        prompt_rate_error = prompt_rate * math.sqrt(1/tight_yields_Zpeak_DATA + 1/loose_yields_Zpeak_DATA)
 
                 prompt_rate_MC = 0
+                prompt_rate_MC_error = 0
                 if loose_yields_Zpeak_DY > 0:
                     prompt_rate_MC = tight_yields_Zpeak_DY / loose_yields_Zpeak_DY
+                    if tight_yields_Zpeak_DY > 0:
+                        prompt_rate_MC_error = prompt_rate_MC * math.sqrt(1/tight_yields_Zpeak_DY + 1/loose_yields_Zpeak_DY)
 
                 # Output histogram filling
                 prompt_rate_histo   .SetBinContent(pt_bin,eta_bin+1,prompt_rate)
+                prompt_rate_histo   .SetBinError(pt_bin,eta_bin+1,prompt_rate_error)
                 prompt_rate_histo_MC.SetBinContent(pt_bin,eta_bin+1,prompt_rate_MC)
+                prompt_rate_histo_MC.SetBinError(pt_bin,eta_bin+1,prompt_rate_MC_error)
+                
                 
                 # Printout - for debugging
                 print(f"Number of tight events in data: {tight_yields_Zpeak_DATA} - Number of loose events in data: {loose_yields_Zpeak_DATA}")

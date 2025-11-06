@@ -15,16 +15,16 @@ preselections = 'mll>12  \
 
 # 2 Jets
 cuts['hww2l2v_13TeV_WH_OS_ee_2j'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == -11*11) && nLepton==2 && Alt(CleanJet_pt,0,0)>30 && Alt(CleanJet_pt,1,0)>30 && mjj < 100 && mlljj20_whss > 50.',
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == -11*11) && nLepton==2 && Alt(CleanJet_pt,0,0)>30 && Alt(CleanJet_pt,1,0)>30 && mjj < 400 && mlljj20_whss > 50.',
     'categories' : {
         # Sub-leading lepton pT >= 20 GeV 
         'pt2ge20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
         'SS_CR_pt2ge20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
         'DYeeCR_pt2ge20' : 'abs(mll-91.2)<=15 && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # IN Z-peak
-        # Sub-leading lepton pT < 20 GeV
-        'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
-        'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
-        'DYeeCR_pt2lt20' : 'abs(mll-91.2)<=15 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # IN Z-peak
+        # # Sub-leading lepton pT < 20 GeV
+        # 'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
+        # 'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
+        # 'DYeeCR_pt2lt20' : 'abs(mll-91.2)<=15 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # IN Z-peak
     }
 }
 
@@ -36,10 +36,10 @@ cuts['hww2l2v_13TeV_WH_OS_ee_1j'] = {
         'pt2ge20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
         'SS_CR_pt2ge20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
         'DYeeCR_pt2ge20' : 'abs(mll-91.2)<=15 && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # IN Z-peak
-        # Sub-leading lepton pT < 20 GeV
-        'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
-        'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
-        'DYeeCR_pt2lt20' : 'abs(mll-91.2)<=15 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # IN Z-peak
+        # # Sub-leading lepton pT < 20 GeV
+        # 'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
+        # 'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
+        # 'DYeeCR_pt2lt20' : 'abs(mll-91.2)<=15 && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # IN Z-peak
     }
 }
 
@@ -47,14 +47,14 @@ cuts['hww2l2v_13TeV_WH_OS_ee_1j'] = {
 
 # 2 Jets
 cuts['hww2l2v_13TeV_WH_OS_em_2j'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13) && nLepton==2 && Alt(CleanJet_pt,0,0)>30 && Alt(CleanJet_pt,1,0)>30 && mjj < 100 && mlljj20_whss > 50.',
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13) && nLepton==2 && Alt(CleanJet_pt,0,0)>30 && Alt(CleanJet_pt,1,0)>30 && mjj < 400 && mlljj20_whss > 50.',
     'categories' : {
         # Sub-leading lepton pT >= 20 GeV 
         'pt2ge20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
         'SS_CR_pt2ge20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
-        # Sub-leading lepton pT < 20 GeV
-        'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
-        'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
+        # # Sub-leading lepton pT < 20 GeV
+        # 'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
+        # 'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
     }
 }
 
@@ -65,9 +65,9 @@ cuts['hww2l2v_13TeV_WH_OS_em_1j'] = {
         # Sub-leading lepton pT >= 20 GeV 
         'pt2ge20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
         'SS_CR_pt2ge20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]>=20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
-        # Sub-leading lepton pT < 20 GeV
-        'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
-        'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
+        # # Sub-leading lepton pT < 20 GeV
+        # 'pt2lt20'        : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])<2.0',  # OUT Z-peak
+        # 'SS_CR_pt2lt20'  : 'abs(mll-91.2)>15  && Lepton_pt[1]<20 && abs(Lepton_eta[0] - Lepton_eta[1])>=2.0', # OUT Z-peak SS CR --> inverting detall cut
     }
 }
 

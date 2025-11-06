@@ -12,7 +12,7 @@ mcProduction = 'Summer20UL18_106x_nAODv9_Full2018v9'
 dataReco     = 'Run2018_UL2018_nAODv9_Full2018v9'
 
 mcSteps      = 'MCl1loose2018v9__MCCorr2018v9NoJERInHorn'
-dataSteps    = 'DATAl1loose2018v9__fakeSel'
+dataSteps    = 'DATAl1loose2018v9'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -101,6 +101,7 @@ DataTrig = {
 
 # Unprescaled triggers for prompt rate estimation
 DataRunUnprescaled = [
+    ['A','Run2018A-UL2018-v1'],
     ['B','Run2018B-UL2018-v1'],
     ['C','Run2018C-UL2018-v1'],
     ['D','Run2018D-UL2018-v1'],
@@ -291,7 +292,8 @@ for _, sd in DataRunUnprescaled:
   for pd in DataSetsUnprescaled:
     tag_data = pd + '_' + sd
 
-    if (   ('SingleMuon' in pd and 'Run2018B' in sd)
+    if (   ('SingleMuon' in pd and 'Run2018A' in sd)
+        or ('SingleMuon' in pd and 'Run2018B' in sd)
         or ('SingleMuon' in pd and 'Run2018C' in sd)):
         print("sd      = {}".format(sd))
         print("pd      = {}".format(pd))

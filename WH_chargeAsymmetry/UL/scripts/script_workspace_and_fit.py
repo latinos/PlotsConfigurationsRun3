@@ -75,7 +75,6 @@ workspace_command = f"text2workspace.py \
                      -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
                      -m 125 \
                      --PO verbose \
-                     --channel-masks \
                      --PO 'map=.*/ggH_hww:r_higgs[1,0.99,1.01]' \
                      --PO 'map=.*/qqH_hww:r_higgs[1,0.99,1.01]' \
                      --PO 'map=.*/ZH_hww:r_higgs[1,0.99,1.01]' \
@@ -84,10 +83,8 @@ workspace_command = f"text2workspace.py \
                      --PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
                      --PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
                      --PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
-                     --PO 'map=.*/WH_h.*_plus:r_WH_plus=expr;;r_WH_plus(\"@0*(1+@1)/(2*0.8380)\",r_S[1.3693,-5,5],r_A[0.224,-1,1])' \
+                     --PO 'map=.*/WH_h.*_plus:r_WH_plus=expr;;r_WH_plus(\"@0*(1+@1)/(2*0.8380)\",r_S[1.3693,-5,5],r_A[0.224,-5,5])' \
                      --PO 'map=.*/WH_h.*_minus:r_WH_minus=expr;;r_WH_minus(\"@0*(1-@1)/(2*0.5313)\",r_S,r_A)'"
-
-#                     --PO 'map=.*/WH_h.*_minus:r_WH_minus=expr;;r_WH_minus(\"(@0-@1*0.8380)/0.5313\",r_S,r_WH_plus)' \
 
 # Using only one POI for the total WH signal strength
 workspace_command_WH = f"text2workspace.py \
@@ -96,7 +93,6 @@ workspace_command_WH = f"text2workspace.py \
                         -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
                         -m 125 \
                         --PO verbose \
-                        --channel-masks \
                         --PO 'map=.*/ggH_hww:r_higgs[1,0.99,1.01]' \
                         --PO 'map=.*/qqH_hww:r_higgs[1,0.99,1.01]' \
                         --PO 'map=.*/ZH_hww:r_higgs[1,0.99,1.01]' \
@@ -105,8 +101,8 @@ workspace_command_WH = f"text2workspace.py \
                         --PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
                         --PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
                         --PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
-                        --PO 'map=.*/WH_h.*_plus:r_WH[1,-5.0,5.0]' \
-                        --PO 'map=.*/WH_h.*_minus:r_WH[1,-5.0,5.0]'"
+                        --PO 'map=.*/WH_h.*_plus:r_WH[1,-10.0,10.0]' \
+                        --PO 'map=.*/WH_h.*_minus:r_WH[1,-10.0,10.0]'"
 
 # Using POIs: r_WH_plus, r_WH_minus
 workspace_command_WH_plus_minus = f"text2workspace.py \
@@ -115,7 +111,6 @@ workspace_command_WH_plus_minus = f"text2workspace.py \
                                    -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
                                    -m 125 \
                                    --PO verbose \
-                                   --channel-masks \
                                    --PO 'map=.*/ggH_hww:r_higgs[1,0.99,1.01]' \
                                    --PO 'map=.*/qqH_hww:r_higgs[1,0.99,1.01]' \
                                    --PO 'map=.*/ZH_hww:r_higgs[1,0.99,1.01]' \
@@ -124,8 +119,8 @@ workspace_command_WH_plus_minus = f"text2workspace.py \
                                    --PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
                                    --PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
                                    --PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
-                                   --PO 'map=.*/WH_h.*_plus:r_WH_plus[1,-5.0,5.0]' \
-                                   --PO 'map=.*/WH_h.*_minus:r_WH_minus[1,-5.0,5.0]'"
+                                   --PO 'map=.*/WH_h.*_plus:r_WH_plus[1,-10.0,10.0]' \
+                                   --PO 'map=.*/WH_h.*_minus:r_WH_minus[1,-10.0,10.0]'"
 
 
 ################
@@ -141,7 +136,7 @@ combine_command = f"combine \
                    --cminDefaultMinimizerStrategy 0 \
                    --stepSize 0.01 --cminPreScan \
                    --setParameters r_S=1.3693,r_A=0.224,{channel_mask} \
-                   --setParameterRanges r_S=0.01,5:r_A=-1,1 \
+                   --setParameterRanges r_S=-5,5:r_A=-5,5 \
                    --redefineSignalPOIs r_S,r_A \
                    {nuisances} \
                    > {output_name}"
@@ -159,7 +154,7 @@ combine_command_WH = f"combine \
                       --cminDefaultMinimizerStrategy 0 \
                       --stepSize 0.01 --cminPreScan \
                       --setParameters r_WH=1,{channel_mask} \
-                      --setParameterRanges r_WH=0.01,10 \
+                      --setParameterRanges r_WH=-5,5 \
                       --redefineSignalPOIs r_WH \
                       {nuisances} \
                       > {output_name.replace('.txt','_WH_strength.txt')}"
@@ -173,13 +168,11 @@ combine_command_WH_plus_minus = f"combine \
                                  --cminDefaultMinimizerStrategy 0 \
                                  --stepSize 0.01 --cminPreScan \
                                  --setParameters r_WH_plus=1,r_WH_minus=1,{channel_mask} \
-                                 --setParameterRanges r_WH_plus=0.01,10:r_WH_minus=0.01,10 \
+                                 --setParameterRanges r_WH_plus=-10,10:r_WH_minus=-10,10 \
                                  --redefineSignalPOIs r_WH_plus,r_WH_minus \
                                  {nuisances} \
                                  > {output_name.replace('.txt','_WH_plus_minus.txt')}"
 
-# combineTool.py -M MultiDimFit --algo grid -t -1 --setParameters r=1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 -d ../../globalMu_htt.root -n globalMu_scan --task-name globalMu_scan --autoRange 2 --points 40 --split-points 1 --job-mode=condor --redefineSignalPOIs r --floatOtherPOIs 1
-# grid
 
 # Likelihood scan on POIs - focusing on r_A
 rA_scan_command = f"combine \
