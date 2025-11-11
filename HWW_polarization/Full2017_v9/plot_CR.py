@@ -71,6 +71,7 @@ groupPlot['Vg']  = {
                   'samples'  : ['Vg', 'VgS']
               }
 
+
 groupPlot['Higgs']  = {  
                   'nameHR' : 'Other Higgs',
                   'isSignal' : 0,
@@ -101,7 +102,7 @@ groupPlot['VBF']  = {
 #  
 
 plot['Dyemb']  = {
-                  'color': 418,  
+                  'color': 418,    # kGreen+2
                   'isSignal' : 0,
                   'isData'   : 0,
                   'scale'    : 1.0,
@@ -112,23 +113,23 @@ plot['DY']  = {
                   'isSignal' : 0,
                   'isData'   : 0,
                   'scale'    : 1.0,
-                  #'cuts'  : {
-                  #     'hww2l2v_13TeV_top_0j'  : 0.76 ,
-                  #     'hww2l2v_13TeV_dytt_0j' : 0.76 ,
-                  #     'hww2l2v_13TeV_top_1j'  : 0.79 ,
-                  #     'hww2l2v_13TeV_dytt_1j' : 0.79 ,
-                  #     'hww2l2v_13TeV_WW_1j'     : 0.79 ,
-                  #     'hww2l2v_13TeV_WW_noVeto_1j'     : 0.79 ,
-                  #     'hww2l2v_13TeV_WP65_sr_1j' : 0.76,
-                  #     'hww2l2v_13TeV_top_2j'  : 0.76 ,
-                  #     'hww2l2v_13TeV_dytt_2j' : 0.76 ,
-                  #     'hww2l2v_13TeV_WW_2j'     : 0.76 ,
-                  #     'hww2l2v_13TeV_WW_noVeto_2j'     : 0.76 ,
-                  #     'hww2l2v_13TeV_WP75_sr_2j' : 0.76,
-                  #     'hww2l2v_13TeV_top_Inclusive'  : 0.77 ,
-                  #     'hww2l2v_13TeV_dytt_Inclusive' : 0.77 ,
-                  #     'hww2l2v_13TeV_WW_Inclusive'     : 0.77 ,
-                  #      },
+    #'cuts'  : {
+    #                   'hww2l2v_13TeV_top_0j'  : 0.76 ,
+    #                   'hww2l2v_13TeV_dytt_0j' : 0.76 ,
+    #                   'hww2l2v_13TeV_top_1j'  : 0.79 ,
+    #                   'hww2l2v_13TeV_dytt_1j' : 0.79 ,
+    #                   'hww2l2v_13TeV_WW_1j'     : 0.79 ,
+    #                   'hww2l2v_13TeV_WW_noVeto_1j'     : 0.79 ,
+    #                   'hww2l2v_13TeV_WP65_sr_1j' : 0.76,
+    #                   'hww2l2v_13TeV_top_2j'  : 0.76 ,
+    #                   'hww2l2v_13TeV_dytt_2j' : 0.76 ,
+    #                   'hww2l2v_13TeV_WW_2j'     : 0.76 ,
+    #                   'hww2l2v_13TeV_WW_noVeto_2j'     : 0.76 ,
+    #                   'hww2l2v_13TeV_WP75_sr_2j' : 0.76,
+    #                   'hww2l2v_13TeV_top_Inclusive'  : 0.77 ,
+    #                   'hww2l2v_13TeV_dytt_Inclusive' : 0.77 ,
+    #                   'hww2l2v_13TeV_WW_Inclusive'     : 0.77 ,
+    #                    },
 }
 
 plot['Fake']  = {
@@ -240,6 +241,7 @@ plot['hww'] = {
                   'scale'    : 1    #
                   }
 
+
 plot['qqH_hww'] = {
                   'nameHR' : 'qqH',
                   'color': 632+1, # kRed+1 
@@ -270,6 +272,6 @@ plot['DATA']  = {
 
 legend = {}
 
-legend['lumi'] = 'L = 16.8/fb'
+legend['lumi'] = 'L = 41.5/fb'
 
 legend['sqrt'] = '#sqrt{s} = 13 TeV'

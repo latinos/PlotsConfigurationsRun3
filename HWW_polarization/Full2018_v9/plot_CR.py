@@ -41,7 +41,7 @@ groupPlot['DY']  = {
                   'isSignal' : 0,
                   'color': 418,    # kGreen+2
                   'colorPlt': "#6b8e23",
-                  'samples'  : ['DY','Dyemb']
+                  'samples'  : ['DY', 'Dyemb']
               }
 
 
@@ -100,35 +100,36 @@ groupPlot['VBF']  = {
 # keys here must match keys in samples.py    
 #  
 
-plot['Dyemb']  = {
-                  'color': 418,  
-                  'isSignal' : 0,
-                  'isData'   : 0,
-                  'scale'    : 1.0,
-}
 
 plot['DY']  = {
                   'color': 418,    # kGreen+2
                   'isSignal' : 0,
                   'isData'   : 0,
                   'scale'    : 1.0,
-                  #'cuts'  : {
-                  #     'hww2l2v_13TeV_top_0j'  : 0.76 ,
-                  #     'hww2l2v_13TeV_dytt_0j' : 0.76 ,
-                  #     'hww2l2v_13TeV_top_1j'  : 0.79 ,
-                  #     'hww2l2v_13TeV_dytt_1j' : 0.79 ,
-                  #     'hww2l2v_13TeV_WW_1j'     : 0.79 ,
-                  #     'hww2l2v_13TeV_WW_noVeto_1j'     : 0.79 ,
-                  #     'hww2l2v_13TeV_WP65_sr_1j' : 0.76,
-                  #     'hww2l2v_13TeV_top_2j'  : 0.76 ,
-                  #     'hww2l2v_13TeV_dytt_2j' : 0.76 ,
-                  #     'hww2l2v_13TeV_WW_2j'     : 0.76 ,
-                  #     'hww2l2v_13TeV_WW_noVeto_2j'     : 0.76 ,
-                  #     'hww2l2v_13TeV_WP75_sr_2j' : 0.76,
-                  #     'hww2l2v_13TeV_top_Inclusive'  : 0.77 ,
-                  #     'hww2l2v_13TeV_dytt_Inclusive' : 0.77 ,
-                  #     'hww2l2v_13TeV_WW_Inclusive'     : 0.77 ,
-                  #      },
+    #'cuts'  : {
+    #                   'hww2l2v_13TeV_top_0j'  : 0.76 ,
+    #                   'hww2l2v_13TeV_dytt_0j' : 0.76 ,
+    #                   'hww2l2v_13TeV_top_1j'  : 0.79 ,
+    #                   'hww2l2v_13TeV_dytt_1j' : 0.79 ,
+    #                   'hww2l2v_13TeV_WW_1j'     : 0.79 ,
+    #                   'hww2l2v_13TeV_WW_noVeto_1j'     : 0.79 ,
+    #                   'hww2l2v_13TeV_WP65_sr_1j' : 0.76,
+    #                   'hww2l2v_13TeV_top_2j'  : 0.76 ,
+    #                   'hww2l2v_13TeV_dytt_2j' : 0.76 ,
+    #                   'hww2l2v_13TeV_WW_2j'     : 0.76 ,
+    #                   'hww2l2v_13TeV_WW_noVeto_2j'     : 0.76 ,
+    #                   'hww2l2v_13TeV_WP75_sr_2j' : 0.76,
+    #                   'hww2l2v_13TeV_top_Inclusive'  : 0.77 ,
+    #                   'hww2l2v_13TeV_dytt_Inclusive' : 0.77 ,
+    #                   'hww2l2v_13TeV_WW_Inclusive'     : 0.77 ,
+    #},
+}
+
+plot['Dyemb']  = {  
+    'color': 418,    # kGreen+2
+    'isSignal' : 0,
+    'isData'   : 0, 
+    #'scale'    : 0.016739203213927016,
 }
 
 plot['Fake']  = {
@@ -262,7 +263,7 @@ plot['DATA']  = {
                   'nameHR' : 'Data',
                   'color': 1 ,  
                   'isSignal' : 0,
-                  'isData'   : 1,
+                  'isData'   : 1 ,
                   'isBlind'  : 0
               }
 
@@ -270,6 +271,6 @@ plot['DATA']  = {
 
 legend = {}
 
-legend['lumi'] = 'L = 16.8/fb'
+legend['lumi'] = 'L = 59.74/fb'
 
 legend['sqrt'] = '#sqrt{s} = 13 TeV'

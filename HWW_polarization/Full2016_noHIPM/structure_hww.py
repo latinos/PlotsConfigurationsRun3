@@ -28,12 +28,12 @@ structure['WW_minnlo']  = {
                   'isData'   : 0    
                   }
 
-structure['WWewk_si']  = { # WWewk_si
+structure['WWewk']  = {
                   'isSignal' : 0,
                   'isData'   : 0
                   }
 
-structure['ggWW_si']  = { # ggWW_si
+structure['ggWW']  = {
                   'isSignal' : 0,
                   'isData'   : 0    
                   }
@@ -74,61 +74,6 @@ structure['qqH_hww'] = {
                   'isData'   : 0,
                   'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()}, # XSECxBR correction for mH = 125.38
                   }
-
-
-###### POLARIZED SIGNALS
-
-#structure['ggH_fL_1p0_fPerp_0p0'] = {
-#    'isSignal' : 2,
-#    'isData'   : 0,
-#    'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()}, # XSECxBR correction for mH = 125.38
-#}
-#
-#structure['qqH_fL_1p0_fPerp_0p0'] = {
-#    'isSignal' : 2,
-#    'isData'   : 0,
-#    'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-#}
-
-index = 2
-for i in np.linspace(0, 1, 11):
-    jlim = round(1.0 - abs(i), 2)
-    jn = 2 * 10*abs(jlim) + 2
-
-    i = round(i, 1)
-    if i<0.0:
-        itxt = str(i).replace("-", "m")
-    else:
-        itxt = str(i)
-    itxt = itxt.replace(".", "p")
-
-    ### Two signals per datacard, first negative and then positive    
-    txt = f"_fL_{itxt}_fPerp_0p0"    
-    structure[f'ggH{txt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-    structure[f'qqH{txt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-
-    mtxt = f"_fL_m{itxt}_fPerp_0p0"
-    structure[f'ggH{mtxt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-    structure[f'qqH{mtxt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-    
-    index = index + 1
-
 
 ############
 

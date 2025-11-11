@@ -35,6 +35,7 @@ categoriesmap = utils.flatten_cuts(cuts)
 
 outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_postVFP_complete.root"
 
+
 print("Start computation")
 
 df2 = uproot.open("/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_postVFP__ALL__ggH_gWW_Int.root")

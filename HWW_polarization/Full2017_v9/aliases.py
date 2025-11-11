@@ -226,7 +226,7 @@ aliases['zeroJet'] = {
 }
 
 aliases['oneJet'] = {
-    'expr': 'Alt(CleanJet_pt,0, 0) > 30.'
+    'expr': 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0'
 }
 
 aliases['multiJet'] = {
@@ -392,11 +392,37 @@ aliases['SFweightMuDown'] = {
 }
 
 
+samplesToAdd = ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot', 'ggH_perp']
+for i in np.linspace(-1, 1, 21):
+    jlim = round(1.0 - abs(i), 2)
+    jn = 2 * 10*abs(jlim) + 2
+    for j in np.linspace(-1*jlim, jlim, int(jn)-1):
+        i = round(i, 1)
+        j = round(j, 1)
+
+        if i<0.0:
+            itxt = str(i).replace("-", "m")
+        else:
+            itxt = str(i)
+        itxt = itxt.replace(".", "p")
+
+        if j<0.0:
+            jtxt = str(j).replace("-", "m")
+        else:
+            jtxt = str(j)
+        jtxt = jtxt.replace(".", "p")
+
+        weighttxt = f"p_GEN_fL_{itxt}_fPerp_{jtxt}"
+        txt = f"_fL_{itxt}_fPerp_{jtxt}"
+
+        samplesToAdd.append('ggH'+txt)
+
 aliases['Weight2MINLO'] = {
     'linesToAdd': ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/weight2MINLO.cc+'],
     'class': 'Weight2MINLO',
     'args': '"NNLOPS_reweight.root", HTXS_njets30, HTXS_Higgs_pt',
-    'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot']
+    #'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot', 'ggH_perp']
+    'samples': samplesToAdd
 }
 
 
@@ -418,11 +444,11 @@ for thu in thus:
         'linesToAdd': ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/gghuncertainty.cc+'],
         'class': 'GGHUncertainty',
         'args': '"{}", HTXS_njets30, HTXS_Higgs_pt, HTXS_stage_1_pTjet30'.format(thu),
-        'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt']
+        'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt', 'ggH_perp']
     }
     
 
-
+"""
 aliases['Higgs_WW_Rew'] = {
     'linesToAdd' : ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/doHiggsPolarization.cc+'],
     'class' : 'DoHiggsPolarizationWeight',
@@ -449,23 +475,23 @@ aliases['Higgs_WW_TTInt'] = {
     'expr': 'Higgs_WW_Rew[3]',
     'samples': ['ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt', 'qqH_HWLWL', 'qqH_HWTWT'],
 }
-
+"""
 
 ####
 #### Interference qq/ggWW - qq/ggH
 ####
 
 aliases['HWW_interference'] = {
-  'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/IvyFramework/IvyDataTools/lib/libIvyFrameworkIvyDataTools.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/IvyFramework/IvyAutoMELA/lib/libIvyFrameworkIvyAutoMELA.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/GenericMEComputer/lib/libMelaAnalyticsGenericMEComputer.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/EventContainer/lib/libMelaAnalyticsEventContainer.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/CandidateLOCaster/lib/libMelaAnalyticsCandidateLOCaster.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/doGenInterference_cc.so","", ROOT.kTRUE)',
-                    'ROOT.gInterpreter.Declare("GEN_INTERFERENCE b;")'],
-   'expr' :   'b(nLHEPart,LHEPart_pt,LHEPart_eta,LHEPart_phi,LHEPart_mass,LHEPart_incomingpz,LHEPart_pdgId,LHEPart_status,LHEPart_spin,GenPart_genPartIdxMother,GenPart_pdgId,GenPart_status,GenPart_pt,GenPart_eta,GenPart_phi,GenPart_mass,Generator_x1,Generator_x2,Generator_id1,Generator_id2)',
+    'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/IvyFramework/IvyDataTools/lib/libIvyFrameworkIvyDataTools.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/IvyFramework/IvyAutoMELA/lib/libIvyFrameworkIvyAutoMELA.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/GenericMEComputer/lib/libMelaAnalyticsGenericMEComputer.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/EventContainer/lib/libMelaAnalyticsEventContainer.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/CandidateLOCaster/lib/libMelaAnalyticsCandidateLOCaster.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/doGenInterference_cc.so","", ROOT.kTRUE)',
+                      'ROOT.gInterpreter.Declare("GEN_INTERFERENCE b;")'],
+    'expr' :   'b(nLHEPart,LHEPart_pt,LHEPart_eta,LHEPart_phi,LHEPart_mass,LHEPart_incomingpz,LHEPart_pdgId,LHEPart_status,LHEPart_spin,GenPart_genPartIdxMother,GenPart_pdgId,GenPart_status,GenPart_pt,GenPart_eta,GenPart_phi,GenPart_mass,Generator_x1,Generator_x2,Generator_id1,Generator_id2)',
     'samples': ['ggH_gWW_Int', 'ggH_gWW_Tot','qqH_qqWW_Int', 'qqH_qqWW_Tot'],
 }
 
@@ -491,11 +517,11 @@ aliases['qqHWW_Total'] = {
 
 
 aliases['D_ME'] = {
-  'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
-                    'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/RecoMELA_VBF_cc.so","", ROOT.kTRUE)',
-                    'ROOT.gInterpreter.Declare("RECOMELA_VBF a;")'],
-   'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
+    'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/RecoMELA_VBF_cc.so","", ROOT.kTRUE)',
+                      'ROOT.gInterpreter.Declare("RECOMELA_VBF a;")'],
+    'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
     'afterNuis': True
 }
 
@@ -538,11 +564,12 @@ aliases['btagDeepFlavB_1'] = {
     'afterNuis': True
 }
 
-
 aliases['RandomForest_evaluator'] = {
-    'linesToAdd' : ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/evaluate_RF_polarization.cc+'],
-    'class' : 'evaluate_dnn',
-    'args': 'mll,mth,mtw1,mtw2,mjj,mcollWW,ptll,Ctot,Lepton_pt,Lepton_eta,Lepton_phi,dphilmet1,dphilmet2,dphill,detall,dphijj,detajj,dphilep1jet1,dphilep2jet1,dphilep1jet2,dphilep2jet2,btagDeepFlavB,btagDeepFlavB_1,drll,mpmet,PuppiMET_pt,PuppiMET_phi,D_VBF_QCD,D_VBF_VH,D_QCD_VH,D_VBF_DY,mTi',
+    'linesToProcess' : [
+        'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/evaluate_RF_polarization_cc.so","", ROOT.kTRUE)',
+        """ROOT.gInterpreter.Declare('EvaluateRF rf_evaluator("2017");')"""
+    ],
+    'expr': 'rf_evaluator(mll,mth,mtw1,mtw2,mjj,mcollWW,ptll,Ctot,Lepton_pt,Lepton_eta,Lepton_phi,dphilmet1,dphilmet2,dphill,detall,dphijj,detajj,dphilep1jet1,dphilep2jet1,dphilep1jet2,dphilep2jet2,btagDeepFlavB,btagDeepFlavB_1,drll,mpmet,PuppiMET_pt,PuppiMET_phi,D_VBF_QCD,D_VBF_VH,D_QCD_VH,D_VBF_DY,mTi,zeroJet,oneJet,multiJet)',
     'afterNuis': True
 }
 

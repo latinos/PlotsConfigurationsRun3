@@ -1,5 +1,6 @@
 import os
 import inspect
+import numpy as np
 from mkShapesRDF.lib.search_files import SearchFiles
 
 searchFiles = SearchFiles()
@@ -33,6 +34,7 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
+melaDirectory = '/eos/user/s/sblancof/MC/Summer20UL17_106x_nAODv9_Full2017v9/MCl1loose2017v9__MCCorr2017v9NoJERInHorn__l2tightOR2017v9__melaWeights/'
 fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 embedDirectory = os.path.join(treeBaseDir, embedReco, embedSteps)
@@ -115,6 +117,9 @@ DataTrig = {
 mcCommonWeight = 'XSWeight*SFweight*METFilter_MC'
 mcCommonWeightMatched = 'XSWeight*SFweight*PromptGenLepMatch2l*METFilter_MC'
 
+doSignals = True
+isTotal = True
+
 ###########################################
 #############  BACKGROUNDS  ###############
 ###########################################
@@ -128,7 +133,6 @@ runDYveto = True
 embed_tautauveto = '' #Setup
 if useEmbeddedDY:
     embed_tautauveto = '*embed_tautauveto'
-
 
 files=[]
 if useEmbeddedDY:
@@ -390,10 +394,11 @@ samples['htt'] = {
 ##################                                                                                                                                                                                         
 
 samples['ggH_HWLWL'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'), 
-    'weight': mcCommonWeight + '*Higgs_WW_LL*(Higgs_WW_LL>-5)',
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'),
+    'weight': mcCommonWeight + ' * p_GEN_fL_1p0_fPerp_0p0',
     'FilesPerJob': 1,
-    'EventsPerJob': 25000
+    'EventsPerJob': 25000,
+    'friendFiles': melaDirectory,
 }
 
 addSampleWeight(samples, 'ggH_HWLWL', 'GluGluHToWWTo2L2Nu_M125', '(HTXS_stage1_1_cat_pTjet30GeV<107)*Weight2MINLO*1092.7640/1073.2567') #only non GE2J categories with the weight to NNLOPS and renormalize integral                                                         
@@ -407,16 +412,32 @@ signals.append('ggH_HWLWL')
 ##################                                                                                                                                                                                         
 
 samples['ggH_HWTWT'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'), 
-    'weight': mcCommonWeight + '*Higgs_WW_TT*(Higgs_WW_TT>-5)',
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'),
+    'weight': mcCommonWeight + ' * p_GEN_fL_0p0_fPerp_0p0',
     'FilesPerJob': 1,
-    'EventsPerJob': 25000
+    'EventsPerJob': 25000,
+    'friendFiles': melaDirectory,
 }
 
 addSampleWeight(samples, 'ggH_HWTWT', 'GluGluHToWWTo2L2Nu_M125', '(HTXS_stage1_1_cat_pTjet30GeV<107)*Weight2MINLO*1092.7640/1073.2567')
 addSampleWeight(samples, 'ggH_HWTWT', 'GGHjjToWWTo2L2Nu_minloHJJ_M125', '(HTXS_stage1_1_cat_pTjet30GeV>106)*1092.7640/1073.2567')
 signals.append('ggH_HWTWT')
 
+##################
+#    ggH Perp    #
+##################
+
+samples['ggH_perp'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'),
+    'weight': mcCommonWeight + ' * p_GEN_fL_0p0_fPerp_1p0',
+    'FilesPerJob': 1,
+    'EventsPerJob': 25000,
+    'friendFiles': melaDirectory,
+}
+
+addSampleWeight(samples, 'ggH_perp', 'GluGluHToWWTo2L2Nu_M125', '(HTXS_stage1_1_cat_pTjet30GeV<107)*Weight2MINLO*1092.7640/1073.2567')
+addSampleWeight(samples, 'ggH_perp', 'GGHjjToWWTo2L2Nu_minloHJJ_M125', '(HTXS_stage1_1_cat_pTjet30GeV>106)*1092.7640/1073.2567')
+signals.append('ggH_perp')
 
 ##################
 #     qqH LL     #
@@ -424,9 +445,10 @@ signals.append('ggH_HWTWT')
 
 samples['qqH_HWLWL'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight + '*(Higgs_WW_LL*(Higgs_WW_LL>-5))',
+    'weight': mcCommonWeight + ' * p_GEN_fL_1p0_fPerp_0p0',
     'FilesPerJob': 1,
-    'EventsPerJob': 25000
+    'EventsPerJob': 25000,
+    'friendFiles': melaDirectory,
 }
 
 signals.append('qqH_HWLWL')
@@ -437,12 +459,28 @@ signals.append('qqH_HWLWL')
 
 samples['qqH_HWTWT'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight + '*(Higgs_WW_TT*(Higgs_WW_TT>-5))',
+    'weight': mcCommonWeight + ' * p_GEN_fL_0p0_fPerp_0p0',
     'FilesPerJob': 1,
-    'EventsPerJob': 25000
+    'EventsPerJob': 25000,
+    'friendFiles': melaDirectory,
 }
 
 signals.append('qqH_HWTWT')
+
+##################
+#    qqH perp    #
+################## 
+
+samples['qqH_perp'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
+    'weight': mcCommonWeight + ' * p_GEN_fL_0p0_fPerp_1p0',
+    'FilesPerJob': 1,
+    'EventsPerJob': 25000,
+    'friendFiles': melaDirectory,
+}
+
+signals.append('qqH_perp')
+
 
 '''
 ########### ggH+ggWW Interference ########
@@ -560,4 +598,48 @@ for _, sd in DataRun:
     addSampleWeight(samples, 'DATA', tag, DataTrig[pd])
 
 
+if doSignals:
 
+    if not isTotal:
+        samples = {}
+
+    ######### All polarization signals ###########
+    for i in np.linspace(-1, 1, 21):
+        jlim = round(1.0 - abs(i), 2)
+        jn = 2 * 10*abs(jlim) + 2
+        for j in np.linspace(-1*jlim, jlim, int(jn)-1):
+            i = round(i, 1)
+            j = round(j, 1)
+            
+            if i<0.0:
+                itxt = str(i).replace("-", "m")
+            else:
+                itxt = str(i)
+                
+            itxt = itxt.replace(".", "p")
+            
+            if j<0.0:
+                jtxt = str(j).replace("-", "m")
+            else:
+                jtxt = str(j)
+            jtxt = jtxt.replace(".", "p")
+            
+            weighttxt = f"p_GEN_fL_{itxt}_fPerp_{jtxt}"
+            txt = f"_fL_{itxt}_fPerp_{jtxt}"
+
+            samples['ggH'+txt] = {
+                'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'),
+                'weight': mcCommonWeight + f' * {weighttxt}',
+                'FilesPerJob': 2,
+                'friendFiles': melaDirectory,
+            }
+            addSampleWeight(samples, 'ggH'+txt, 'GluGluHToWWTo2L2Nu_M125', '(HTXS_stage1_1_cat_pTjet30GeV<107)*Weight2MINLO*1092.7640/1073.2567')
+            addSampleWeight(samples, 'ggH'+txt, 'GGHjjToWWTo2L2Nu_minloHJJ_M125', '(HTXS_stage1_1_cat_pTjet30GeV>106)*1092.7640/1073.2567')
+            
+            samples['qqH'+txt] = { 
+                'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
+                'weight': mcCommonWeight + f' * {weighttxt}', 
+                'FilesPerJob': 1,
+                'friendFiles': melaDirectory, 
+            }
+        

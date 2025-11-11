@@ -71,6 +71,7 @@ groupPlot['Vg']  = {
                   'samples'  : ['Vg', 'VgS']
               }
 
+
 groupPlot['Higgs']  = {  
                   'nameHR' : 'Other Higgs',
                   'isSignal' : 0,
@@ -95,13 +96,14 @@ groupPlot['VBF']  = {
                   'samples'  : ['qqH_hww']
               }
 
+
 #plot = {}
 
 # keys here must match keys in samples.py    
 #  
 
 plot['Dyemb']  = {
-                  'color': 418,  
+                  'color': 418,
                   'isSignal' : 0,
                   'isData'   : 0,
                   'scale'    : 1.0,
@@ -262,7 +264,7 @@ plot['DATA']  = {
                   'nameHR' : 'Data',
                   'color': 1 ,  
                   'isSignal' : 0,
-                  'isData'   : 1,
+                  'isData'   : 1 ,
                   'isBlind'  : 0
               }
 
@@ -270,6 +272,6 @@ plot['DATA']  = {
 
 legend = {}
 
-legend['lumi'] = 'L = 16.8/fb'
+legend['lumi'] = 'L = 19.5/fb'
 
 legend['sqrt'] = '#sqrt{s} = 13 TeV'

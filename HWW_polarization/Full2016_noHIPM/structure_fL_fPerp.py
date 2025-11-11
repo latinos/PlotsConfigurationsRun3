@@ -91,43 +91,41 @@ structure['qqH_hww'] = {
 #}
 
 index = 2
-for i in np.linspace(0, 1, 11):
+for i in np.linspace(-1, 1, 21):
     jlim = round(1.0 - abs(i), 2)
     jn = 2 * 10*abs(jlim) + 2
+    for j in np.linspace(-1*jlim, jlim, int(jn)-1):
+        i = round(i, 1)
+        j = round(j, 1)
 
-    i = round(i, 1)
-    if i<0.0:
-        itxt = str(i).replace("-", "m")
-    else:
-        itxt = str(i)
-    itxt = itxt.replace(".", "p")
+        #if round(i,1)<=0.7:
+        #    continue
 
-    ### Two signals per datacard, first negative and then positive    
-    txt = f"_fL_{itxt}_fPerp_0p0"    
-    structure[f'ggH{txt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-    structure[f'qqH{txt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
+        if i<0.0:
+            itxt = str(i).replace("-", "m")
+        else:
+            itxt = str(i)
+        itxt = itxt.replace(".", "p")
+        
+        if j<0.0:
+            jtxt = str(j).replace("-", "m")
+        else:
+            jtxt = str(j)
+        jtxt = jtxt.replace(".", "p")
 
-    mtxt = f"_fL_m{itxt}_fPerp_0p0"
-    structure[f'ggH{mtxt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-    structure[f'qqH{mtxt}'] = {
-        'isSignal' : index,
-        'isData'   : 0,
-        'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
-    }
-    
-    index = index + 1
+        txt = f"_fL_{itxt}_fPerp_{jtxt}"
+
+        structure[f'ggH{txt}'] = {
+            'isSignal' : index,
+            'isData'   : 0,
+            'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()}, 
+        }
+        structure[f'qqH{txt}'] = {
+            'isSignal' : index,
+            'isData'   : 0,
+            'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
+        }
+        index = index + 1
 
 
 ############
