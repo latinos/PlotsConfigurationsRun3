@@ -9,7 +9,7 @@ mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
 mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
 dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
 dataSteps    = 'DATAl2loose2023v12__l2tight'
-fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+fakeSteps    = 'DATAl1loose2023v12'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -28,9 +28,7 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-print('Hello')
-print(mcDirectory)
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -108,15 +106,26 @@ DataTrig = {
 ############ MC COMMON ##################
 #########################################
 
+# SFweight does not include btag weights
 mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
 mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 
 #mcCommonWeight = 'XSWeight*METFilter_Common*SFweight'
 
+###########################################
+#############  BACKGROUNDS  ###############
+###########################################
+
     ##########
     ### DY ###
     ##########
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+    ##########
+    ### DY ###
+    ##########
+#files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+files = nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
 
 samples['DY'] = {
     'name': files,
@@ -128,25 +137,18 @@ samples['DY'] = {
     ### ttbar and tW ###
     ####################
 
-files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu')
+files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu')
 
-samples['ttbar'] = {
+samples['top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 5,
+    'FilesPerJob': 1,
 }
 
-addSampleWeight(samples,'ttbar','TTTo2L2Nu','Top_pTrw')
+addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
 
-files = nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
-        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') 
-
-
-samples['tW'] = {
-    'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 5,
-}
 
     ##########
     ### WW ###
@@ -192,6 +194,22 @@ samples['WZ'] = {
     'FilesPerJob': 2,
 }
 
+    ##########
+    ### Vg ###
+    ##########
+
+files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG10to100') + \
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100to200') + \
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG200to400') +	\
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG400to600') +	\
+    nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG600')
+
+samples['Vg'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 5,
+}
+
     ###########
     ### ggH ###
     ###########
@@ -216,9 +234,9 @@ samples['qqH_hww'] = {
     'FilesPerJob': 2,
 }
 
-    ############
-    ### DATA ###
-    ############
+###########################################
+################## DATA ###################
+###########################################
 
 samples['DATA'] = { 
     'name': [],  
@@ -239,11 +257,12 @@ for _, sd in DataRun:
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
 
-    ############
-    ### Fakes ###
-    ############ 
 
-"""
+    #############
+    ### Fakes ###
+    #############
+
+
 samples['Fake'] = {
     'name': [],
     'weight': 'METFilter_DATA*fakeW',
@@ -257,15 +276,6 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    if (pd == "SingleMuon" and _ in ["D","E","F","G"]) or (pd == "Muon" and _ == "B"):
-        continue
-
-    if (_ in ["E","F","G"]):
-        files2 = nanoGetSampleFiles(dataDirectory2, datatag)
-        samples['Fake_EE']['name'].extend(files2)
-        addSampleWeight(samples, 'Fake_EE', datatag, DataTrig[pd])
-    else:
-        files = nanoGetSampleFiles(dataDirectory, datatag)
-        samples['Fake']['name'].extend(files)
-        addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
-"""
+    files = nanoGetSampleFiles(fakeDirectory, datatag)
+    samples['Fake']['name'].extend(files)
+    addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
