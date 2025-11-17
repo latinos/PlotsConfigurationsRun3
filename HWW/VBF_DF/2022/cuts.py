@@ -23,15 +23,18 @@ cuts['hww_sr']  = {
    'expr': 'sr',
     # Define the sub-categorization of sr
    'categories' : {
-      '2j' : 'multiJet && vbflike',
+      '2j_vbflike' : 'multiJet && vbflike',
+      '2j_gghlike' : 'multiJet && gghlike',
+      '2j_toplike' : 'multiJet && toplike',
+      '2j_wwlike' : 'multiJet && wwlike',
    }
 }
 
-cuts['gghcr']  = {
-   'expr': 'sr',
+cuts['dycr']  = {
+   'expr': 'dycr',
     # Define the sub-categorization of sr
    'categories' : {
-      '2j' : 'multiJet && gghlike',
+      '2j' : 'multiJet',
    }
 }
 
@@ -39,14 +42,7 @@ cuts['topcr']  = {
    'expr': 'topcr',
     # Define the sub-categorization of sr
    'categories' : {
-      '2j' : 'multiJet && toplike',
+      '2j' : 'multiJet',
    }
 }
 
-cuts['wwcr']  = {
-   'expr': 'wwcr',
-    # Define the sub-categorization of sr
-   'categories' : {
-      '2j' : 'multiJet && wwlike',
-   }
-}
