@@ -56,9 +56,9 @@ aliases['noJetInHorn'] = {
 
 # Algo / WP / WP cut
 btagging_WPs = {
-    "DeepFlavB" : {"loose" : "0.0614", "medium" : "0.3196", "tight" : "0.73", "xtight" : "0.8184", "xxtight" : "0.9542"},
-    "RobustParTAK4B" : {"loose" : "0.0897", "medium" : "0.451", "tight" : "0.8604", "xtight" : "0.9234", "xxtight" : "0.9893"},
-    "PNetB" : {"loose" : "0.0499", "medium" : "0.2605", "tight" : "0.6915", "xtight" : "0.8033", "xxtight" : "0.9664"}
+    "DeepFlavB" : {"loose":"0.0479", "medium":"0.2431", "tight":"0.6553", "xtight":"0.7667", "xxtight":"0.9459"},
+    "RobustParTAK4B" : {"loose":"0.0681", "medium":"0.3487", "tight":"0.7969", "xtight":"0.8882", "xxtight":"0.9883"},
+    "PNetB" : {"loose":"0.0358", "medium":"0.1917", "tight":"0.6172", "xtight":"0.7515", "xxtight":"0.9659"}
 }
 
 # Algo / SF name

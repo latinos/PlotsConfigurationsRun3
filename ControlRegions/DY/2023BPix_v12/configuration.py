@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "DY_2022EEv12"   
+tag = "DY_2023BPixv12"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -19,7 +19,7 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 # luminosity to normalize to (in 1/fb) https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis
-lumi = 26.7
+lumi = 9.451
 
 # file with dict of aliases to define
 aliasesFile = "aliases.py"

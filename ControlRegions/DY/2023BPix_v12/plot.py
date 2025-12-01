@@ -3,7 +3,7 @@ groupPlot = {}
 groupPlot['DY']  = {  
     'nameHR'   : 'DY',
     'isSignal' : 0,
-    'color'    : '#832db6',
+    'color'    : '#832db6', #kGreen+4
     'samples'  : ['DY']
 }
 
@@ -29,5 +29,5 @@ plot['DATA']  = {
 
 # Legend definition
 legend = {}
-legend['lumi'] = 'L =  26.7 fb^{-1}'
+legend['lumi'] = 'L =  9.5 fb^{-1}'
 legend['sqrt'] = '13.6 TeV'

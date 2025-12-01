@@ -17,7 +17,7 @@ variables['nvtx'] = {
 
 variables['mll'] = {
     'name': 'mll',    
-    'range' : (50,0,200), 
+    'range' : (60,60,120), 
     'xaxis' : 'm_{ll} [GeV]',
     'fold' : 0
 }
@@ -69,29 +69,6 @@ variables['eta2']  = {
     'range' : (50,-2.5,2.5),   
     'xaxis' : '#eta 2nd lep',
     'fold'  : 3                         
-}
-
-                        
-# B Tag
-variables['jetdeepb']  = {
-    'name': 'Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99)',
-    'range' : (40,-1,1),
-    'xaxis' : 'B tagger 1st jet (DeepB)',
-    'fold' : 2
-}
-
-variables['jetParT']  = {
-    'name': 'Alt(Take(Jet_btagRobustParTAK4B, CleanJet_jetIdx), 0, -99)',
-    'range' : (40,-1,1),
-    'xaxis' : 'B tagger 1st jet (RobustParT AK4B)',
-    'fold' : 2
-}
-
-variables['jetPNetB']  = {
-    'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 0, -99)',
-    'range' : (40,-1,1),
-    'xaxis' : 'B tagger 1st jet (ParticleNet B)',
-    'fold' : 2
 }
 
 

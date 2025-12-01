@@ -5,11 +5,11 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-mcSteps = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' 
-dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
-#fakeSteps = 'DATAl1loose2022v12'
-dataSteps = 'DATAl2loose2022v12__l2tight'
+mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
+mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
+dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
+dataSteps    = 'DATAl2loose2023BPixv12__l2tight'
+# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -28,7 +28,7 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -84,19 +84,30 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
+    ['Dv1','Run2023D-Prompt-v1'],
+    ['Dv2','Run2023D-Prompt-v2'],
 ]
 
-DataSets = ['MuonEG','Muon','EGamma']
+# EGamma0 Dv1
+# Muon0 Dv1
+# Muon0 Dv2
+# EGamma0 Dv2
+# Muon1 Dv1
+# EGamma1 Dv1
+# Muon1 Dv2
+# EGamma1 Dv2
+# MuonEG Dv1
+# MuonEG Dv2
+
+DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'         : 'Trigger_ElMu' ,
-    'Muon'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'EGamma'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
+    'MuonEG'         : ' Trigger_ElMu' ,
+    'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'EGamma0'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
 }
-
-
 
 
 #########################################
@@ -107,6 +118,7 @@ DataTrig = {
 mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
 mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 
+#mcCommonWeight = 'XSWeight*METFilter_Common*SFweight'
 
 ###########################################
 #############  BACKGROUNDS  ###############
@@ -136,7 +148,7 @@ samples['DATA'] = {
 for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
-
+    
     files = nanoGetSampleFiles(dataDirectory, datatag)
     
     print(datatag)

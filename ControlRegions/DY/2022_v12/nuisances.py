@@ -1,4 +1,18 @@
-print(treeBaseDir)
+
+mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
+mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight'
+dataReco     = 'Run2022_Prompt_nAODv12_Full2022v12'
+dataSteps    = 'DATAl2loose2022v12__l2tight'
+
+treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+limitFiles = -1
+
+mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+
+redirector = ""
+
+useXROOTD = False
+
 def makeMCDirectory(var=''):
     _treeBaseDir = treeBaseDir + ''
     if useXROOTD:
@@ -8,6 +22,12 @@ def makeMCDirectory(var=''):
     else:
         return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
 
+
+
+mcDirectory = makeMCDirectory()
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+print(treeBaseDir)
 
 # merge cuts
 _mergedCuts = []
@@ -20,9 +40,7 @@ for cut in list(cuts.keys()):
     elif type(cuts[cut]) == str:
         _mergedCuts.append(cut)
 
-
-# Dfinitions of groups of samples
-mc = [skey for skey in samples if skey not in ('DATA')]
+cuts2j = _mergedCuts
 
 nuisances = {}
 
@@ -30,7 +48,6 @@ nuisances = {}
 ################################ EXPERIMENTAL UNCERTAINTIES  #################################
 
 #### Luminosity
-
 # https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3
 nuisances['lumi_2022'] = {
     'name'    : 'lumi_2022',
