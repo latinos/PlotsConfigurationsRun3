@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Top_2022v12"   
+tag = "SS_2022v12"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/Control_Regions/Top/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/Control_Regions/SS/rootFiles__{}".format(tag)
 
 # path to batch folder (used for condor submission)
 batchFolder = "condor"

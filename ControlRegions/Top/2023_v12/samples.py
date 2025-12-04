@@ -5,12 +5,11 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-
-mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12' 
-mcSteps = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight' 
-dataReco = 'Run2022EE_Prompt_nAODv12_Full2022v12'
-fakeSteps = 'DATAl1loose2022EEv12__fakeSel'
-dataSteps = 'DATAl2loose2022EEv12__l2tight'
+mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
+mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
+dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
+dataSteps    = 'DATAl2loose2023v12__l2tight'
+fakeSteps    = 'DATAl1loose2023v12__fakeSel'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -85,17 +84,21 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['E','Run2022E-Prompt-v1'],
-    ['F','Run2022F-Prompt-v1'],
-    ['G','Run2022G-Prompt-v1'],
+    ['Cv1','Run2023C-Prompt-v1'],
+    ['Cv2','Run2023C-Prompt-v2'],
+    ['Cv3','Run2023C-Prompt-v3'],
+    ['Cv4','Run2023C-Prompt-v4'],
 ]
 
-DataSets = ['MuonEG','Muon','EGamma']
+
+DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'         : ' Trigger_ElMu' ,
-    'Muon'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'EGamma'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
+    'MuonEG'          : 'Trigger_ElMu' ,
+    'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'EGamma0'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
 }
 
 #########################################
@@ -169,7 +172,6 @@ samples['WZ'] = {
 }
 
 # Vg/Vgstar
-        
 files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG10to100') + \
         nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100to200') + \
         nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG200to400') + \

@@ -17,7 +17,7 @@ variables['nvtx'] = {
 
 variables['mll'] = {
     'name': 'mll',    
-    'range' : (50,0,200), 
+    'range' : (100,0,200), 
     'xaxis' : 'm_{ll} [GeV]',
     'fold' : 0
 }
@@ -69,29 +69,6 @@ variables['eta2']  = {
     'range' : (50,-2.5,2.5),   
     'xaxis' : '#eta 2nd lep',
     'fold'  : 3                         
-}
-
-                        
-# B Tag
-variables['jetdeepb']  = {
-    'name': 'Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99)',
-    'range' : (40,-1,1),
-    'xaxis' : 'B tagger 1st jet (DeepB)',
-    'fold' : 2
-}
-
-variables['jetParT']  = {
-    'name': 'Alt(Take(Jet_btagRobustParTAK4B, CleanJet_jetIdx), 0, -99)',
-    'range' : (40,-1,1),
-    'xaxis' : 'B tagger 1st jet (RobustParT AK4B)',
-    'fold' : 2
-}
-
-variables['jetPNetB']  = {
-    'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 0, -99)',
-    'range' : (40,-1,1),
-    'xaxis' : 'B tagger 1st jet (ParticleNet B)',
-    'fold' : 2
 }
 
 
@@ -157,5 +134,19 @@ variables['jeteta2_fine_binning']  = {
     'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
     'range' : (94,-4.7,4.7),
     'xaxis' : '#eta 2nd jet',
+    'fold' : 0
+}
+
+variables['jetdeepb']  = {
+    'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 0, -99)',
+    'range' : (30,-1,1),
+    'xaxis' : 'B tagger 1st jet (PNetB)',
+    'fold' : 0
+}
+
+variables['jetdeepb2']  = {
+    'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 1, -99) -999.99*(CleanJet_pt[1]<20)',
+    'range' : ([0., 0.0499, 1.],),
+    'xaxis' : 'B tagger 2nd jet (PNetB)',
     'fold' : 0
 }

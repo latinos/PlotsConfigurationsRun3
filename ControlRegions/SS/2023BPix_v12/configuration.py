@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Top_2022v12"   
+tag = "SS_2023BPixv12"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/Control_Regions/Top/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/Control_Regions/SS/rootFiles__{}".format(tag)
 
 # path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -19,7 +19,7 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 # luminosity to normalize to (in 1/fb) https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis
-lumi = 8.0
+lumi = 9.451
 
 # file with dict of aliases to define
 aliasesFile = "aliases.py"

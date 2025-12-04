@@ -7,7 +7,7 @@ ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations) # 2022_v12
+configurations = os.path.dirname(configurations) # 2023BPixBPix_v12
 configurations = os.path.dirname(configurations) # Top
 configurations = os.path.dirname(configurations) # Control Regions
 configurations = os.path.dirname(configurations) + '/' # PlotsConfigurationRun3
@@ -48,8 +48,8 @@ aliases['Lepton_conept'] = {
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
-    'linesToAdd'     : [f'#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationRun3/ControlRegions/Top/2022_v12/fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"2022\", \"0\", \"0\", 0.0, 0.0, \"nominal\", 2, \"std\", \"{configurations}\", \"sns\");')"],
+    'linesToAdd'     : [f'#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationRun3/ControlRegions/Top/2023BPix_v12/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"2023BPix\", \"0\", \"0\", 0.0, 0.0, \"nominal\", 2, \"std\", \"{configurations}\", \"sns\");')"],
     'expr'           : 'fr_reader(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67, Lepton_isTightElectron_cutBased_LooseID_tthMVA_Run3, Electron_mvaTTH, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
@@ -80,14 +80,14 @@ aliases['noJetInHorn'] = {
 }
 
 ########################################################################
-# B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
+# B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer23/
 ########################################################################
 
 # Algo / WP / WP cut
 btagging_WPs = {
-    "DeepFlavB" : {"loose" : "0.0583", "medium" : "0.3086", "tight" : "0.7183", "xtight" : "0.8111", "xxtight" : "0.9512"},
-    "RobustParTAK4B" : {"loose" : "0.0849", "medium" : "0.4319", "tight" : "0.8482", "xtight" : "0.9151", "xxtight" : "0.9874"},
-    "PNetB" : {"loose" : "0.047", "medium" : "0.245", "tight" : "0.6734", "xtight" : "0.7862", "xxtight" : "0.961"}
+    "DeepFlavB" : {"loose" : "0.048", "medium" : "0.2435", "tight" : "0.6563", "xtight" : "0.7671", "xxtight" : "0.9483"},
+    "RobustParTAK4B" : {"loose" : "0.0683", "medium" : "0.3494", "tight" : "0.7994", "xtight" : "0.8877", "xxtight" : "0.9883"},
+    "PNetB" : {"loose" : "0.0359", "medium" : "0.1919", "tight" : "0.6133", "xtight" : "0.7544", "xxtight" : "0.9688"}
 }
 
 # Algo / SF name
@@ -126,8 +126,8 @@ aliases['topcr'] = {
     'expr': 'mtw2>30 && mll>50 && ((zeroJet && !bVeto) || bReq)'
 }
 
-eff_map_year = '2022' # ['2022', '2022EE', '2023', '2023BPix']
-year = 'Run3-22CDSep23-Summer22-NanoAODv12' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
+eff_map_year = '2023BPix' # ['2022', '2022EE', '2023BPix', '2023BPixBPix']
+year = 'Run3-23DSep23-Summer23BPix-NanoAODv12' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
 
 for flavour in ['bc', 'light']:
     for shift in ['central', 'up_uncorrelated', 'down_uncorrelated', 'up_correlated', 'down_correlated']:

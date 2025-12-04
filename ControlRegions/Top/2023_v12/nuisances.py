@@ -1,8 +1,8 @@
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight'
-dataReco     = 'Run2022_Prompt_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022v12__l2tight'
+mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
+mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
+dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
+dataSteps    = 'DATAl2loose2023v12__l2tight'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
@@ -49,10 +49,10 @@ nuisances = {}
 
 #### Luminosity
 # https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3
-nuisances['lumi_2022EE'] = {
-    'name'    : 'lumi_2022EE',
+nuisances['lumi_2023'] = {
+    'name'    : 'lumi_2023',
     'type'    : 'lnN',
-    'samples' : dict((skey, '1.014') for skey in mc)
+    'samples' : dict((skey, '1.013') for skey in mc)
 }
 
 ### MC statistical uncertainty

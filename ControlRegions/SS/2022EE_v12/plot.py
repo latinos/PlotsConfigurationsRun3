@@ -32,7 +32,7 @@ groupPlot['DY']  = {
 
 
 groupPlot['Vg']  = {
-    'nameHR' : 'Vg',
+    'nameHR' : 'V#gamma/V#gamma*',
     'isSignal' : 0,
     'color': '#e76300', 
     'samples'  : ['Vg']
@@ -166,8 +166,7 @@ plot['DATA']  = {
     'isBlind'  : 0
 }
 
-
 # Legend definition
 legend = {}
-legend['lumi'] = 'L =  8.0 fb^{-1}'
+legend['lumi'] = 'L =  26.7 fb^{-1}'
 legend['sqrt'] = '13.6 TeV'
