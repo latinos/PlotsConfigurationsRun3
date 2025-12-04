@@ -4,11 +4,10 @@ import os,sys,glob
 ################# SKIMS ########################
 ################################################
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
-
-mcSteps      = 'MCl1loose2022v12__MCCorr2022v12JetScaling__fakeSel'
-dataSteps    = 'DATAl1loose2022v12__fakeSel'
+mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
+mcSteps      = 'MCl1loose2023BPixv12__MCCorr2023BPixv12JetScaling__fakeSel'
+dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
+dataSteps    = 'DATAl1loose2023BPixv12__fakeSel'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -80,29 +79,34 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 
 
 DataRun = [
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
+    ['Dv1','Run2023D-Prompt-v1'],
+    ['Dv2','Run2023D-Prompt-v2'],
 ]
 
-DataSets = ['Muon','EGamma']
+
+DataSets = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'Muon' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
-    'EGamma'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
+    'Muon0' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
+    'EGamma0'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
+    'Muon1' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
+    'EGamma1'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
 }
 
 
 # Unprescaled triggers for prompt rate estimation
 DataRunUnprescaled = [
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
+    ['Dv1','Run2023D-Prompt-v1'],
+    ['Dv2','Run2023D-Prompt-v2'],
 ]
 
-DataSetsUnprescaled = ['Muon','EGamma']
+DataSetsUnprescaled = ['Muon0', 'Muon1', 'EGamma0', 'EGamma1']
 
 DataTrigUnprescaled = {
-     'Muon' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
-     'EGamma'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
+    'Muon0' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
+    'EGamma0'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
+    'Muon1' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
+    'EGamma1'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
 }
 
 #########################################
@@ -118,11 +122,11 @@ mcCommonWeight = 'baseW*puWeight*Generator_weight/1000.'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-lumi_ele_low_pt   = '5.977*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
-lumi_ele_high_pt  = '5.977*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
-lumi_muon_low_pt  = '1.349*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
-lumi_muon_high_pt = '6.207*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
-lumi_full_2022    = '7980.4'
+lumi_ele_low_pt   = '8.793*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
+lumi_ele_high_pt  = '8.793*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
+lumi_muon_low_pt  = '1.101*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
+lumi_muon_high_pt = '29.83*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
+lumi_full_2023BPix    = '9451'
 
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
@@ -153,7 +157,7 @@ samples['DY_muon_high_pt'] = {
 
 samples['DY_unprescaled'] = {
     'name': files,
-    'weight': mcCommonWeight + '*' + lumi_full_2022,
+    'weight': mcCommonWeight + '*' + lumi_full_2023BPix,
     'FilesPerJob': 10,
 }
 

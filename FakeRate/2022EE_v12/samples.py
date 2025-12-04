@@ -4,11 +4,11 @@ import os,sys,glob
 ################# SKIMS ########################
 ################################################
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
+mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
+mcSteps      = 'MCl1loose2022EEv12__MCCorr2022EEv12JetScaling__fakeSel'
 
-mcSteps      = 'MCl1loose2022v12__MCCorr2022v12JetScaling__fakeSel'
-dataSteps    = 'DATAl1loose2022v12__fakeSel'
+dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
+dataSteps    = 'DATAl1loose2022EEv12__fakeSel'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -79,9 +79,15 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 
+################################################
+############ DATA DECLARATION ##################
+################################################
+
+
 DataRun = [
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
+    ['E','Run2022E-Prompt-v1'],
+    ['F','Run2022F-Prompt-v1'],
+    ['G','Run2022G-Prompt-v1'],
 ]
 
 DataSets = ['Muon','EGamma']
@@ -94,8 +100,9 @@ DataTrig = {
 
 # Unprescaled triggers for prompt rate estimation
 DataRunUnprescaled = [
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
+    ['E','Run2022E-Prompt-v1'],
+    ['F','Run2022F-Prompt-v1'],
+    ['G','Run2022G-Prompt-v1'],
 ]
 
 DataSetsUnprescaled = ['Muon','EGamma']
@@ -118,11 +125,11 @@ mcCommonWeight = 'baseW*puWeight*Generator_weight/1000.'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-lumi_ele_low_pt   = '5.977*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
-lumi_ele_high_pt  = '5.977*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
-lumi_muon_low_pt  = '1.349*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
-lumi_muon_high_pt = '6.207*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
-lumi_full_2022    = '7980.4'
+lumi_ele_low_pt   = '20.228*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
+lumi_ele_high_pt  = '20.228*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
+lumi_muon_low_pt  = '4.987*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
+lumi_muon_high_pt = '20.517*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
+lumi_full_2022    = '26671.7'
 
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')

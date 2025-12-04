@@ -24,7 +24,7 @@ float drlj(float inputJetPt,
 		   RVecF Lepton_phi,
 		   RVecF CleanJet_pt,
 		   RVecF CleanJet_eta,
-		   RVecF CleanJet_phi,
+		   RVecF CleanJet_phi
 		){
   
   float deltaR = -999.0f;
