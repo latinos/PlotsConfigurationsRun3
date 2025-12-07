@@ -7,7 +7,7 @@ It's the only necessary python configuration file, all the other files are impor
 
 #: tag used to identify the configuration folder version
 #tag = "WW_2016_postVFP"
-tag = "WW_2016_postVFP_complete"
+tag = "WW_2016_postVFP_complete_MELA_copy_CP2"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -43,8 +43,8 @@ samplesFile = "samples.py"
 plotFile = "plot.py"
 
 #: file with dict of structure (used to define combine processes)
-#structureFile = "structure.py"
-structureFile = "structure_LL.py"
+structureFile = "structure.py"
+#structureFile = "structure_LL.py"
 #structureFile = "structure_hww.py"
 
 # nuisances file for mkDatacards and for mkShape

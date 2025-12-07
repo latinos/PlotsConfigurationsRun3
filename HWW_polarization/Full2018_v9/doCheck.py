@@ -97,7 +97,7 @@ output = $(Folder)/out.txt
 error  = $(Folder)/err.txt
 log    = $(Folder)/log.txt
 request_cpus   = 1
-+JobFlavour = "nextweek"
++JobFlavour = "testmatch"
 queue 1 Folder in  RPLME_ALLSAMPLES"""
         
         resubmit = resubmit.replace("RPLME_ALLSAMPLES", " ".join(failed_jobs))

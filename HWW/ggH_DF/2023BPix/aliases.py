@@ -2,7 +2,8 @@ import os
 import copy
 import inspect
 
-configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) 
+configurations = os.path.dirname(configurations) + '/'
 
 aliases = {}
 aliases = OrderedDict()
@@ -10,9 +11,9 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb', 'DATA_EG', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA', 'DATA_Mu', 'DATA_EMu', 'Fake_EG', 'Fake_Mu', 'Fake_EMu')]
 
-# LepSF2l__ele_wp90iso__mu_cut_Tight_HWW
-eleWP = 'wp90iso'
-muWP  = 'cut_Tight_HWW'
+# LepCut2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
+eleWP = 'cutBased__LooseID_tthMVA_Run3'
+muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
@@ -50,6 +51,14 @@ aliases['noJetInHorn'] = {
     'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.5 && abs(CleanJet_eta) < 3.0) == 0',
 }
 
+aliases['fakeW'] = {
+    'linesToAdd' : [f'#include "{configurations}macros/fake_rate_reader_class.cc"'],
+    'linesToProcess':[f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"2023BPix\", \"{eleWP}\", \"{muWP}\", 0.90, 0.80, \"nominal\", 2, \"std\", \"{configurations}\");')"],
+    'expr': f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'    : ['Fake']
+}
+
+
 aliases['Top_pTrw'] = {
     'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
     'samples': ['top']
@@ -81,6 +90,47 @@ WP    = 'loose'     # ['loose','medium','tight','xtight','xxtight']
 # Access information from dictionaries
 bWP   = btagging_WPs[bAlgo][WP]
 bSF   = btagging_SFs[bAlgo]
+
+# Access information from dictionaries
+bWP   = btagging_WPs[bAlgo][WP]
+bSF   = btagging_SFs[bAlgo]
+
+WP_eval = 'L' # ['L', 'M', 'T', 'XT', 'XXT']
+tagger = 'deepJet' # ['deepJet', 'particleNet', 'robustParticleTransformer']
+
+#################
+### B-tagging ###
+#################
+
+# Fixed BTV wp
+
+# btagging MC efficiencies and SFs are read through the btagSF{flavour} object:
+# - the first argument is the MC btagging efficiency root file
+# - the second argument is the year from which SFs are retrieved from the POG/BTV json-pog correctionlib directory; 
+#   allowed options are = ['2022_Summer22', '2022_Summer22EE', '2023_Summer23', '2023_Summer23BPix']
+# The btagSF{flavour}_{shift} constructor executes the actual computation
+# In this you specify the WP for the computation and the tagger using the WP_eval and tagger strings.
+
+# We assume that you heve the efficiency maps root files in your configuration, as well as the evaluation macros
+# If this is not the case, swap configurations with the proper path
+
+# path = "your/path"
+
+eff_map_year = '20232' # ['2022', '20222', '2023', '20232']
+year = '2023_Summer23BPix'
+
+for flavour in ['bc', 'light']:
+    for shift in ['central', 'up_uncorrelated', 'down_uncorrelated', 'up_correlated', 'down_correlated']:
+        btagsf = 'btagSF' + flavour
+        if shift != 'central':
+            btagsf += '_' + shift
+        aliases[btagsf] = {
+            'linesToAdd': [f'#include "{configurations}macros/evaluate_btagSF{flavour}.cc"'],
+            'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"{configurations}fixedWP/bTagEff_{eff_map_year}_ttbar_{bAlgo}_loose.root\", \"{year}\");')"],
+            'expr': f'btagSF{flavour}_{shift}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btag{bAlgo}, "{WP_eval}", "{shift}", "{tagger}")',
+            'samples' : mc,
+        }
+
 
 # B tagging selections and scale factors
 aliases['bVeto'] = {
@@ -125,24 +175,24 @@ aliases['btagSF'] = {
 }
 
 # Systematic uncertainty variations
-for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']:
-
-    for targ in ['bVeto', 'bReq']:
-        alias = aliases['%sSF%sup' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
-        alias['expr'] = alias['expr'].replace('btagSF_deepjet_shape', 'btagSF_deepjet_shape_up_%s' % shift)
-
-        alias = aliases['%sSF%sdown' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
-        alias['expr'] = alias['expr'].replace('btagSF_deepjet_shape', 'btagSF_deepjet_shape_down_%s' % shift)
-
-    aliases['btagSF%sup' % shift] = {
-        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'up'),
-        'samples': mc
-    }
-
-    aliases['btagSF%sdown' % shift] = {
-        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'down'),
-        'samples': mc
-    }
+#for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']:
+#
+#    for targ in ['bVeto', 'bReq']:
+#        alias = aliases['%sSF%sup' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
+#        alias['expr'] = alias['expr'].replace('btagSF_deepjet_shape', 'btagSF_deepjet_shape_up_%s' % shift)
+#
+#        alias = aliases['%sSF%sdown' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
+#        alias['expr'] = alias['expr'].replace('btagSF_deepjet_shape', 'btagSF_deepjet_shape_down_%s' % shift)
+#
+#    aliases['btagSF%sup' % shift] = {
+#        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'up'),
+#        'samples': mc
+#    }
+#
+#    aliases['btagSF%sdown' % shift] = {
+#        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'down'),
+#        'samples': mc
+#    }
 
 ##########################################################################
 # End of b tagging
@@ -155,9 +205,13 @@ aliases['nHardJets'] = {
 }
 
 # Data/MC scale factors and systematic uncertainties
+#aliases['SFweight'] = {
+#    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF', 'btagSF']),
+#    'samples': mc
+#}
+
 aliases['SFweight'] = {
-    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF', 'btagSF']), # used to apply leptons SFs
-    #'expr': ' * '.join(['SFweight2l', 'LepWPCut']), # used just for leptons WP cut
+    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF', 'btagSFbc', 'btagSFlight']),
     'samples': mc
 }
 
@@ -176,15 +230,4 @@ aliases['SFweightMuUp'] = {
 aliases['SFweightMuDown'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Down',
     'samples': mc
-}
-
-aliases['snn_SigVSBkg'] = {
-    'linesToAdd': ['#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/ggH_DF/2022/macros/snn_sigVSbkg.cc"'],
-    'class': 'snn_SigVSBkg',
-    'args': 'PV_npvsGood, mll, mth, ptll, drll, dphill, \
-            Lepton_pt[0], Lepton_pt[1], Lepton_eta[0], Lepton_eta[1], Lepton_phi[0], Lepton_phi[1], \
-            PuppiMET_pt, Sum(CleanJet_pt>30), \
-            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
-            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
-    'afterNuis' : True
 }

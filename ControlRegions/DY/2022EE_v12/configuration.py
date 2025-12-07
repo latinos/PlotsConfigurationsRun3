@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "DY2022EE_v12"
+tag = "DY_2022EEv12"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,56 +10,50 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+outputFolder = "rootFiles/Control_Regions/DY/rootFiles__{}".format(tag)
 
-#: path to batch folder (used for condor submission)
+# path to batch folder (used for condor submission)
 batchFolder = "condor"
 
-#: path to configuration folder (will contain all the compiled configuration files)
+# path to configuration folder (will contain all the compiled configuration files)
 configsFolder = "configs"
 
-#: luminosity to normalize to (in 1/fb)
-# lumi = 8.174732641
-#lumi = 35.0
-lumi = 27.0
+# luminosity to normalize to (in 1/fb) https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis
+lumi = 26.7
 
-#: file with dict of aliases to define
+# file with dict of aliases to define
 aliasesFile = "aliases.py"
 
-#: file with dict of variables
+# file with dict of variables
 variablesFile = "variables.py"
 
-#: file with dict of cuts
+# file with dict of cuts
 cutsFile = "cuts.py"
 
-#: file with dict of samples
+# file with dict of samples
 samplesFile = "samples.py"
 
-#: file with dict of samples
+# file with dict of samples
 plotFile = "plot.py"
 
-#: file with dict of structure (used to define combine processes)
+# file with dict of structure (used to define combine processes)
 structureFile = "structure.py"
 
 # nuisances file for mkDatacards and for mkShape
 nuisancesFile = "nuisances.py"
 
-# minRatio = 0.5
-# maxRatio = 1.5
-# plotPath = "/eos/user/g/gpizzati/www/rdf/2016/"
+# path to folder where to save plots
+plotPath = "Plots/Control_Regions/{}".format(tag)
 
-#: path to folder where to save plots
-plotPath = "plots_" + tag
-
-#: this lines are executed right before the runner on the condor node
+# this lines are executed right before the runner on the condor node
 mountEOS = [
     # "export KRB5CCNAME=/home/gpizzati/krb5\n",
 ]
 
-#: list of imports to import when compiling the whole configuration folder, it should not contain imports used by configuration.py
+# list of imports to import when compiling the whole configuration folder, it should not contain imports used by configuration.py
 imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
 
-#: list of files to compile
+# list of files to compile
 filesToExec = [
     samplesFile,
     aliasesFile,
@@ -70,7 +64,7 @@ filesToExec = [
     structureFile,
 ]
 
-#: list of variables to keep in the compiled configuration folder
+# list of variables to keep in the compiled configuration folder
 varsToKeep = [
     "batchVars",
     "outputFolder",
@@ -89,7 +83,7 @@ varsToKeep = [
     "lumi",
 ]
 
-#: list of variables to keep in the batch submission script (script.py)
+# list of variables to keep in the batch submission script (script.py)
 batchVars = varsToKeep[varsToKeep.index("samples") :]
 
 

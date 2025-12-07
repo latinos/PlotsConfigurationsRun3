@@ -1,16 +1,16 @@
 import sys,os
 
-# tag used to identify the configuration folder version
-tag = "Top2022_v12"
+#: tag used to identify the configuration folder version
+tag = "Top_2022v12"   
 
-# file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
+#: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
 
-# output file name
+#: output file name
 outputFile = "mkShapes__{}.root".format(tag)
 
-# path to ouput folder
-outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+#: path to ouput folder
+outputFolder = "rootFiles/Control_Regions/Top/rootFiles__{}".format(tag)
 
 # path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -18,9 +18,8 @@ batchFolder = "condor"
 # path to configuration folder (will contain all the compiled configuration files)
 configsFolder = "configs"
 
-# luminosity to normalize to (in 1/fb)
-# https://github.com/latinos/mkShapesRDF/blob/Run3/mkShapesRDF/processor/data/TrigMaker_cfg.py#L1016
-lumi = 8.174732641
+# luminosity to normalize to (in 1/fb) https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis
+lumi = 8.0
 
 # file with dict of aliases to define
 aliasesFile = "aliases.py"
@@ -44,7 +43,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "plots_" + tag
+plotPath = "Plots/Control_Regions/{}".format(tag)
 
 # this lines are executed right before the runner on the condor node
 mountEOS = [

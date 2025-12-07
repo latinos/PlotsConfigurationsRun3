@@ -7,14 +7,14 @@ groupPlot['top']  = {
     'samples'  : ['top']
 }
 
-"""
+
 groupPlot['Fake']  = {
     'nameHR' : 'nonprompt',
     'isSignal' : 0,
     'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
     'samples'  : ['Fake']
 }
-"""
+
 
 groupPlot['WW']  = {
     'nameHR' : 'WW',
@@ -82,7 +82,7 @@ plot['top']  = {
 }
 
 
-"""
+
 plot['Fake']  = {
     'nameHR'   : 'nonprompt',
     'color'    : 921,
@@ -90,7 +90,7 @@ plot['Fake']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
-"""
+
 
 plot['WW']  = {
     'nameHR'   : 'WW',
@@ -139,7 +139,7 @@ plot['ZZ']  = {
 # Higgs
 
 plot['ggH_hww'] = {
-    'nameHR'   : 'ggF',
+    'nameHR'   : 'ggH_hww',
     'color'    : 632,
     'isSignal' : 1,
     'isData'   : 0,
@@ -148,7 +148,7 @@ plot['ggH_hww'] = {
 
 
 plot['qqH_hww'] = {
-    'nameHR'   : 'VBF',
+    'nameHR'   : 'qqH_hww',
     'color'    : 632,
     'isSignal' : 1,
     'isData'   : 0,

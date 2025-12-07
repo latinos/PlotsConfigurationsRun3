@@ -5,11 +5,11 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
-dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022EEv12__l2tight'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12' 
+mcSteps = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight' 
+dataReco = 'Run2022EE_Prompt_nAODv12_Full2022v12'
+fakeSteps = 'DATAl1loose2022EEv12'
+dataSteps = 'DATAl2loose2022EEv12__l2tight'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -28,7 +28,7 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -84,19 +84,15 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['B','Run2022B-ReReco-v1'],
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
     ['E','Run2022E-Prompt-v1'],
     ['F','Run2022F-Prompt-v1'],
     ['G','Run2022G-Prompt-v1'],
 ]
 
-DataSets = ['MuonEG','SingleMuon','Muon','EGamma']
+DataSets = ['MuonEG','Muon','EGamma']
 
 DataTrig = {
     'MuonEG'         : ' Trigger_ElMu' ,
-    'SingleMuon'     : '!Trigger_ElMu && Trigger_sngMu' ,
     'Muon'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
     'EGamma'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
 }
@@ -119,7 +115,10 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
     ##########
     ### DY ###
     ##########
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+#files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+files = nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
 
 samples['DY'] = {
     'name': files,
@@ -138,7 +137,7 @@ files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
 samples['top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 1,
+    'FilesPerJob': 5,
 }
 
 addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
@@ -257,3 +256,26 @@ for _, sd in DataRun:
 
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
+
+
+    #############
+    ### Fakes ###
+    #############
+
+
+samples['Fake'] = {
+    'name': [],
+    'weight': 'METFilter_DATA*fakeW',
+    'weights': [],
+    'isData': ['all'],
+    'FilesPerJob': 15
+}
+
+
+for _, sd in DataRun:
+  for pd in DataSets:
+    datatag = pd + '_' + sd
+
+    files = nanoGetSampleFiles(fakeDirectory, datatag)
+    samples['Fake']['name'].extend(files)
+    addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])

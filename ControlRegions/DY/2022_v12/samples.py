@@ -5,14 +5,11 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-# MC:   /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight
-# DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2022_ReReco_nAODv12_Full2022v12/DATAl2loose2022v12__l2tight
-
 mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight'
-dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022v12__l2tight'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+mcSteps = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' 
+dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
+#fakeSteps = 'DATAl1loose2022v12'
+dataSteps = 'DATAl2loose2022v12__l2tight'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -31,7 +28,7 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -87,23 +84,19 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['B','Run2022B-ReReco-v1'],
     ['C','Run2022C-ReReco-v1'],
     ['D','Run2022D-ReReco-v1'],
 ]
 
-# ['E','Run2022E-Prompt-v1'],
-# ['F','Run2022F-Prompt-v1'],
-# ['G','Run2022G-Prompt-v1'],
-
-DataSets = ['MuonEG','SingleMuon','Muon','EGamma']
+DataSets = ['MuonEG','Muon','EGamma']
 
 DataTrig = {
-    'MuonEG'         : ' Trigger_ElMu' ,
-    'SingleMuon'     : '!Trigger_ElMu && Trigger_sngMu' ,
+    'MuonEG'         : 'Trigger_ElMu' ,
     'Muon'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
     'EGamma'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
 }
+
+
 
 
 #########################################
@@ -114,7 +107,6 @@ DataTrig = {
 mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
 mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 
-#mcCommonWeight = 'XSWeight*METFilter_Common*SFweight'
 
 ###########################################
 #############  BACKGROUNDS  ###############
@@ -126,7 +118,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 2,
+    'FilesPerJob': 20
 }
 
 ###########################################
@@ -145,11 +137,10 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    if (pd == "SingleMuon" and _ in ["D"]) or (pd == "Muon" and _ == "B"):
-        continue
     files = nanoGetSampleFiles(dataDirectory, datatag)
     
     print(datatag)
 
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
+

@@ -134,6 +134,32 @@ aliases['fakeWStatMuDown'] = {
         'samples'    : ['Fake']
 }
 
+aliases['fakeWEWKEleUp'] = {
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EWKEleUp = fake_rate_reader(\"2016_HIPM\", \"90\", \"82\", 0.90, 0.82, \"EWKEleUp\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_EWKEleUp(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight80x, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
+}
+aliases['fakeWEWKEleDown'] = {
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EWKEleDown = fake_rate_reader(\"2016_HIPM\", \"90\", \"82\", 0.90, 0.82, \"EWKEleDown\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_EWKEleDown(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight80x, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
+}
+
+aliases['fakeWEWKMuUp'] = {
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EWKMuUp = fake_rate_reader(\"2016_HIPM\", \"90\", \"82\", 0.90, 0.82, \"EWKMuUp\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_EWKMuUp(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight80x, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
+}
+aliases['fakeWEWKMuDown'] = {
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader_EWKMuDown = fake_rate_reader(\"2016_HIPM\", \"90\", \"82\", 0.90, 0.82, \"EWKMuDown\", 3, \"std\", \"{configurations}\");')"],
+    'expr'           : 'fr_reader_EWKMuDown(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_cut_Tight80x, Lepton_isTightElectron_mvaFall17V2Iso_WP90, Lepton_mvaTTH_UL, Muon_mvaTTH, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
+}
+
 # No jet with pt > 30 GeV
 aliases['zeroJet'] = {
     'expr' : 'Alt(CleanJet_pt, 0, 0) < 30.'

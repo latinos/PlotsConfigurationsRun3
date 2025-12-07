@@ -9,7 +9,7 @@ mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
 mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
 dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
 dataSteps    = 'DATAl2loose2023BPixv12__l2tight'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
+fakeSteps    = 'DATAl1loose2023BPixv12'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -28,7 +28,7 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -119,7 +119,10 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
     ##########
     ### DY ###
     ##########
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+#files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+files = nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
 
 samples['DY'] = {
     'name': files,
@@ -138,7 +141,7 @@ files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
 samples['top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 1,
+    'FilesPerJob': 5,
 }
 
 addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
@@ -250,3 +253,24 @@ for _, sd in DataRun:
 
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
+
+    #############
+    ### Fakes ###
+    #############
+
+samples['Fake'] = {
+    'name': [],
+    'weight': 'METFilter_DATA*fakeW',
+    'weights': [],
+    'isData': ['all'],
+    'FilesPerJob': 15
+}
+
+
+for _, sd in DataRun:
+  for pd in DataSets:
+    datatag = pd + '_' + sd
+
+    files = nanoGetSampleFiles(fakeDirectory, datatag)
+    samples['Fake']['name'].extend(files)
+    addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])

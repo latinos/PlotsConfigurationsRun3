@@ -1,26 +1,23 @@
-# Group plot
 groupPlot = {}
 
 groupPlot['DY']  = {  
     'nameHR'   : 'DY',
     'isSignal' : 0,
-    'color'    : 420, # kGreen+4
+    'color'    : '#832db6',
     'samples'  : ['DY']
 }
 
-
-# Plot
 plot = {}
 
 plot['DY']  = {  
-    'color'    : 420, # kGreen+4
+    'color'    : 418,    # kGreen+2
     'isSignal' : 0,
     'isData'   : 0, 
     'scale'    : 1.0,
 }
 
+# data
 
-# Data
 plot['DATA']  = { 
     'nameHR'   : 'Data',
     'color'    : 1 ,  
@@ -29,7 +26,8 @@ plot['DATA']  = {
     'isBlind'  : 0
 }
 
+
 # Legend definition
 legend = {}
-legend['lumi'] = 'L =  8.2 fb^{-1}'
-legend['sqrt'] = '#sqrt{s} = 13.6 TeV'
+legend['lumi'] = 'L =  8.0 fb^{-1}'
+legend['sqrt'] = '13.6 TeV'

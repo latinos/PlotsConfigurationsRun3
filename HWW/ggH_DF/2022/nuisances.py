@@ -1,8 +1,8 @@
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12' # OLD
+mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
 mcSteps = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' 
 dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
-# fakeSteps = 'DATAl1loose2022EFGv12__fakeW'
+fakeSteps = 'DATAl1loose2022v12'
 dataSteps = 'DATAl2loose2022v12__l2tight'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
@@ -26,7 +26,7 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
-#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 print(treeBaseDir)
 
@@ -62,7 +62,7 @@ nuisances['JER'] = {
 }
 
 nuisances['JES'] = {
-    'name': 'CMS_jes_2022',
+    'name': 'CMS_scale_j_2022',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -77,7 +77,7 @@ nuisances['JES'] = {
 
 
 nuisances['MET'] = {
-    'name': 'CMS_MET_2022',
+    'name': 'CMS_scale_met_2022',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -123,36 +123,36 @@ nuisances['lepres'] = {
 ### B-tagger
 # Fixed BTV SF variations
 
-#for flavour in ['bc', 'light']:
-#    for corr in ['uncorrelated', 'correlated']:
-#        btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
-#        if corr == 'correlated':
-#            name = f'CMS_btagSF{flavour}_{corr}'
-#        else:
-#            name = f'CMS_btagSF{flavour}_2022'
-#        nuisances[f'btagSF{flavour}{corr}'] = {
-#            'name': name,
-#            'skipCMS' : 1,
-#            'kind': 'weight',
-#            'type': 'shape',
-#            'samples': dict((skey, btag_syst) for skey in mc),
-#        }
+for flavour in ['bc', 'light']:
+    for corr in ['uncorrelated', 'correlated']:
+        btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
+        if corr == 'correlated':
+            name = f'CMS_btagSF{flavour}_{corr}'
+        else:
+            name = f'CMS_btagSF{flavour}_2022'
+        nuisances[f'btagSF{flavour}{corr}'] = {
+            'name': name,
+            'skipCMS' : 1,
+            'kind': 'weight',
+            'type': 'shape',
+            'samples': dict((skey, btag_syst) for skey in mc),
+        }
 
 ##### Standard B-tagger
 
-for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
-    btag_syst = ['(btagSF%sup)/(btagSF)' % shift, '(btagSF%sdown)/(btagSF)' % shift]
-
-    name = 'CMS_btag_%s' % shift
-    if 'stats' in shift:
-        name += '_2022'
-
-    nuisances['btag_shape_%s' % shift] = {
-        'name': name,
-        'kind': 'weight',
-        'type': 'shape',
-        'samples': dict((skey, btag_syst) for skey in mc),
-    }
+#for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
+#    btag_syst = ['(btagSF%sup)/(btagSF)' % shift, '(btagSF%sdown)/(btagSF)' % shift]
+#
+#    name = 'CMS_btag_%s' % shift
+#    if 'stats' in shift:
+#        name += '_2022'
+#
+#    nuisances['btag_shape_%s' % shift] = {
+#        'name': name,
+#        'kind': 'weight',
+#        'type': 'shape',
+#        'samples': dict((skey, btag_syst) for skey in mc),
+#    }
 
 ##### Trigger Scale Factors                                                                                                                                                                                
 
@@ -193,14 +193,14 @@ nuisances['PU'] = {
 ##### PS
 
 nuisances['PS_ISR']  = {
-    'name'    : 'PS_hww_ISR',
+    'name'    : 'ps_isr',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
     'AsLnN'   : '0',
 }
 nuisances['PS_FSR']  = {
-    'name'    : 'PS_hww_FSR',
+    'name'    : 'ps_fsr',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc),
@@ -208,7 +208,7 @@ nuisances['PS_FSR']  = {
 }
 
 nuisances['UE_CP5']  = {
-    'name'    : 'CMS_hww_UE',
+    'name'    : 'UEPS',
     'skipCMS' : 1,
     'type'    : 'lnN',
     'samples' : dict((skey, '1.015') for skey in mc),
@@ -218,7 +218,7 @@ nuisances['UE_CP5']  = {
 ## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
 
 nuisances['QCDscale_top']  = {
-    'name'  : 'QCDscale_top',
+    'name'  : 'QCDscale_ttbar',
     'kind'  : 'weight',
     'type'  : 'shape',
     'samples'  : {'top' : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
@@ -259,6 +259,14 @@ nuisances['QCDscale_qqH'] = {
     'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
+
+nuisances['fake_syst'] = {
+    'name': 'CMS_fake_syst',
+    'type': 'lnN',
+    'samples': {
+        'Fake': '1.3'
+    },
+}
 
 autoStats = True
 if autoStats:

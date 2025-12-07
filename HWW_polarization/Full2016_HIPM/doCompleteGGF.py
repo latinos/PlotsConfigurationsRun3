@@ -33,8 +33,8 @@ import mkShapesRDF.shapeAnalysis.latinos.LatinosUtils as utils
 subsamplesmap = utils.flatten_samples(samples)
 categoriesmap = utils.flatten_cuts(cuts)
 
-
 outputFile = "/eos/user/s/sblancof/MC/rootFiles/mkShapes__WW_2016_complete.root"
+
 
 print("Start computation")
 
@@ -128,6 +128,8 @@ for cutName in ["hww2l2v_13TeV_top_0j","hww2l2v_13TeV_top_1j","hww2l2v_13TeV_top
         inFile.Close()
                         
 print("Fixed!!!")
+
+
 print("Now create ggToWW and qqToWW")
 
 for cutName in cuts:

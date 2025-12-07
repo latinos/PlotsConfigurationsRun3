@@ -51,18 +51,19 @@ cuts['hww2l2v_13TeV_ss'] = {
 #    }
 #}
 
-cuts['hww2l2v_13TeV_sr_RF02'] = {
-    'expr': 'sr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
-    'categories' : {
-        '0j_pt2gt20' : 'Alt(CleanJet_pt,0, 0.0)<30.0 && Lepton_pt[1]>=20 && RF_score_0J_Bkg<0.2',
-        '0j_pt2lt20' : 'Alt(CleanJet_pt,0, 0.0)<30.0 && Lepton_pt[1]<20 && RF_score_0J_Bkg<0.2',
-        '1j_pt2gt20' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 && Lepton_pt[1]>=20 && RF_score_1J_Bkg<0.2',
-        '1j_pt2lt20' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 && Lepton_pt[1]<20 && RF_score_1J_Bkg<0.2',
-        '2j_tot': 'Sum(CleanJet_pt>30.0)==2 && (RF_score_2J_Bkg<0.2 || RF_score_VBF_Bkg<0.2)',
-        '2j' : 'Sum(CleanJet_pt>30.0)==2 && D_VBF_QCD<0.5 && RF_score_2J_Bkg<0.2',
-        '2j_vbf' : 'Sum(CleanJet_pt>30.0)==2 && D_VBF_QCD>0.5 && RF_score_VBF_Bkg<0.2',
+if not doSignals:
+    cuts['hww2l2v_13TeV_sr_RF02'] = {
+        'expr': 'sr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+        'categories' : {
+            '0j_pt2gt20' : 'Alt(CleanJet_pt,0, 0.0)<30.0 && Lepton_pt[1]>=20 && RF_score_0J_Bkg<0.2',
+            '0j_pt2lt20' : 'Alt(CleanJet_pt,0, 0.0)<30.0 && Lepton_pt[1]<20 && RF_score_0J_Bkg<0.2',
+            '1j_pt2gt20' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 && Lepton_pt[1]>=20 && RF_score_1J_Bkg<0.2',
+            '1j_pt2lt20' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 && Lepton_pt[1]<20 && RF_score_1J_Bkg<0.2',
+            '2j_tot': 'Sum(CleanJet_pt>30.0)==2 && (RF_score_2J_Bkg<0.2 || RF_score_VBF_Bkg<0.2)',
+            '2j' : 'Sum(CleanJet_pt>30.0)==2 && D_VBF_QCD<0.5 && RF_score_2J_Bkg<0.2',
+            '2j_vbf' : 'Sum(CleanJet_pt>30.0)==2 && D_VBF_QCD>0.5 && RF_score_VBF_Bkg<0.2',
+        }
     }
-}
 
 cuts['hww2l2v_13TeV_sr'] = {
     'expr': 'sr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
@@ -93,3 +94,8 @@ cuts['hww2l2v_13TeV_dytt']  = {
        '2j' : 'Sum(CleanJet_pt>30.0)==2',
    }
 }
+
+
+
+
+    

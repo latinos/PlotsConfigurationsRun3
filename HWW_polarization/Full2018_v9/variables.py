@@ -290,3 +290,72 @@ variables['mpmet']  = {
                         }
 
 
+if doSignals:
+
+    variables = {}
+
+    variables['events']  = {   'name': '1',
+                               'range' : (1,0,2),
+                               'xaxis' : 'events',
+                               'fold' : 3
+                            }
+
+    variables['RF_0J_2D']  = {   'name': ('RF_score_0J_Bkg:RF_score_0J_TT'),
+                                 'range' : ([0.0, 0.2, 0.4, 0.6, 0.8, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                 'xaxis' : 'Random Forest score: 2D (0J) Bkg:TT',
+                                 'fold' : 3
+                              }
+    
+    
+    variables['RF_0J_2D_Wide']  = {   'name': ('RF_score_0J_Bkg:RF_score_0J_TT'),
+                                      'range' : ([0.0, 0.5, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                      'xaxis' : 'Random Forest score: 2D (0J) Bkg:TT',
+                                      'fold' : 3
+                                   }
+    variables['RF_1J_2D']  = {   'name': ('RF_score_1J_Bkg:RF_score_1J_TT'),
+                                 'range' : ([0.0, 0.2, 0.4, 0.6, 0.8, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                 'xaxis' : 'Random Forest score: 2D (1J) Bkg:TT',
+                                 'fold' : 3
+                              }
+    
+    variables['RF_1J_2D_Wide']  = {   'name': ('RF_score_1J_Bkg:RF_score_1J_TT'),
+                                      'range' : ([0.0, 0.5, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                      'xaxis' : 'Random Forest score: 2D (1J) Bkg:TT',
+                                      'fold' : 3
+                                   }
+    
+    variables['RF_2J_2D']  = {   'name': ('RF_score_2J_Bkg:RF_score_2J_LL'),
+                                 'range' : ([0.0, 0.2, 0.4, 0.7, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                 'xaxis' : 'Random Forest score: 2D (2J) Bkg:LL',
+                                 'fold' : 3
+                              }
+    
+    variables['RF_2J_2D_Wide']  = {   'name': ('RF_score_2J_Bkg:RF_score_2J_LL'),
+                                      'range' : ([0.0, 0.5, 1.0],[0.0, 0.05, 0.2, 0.3, 0.4, 0.5, 0.7, 1.0],),
+                                      'xaxis' : 'Random Forest score: 2D (2J) Bkg:LL',
+                                      'fold' : 3
+                                   }
+    variables['RF_VBF_2D']  = {   'name': ('RF_score_VBF_Bkg:RF_score_VBF_LL'),
+                                  'range' : ([0.0, 0.2, 0.4, 0.6, 1.0],[0.0, 0.05, 0.2, 0.4, 1.0],),
+                                  'xaxis' : 'Random Forest score: 2D (VBF) Bkg:LL',
+                                  'fold' : 3
+                               }
+    
+    variables['RF_VBF_2D_Wide']  = {   'name': ('RF_score_VBF_Bkg:RF_score_VBF_LL'),
+                                       'range' : ([0.0, 0.2, 1.0],[0.0, 0.125, 0.35, 0.65, 1.0],),
+                                       'xaxis' : 'Random Forest score: 2D (VBF) Bkg:LL',
+                                       'fold' : 3
+                                    }
+
+    #variables['dphill'] = {   'name'  : 'abs(dphill)',
+    #                          'range' : (25, 0.0, 3.15),
+    #                          'xaxis' : '#Delta#phi_{ll}',
+    #                          'fold'  : 3
+    #                       }
+    #
+    #
+    #variables['mtw2']  = {   'name': 'mtw2',
+    #                         'range' : (50, 0.,100),
+    #                         'xaxis' : 'm_{T}^{W_{2}} [GeV]',
+    #                         'fold' : 0
+    #                      }

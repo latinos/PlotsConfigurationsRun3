@@ -2,7 +2,7 @@
 
 # keys here must match keys in samples.py
 
-signal_normalization = 10.0
+signal_normalization = 1.0
 
 # BTag normalization factors
 # Cut = wh3l_13TeV_wz_CR_2j

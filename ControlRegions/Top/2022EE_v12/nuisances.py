@@ -1,12 +1,18 @@
-# mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-# dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
-# mcSteps = 'MCl1loose2022v12__MCCorr2022v12_NoJER'
-# fakeSteps = 'DATAl1loose2022v12__fakeW'
-# dataSteps = 'DATAl1loose2022v12__fakeW'
 
-#limitFiles = -1
+mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
+mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight'
+dataReco     = 'Run2022_Prompt_nAODv12_Full2022v12'
+dataSteps    = 'DATAl2loose2022v12__l2tight'
 
-print(treeBaseDir)
+treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+limitFiles = -1
+
+mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+
+redirector = ""
+
+useXROOTD = False
+
 def makeMCDirectory(var=''):
     _treeBaseDir = treeBaseDir + ''
     if useXROOTD:
@@ -16,6 +22,12 @@ def makeMCDirectory(var=''):
     else:
         return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
 
+
+
+mcDirectory = makeMCDirectory()
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+print(treeBaseDir)
 
 # merge cuts
 _mergedCuts = []
@@ -33,6 +45,17 @@ cuts2j = _mergedCuts
 nuisances = {}
 
 
+################################ EXPERIMENTAL UNCERTAINTIES  #################################
+
+#### Luminosity
+# https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3
+nuisances['lumi_2022EE'] = {
+    'name'    : 'lumi_2022EE',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.014') for skey in mc)
+}
+
+### MC statistical uncertainty
 autoStats = True
 if autoStats:
     ## Use the following if you want to apply the automatic combine MC stat nuisances.

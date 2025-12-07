@@ -8,7 +8,7 @@ useXROOTD = False
 mcProduction = 'Summer22_130x_nAODv12_Full2022v12' # OLD
 mcSteps = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' 
 dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
-# fakeSteps = 'DATAl1loose2022EFGv12__fakeW'
+fakeSteps = 'DATAl1loose2022v12'
 dataSteps = 'DATAl2loose2022v12__l2tight'
 
 ##############################################
@@ -30,7 +30,7 @@ def makeMCDirectory(var=""):
 mcDirectory   = makeMCDirectory()
 print('Hello')
 print(mcDirectory)
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -111,7 +111,10 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
     ##########
     ### DY ###
     ##########
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+#files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+files = nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
 
 samples['DY'] = {
     'name': files,
@@ -243,11 +246,12 @@ for _, sd in DataRun:
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
 
+
     ############
     ### Fakes ###
     ############ 
 
-"""
+
 samples['Fake'] = {
     'name': [],
     'weight': 'METFilter_DATA*fakeW',
@@ -261,15 +265,6 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    if (pd == "SingleMuon" and _ in ["D","E","F","G"]) or (pd == "Muon" and _ == "B"):
-        continue
-
-    if (_ in ["E","F","G"]):
-        files2 = nanoGetSampleFiles(dataDirectory2, datatag)
-        samples['Fake_EE']['name'].extend(files2)
-        addSampleWeight(samples, 'Fake_EE', datatag, DataTrig[pd])
-    else:
-        files = nanoGetSampleFiles(dataDirectory, datatag)
-        samples['Fake']['name'].extend(files)
-        addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
-"""
+    files = nanoGetSampleFiles(fakeDirectory, datatag)
+    samples['Fake']['name'].extend(files)
+    addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])

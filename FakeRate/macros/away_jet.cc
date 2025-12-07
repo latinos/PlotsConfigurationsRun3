@@ -24,38 +24,26 @@ float drlj(float inputJetPt,
 		   RVecF Lepton_phi,
 		   RVecF CleanJet_pt,
 		   RVecF CleanJet_eta,
-		   RVecF CleanJet_phi){
+		   RVecF CleanJet_phi
+		){
   
-  int   away_jet_index = -1;
-  float deltaR = 0;
+  float deltaR = -999.0f;
 
-  // Define lepton vector
   if (nLepton < 1) return deltaR;
-  ROOT::Math::PtEtaPhiMVector LeptonVector(Lepton_pt[0],Lepton_eta[0],Lepton_phi[0],0);
-
   // Check if we have at least one jet candidate
   if (nCleanJet < 1) return deltaR;
+  ROOT::Math::PtEtaPhiMVector LeptonVector(Lepton_pt[0],Lepton_eta[0],Lepton_phi[0],0);
 
-  // Loop over jets
-  for (int iJet = 0; iJet < nCleanJet; ++iJet){
+  const int iJet = 0;
 
-	if (CleanJet_pt[iJet]       < inputJetPt) continue;
-	if (abs(CleanJet_eta[iJet]) > 2.5)        continue;
-	  
+  if ((CleanJet_pt[iJet] > inputJetPt) && (abs(CleanJet_eta[iJet]) < 2.5)){ // if btagging: && (Jet_btagDeepFlavB[CleanJet_jetIdx[iJet]] > bWP)
 	ROOT::Math::PtEtaPhiMVector CleanJetVector(CleanJet_pt[iJet],CleanJet_eta[iJet],CleanJet_phi[iJet],0);
-
+	
 	// Compute deltaR(lep,jet)
-	deltaR = ROOT::Math::VectorUtil::DeltaR(CleanJetVector,LeptonVector);
-
-	// If we find a valid candidate, break the loop
-	if (deltaR > 1){
-	  away_jet_index = iJet;
-	  break;
-	}
+  	deltaR = ROOT::Math::VectorUtil::DeltaR(CleanJetVector,LeptonVector);
   }
-  
-  // std::cout << "deltaR value = " << deltaR << std::endl;
   return deltaR;
 }
 
 #endif
+

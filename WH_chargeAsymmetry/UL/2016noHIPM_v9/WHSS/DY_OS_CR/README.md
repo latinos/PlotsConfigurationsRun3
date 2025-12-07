@@ -24,7 +24,7 @@ Compile the configuration. Do it after every change to any file in this director
 
 Produce histograms using batch:
 
-    mkShapesRDF -o 0 -f . -b 1
+    mkShapesRDF -c 1 -o 0 -f . -b 1
 
 Check jobs status:
 

@@ -46,6 +46,7 @@ def run(submit=False, onlySample=None):
 
 
     path = prePath + "sendEOSJobs/Full2017_v9/condor/DoubleEG_Run2017F-UL2017-v1/"
+    #path = prePath + "sendEOSJobs/Full2017_v9/condor/WW_2017_complete/"
     output_path = "/eos/user/s/sblancof/MC/rootFiles/"
     jobDir = path
 
@@ -56,6 +57,7 @@ def run(submit=False, onlySample=None):
     
     fnames = subprocess.check_output(cmd, shell=True).strip().split(b'\n')
     fnames = [fname.decode('ascii').split("DoubleEG_Run2017F-UL2017-v1/")[1] for fname in fnames]
+    #fnames = [fname.decode('ascii').split("WW_2017_complete/")[1] for fname in fnames]
     
     failed_jobs = []
     error_files = []
@@ -95,7 +97,7 @@ output = $(Folder)/out.txt
 error  = $(Folder)/err.txt
 log    = $(Folder)/log.txt
 request_cpus   = 1
-+JobFlavour = "nextweek"
++JobFlavour = "testmatch"
 queue 1 Folder in  RPLME_ALLSAMPLES"""
         
         resubmit = resubmit.replace("RPLME_ALLSAMPLES", " ".join(failed_jobs))

@@ -66,126 +66,51 @@ nuisances['lumi_Correlated_2017_2018'] = {
 
 #### FAKES
 
-# Need to think about:
-# - charge-dependent uncertainty --> How much? How do we correlate across eras? Maybe correlated
-# - jet-dependent uncertainty    --> How much? How do we correlate across eras? Maybe correlated
-
-# Systematic uncertainty split into barrel and endcap, and per final state: 10% per bin
-fake_syst_endcap = ['1.0*(abs(Lepton_eta[1])<=1.479) +     1.1*(abs(Lepton_eta[1])>1.479)',
-                    '1.0*(abs(Lepton_eta[1])<=1.479) + 1.0/1.1*(abs(Lepton_eta[1])>1.479)']
-
-fake_syst_barrel = ['    1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)',
-                    '1.0/1.1*(abs(Lepton_eta[1])<=1.479) + 1.0*(abs(Lepton_eta[1])>1.479)']
-
-nuisances['fake_syst_mm_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-nuisances['fake_syst_mm_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_mm_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_mm' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_mm_' in cut)]
-}
-
-nuisances['fake_syst_em_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-nuisances['fake_syst_em_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_em_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_em' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_em_' in cut)]
-}
-
-nuisances['fake_syst_ee_barrel'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_barrel',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_barrel,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-nuisances['fake_syst_ee_endcap'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_ee_endcap',
-    'kind'    : 'weight',
-    'type'    : 'shape',
-    'samples' : {
-        'Fake_ee' : fake_syst_endcap,
-    },
-    'cuts'    : [cut for cut in cuts if ('_ee_' in cut)]
-}
-
 # Overall 30% normalization
-nuisances['fake_syst'] = {
-    'name'    : 'CMS_WH_hww_fake_syst_2018',
+channels = ['ee', 'em', 'mm']
+jet_bins = ['2j', '1j']
+charges  = ['plus','minus']
+cut_name = {
+    'ee' : 'ee',
+    'em' : 'em',
+    'mm' : 'noZveto_mm',
+}
+
+for channel in channels:
+    # for jet_bin in jet_bins:
+    # for charge in charges:
+        nuisances[f'fake_syst_{channel}'] = {
+            'name'    : f'CMS_WH_hww_fake_syst_{channel}_2018',
+            'kind'    : 'weight',
+            'type'    : 'lnN',
+            'samples' : {
+                f'Fake_{channel}' : '1.3',
+            },
+            'cuts'    : [cut for cut in cuts if f'_{channel}_' in cut]
+        }
+
+        # nuisances[f'fake_syst_{jet_bin}_{channel}_{charge}'] = {
+        #     'name'    : f'CMS_WH_hww_fake_syst_{jet_bin}_{channel}_{charge}_2018',
+        #     'kind'    : 'weight',
+        #     'type'    : 'lnN',
+        #     'samples' : {
+        #         f'Fake_{channel}' : '1.3',
+        #     },
+        #     'cuts'    : [f'hww2l2v_13TeV_WH_SS_{cut_name[channel]}_{jet_bin}_{charge}_pt2ge20']
+        # }
+
+# 2-jets mm plus additional uncertainty from closure
+nuisances[f'fake_syst_mm_2j'] = {
+    'name'    : f'CMS_WH_hww_fake_syst_mm_2j_plus_2018',
     'kind'    : 'weight',
     'type'    : 'lnN',
     'samples' : {
-        'Fake_mm' : '1.3',
-        'Fake_em' : '1.3',
-        'Fake_ee' : '1.3',
+        f'Fake_mm' : '1.3',
     },
+    'cuts'    : ['hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20']
 }
-
-# Overall 30% normalization: split per charge
-# nuisances['fake_syst_plus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_plus_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3',
-#         'Fake_em' : '1.3',
-#         'Fake_ee' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
-#     ]
-# }
-# nuisances['fake_syst_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_minus_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake_mm' : '1.3',
-#         'Fake_em' : '1.3',
-#         'Fake_ee' : '1.3',
-#     },
-#     'cuts'    : [
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
-#         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
-#     ]
-# }
-
-
-# Statistical and systematic uncertainty on the fake rates
+        
+# Statistical and systematic uncertainties on the fake rates
 nuisances['fake_ele'] = {
     'name'    : 'CMS_WH_hww_fake_e_2018',
     'kind'    : 'weight',
@@ -195,6 +120,7 @@ nuisances['fake_ele'] = {
         'Fake_em' : ['fakeWEleUp', 'fakeWEleDown'],
     }
 }
+
 nuisances['fake_ele_stat'] = {
     'name'    : 'CMS_WH_hww_fake_stat_e_2018',
     'kind'    : 'weight',
@@ -204,6 +130,17 @@ nuisances['fake_ele_stat'] = {
         'Fake_em' : ['fakeWStatEleUp', 'fakeWStatEleDown'],
     }
 }
+
+nuisances['fake_ele_EWK'] = {
+    'name'    : 'CMS_WH_hww_fake_EWK_sub_e_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_ee' : ['fakeWEWKEleUp', 'fakeWEWKEleDown'],
+        'Fake_em' : ['fakeWEWKEleUp', 'fakeWEWKEleDown'],
+    }
+}
+
 nuisances['fake_mu'] = {
     'name'    : 'CMS_WH_hww_fake_m_2018',
     'kind'    : 'weight',
@@ -213,6 +150,7 @@ nuisances['fake_mu'] = {
         'Fake_em' : ['fakeWMuUp', 'fakeWMuDown'],
     }   
 }       
+
 nuisances['fake_mu_stat'] = {
     'name'    : 'CMS_WH_hww_fake_stat_m_2018',
     'kind'    : 'weight',
@@ -223,8 +161,17 @@ nuisances['fake_mu_stat'] = {
     }
 }
 
-###### B-tagger
+nuisances['fake_mu_EWK'] = {
+    'name'    : 'CMS_WH_hww_fake_EWK_sub_m_2018',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'Fake_ee' : ['fakeWEWKMuUp', 'fakeWEWKMuDown'],
+        'Fake_em' : ['fakeWEWKMuUp', 'fakeWEWKMuDown'],
+    }
+}
 
+###### B-tagger
 for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
     btag_syst = ['(btagSF%sup)/(btagSF)' % shift, '(btagSF%sdown)/(btagSF)' % shift]
 
@@ -240,7 +187,6 @@ for shift in ['lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr
     }
 
 ##### Trigger Scale Factors
-
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
@@ -251,7 +197,6 @@ nuisances['trigg'] = {
 }
 
 ##### Electron Efficiency and energy scale
-
 nuisances['eff_e'] = {
     'name'    : 'CMS_eff_e_2018',
     'kind'    : 'weight',
@@ -279,7 +224,6 @@ nuisances['electronpt'] = {
 }
 
 ##### Muon Efficiency and energy scale
-
 nuisances['eff_m'] = {
     'name'    : 'CMS_eff_m_2018',
     'kind'    : 'weight',
@@ -403,7 +347,6 @@ nuisances['jetPUID'] = {
 }
 
 ### PS and UE
-
 nuisances['PS_ISR']  = {
     'name'    : 'PS_WH_hww_ISR',
     'kind'    : 'weight',
@@ -438,7 +381,7 @@ nuisances['chargeFlipEff'] = {
 
 # Charge flip: uncertainty on opposite sign processes not affected by charge-flip
 nuisances['chargeFlip_syst'] = {
-    'name'    : 'CMS_ChargeFlip_syst',
+    'name'    : 'CMS_ChargeFlip_syst_2018',
     'type'    : 'lnN',
     'samples' : {
         'ChargeFlip' : '1.10',
@@ -446,28 +389,9 @@ nuisances['chargeFlip_syst'] = {
     'cuts'    : [cut for cut in cuts if ('_ee_' in cut or '_em_' in cut)],
 }
 
-
-# ####### Generic "cross section uncertainties"
-
-# apply_on = {
-#     'top': [
-#         'isSingleTop * 1.0816 + isTTbar',
-#         'isSingleTop * 0.9184 + isTTbar'
-#     ]
-# }
-
-# nuisances['singleTopToTTbar'] = {
-#     'name'    : 'singleTopToTTbar',
-#     'skipCMS' : 1,
-#     'kind'    : 'weight',
-#     'type'    : 'shape',
-#     'samples' : apply_on
-# }
-
 ## Top pT reweighting uncertainty
-
 nuisances['TopPtRew'] = {
-    'name'       : 'CMS_top_pT_reweighting',   # Theory uncertainty
+    'name'       : 'CMS_top_pT_reweighting',
     'kind'       : 'weight',
     'type'       : 'shape',
     'samples'    : {
@@ -476,16 +400,44 @@ nuisances['TopPtRew'] = {
     'symmetrize' : True
 }
 
-nuisances['WgStar'] = {
-    'name'    : 'CMS_hww_WgStarScale',
+# Vg and VgS scale uncertainty
+nuisances['VgStarScale2j'] = {
+    'name'    : 'CMS_hww_VgStarScale2j_2018',
     'type'    : 'lnN',
     'samples' : {
-        'WgS' : '1.25'
-    }
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgScale2j'] = {
+    'name'    : 'CMS_hww_VgScale2j_2018',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '2j' in cut],
+}
+
+nuisances['VgStarScale1j'] = {
+    'name'    : 'CMS_hww_VgStarScale1j_2018',
+    'type'    : 'lnN',
+    'samples' : {
+        'VgS' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
+}
+
+nuisances['VgScale1j'] = {
+    'name'    : 'CMS_hww_VgScale1j_2018',
+    'type'    : 'lnN',
+    'samples' : {
+        'Vg' : '1.25'
+    },
+    'cuts' : [cut for cut in cuts if '1j' in cut],
 }
 
 ###### pdf uncertainties
-
 valuesggh  = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ggH', '125.09','pdf','sm')
 valuesggzh = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','ggZH','125.09','pdf','sm')
 valuesbbh  = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','bbH', '125.09','pdf','sm')
@@ -535,12 +487,10 @@ nuisances['pdf_qqbar'] = {
     'name'    : 'pdf_qqbar',
     'type'    : 'lnN',
     'samples' : {
-        'Wg'  : '1.04',
-        'Zg'  : '1.04',
         'ZZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
         'WZ'  : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'WgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
-        'ZgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+        'Vg'  : '1.04',
+        'VgS' : '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
     },
 }
 
@@ -602,29 +552,16 @@ nuisances['pdf_qqbar_ACCEPT'] = {
 ## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
 variations = ['Alt(LHEScaleWeight,0,1)', 'Alt(LHEScaleWeight,1,1)', 'Alt(LHEScaleWeight,3,1)', 'Alt(LHEScaleWeight,nLHEScaleWeight-4,1)', 'Alt(LHEScaleWeight,nLHEScaleWeight-2,1)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']
 
-# nuisances['QCDscale_V'] = {
-#     'name'    : 'QCDscale_V',
-#     'skipCMS' : 1,
-#     'kind'    : 'weight_envelope',
-#     'type'    : 'shape',
-#     'samples' : {
-#         'DY' : variations
-#     },
-#     'AsLnN'   : '0'
-# }
-
 nuisances['QCDscale_VV'] = {
     'name' : 'QCDscale_VV',
     'kind' : 'weight_envelope',
     'type' : 'shape',
     'samples' : {
         'WW'  : variations,
-        'Zg'  : variations,
-        'Wg'  : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
-        'WgS' : variations,
-        'ZgS' : variations
+        'Vg'  : variations,
+        'VgS' : variations,
     }
 }
 
@@ -637,7 +574,6 @@ nuisances['QCDscale_ggVV'] = {
 }
 
 #### QCD scale uncertainties for Higgs signals other than ggH
-
 values = HiggsXS.GetHiggsProdXSNP('YR4','13TeV','vbfH','125.09','scale','sm')
 
 nuisances['QCDscale_qqH'] = {
@@ -722,7 +658,7 @@ nuisances['QCDscale_gg_ACCEPT'] = {
 
 # WZ normalization from control region
 nuisances['WZ2jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l2jnorm',
+    'name'    : 'CMS_hww_WZ3l2jnorm_2018',
     'samples' : {
         'WZ' : '1.00',
     },
@@ -731,13 +667,193 @@ nuisances['WZ2jnorm']  = {
 }
 
 nuisances['WZ1jnorm']  = {
-    'name'    : 'CMS_hww_WZ3l1jnorm',
+    'name'    : 'CMS_hww_WZ3l1jnorm_2018',
     'samples' : {
         'WZ' : '1.00',
     },
     'type' : 'rateParam',
     'cuts' : [cut for cut in cuts if '1j' in cut],
 }
+
+# ### Charge asymmetry uncertainty
+
+# # # 2 jets plus
+# # nuisances['charge_2j_plus'] = {
+# #     'name'    : 'CMS_WH_hww_charge_2j_plus_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #      'cuts' : [
+# #          'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
+# #          'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
+# #          'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
+# #      ],
+# # }
+
+# # # # 2 jets minus
+# # # nuisances['charge_2j_minus'] = {
+# # #     'name'    : 'CMS_WH_hww_charge_2j_minus_2018',
+# # #     'kind'    : 'weight',
+# # #     'type'    : 'lnN',
+# # #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# # #      'cuts' : [
+# # #          'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
+# # #          'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
+# # #          'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
+# # #      ],
+# # # }
+
+# # # 1 jets plus
+# # nuisances['charge_1j_plus'] = {
+# #     'name'    : 'CMS_WH_hww_charge_1j_plus_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #      'cuts' : [
+# #          'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
+# #          'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
+# #          'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
+# #      ],
+# # }
+
+# # # # 1 jets minus
+# # # nuisances['charge_1j_minus'] = {
+# # #     'name'    : 'CMS_WH_hww_charge_1j_minus_2018',
+# # #     'kind'    : 'weight',
+# # #     'type'    : 'lnN',
+# # #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# # #      'cuts' : [
+# # #          'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
+# # #          'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
+# # #          'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
+# # #      ],
+# # # }
+
+
+# # 2 jets plus
+# nuisances['charge_2j_plus_ee'] = {
+#     'name'    : 'CMS_WH_hww_charge_2j_plus_ee_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_2j_plus_pt2ge20',
+#     ],
+# }
+
+# nuisances['charge_2j_plus_em'] = {
+#     'name'    : 'CMS_WH_hww_charge_2j_plus_em_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_2j_plus_pt2ge20',
+#     ],
+# }
+
+# nuisances['charge_2j_plus_mm'] = {
+#     'name'    : 'CMS_WH_hww_charge_2j_plus_mm_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_plus_pt2ge20',
+#     ],
+# }
+
+# # # 2 jets minus
+# # nuisances['charge_2j_minus_ee'] = {
+# #     'name'    : 'CMS_WH_hww_charge_2j_minus_ee_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #     'cuts' : [
+# #         'hww2l2v_13TeV_WH_SS_ee_2j_minus_pt2ge20',
+# #     ],
+# # }
+
+# # nuisances['charge_2j_minus_em'] = {
+# #     'name'    : 'CMS_WH_hww_charge_2j_minus_em_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #     'cuts' : [
+# #         'hww2l2v_13TeV_WH_SS_em_2j_minus_pt2ge20',
+# #     ],
+# # }
+
+# # nuisances['charge_2j_minus_mm'] = {
+# #     'name'    : 'CMS_WH_hww_charge_2j_minus_mm_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #     'cuts' : [
+# #         'hww2l2v_13TeV_WH_SS_noZveto_mm_2j_minus_pt2ge20',
+# #     ],
+# # }
+
+
+# # 1 jet plus
+# nuisances['charge_1j_plus_ee'] = {
+#     'name'    : 'CMS_WH_hww_charge_1j_plus_ee_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_ee_1j_plus_pt2ge20',
+#     ],
+# }
+
+# nuisances['charge_1j_plus_em'] = {
+#     'name'    : 'CMS_WH_hww_charge_1j_plus_em_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_em_1j_plus_pt2ge20',
+#     ],
+# }
+
+# nuisances['charge_1j_plus_mm'] = {
+#     'name'    : 'CMS_WH_hww_charge_1j_plus_mm_2018',
+#     'kind'    : 'weight',
+#     'type'    : 'lnN',
+#     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+#     'cuts' : [
+#         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_plus_pt2ge20',
+#     ],
+# }
+
+# # # 1 jet minus
+# # nuisances['charge_1j_minus_ee'] = {
+# #     'name'    : 'CMS_WH_hww_charge_1j_minus_ee_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #     'cuts' : [
+# #         'hww2l2v_13TeV_WH_SS_ee_1j_minus_pt2ge20',
+# #     ],
+# # }
+
+# # nuisances['charge_1j_minus_em'] = {
+# #     'name'    : 'CMS_WH_hww_charge_1j_minus_em_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #     'cuts' : [
+# #         'hww2l2v_13TeV_WH_SS_em_1j_minus_pt2ge20',
+# #     ],
+# # }
+
+# # nuisances['charge_1j_minus_mm'] = {
+# #     'name'    : 'CMS_WH_hww_charge_1j_minus_mm_2018',
+# #     'kind'    : 'weight',
+# #     'type'    : 'lnN',
+# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
+# #     'cuts' : [
+# #         'hww2l2v_13TeV_WH_SS_noZveto_mm_1j_minus_pt2ge20',
+# #     ],
+# # }
 
 ## Use the following if you want to apply the automatic combine MC stat nuisances.
 nuisances['stat']  = {

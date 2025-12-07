@@ -11,10 +11,9 @@ sys.argv = argv[:1]
 import optparse
 import math
 from array import array
+import math
 
 import ROOT
-
-ROOT.gStyle.SetOptStat(0)
 
 if __name__ == '__main__':
 
@@ -196,12 +195,39 @@ if __name__ == '__main__':
     histo_DATA_QCD_tight_EWKsub.Add(histo_DY_QCD_tight,    -1)
     histo_DATA_QCD_tight_EWKsub.Add(histo_WJets_QCD_tight, -1)
     
+    # EWK 10% variation to consider systematic on EWK subtraction
+    ewk_rel_unc = 0.10
+
+    def make_scaled_ewk_sub(loose_data, tight_data, loose_dy, tight_dy, loose_wj, tight_wj, scale):
+        lo = loose_data.Clone()
+        ti = tight_data.Clone()
+        lo.Add(loose_dy, -scale)
+        lo.Add(loose_wj, -scale)
+        ti.Add(tight_dy, -scale)
+        ti.Add(tight_wj, -scale)
+        return lo, ti
+
+    h_lo_up, h_ti_up = make_scaled_ewk_sub(
+        histo_DATA_QCD_loose,  histo_DATA_QCD_tight,
+        histo_DY_QCD_loose,    histo_DY_QCD_tight,
+        histo_WJets_QCD_loose, histo_WJets_QCD_tight,
+        1.0 + ewk_rel_unc
+    )
+    h_lo_dn, h_ti_dn = make_scaled_ewk_sub(
+        histo_DATA_QCD_loose,  histo_DATA_QCD_tight,
+        histo_DY_QCD_loose,    histo_DY_QCD_tight,
+        histo_WJets_QCD_loose, histo_WJets_QCD_tight,
+        1.0 - ewk_rel_unc
+    )
+    
     # Bins structure:
     # pt bins  = 8: [10, 15, 20, 25, 30, 35, 40, 45, 50]
-    # eta bins = 5: [0, 1.479, 2.5]
+    # eta bins = 5: [0, 0.5, 1.0, 1.5, 2.0, 2.5]
     # variable: Lepton_pt[0]:abs(Lepton_eta[0]) --> Need to loop over abs(eta) and then on pT
+    # eta_bins = 5
+    # eta_binning = [0, 0.5, 1.0, 1.5, 2.0, 2.5, 100]
     eta_bins = 2
-    eta_binning = [0, 1.479, 2.5, 100]
+    eta_binning = [0, 1.479, 2.5, 100]  # For electrons, we use barrel and endcap regions
     pt_bins  = 8
     pt_binning = [10, 15, 20, 25, 30, 35, 40, 45, 50, 1000]
     
@@ -214,6 +240,14 @@ if __name__ == '__main__':
 
     fake_rate_histo         = ROOT.TH2F("FR_pT_eta",        "FR_pT_eta",         pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
     fake_rate_histo_EWKcorr = ROOT.TH2F("FR_pT_eta_EWKcorr","FR_pT_eta_EWKcorr", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+
+    
+    fake_rate_histo_EWKcorr_up   = ROOT.TH2F("FR_pT_eta_EWKcorr_EWK5Up",   "FR_pT_eta_EWKcorr_EWK5Up",   pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    fake_rate_histo_EWKcorr_down = ROOT.TH2F("FR_pT_eta_EWKcorr_EWK5Down", "FR_pT_eta_EWKcorr_EWK5Down", pt_bins, array('f',pt_binning), eta_bins, array('f',eta_binning))
+    
+    def safe_ratio(n, d):
+        return (n/d) if (d > 0 and n >= 0) else 0.0
+
 
     # Fake rate loop
     for eta_bin in range(0,eta_bins):
@@ -228,12 +262,11 @@ if __name__ == '__main__':
             # Ensure we are not dividing by 0
             fake_rate = 0
             fake_rate_error = 0
-            
             if loose_yields_DATA > 0:
                 fake_rate = tight_yields_DATA / loose_yields_DATA
                 if tight_yields_DATA > 0:
-                    fake_rate_error = fake_rate * math.sqrt(1./tight_yields_DATA + 1./loose_yields_DATA)
-                
+                    fake_rate_error = fake_rate * math.sqrt(1/tight_yields_DATA + 1/loose_yields_DATA)
+                    
             fake_rate_EWKsub = 0
             fake_rate_EWKsub_error = 0
             if loose_yields_DATA_EWKsub > 0:
@@ -250,16 +283,30 @@ if __name__ == '__main__':
 
             fake_rate_histo.SetBinContent(pt_bin,eta_bin+1,fake_rate)
             fake_rate_histo.SetBinError(pt_bin,eta_bin+1,fake_rate_error)
-            
             fake_rate_histo_EWKcorr.SetBinContent(pt_bin,eta_bin+1,fake_rate_EWKsub)
-            fake_rate_histo_EWKcorr.SetBinError(pt_bin,eta_bin+1,fake_rate_EWKsub_error)            
+            fake_rate_histo_EWKcorr.SetBinError(pt_bin,eta_bin+1,fake_rate_EWKsub_error)
+            
+            # Histograms for EWK subtraction uncertainty estimation
+            ibin = pt_bin + pt_bins*eta_bin
+            N_up = h_ti_up.GetBinContent(ibin)
+            D_up = h_lo_up.GetBinContent(ibin)
+            N_dn = h_ti_dn.GetBinContent(ibin)
+            D_dn = h_lo_dn.GetBinContent(ibin)
+
+            fr_up = safe_ratio(N_up, D_up) if (D_up > 0) else fake_rate_EWKsub
+            fr_dn = safe_ratio(N_dn, D_dn) if (D_dn > 0) else fake_rate_EWKsub
+
+            fake_rate_histo_EWKcorr_up  .SetBinContent(pt_bin, eta_bin+1, fr_up)
+            fake_rate_histo_EWKcorr_down.SetBinContent(pt_bin, eta_bin+1, fr_dn)
+            # Leave errors = 0 for pure systematic templates
                 
             # Printout - for debugging
             print(f"Number of tight events: {tight_yields_DATA} - Number of loose events: {loose_yields_DATA}")
             print(f"Fake rate in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate}")
 
             print(f"Fake rate with EWK subtraction in bin (pT,abs(eta)) = ({pt_binning[pt_bin-1]}-{pt_binning[pt_bin]},{eta_binning[eta_bin]}-{eta_binning[eta_bin+1]}) = {fake_rate_EWKsub}")
-
+            print(f"   EWK5Up = {fr_up} | EWK5Down = {fr_dn}")
+            
     fake_rate_histo_numerator.Write()
     fake_rate_histo_denominator.Write()
 
@@ -268,23 +315,12 @@ if __name__ == '__main__':
 
     fake_rate_histo.Write()
     fake_rate_histo_EWKcorr.Write()
+    fake_rate_histo_EWKcorr_up.Write()
+    fake_rate_histo_EWKcorr_down.Write()
 
-    # Plot 2D histograms containing the fake rates
-    output_plot_name = f'{outputFolder}/{outputFileName.replace(".root",".png")}'
-    
-    c_fake_rate = ROOT.TCanvas('c_fake_rate', 'c_fake_rate', 800, 600)
-    c_fake_rate.cd()
-    fake_rate_histo.Draw('colz,text')
-    c_fake_rate.SaveAs(output_plot_name)
-    c_fake_rate.Close()
 
-    c_fake_rate_ewk = ROOT.TCanvas('c_fake_rate_ewk', 'c_fake_rate_ewk', 800, 600)
-    c_fake_rate_ewk.cd()
-    fake_rate_histo_EWKcorr.Draw('colz,text')
-    c_fake_rate_ewk.SaveAs(output_plot_name)
-    c_fake_rate_ewk.Close()
-    
     outfile.Close()    
+
 
     if do_prompt_rate == 'True':
     
@@ -344,20 +380,4 @@ if __name__ == '__main__':
         prompt_rate_histo.Write()
         prompt_rate_histo_MC.Write()
 
-        # Plot 2D histograms containing the fake rates
-        output_plot_name_PR = f'{outputFolder}/{outputFileNamePR.replace(".root",".png")}'
-        output_plot_name_PR = f'{outputFolder}/{outputFileNamePR.replace(".root",".png")}'
-        
-        c_prompt_rate = ROOT.TCanvas('c_prompt_rate', 'c_prompt_rate', 800, 600)
-        c_prompt_rate.cd()
-        prompt_rate_histo.Draw('colz,text')
-        c_prompt_rate.SaveAs(output_plot_name_PR)
-        c_prompt_rate.Close()
-        
-        # c_prompt_rate_MC = ROOT.TCanvas('c_prompt_rate_MC', 'c_prompt_rate_MC', 800, 600)
-        # c_prompt_rate_MC.cd()
-        # prompt_rate_histo_MC.Draw('colz,text')
-        # c_prompt_rate_MC.SaveAs(output_plot_name_PR)
-        # c_prompt_rate_MC.Close()
-        
         outfile_PR.Close()

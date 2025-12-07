@@ -8,16 +8,6 @@ structure['DY'] = {
     'isData'   : 0 
 }
 
-structure['top'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
-
-structure['WW']  = {
-    'isSignal' : 0,
-    'isData'   : 0    
-}
-
 # data
 structure['DATA']  = { 
     'isSignal' : 0,

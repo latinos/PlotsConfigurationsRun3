@@ -4,7 +4,7 @@
                     
 structure = {}
 
-signal_normalization = 10.0
+signal_normalization = 1.0
 
 # BTag normalization factors
 # Cut = hww2l2v_13TeV_samesign_2j
