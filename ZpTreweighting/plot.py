@@ -1,4 +1,7 @@
 # Group plot
+# Groups of samples to improve the plots.
+# If not defined, normal plots is used
+
 groupPlot = {}
 
 groupPlot['DY']  = {  
@@ -8,8 +11,17 @@ groupPlot['DY']  = {
     'samples'  : ['DY']
 }
 
+groupPlot['background']  = {  
+    'nameHR'   : 'background',
+    'isSignal' : 0,
+    'color'    : 851, # kAzure -9 
+    'samples'  : ['top', 'diboson', 'SMhiggs']
+}
+
 
 # Plot
+# keys here must match keys in samples.py    
+
 plot = {}
 
 plot['DY']  = {  
@@ -19,6 +31,26 @@ plot['DY']  = {
     'scale'    : 1.0,
 }
 
+plot['top']  = {  
+    'color'    : 400,   # kYellow
+    'isSignal' : 0,
+    'isData'   : 0, 
+    'scale'    : 1.0,
+}
+
+plot['diboson']  = {  
+    'color'    : 851, # kAzure -9 
+    'isSignal' : 0,
+    'isData'   : 0, 
+    'scale'    : 1.0,
+}
+
+plot['SMhiggs']  = {  
+    'color'    : 632+3, # kRed+3 
+    'isSignal' : 0,
+    'isData'   : 0, 
+    'scale'    : 1.0,
+}
 
 # Data
 plot['DATA']  = { 

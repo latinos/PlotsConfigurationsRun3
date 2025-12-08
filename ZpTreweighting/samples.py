@@ -4,21 +4,29 @@ searchFiles = SearchFiles()
 
 redirector = ""
 useXROOTD = False
+dataset_samples = 'amassiro'
 
 # MC:   /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight
 # DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2022_ReReco_nAODv12_Full2022v12/DATAl2loose2022v12__l2tight
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight'
-dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022v12__l2tight'
+if dataset_samples == 'calderon':
+    mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
+    mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__sblancof__l2tight'  # Using DYJetsToLL_M-50-LO from Calderon (DS, 22Nov25)
+    dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
+    dataSteps    = 'DATAl2loose2022v12__sblancof__l2loose'
+elif dataset_samples == 'amassiro':
+    mcProduction = 'Summer22_130x_nAODv12_Full2022v12_OLD'
+    mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' # Using DYto2L-2Jets_MLL-50 from Amassiro (DS, 21Nov25)
+    dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12_OLD'
+    dataSteps    = 'DATAl2loose2022v12__l2tight'
+
 # fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
-limitFiles = -1
+treeBaseDir = f'/eos/cms/store/group/phys_higgs/cmshww/{dataset_samples}/HWWNano'
+limitFiles = -1 # For running on smaller set of samples (DS, 21Nov25)
 
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
@@ -98,7 +106,7 @@ DataRun = [
 
 DataSets = ['MuonEG','SingleMuon','Muon','EGamma']
 
-# Proceeding with no HLT selection at the moment (DS, 19Nov25)
+# Putting for later: HLT selections (DS, 19Nov25)
 DataTrig = {
     'MuonEG'         : ' Trigger_ElMu' ,
     'SingleMuon'     : '!Trigger_ElMu && Trigger_sngMu' ,
@@ -122,13 +130,59 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 ###########################################
 
 # DY
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+if dataset_samples == 'calderon':
+    files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50-LO')
+elif dataset_samples == 'amassiro':
+    files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+
 
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
     'FilesPerJob': 2,
 }
+
+# remove backgrounds from data for ZpT reweighting:
+top_samples = ['TTTo2L2Nu', 'TWminusto2L2Nu', 'TbarWplusto2L2Nu']#, 'ST_tW_top']
+diboson_samples = ['WWTo2L2Nu', 'WZTo3LNu', 'GluGlutoContintoWWtoENuENu', 'GluGlutoContintoWWtoENuMuNu', 'GluGlutoContintoWWtoENuTauNu', 'GluGlutoContintoWWtoMuNuENu', 'GluGlutoContintoWWtoMuNuMuNu', 'GluGlutoContintoWWtoMuNuTauNu', 'GluGlutoContintoWWtoTauNuENu', 'GluGlutoContintoWWtoTauNuMuNu', 'GluGlutoContintoWWtoTauNuTauNu', 'WGtoLNuG-1J_PTG10to100', 'WGtoLNuG-1J_PTG100to200', 'WGtoLNuG-1J_PTG200to400', 'WGtoLNuG-1J_PTG400to600', 'WGtoLNuG-1J_PTG600']
+higgs_samples = ['GluGluHToWWTo2L2Nu_M125', 'VBFHToWWTo2L2Nu_M125']
+
+samples['top'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+            nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') + \
+            nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 2,
+}
+
+samples['diboson'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu') + \
+            nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu') + \
+            nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG10to100') + \
+            nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100to200') + \
+            nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG200to400') + \
+            nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG400to600') + \
+            nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG600'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 2,
+}
+
+samples['SMhiggs'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + \
+            nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 2,
+}
+
 
 ###########################################
 ################## DATA ###################

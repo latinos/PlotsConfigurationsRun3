@@ -17,7 +17,7 @@ variables['nvtx'] = {
 
 variables['mll'] = {
     'name': 'mll',    
-    'range' : (50,0,200), 
+    'range' : (50,50,150), 
     'xaxis' : 'm_{ll} [GeV]',
     'fold' : 0
 }
@@ -28,6 +28,21 @@ variables['ptll']  = {
     'xaxis' : 'p_{T}^{ll} [GeV]',
     'fold' : 0
 }
+
+# Data samples do not have gen-level information
+# variables['gen_ptll']  = {  
+#     'name': 'gen_ptll',     
+#     'range' : (40,0,200),   
+#     'xaxis' : 'gen p_{T}^{ll} [GeV]',
+#     'fold' : 0
+# }
+
+# variables['gen_Zpt'] =  {
+#     'name': 'gen_Zpt(nGenPart, GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, GenPart_statusFlags, gen_ptll)',     
+#     'range' : (40,0,200),   
+#     'xaxis' : 'Gen p_{T}^{Z} [GeV]',
+#     'fold' : 0
+# }
 
 variables['drll']  = {
     'name': 'drll',
