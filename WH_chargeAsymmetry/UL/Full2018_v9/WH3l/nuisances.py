@@ -66,22 +66,6 @@ nuisances['lumi_Correlated_2017_2018'] = {
 #### FAKES
 
 # Overall 30% normalization
-# nuisances['fake_syst_0j'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_0j_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake' : '1.3',
-#     },
-#     'cuts'    : [
-#         'wh3l_13TeV_sssf_plus_pt2ge20',
-#         'wh3l_13TeV_sssf_minus_pt2ge20',
-#         'wh3l_13TeV_ossf_plus_pt2ge20',
-#         'wh3l_13TeV_ossf_minus_pt2ge20',
-#         'wh3l_wz_13TeV',
-#     ],
-# }
-
 nuisances['fake_syst_2j'] = {
     'name'    : 'CMS_WH_hww_fake_syst_2j_2018',
     'kind'    : 'weight',
@@ -115,17 +99,6 @@ nuisances['fake_syst_sssf'] = {
     ],
 }
 
-# nuisances['fake_syst_sssf_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_sssf_minus_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake' : '1.3',
-#     },
-#     'cuts'    : [
-#     ],
-# }
-
 nuisances['fake_syst_ossf'] = {
     'name'    : 'CMS_WH_hww_fake_syst_ossf_2018',
     'kind'    : 'weight',
@@ -139,17 +112,26 @@ nuisances['fake_syst_ossf'] = {
     ],
 }
 
-# nuisances['fake_syst_ossf_minus'] = {
-#     'name'    : 'CMS_WH_hww_fake_syst_ossf_minus_2018',
-#     'kind'    : 'weight',
-#     'type'    : 'lnN',
-#     'samples' : {
-#         'Fake' : '1.3',
-#     },
-#     'cuts'    : [
-#         'wh3l_13TeV_ossf_minus_pt2ge20',
-#     ],
-# }
+# 1-jet and 2-jets plus additional uncertainty from closure
+nuisances[f'fake_syst_sssf_plus'] = {
+    'name'    : f'CMS_WH_hww_fake_syst_sssf_plus_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        f'Fake' : '1.3',
+    },
+    'cuts'    : ['wh3l_13TeV_sssf_plus_pt2ge20']
+}
+
+nuisances[f'fake_syst_ossf_plus'] = {
+    'name'    : f'CMS_WH_hww_fake_syst_ossf_plus_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : {
+        f'Fake' : '1.3',
+    },
+    'cuts'    : ['wh3l_13TeV_ossf_plus_pt2ge20']
+}
 
 # Statistical and systematic uncertainties on the fake rates
 nuisances['fake_ele'] = {
@@ -669,19 +651,19 @@ nuisances['WZ3lnorm']  = {
     ]
 }
 
-# ### Charge asymmetry uncertainty
+### Charge asymmetry uncertainty
 
-# # # 0 jet plus
-# # nuisances['charge_plus_0j'] = {
-# #     'name'    : 'CMS_WH_hww_charge_0j_plus_2018',
-# #     'kind'    : 'weight',
-# #     'type'    : 'lnN',
-# #     'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA']),
-# #     'cuts' : [
-# #         'wh3l_13TeV_sssf_plus_pt2ge20',
-# #         'wh3l_13TeV_ossf_plus_pt2ge20',
-# #     ],
-# # }
+# 0 jet plus
+nuisances['charge_plus_0j'] = {
+    'name'    : 'CMS_WH_hww_charge_0j_plus_2018',
+    'kind'    : 'weight',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.10') for skey in samples if skey not in ['DATA','Fake']),
+    'cuts' : [
+        'wh3l_13TeV_sssf_plus_pt2ge20',
+        'wh3l_13TeV_ossf_plus_pt2ge20',
+    ],
+}
 
 # # # 0 jet minus
 # # nuisances['charge_minus_0j'] = {
