@@ -1,7 +1,7 @@
 Building towards a set of codes for the ZH3l analysis using the PlotsConfigurationsRun3/RDF framework. Among the many changes we desire to implement, the following are the ones we're starting out with:
-1. Make the Run2 codes of ZH3l analysis compatible with the Run3 framework. (Relevant folder: zh3l_run2_rdf)
-2. Write BDT codes in Run3 framework for Run2 analysis/data. (Relevant folder: zh3l_run2_bdt_rdf)
-3. Setup a flow enabling a classification neural network in PlotsConfigurationsRun3 / mkShapesRDF
+1. Make the Run2 codes of ZH3l analysis compatible with the Run3 framework (Relevant folder: zh3l_run2_rdf).
+2. Train a sample BDT in Run3 framework using Run2 data, weights, and scale-factors (Relevant folder: zh3l_run2_bdt_rdf).
+3. Setup a full working pipeline enabling a classification neural network in PlotsConfigurationsRun3 / mkShapesRDF for the ZH3l analysis.
 
 Notes related to point 1 of the above list:
 Most of the changes include switching to RDF compliant expressions, commands and functions.
