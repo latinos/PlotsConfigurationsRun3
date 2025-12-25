@@ -514,17 +514,6 @@ nuisances['pdf_qqbar_ACCEPT'] = {
 ## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
 variations = ['Alt(LHEScaleWeight,0,1)', 'Alt(LHEScaleWeight,1,1)', 'Alt(LHEScaleWeight,3,1)', 'Alt(LHEScaleWeight,nLHEScaleWeight-4,1)', 'Alt(LHEScaleWeight,nLHEScaleWeight-2,1)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']
 
-# nuisances['QCDscale_V'] = {
-#     'name'    : 'QCDscale_V',
-#     'skipCMS' : 1,
-#     'kind'    : 'weight_envelope',
-#     'type'    : 'shape',
-#     'samples' : {
-#         'DY' : variations
-#     },
-#     'AsLnN'   : '0'
-# }
-
 nuisances['QCDscale_VV'] = {
     'name' : 'QCDscale_VV',
     'kind' : 'weight_envelope',
