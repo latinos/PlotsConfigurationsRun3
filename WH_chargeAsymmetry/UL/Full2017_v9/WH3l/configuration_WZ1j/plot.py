@@ -1,6 +1,5 @@
 # plot configuration
 
-
 # BTag normalization factors
 # Cut = wh3l_13TeV_wz_CR_1j
 scale_histo_ttH_hww      = 0.645960719074/0.489319634195      # 1.32012017081
