@@ -67,7 +67,6 @@ cuts['hww2l2v_13TeV_WH_SS_WZ_2j'] = '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13)
                                     && WH3l_mlll > 100 \
                                     '
 
-
 # CR split into charge categories
 cuts['hww2l2v_13TeV_WH_SS_WZ'] = {
     'expr' : '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11)) && Alt(Lepton_pt,1,0)>20 && Alt(Lepton_pt,2,0)>15 && Alt(CleanJet_pt, 0, 0)>30 && WH3l_mlll > 100',
