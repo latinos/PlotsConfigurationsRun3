@@ -40,5 +40,6 @@ if [ "$DATE" != "" ]; then
 	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/
 	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2018/
 	cp -r plots_WHSS_2018_v9_chargeAsymmetry_Mu82_EleUL90/ /eos/user/n/ntrevisa/www/plots/${DATE}/2018/
+	cp /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/WHSS_2018_v9_chargeAsymmetry_Mu82_EleUL90/rootFile/plots_WHSS_2018_v9_chargeAsymmetry_Mu82_EleUL90_DYflip_data.root /eos/user/n/ntrevisa/www/plots/${DATE}/2018/
 	echo "Done!"
 fi
