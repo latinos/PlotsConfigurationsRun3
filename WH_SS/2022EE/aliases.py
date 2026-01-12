@@ -4,9 +4,8 @@ import inspect
 
 # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/ControlRegions/WZ/2022EE_v12
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations) # 2022EE_v12
-configurations = os.path.dirname(configurations) # WZ
-configurations = os.path.dirname(configurations) # ControlRegions
+configurations = os.path.dirname(configurations) # 2022EE
+configurations = os.path.dirname(configurations) # WH_SS
 configurations = os.path.dirname(configurations) # PlotsConfigurationsRun3
 
 aliases = {}
@@ -50,6 +49,10 @@ aliases['oneJet'] = {
 
 aliases['multiJet'] = {
     'expr': 'Alt(CleanJet_pt, 1, 0) > 30.'
+}
+
+aliases['noJetInHorn'] = {
+    'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.5 && abs(CleanJet_eta) < 3.0) == 0',
 }
 
 ##########################################################################

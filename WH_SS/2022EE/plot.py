@@ -62,8 +62,15 @@ plot['WZ']  = {
     'scale'    : 1.0,
 }
 
+plot['DATA']  = { 
+    'nameHR'   : 'Data',
+    'color'    : 1 ,  
+    'isSignal' : 0,
+    'isData'   : 1 ,
+    'isBlind'  : 0
+}
 
 # Legend definition
 legend = {}
-legend['lumi'] = 'L =  27.0 fb^{-1}'
+legend['lumi'] = 'L =  26.7 fb^{-1}'
 legend['sqrt'] = '#sqrt{s} = 13.6 TeV'

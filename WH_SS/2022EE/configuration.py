@@ -24,7 +24,7 @@ outputFolder = "rootFiles"
 #: luminosity to normalize to (in 1/fb)
 # lumi = 8.174732641
 #lumi = 35.0
-lumi = 27.0
+lumi = 26.7
 
 #: file with dict of aliases to define
 aliasesFile = "aliases.py"
