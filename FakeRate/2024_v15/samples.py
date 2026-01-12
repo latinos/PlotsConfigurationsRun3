@@ -4,11 +4,11 @@ import os,sys,glob
 ################# SKIMS ########################
 ################################################
 
-mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl1loose2022EEv12__MCCorr2022EEv12JetScaling__fakeSel'
-
-dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
-dataSteps    = 'DATAl1loose2022EEv12__fakeSel'
+mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
+mcSteps      = 'MCl1loose2024v15__fakeSel'
+dataRecoMuon     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
+dataRecoEGamma     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataSteps    = 'DATAl1loose2024v15__fakeSel'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -22,7 +22,8 @@ def makeMCDirectory(var=''):
     return os.path.join(treeBaseDir, mcProduction, mcSteps.format(var=''))
 
 mcDirectory   = makeMCDirectory()
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+dataDirectoryMuon = os.path.join(treeBaseDir, dataRecoMuon, dataSteps)
+dataDirectoryEGamma = os.path.join(treeBaseDir, dataRecoEGamma, dataSteps)
 # fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 
 samples = {}
@@ -79,37 +80,45 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 
-################################################
-############ DATA DECLARATION ##################
-################################################
-
-
 DataRun = [
-    ['E','Run2022E-Prompt-v1'],
-    ['F','Run2022F-Prompt-v1'],
-    ['G','Run2022G-Prompt-v1'],
+    ['C','Run2024C-ReReco-v1'],
+    ['D','Run2024D-ReReco-v1'],
+    ['E','Run2024E-ReReco-v1'],
+    ['F','Run2024F-Prompt-v1'],
+    ['G','Run2024G-Prompt-v1'],
+    ['H','Run2024H-Prompt-v1'],
+    ['I','Run2024I-Prompt-v1'],
 ]
 
-DataSets = ['Muon','EGamma']
+
+DataSets = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'Muon' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
-    'EGamma'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
+    'Muon0' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
+    'EGamma0'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
+    'Muon1' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
+    'EGamma1'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
 }
 
 
 # Unprescaled triggers for prompt rate estimation
 DataRunUnprescaled = [
-    ['E','Run2022E-Prompt-v1'],
-    ['F','Run2022F-Prompt-v1'],
-    ['G','Run2022G-Prompt-v1'],
+    ['C','Run2024C-ReReco-v1'],
+    ['D','Run2024D-ReReco-v1'],
+    ['E','Run2024E-ReReco-v1'],
+    ['F','Run2024F-Prompt-v1'],
+    ['G','Run2024G-Prompt-v1'],
+    ['H','Run2024H-Prompt-v1'],
+    ['I','Run2024I-Prompt-v1'],
 ]
 
-DataSetsUnprescaled = ['Muon','EGamma']
+DataSetsUnprescaled = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrigUnprescaled = {
-     'Muon' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
-     'EGamma'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
+    'Muon0' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
+    'EGamma0'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
+    'Muon1' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
+    'EGamma1'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
 }
 
 #########################################
@@ -125,71 +134,75 @@ mcCommonWeight = 'baseW*puWeight*Generator_weight/1000.'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-lumi_ele_low_pt   = '20.228*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
-lumi_ele_high_pt  = '20.228*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
-lumi_muon_low_pt  = '4.987*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
-lumi_muon_high_pt = '20.517*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
-lumi_full_2022    = '26671.7'
+lumi_ele_low_pt   = '70.525805414*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
+lumi_ele_high_pt  = '70.525805414*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
+lumi_muon_low_pt  = '12.423819821*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
+lumi_muon_high_pt = '336.398813605*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
+lumi_full_2024    = '108950'
 
 # DY
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
+files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50')
 
 samples['DY_ele_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['DY_ele_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['DY_muon_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['DY_muon_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['DY_unprescaled'] = {
     'name': files,
-    'weight': mcCommonWeight + '*' + lumi_full_2022,
-    'FilesPerJob': 30,
+    'weight': mcCommonWeight + '*' + lumi_full_2024,
+    'FilesPerJob': 200,
 }
 
 
 ##### WJets #######
-files = nanoGetSampleFiles(mcDirectory, 'WToLNu-2Jets')
+files = nanoGetSampleFiles(mcDirectory, 'WToENu-2Jet') + \
+        nanoGetSampleFiles(mcDirectory, 'WToMuNu-2Jet') + \
+        nanoGetSampleFiles(mcDirectory, 'WToTauNu-2Jet')
 
 samples['WJets_ele_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['WJets_ele_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['WJets_muon_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 samples['WJets_muon_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
-    'FilesPerJob': 30,
+    'FilesPerJob': 200,
 }
 
 ###########################################
@@ -202,14 +215,17 @@ samples['DATA'] = {
     'weight': 'METFilter_DATA',     
     'weights': [], 
     'isData': ['all'], 
-    'FilesPerJob': 45 
+    'FilesPerJob': 250 
 } 
 
 for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    files = nanoGetSampleFiles(dataDirectory, datatag)
+    if 'Muon' in datatag:
+        files = nanoGetSampleFiles(dataDirectoryMuon, datatag)
+    if 'EGamma' in datatag:
+        files = nanoGetSampleFiles(dataDirectoryEGamma, datatag)
     
     print(datatag)
 
@@ -223,14 +239,17 @@ samples['DATA_unprescaled'] = {
   'weight': 'METFilter_DATA',
   'weights': [],
   'isData': ['all'],
-  'FilesPerJob': 45
+  'FilesPerJob': 200
 }
 
 for _, sd in DataRunUnprescaled:
   for pd in DataSetsUnprescaled:
     datatag = pd + '_' + sd
 
-    files = nanoGetSampleFiles(dataDirectory, datatag)
+    if 'Muon' in datatag:
+        files = nanoGetSampleFiles(dataDirectoryMuon, datatag)
+    if 'EGamma' in datatag:
+        files = nanoGetSampleFiles(dataDirectoryEGamma, datatag)
     
     print(datatag)
 

@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "2022EEv12_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67"   
+tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/FakeRate/2022EEv12/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/FakeRate/2024v15/rootFiles__{}".format(tag)
 
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"

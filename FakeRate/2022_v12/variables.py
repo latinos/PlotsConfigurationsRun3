@@ -25,23 +25,32 @@ variables['events'] = {
 #     'fold'  : 3,
 # }
 
-# Cone_pt1 vs eta1
+# pt1 vs eta1
 variables['pt1_eta1'] = {
+    'name'  : 'Lepton_pt[0]:abs(Lepton_eta[0])',
+    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 1.479, 2.5]),
+    'xaxis' : 'p_{T}^{#ell 1}:|#eta(#ell 1})|',
+    'fold'  : 3,
+}
+
+# pt2 vs eta2
+variables['pt2_eta2'] = {
+    'name'  : 'Lepton_pt[1]:abs(Lepton_eta[1])',
+    'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 1.479, 2.5]),
+    'xaxis' : 'p_{T}^{#ell 2}:|#eta^{#ell 2}|',
+    'fold'  : 3,
+}
+
+# pt1 vs eta1
+variables['conept1_eta1'] = {
     'name'  : 'Lepton_conept[0]:abs(Lepton_eta[0])',
     'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 1.479, 2.5]),
     'xaxis' : 'p_{T}^{cone}(#ell 1):|#eta(#ell 1})|',
     'fold'  : 3,
 }
 
-# variables['pt2_eta2'] = {
-#     'name'  : 'Alt(Lepton_pt,1,0):abs(Alt(Lepton_eta,1,999))',
-#     'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 0.5, 1.0, 1.5, 2.0, 2.5],),
-#     'xaxis' : 'p_{T}^{#ell 2}:#eta^{#ell 2}',
-#     'fold'  : 3,
-# }
-
 # Cone_pt2 vs eta2
-variables['pt2_eta2'] = {
+variables['conept2_eta2'] = {
     'name'  : 'Lepton_conept[1]:abs(Lepton_eta[1])',
     'range' : ([10, 15, 20, 25, 30, 35, 40, 45, 50],[0.0, 1.479, 2.5]),
     'xaxis' : 'p_{T}^{cone}(#ell 2):|#eta^{#ell 2}|',
