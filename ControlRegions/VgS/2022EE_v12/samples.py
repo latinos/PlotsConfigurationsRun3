@@ -148,7 +148,7 @@ samples['WW'] = {
 
 
 #WgS Low 0 GeV < m < 4 GeV
-files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG')
+files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG*')
 
 samples['WgS_low'] = {
     'name': files,
