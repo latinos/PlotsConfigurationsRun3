@@ -1,6 +1,6 @@
-# WZ Control Region
+# VgS Control Region
 
-This configuration is used to plot the WZ control region looking at 2022 data.
+This configuration is used to plot the VgS control region looking at 2022 data.
 
 The instructions to run the analysis follow.
 
