@@ -16,17 +16,7 @@ preselections = 'Alt(Lepton_pt,0,0)>25 \
 
 # Jet bins
 cuts['3l_ossf'] = {
-    'expr' : 'WH3l_flagOSSF == 1 && WH3l_ZVeto > 20 && PuppiMET_pt > 40 && abs(WH3l_chlll) == 1',
-    'categories' : {
-        '0j' : 'zeroJet',
-        '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
-        '2j' : 'multiJet',
-        'inc' : '1',
-    }
-}
-
-cuts['3l_sssf'] = {
-    'expr' : 'WH3l_flagOSSF == 0 && abs(WH3l_chlll) == 1',
+    'expr' : 'WH3l_flagOSSF == 1 && PuppiMET_pt > 45 && WH3l_ZVeto < 20 && WH3l_mlll > 100',
     'categories' : {
         '0j' : 'zeroJet',
         '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',

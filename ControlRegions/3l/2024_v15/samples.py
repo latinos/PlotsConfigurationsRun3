@@ -202,8 +202,8 @@ samples['VgS'] = {
 
 addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0)")
 addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0)")
-addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 0.1) * (gstarLow * 0.94)")
-addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass > 0.1) * (gstarLow * 0.94)")
+addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4) * (gstarLow)")
+addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass > 4) * (gstarLow)")
 
 
 # ggH
