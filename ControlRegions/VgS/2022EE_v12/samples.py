@@ -11,7 +11,7 @@ useXROOTD = False
 mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
 mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
 dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022EEv12__l2tight'
+dataSteps    = 'DATAl2loose2022EEv12__l2loose'
 # fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################

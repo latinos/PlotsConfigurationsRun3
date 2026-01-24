@@ -50,7 +50,7 @@ nuisancesFile = "nuisances.py"
 
 #: path to folder where to save plots
 #plotPath = "plots_" + tag
-plotPath = "/eos/user/c/cgrieco/VgS/2022EE_v12/" + tag
+plotPath = "/eos/user/c/cgrieco/www/plots/VgS/20260123/" + tag
 #plotPath = "../../../../../../../../../../../../eos/user/c/cgrieco/VgS/2022EE_v12/" + tag
 #: this lines are executed right before the runner on the condor node
 mountEOS = [
