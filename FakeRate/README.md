@@ -85,3 +85,5 @@ Get the individual luminosity:
 | HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 |            70.526 |
 | HLT_Mu8_TrkIsoVVL                        |            12.424 |
 | HLT_Mu17_TrkIsoVVL                       |            336.40 |
+| HLT_IsoMu24                              |            109329 |
+| HLT_Ele30_WPTight_Gsf                    |            109315 |
