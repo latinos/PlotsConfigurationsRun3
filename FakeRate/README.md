@@ -64,3 +64,9 @@ Then, we can run it to get the luminosities.
 | HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 |            20.228 |
 | HLT_Mu8_TrkIsoVVL                        |             4.987 |
 | HLT_Mu17_TrkIsoVVL                       |            20.517 |
+
+### 2024
+
+Get the 2024 golden json:
+
+    wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json -O certification/Cert_Collisions2024_378981_386951_Golden.json
