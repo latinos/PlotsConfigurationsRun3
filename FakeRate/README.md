@@ -79,6 +79,9 @@ Get the individual luminosity:
     brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Mu8_TrkIsoVVL_v*"
     brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Mu17_TrkIsoVVL_v*"
 
+	brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_IsoMu24_v*"
+	brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Ele30_WPTight_Gsf_v*"
+
 | Trigger path                             | Luminosity [1/pb] |
 | :---                                     |              ---: |
 | HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 |            70.526 |
