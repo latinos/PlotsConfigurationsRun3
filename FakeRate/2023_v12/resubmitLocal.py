@@ -3,7 +3,7 @@ import glob
 import subprocess 
 
 #resubmitLine = "queue 1 Folder in DATA_0 DATA_1"
-resubmitLine = "queue 1 Folder in DATA_unprescaled_50 DATA_unprescaled_55 DATA_unprescaled_75 DATA_unprescaled_80 DATA_unprescaled_82 DATA_unprescaled_84 DATA_unprescaled_85 DATA_unprescaled_111"
+resubmitLine = "queue 1 Folder in DY_ele_low_pt_15 DY_muon_high_pt_13"
 condorFolder = 'condor/2023v12_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67'
 
 samples = resubmitLine[len('queue 1 Folder in '):].split(' ')

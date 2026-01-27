@@ -64,3 +64,29 @@ Then, we can run it to get the luminosities.
 | HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 |            20.228 |
 | HLT_Mu8_TrkIsoVVL                        |             4.987 |
 | HLT_Mu17_TrkIsoVVL                       |            20.517 |
+
+### 2024
+
+Get the 2024 golden json:
+
+    wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json -O certification/Cert_Collisions2024_378981_386951_Golden.json
+
+Get the individual luminosity:
+
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30_v*"
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30_v*"
+
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Mu8_TrkIsoVVL_v*"
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Mu17_TrkIsoVVL_v*"
+
+	brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_IsoMu24_v*"
+	brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Ele30_WPTight_Gsf_v*"
+
+| Trigger path                             | Luminosity [1/pb] |
+| :---                                     |              ---: |
+| HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 |            70.526 |
+| HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 |            70.526 |
+| HLT_Mu8_TrkIsoVVL                        |            12.424 |
+| HLT_Mu17_TrkIsoVVL                       |            336.40 |
+| HLT_IsoMu24                              |            109329 |
+| HLT_Ele30_WPTight_Gsf                    |            109315 |

@@ -54,13 +54,6 @@ groupPlot['VgS']  = {
     'samples'  : ['VgS']
 }
 
-groupPlot['ZgS']  = {
-    'nameHR' : "Z#gamma*",
-    'isSignal' : 0,
-    'color'    : 617,
-    'samples'  : ['ZgS']
-}
-
 groupPlot['Higgs']  = {  
     'nameHR'   : 'Higgs',
     'isSignal' : 0,

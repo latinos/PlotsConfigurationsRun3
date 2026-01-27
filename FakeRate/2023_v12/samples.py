@@ -139,31 +139,31 @@ files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50')
 samples['DY_ele_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['DY_ele_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['DY_muon_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['DY_muon_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['DY_unprescaled'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_full_2023,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 
@@ -173,25 +173,25 @@ files = nanoGetSampleFiles(mcDirectory, 'WToLNu-2Jets')
 samples['WJets_ele_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_low_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['WJets_ele_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_ele_high_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['WJets_muon_low_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_low_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 samples['WJets_muon_high_pt'] = {
     'name': files,
     'weight': mcCommonWeight + '*' + lumi_muon_high_pt,
-    'FilesPerJob': 10,
+    'FilesPerJob': 30,
 }
 
 ###########################################
@@ -204,7 +204,7 @@ samples['DATA'] = {
     'weight': 'METFilter_DATA',     
     'weights': [], 
     'isData': ['all'], 
-    'FilesPerJob': 15 
+    'FilesPerJob': 45 
 } 
 
 for _, sd in DataRun:
@@ -225,7 +225,7 @@ samples['DATA_unprescaled'] = {
   'weight': 'METFilter_DATA',
   'weights': [],
   'isData': ['all'],
-  'FilesPerJob': 10
+  'FilesPerJob': 45
 }
 
 for _, sd in DataRunUnprescaled:
