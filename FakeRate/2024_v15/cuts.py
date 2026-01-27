@@ -1,4 +1,5 @@
-jet_pt_thresholds = [10, 15, 20, 25, 30, 35, 40, 45]
+# jet_pt_thresholds = [10, 15, 20, 25, 30, 35, 40, 45]
+jet_pt_thresholds = [20, 30, 40]
 
 # cuts
 cuts = {}
