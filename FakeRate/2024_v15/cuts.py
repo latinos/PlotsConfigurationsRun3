@@ -4,13 +4,13 @@ jet_pt_thresholds = [10, 15, 20, 25, 30, 35, 40, 45]
 cuts = {}
 
 preselections = 'nLepton > 0 \
-              && ((abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 13 && abs(Lepton_eta[0]) < 2.4)  \
-              ||  (abs(Lepton_pdgId[0]) == 13 && Lepton_pt[0] > 10 && abs(Lepton_eta[0]) < 2.5)) \
+              && ((abs(Lepton_pdgId[0]) == 11 && Lepton_pt[0] > 13 && abs(Lepton_eta[0]) < 2.5)  \
+              ||  (abs(Lepton_pdgId[0]) == 13 && Lepton_pt[0] > 10 && abs(Lepton_eta[0]) < 2.4)) \
 '
 
 # Prompt rate selections
 cuts['Zpeak_PR_loose'] = {
-    'expr'       : 'nLepton>1 && Lepton_pt[0]>30 && LepWPCut1l && Lepton_pt[1]>10 && mll>76 && mll<106 && PuppiMET_pt<20',
+    'expr'       : 'nLepton > 1 && Lepton_pt[0] > 32 && LepWPCut1l && Lepton_pt[1] > 10 && mll > 76 && mll < 106 && PuppiMET_pt < 20',
     'categories' : {
         'ele'  : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -121',
         'muon' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -169',
@@ -19,7 +19,7 @@ cuts['Zpeak_PR_loose'] = {
 
 # Prompt rate selections
 cuts['Zpeak_PR_tight'] = {
-    'expr'       : 'nLepton>1 && Lepton_pt[0]>30 && Lepton_pt[1]>10 && LepWPCut2l && mll>76 && mll<106 && PuppiMET_pt<20',
+    'expr'       : 'nLepton > 1 && Lepton_pt[0] > 32 && Lepton_pt[1] > 10 && LepWPCut2l && mll > 76 && mll < 106 && PuppiMET_pt < 20',
     'categories' : {
         'ele'  : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -121',
         'muon' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -169',
@@ -29,10 +29,6 @@ cuts['Zpeak_PR_tight'] = {
 
 for jet_pt_threshold in jet_pt_thresholds:
 
-    # print(f"Jet pT threshold = {jet_pt_threshold}")
-
-    # print(f"Cuts: {cuts}")
-    
     ##########################
     # Loose leptons selections
     ##########################
