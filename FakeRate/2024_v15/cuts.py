@@ -10,7 +10,7 @@ preselections = 'nLepton > 0 \
 
 # Prompt rate selections
 cuts['Zpeak_PR_loose'] = {
-    'expr'       : 'nLepton>1 && Lepton_pt[0]>25 && LepWPCut1l && Lepton_pt[1]>10 && mll>76 && mll<106 && PuppiMET_pt<20',
+    'expr'       : 'nLepton>1 && Lepton_pt[0]>30 && LepWPCut1l && Lepton_pt[1]>10 && mll>76 && mll<106 && PuppiMET_pt<20',
     'categories' : {
         'ele'  : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -121',
         'muon' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -169',
@@ -19,7 +19,7 @@ cuts['Zpeak_PR_loose'] = {
 
 # Prompt rate selections
 cuts['Zpeak_PR_tight'] = {
-    'expr'       : 'nLepton>1 && Lepton_pt[0]>25 && Lepton_pt[1]>10 && LepWPCut2l && mll>76 && mll<106 && PuppiMET_pt<20',
+    'expr'       : 'nLepton>1 && Lepton_pt[0]>30 && Lepton_pt[1]>10 && LepWPCut2l && mll>76 && mll<106 && PuppiMET_pt<20',
     'categories' : {
         'ele'  : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -121',
         'muon' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -169',
@@ -45,7 +45,6 @@ for jet_pt_threshold in jet_pt_thresholds:
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
         }
     }
-    # 'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && abs(CleanJet_eta[0]) < 2.5 && dRl1j1 > 1',
 
     # Z-peak
     cuts[f'Zpeak_loose_jet_pt_{jet_pt_threshold}'] = {
@@ -55,7 +54,6 @@ for jet_pt_threshold in jet_pt_thresholds:
             'muon' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -169',
         }
     }
-    # 'expr'       : f'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
 
     # WJets region
     cuts[f'WJets_loose_jet_pt_{jet_pt_threshold}'] = {
@@ -65,17 +63,6 @@ for jet_pt_threshold in jet_pt_thresholds:
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
         }
     }
-    # 'expr'       : f'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.5 && dRl1j1 > 1 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
-
-    
-    # # Top region
-    # cuts[f'Top_loose_{jet_pt_threshold}'] = {
-    #     'expr'    :f 'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bReq && abs(CleanJet_eta[0]) < 2.4 &&  Alt(CleanJet_pt,0,0) > {jet_pt_threshold}',
-    #     'categories' : {
-    #            'ele_jet_pt'  : 'abs(Lepton_pdgId[0]) == 11',
-    #            'muon_jet_pt' : 'abs(Lepton_pdgId[0]) == 13',
-    #     }
-    # }
 
     ##########################
     # Tight leptons selections
@@ -89,7 +76,6 @@ for jet_pt_threshold in jet_pt_thresholds:
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
         }
     }
-    # 'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && abs(CleanJet_eta[0]) < 2.5 && dRl1j1 > 1 && LepWPCut1l',
 
     # Z-peak
     cuts[f'Zpeak_tight_jet_pt_{jet_pt_threshold}'] = {
@@ -99,7 +85,6 @@ for jet_pt_threshold in jet_pt_thresholds:
             'muon' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -169',
         }
     }
-    # 'expr'    : f'nLepton > 1 && PuppiMET_pt < 20 && mll > 60 && mll < 120 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
 
     # WJets region
     cuts[f'WJets_tight_jet_pt_{jet_pt_threshold}'] = {
@@ -109,14 +94,3 @@ for jet_pt_threshold in jet_pt_thresholds:
             'muon' : 'abs(Lepton_pdgId[0]) == 13',
         }
     }
-    # 'expr'    : f'nLepton == 1 && mtw1 > 20 && PuppiMET_pt < 20 && nCleanJet > 0 && abs(CleanJet_eta[0]) < 2.5 && dRl1j1 > 1 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
-
-    
-    # # Top region
-    # cuts[f'Top_tight_{jet_pt_threshold}'] = {
-    #     'expr'    : f'nLepton == 1 && mtw1 < 20 && PuppiMET_pt < 20 && nCleanJet > 0 && bReq && abs(CleanJet_eta[0]) < 2.4 && Alt(CleanJet_pt,0,0) > {jet_pt_threshold} && LepWPCut1l',
-    #     'categories' : {
-    #         'ele_jet_pt'  : 'abs(Lepton_pdgId[0]) == 11',
-    #         'muon_jet_pt' : 'abs(Lepton_pdgId[0]) == 13',
-    #     }
-    # }

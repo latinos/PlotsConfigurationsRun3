@@ -4,11 +4,11 @@ import os,sys,glob
 ################# SKIMS ########################
 ################################################
 
-mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
-mcSteps      = 'MCl1loose2024v15__fakeSel'
-dataRecoMuon     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
-dataRecoEGamma     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
-dataSteps    = 'DATAl1loose2024v15__fakeSel'
+mcProduction   = 'Summer24_150x_nAODv15_Full2024v15'
+mcSteps        = 'MCl1loose2024v15__fakeSel'
+dataRecoMuon   = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
+dataRecoEGamma = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataSteps      = 'DATAl1loose2024v15__fakeSel'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -94,10 +94,10 @@ DataRun = [
 DataSets = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'Muon0' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
-    'EGamma0'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
-    'Muon1' : '(Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)',
-    'EGamma1'     : '(HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5) && ((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5))',
+    'Muon0'   : '((Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)) && (HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 < 0.5) && (HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 < 0.5)',
+    'Muon1'   : '((Lepton_pt[0] <= 20 && HLT_Mu8_TrkIsoVVL > 0.5) || (Lepton_pt[0] > 20 && HLT_Mu17_TrkIsoVVL > 0.5)) && (HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 < 0.5) && (HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 < 0.5)',
+    'EGamma0' : '((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)) && (HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5)',
+    'EGamma1' : '((Lepton_pt[0] <= 25 && HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5) || (Lepton_pt[0] > 25 && HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)) && (HLT_Mu8_TrkIsoVVL < 0.5) && (HLT_Mu17_TrkIsoVVL < 0.5)',
 }
 
 
@@ -115,10 +115,10 @@ DataRunUnprescaled = [
 DataSetsUnprescaled = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrigUnprescaled = {
-    'Muon0' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
-    'EGamma0'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
-    'Muon1' : 'HLT_IsoMu24 > 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
-    'EGamma1'     : 'HLT_IsoMu24 < 0.5 && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
+    'Muon0'  : 'HLT_IsoMu24 > 0.5',                                # && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
+    'Muon1'  : 'HLT_IsoMu24 > 0.5',                                # && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5',
+    'EGamma0': 'HLT_IsoMu24 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5', # && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
+    'EGamma1': 'HLT_IsoMu24 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5', # && HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 < 0.5 && HLT_Ele30_WPTight_Gsf > 0.5',
 }
 
 #########################################
@@ -134,10 +134,10 @@ mcCommonWeight = 'baseW*puWeight*Generator_weight/1000.'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-lumi_ele_low_pt   = '70.525805414*(HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]<=25)'
-lumi_ele_high_pt  = '70.525805414*(HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0]>25)'
-lumi_muon_low_pt  = '12.423819821*(HLT_Mu8_TrkIsoVVL > 0.5)*(Lepton_pt[0]<=20)'
-lumi_muon_high_pt = '336.398813605*(HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0]>20)'
+lumi_ele_low_pt   = '70.525805414  * (HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0] <= 25)'
+lumi_ele_high_pt  = '70.525805414  * (HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0] >  25)'
+lumi_muon_low_pt  = '12.423819821  * (HLT_Mu8_TrkIsoVVL  > 0.5)*(Lepton_pt[0] <= 20)'
+lumi_muon_high_pt = '336.398813605 * (HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0] >  20)'
 lumi_full_2024    = '108950'
 
 # DY
