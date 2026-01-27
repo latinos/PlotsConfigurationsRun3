@@ -138,7 +138,7 @@ lumi_ele_low_pt   = '70.525805414  * (HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30 >
 lumi_ele_high_pt  = '70.525805414  * (HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30 > 0.5)*(Lepton_pt[0] >  25)'
 lumi_muon_low_pt  = '12.423819821  * (HLT_Mu8_TrkIsoVVL  > 0.5)*(Lepton_pt[0] <= 20)'
 lumi_muon_high_pt = '336.398813605 * (HLT_Mu17_TrkIsoVVL > 0.5)*(Lepton_pt[0] >  20)'
-lumi_full_2024    = '108950'
+lumi_full_2024    = '109329'
 
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
