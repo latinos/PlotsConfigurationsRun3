@@ -70,3 +70,11 @@ Then, we can run it to get the luminosities.
 Get the 2024 golden json:
 
     wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json -O certification/Cert_Collisions2024_378981_386951_Golden.json
+
+Get the individual luminosity:
+
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30_v*"
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30_v*"
+
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Mu8_TrkIsoVVL_v*"
+    brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /pb -i certification/Cert_Collisions2024_378981_386951_Golden.json --hltpath "HLT_Mu17_TrkIsoVVL_v*"
