@@ -33,7 +33,7 @@ aliases['PromptGenLepMatch2l'] = {
 
 aliases['gen_Zpt'] = {
     # 'linesToAdd': [".L /afs/cern.ch/user/d/dshekar/public/RDF/PlotsConfigurationsRun3/HWW_polarization/Extended/getGenZpt.cc+"],
-    'linesToAdd': ['#include "/afs/cern.ch/user/d/dshekar/public/RDF/PlotsConfigurationsRun3/HWW_polarization/Extended/getGenZpt.cc"'],
+    'linesToAdd': ['.L /eos/user/d/dshekar/public/RDF/PlotsConfigurationsRun3/HWW_polarization/Extended/getGenZpt.cc+'],
     'class': 'GetGenZpt',
     'args': 'nGenPart, GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, GenPart_statusFlags, gen_ptll',
     # 'expr': 'gen_ptll',

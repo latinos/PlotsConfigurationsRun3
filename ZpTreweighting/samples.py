@@ -15,10 +15,10 @@ if dataset_samples == 'calderon':
     dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
     dataSteps    = 'DATAl2loose2022v12__sblancof__l2loose'
 elif dataset_samples == 'amassiro':
-    mcProduction = 'Summer22_130x_nAODv12_Full2022v12_OLD'
+    mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
     mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' # Using DYto2L-2Jets_MLL-50 from Amassiro (DS, 21Nov25)
-    dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12_OLD'
-    dataSteps    = 'DATAl2loose2022v12__l2tight'
+    dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
+    dataSteps    = 'DATAl2loose2022v12__l2loose'
 
 # fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
@@ -148,7 +148,14 @@ diboson_samples = ['WWTo2L2Nu', 'WZTo3LNu', 'GluGlutoContintoWWtoENuENu', 'GluGl
 higgs_samples = ['GluGluHToWWTo2L2Nu_M125', 'VBFHToWWTo2L2Nu_M125']
 
 samples['top'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+    'name': 
+            nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_s-channel_plus') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_s-channel_minus') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_tW_top') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_tW_antitop') + \
+            nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
             nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') + \
             nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu'),
     'weight': mcCommonWeight,
