@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "SS_2024v15_newpostproc"   
+tag = "SS_2024v15"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/Control_Regions/SS/rootFiles__{}".format(tag)
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -44,10 +44,9 @@ nuisancesFile = "nuisances.py"
 
 # minRatio = 0.5
 # maxRatio = 1.5
-# plotPath = "/eos/user/g/gpizzati/www/rdf/2016/"
 
 #: path to folder where to save plots
-plotPath = "Plots/Control_Regions/{}".format(tag)
+plotPath = 'plots_' + tag
 
 #: this lines are executed right before the runner on the condor node
 mountEOS = [

@@ -5,12 +5,12 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
-mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
-dataRecoMuon     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
-dataRecoEGamma     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
-dataRecoMuonEG     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG'
-dataSteps    = 'DATAl2loose2024v15__l2loose'
+mcProduction   = 'Summer24_150x_nAODv15_Full2024v15'
+mcSteps        = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
+dataRecoMuon   = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
+dataRecoEGamma = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataRecoMuonEG = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG'
+dataSteps      = 'DATAl2loose2024v15__l2loose'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -102,11 +102,11 @@ DataRun = [
 DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'         : 'Trigger_ElMu' ,
-    'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'EGamma0'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
-    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'MuonEG'  : 'Trigger_ElMu' ,
+    'Muon0'   : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'Muon1'   : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'EGamma0' : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'EGamma1' : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
 }
 
 #########################################
@@ -155,15 +155,15 @@ samples['WW'] = {
     'FilesPerJob': 50,
 }
 
-files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu') + \
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') +	\
-    nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu')
+files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu')    + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu')   + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu')  + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu')   + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu')  + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu')  + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') + \
+        nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu')
 
 samples['ggWW'] = {
     'name': files,
@@ -200,10 +200,10 @@ samples['VgS'] = {
     'FilesPerJob': 30,
 }
 
-addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4) && (Gen_ZGstar_mass < 50)")
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50",    "(Gen_ZGstar_mass > 0   && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0   && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG100",           "(Gen_ZGstar_mass > 0   && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'VgS', "WZTo3LNu",                     "(Gen_ZGstar_mass >= 4) && (Gen_ZGstar_mass < 50)")
 
 
 # ggH
