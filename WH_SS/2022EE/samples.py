@@ -5,11 +5,10 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
+mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12_OLD'
 mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
-dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
+dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12_OLD'
 dataSteps    = 'DATAl2loose2022EEv12__l2tight'
-# fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -28,7 +27,6 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
-# fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 samples = {}
@@ -84,21 +82,15 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['B','Run2022B-ReReco-v1'],
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
     ['E','Run2022E-Prompt-v1'],
     ['F','Run2022F-Prompt-v1'],
     ['G','Run2022G-Prompt-v1'],
 ]
 
-DataSets = ['MuonEG','SingleMuon','Muon','EGamma']
+DataSets = ['EGamma']
 
 DataTrig = {
-    'MuonEG'         : ' Trigger_ElMu' ,
-    'SingleMuon'     : '!Trigger_ElMu && Trigger_sngMu' ,
-    'Muon'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'EGamma'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
+    'EGamma'         : 'Trigger_dblEl'
 }
 
 
@@ -173,11 +165,7 @@ for _, sd in DataRun:
     
     print(datatag)
 
-    if (_ in ["E","F","G"]):
-        files = nanoGetSampleFiles(dataDirectory, datatag)
-    else:
-        continue
-        # files = nanoGetSampleFiles(dataDirectory, datatag)
+    files = nanoGetSampleFiles(dataDirectory, datatag)
 
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
