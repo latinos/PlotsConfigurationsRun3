@@ -6,8 +6,8 @@ import ROOT
 ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
 
-configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) 
-configurations = os.path.dirname(configurations) + '/'
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3_WH/PlotsConfigurationsRun3/ControlRegions/SS/2024_v15
+configurations = os.path.dirname(configurations)                           # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3_WH/PlotsConfigurationsRun3/ControlRegions/SS/
 print(configurations)
 
 aliases = {}
@@ -39,24 +39,24 @@ aliases['PromptGenLepMatch2l'] = {
 # Conept
 aliases['Lepton_conept'] = {
     'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
-    'linesToAdd': [f'#include "{configurations}macros/LeptonConePt_class.cc"'],
+    'linesToAdd': [f'#include "{configurations}/macros/LeptonConePt_class.cc"'],
     'samples': mc + ['Fake', 'DATA']
 }
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
-    'linesToAdd'     : [f'#include "{configurations}macros/fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"2022\", \"{eleWP}\", \"{muWP}\", 0.0, 0.0, \"nominal\", 2, \"std\", \"{configurations}\");')"],
+    'linesToAdd'     : [f'#include "{configurations}/macros/fake_rate_reader_class.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"~/work/latinos/Run3_WH/PlotsConfigurationsRun3/FakeRate/2024_v15/FakeRate_cone_pt/2024_v15_conept/\");')"],
     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_conept, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
 
 aliases['gstarLow'] = {
-    'expr': 'Gen_ZGstar_mass >0 && Gen_ZGstar_mass < 4',
+    'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
     'samples': ['WZ', 'VgS', 'Vg']
 }
 aliases['gstarHigh'] = {
-    'expr': 'Gen_ZGstar_mass <0 || Gen_ZGstar_mass > 4',
+    'expr': 'Gen_ZGstar_mass < 0 || Gen_ZGstar_mass > 4',
     'samples': ['WZ', 'VgS', 'Vg'],
 }
 
@@ -153,8 +153,8 @@ for flavour in ['bc', 'light']:
         if shift != 'central':
             btagsf += '_' + shift
         aliases[btagsf] = {
-            'linesToAdd': [f'#include "{configurations}macros/evaluate_btagSF{flavour}.cc"'],
-            'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"/eos/user/s/squinto/btag/{eff_map_year}/bTagEff_{eff_map_year}_ttbar_{bAlgo}_loose.root\", \"{year}\");')"],
+            'linesToAdd': [f'#include "{configurations}/macros/evaluate_btagSF{flavour}.cc"'],
+            'linesToProcess': [f"ROOT.gInterpreter.Declare('btagSF{flavour} btagSF{flavour}_{shift} = btagSF{flavour}(\"{configurations}/../../../utils/data/btag/{eff_map_year}/bTagEff_{eff_map_year}_ttbar_{bAlgo}_loose.root\", \"{year}\");')"],
             'expr': f'btagSF{flavour}_{shift}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btag{bAlgo}, "{WP_eval}", "{shift}", "{tagger}","{eff_map_year}")',
             'samples' : mc,
         }

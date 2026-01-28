@@ -57,6 +57,20 @@ variables['pt2']  = {
     'fold'  : 3                         
 }
 
+variables['cone_pt1']  = { 
+    'name': 'Lepton_conept[0]',     
+    'range' : (40,0,200),
+    'xaxis' : 'p_{T} 1st lepton cone',
+    'fold'  : 3                         
+}
+
+variables['cone_pt2']  = {
+    'name': 'Lepton_conept[1]',     
+    'range' : (40,0,160),   
+    'xaxis' : 'p_{T} 2nd lepton cone',
+    'fold'  : 3                         
+}
+
 variables['eta1']  = {
     'name': 'Lepton_eta[0]',     
     'range' : (50,-2.5,2.5),   
