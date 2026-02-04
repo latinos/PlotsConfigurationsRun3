@@ -49,8 +49,15 @@ groupPlot['VgS']  = {
 groupPlot['VZ']  = {
     'nameHR' : "VZ",
     'isSignal' : 0,
-    'color'    : '#a96b59',   # 617 kViolet + 1 
+    'color'    : '#a96b59',  
     'samples'  : ['WZ', 'ZZ']
+}
+
+groupPlot['VVV']  = {
+    'nameHR' : "VVV",
+    'isSignal' : 0,
+    'color'    : '#717581',  
+    'samples'  : ['VVV']
 }
 
 
@@ -142,7 +149,7 @@ plot['WZ']  = {
     'scale'    : 1.0,
 }
 
-"""
+
 plot['ZZ']  = {
     'nameHR'   : 'ZZ',
     'color'    : 617,
@@ -150,7 +157,15 @@ plot['ZZ']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
-"""
+
+plot['VVV']  = {
+    'nameHR'   : 'VVV',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
 
 # Higgs
 

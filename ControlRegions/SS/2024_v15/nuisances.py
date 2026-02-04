@@ -47,7 +47,11 @@ nuisances = {}
 
 
 ################################ EXPERIMENTAL UNCERTAINTIES  #################################
-
+nuisances['lumi_2024'] = {
+    'name'    : 'lumi_2024',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.016') for skey in mc)
+}
 
 nuisances['fake_syst'] = {
     'name': 'CMS_fake_syst',

@@ -125,7 +125,10 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50')
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-10to50') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-10to50') + \
+        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-10to50')
 
 samples['DY'] = {
     'name': files,
@@ -136,7 +139,9 @@ samples['DY'] = {
 # top
 files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
         nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
-        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu')
+        nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
+        nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop')
 
 samples['top'] = {
     'name': files,
@@ -180,6 +185,14 @@ samples['WZ'] = {
     'FilesPerJob': 30,
 }
 
+files = nanoGetSampleFiles(mcDirectory, 'ZZ')
+
+samples['ZZ'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 5,
+}
+
 # Vg/Vgstar
         
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
@@ -204,6 +217,18 @@ addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50",    "(Gen_ZGstar_mas
 addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0   && Gen_ZGstar_mass <= 4)")
 addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG100",           "(Gen_ZGstar_mass > 0   && Gen_ZGstar_mass <= 4)")
 addSampleWeight(samples, 'VgS', "WZTo3LNu",                     "(Gen_ZGstar_mass >= 4) && (Gen_ZGstar_mass < 50)")
+
+# Multiboson
+files = nanoGetSampleFiles(mcDirectory, 'WWW') + \
+        nanoGetSampleFiles(mcDirectory, 'WWZ') + \
+        nanoGetSampleFiles(mcDirectory, 'WZZ') + \
+        nanoGetSampleFiles(mcDirectory, 'ZZZ')  
+
+samples['VVV'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 5,
+}
 
 
 # ggH
