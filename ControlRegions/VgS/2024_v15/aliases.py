@@ -35,19 +35,19 @@ aliases['LepWPSF'] = {
 
 # Gen-matching to prompt only (GenLepMatch3l matches to *any* gen lepton)
 aliases['PromptGenLepMatch3l'] = {
-    'expr': 'Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0) * Alt(Lepton_promptgenmatched, 2, 0)',
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0) * Alt(Lepton_promptgenmatched, 2, 0))',
     'samples': mc
 }
 
 # Gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch2l'] = {
-    'expr': 'Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) == 2',
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) == 2)',
     'samples': mc
 }
 
 # Gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch1l'] = {
-    'expr': 'Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) == 1',
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) == 1)',
     'samples': mc
 }
 
