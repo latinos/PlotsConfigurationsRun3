@@ -71,16 +71,7 @@ And for unblind fit:
 
 Use bash script to run fit on real data and on 1000 toys:
 
-	bash do_gof_test.sh ${FINAL_STATE} False
-
-Final state can be, e.g.:
-
-	FINAL_STATE=FullRun2
-
-Once all jobs are done, use bash script to hadd them and produce the summary histogram:
-
-	bash do_gof_test.sh ${FINAL_STATE} True
-
+	python submit_gof.py
 
 ### Unblinded Impact Plots
 
