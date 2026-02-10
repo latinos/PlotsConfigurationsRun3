@@ -64,6 +64,17 @@ else
   fi
 fi
 
+echo "                               "
+echo "After processing:              "
+echo "==============================="
+echo "Final State      : $FINAL_STATE"
+echo "Datacard         : $DATACARD   "
+echo "Output directory : $DIR        "
+echo "Variable         : $VARIABLE   "
+echo "POIs             : $POIS       "
+echo "==============================="
+
+
 # Setting up environment
 cd $HOME/work/combine/CMSSW_14_1_0_pre4/src/
 eval `scramv1 ru -sh`

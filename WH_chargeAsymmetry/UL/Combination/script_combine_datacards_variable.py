@@ -41,15 +41,15 @@ WHSS_2018_WZ_CR_SS_var = f"WH_SS_WZ_1j_2018=../Full2018_v9/WH3l/datacards_origin
                            WH_SS_WZ_2j_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/hww2l2v_13TeV_WH_SS_WZ_2j/{variable}/datacard.txt \
                            "
 
-WH3l_2018 = f"WH_3l_sssf_plus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt   \
-              WH_3l_sssf_minus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt \
-              WH_3l_ossf_plus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_75/datacard.txt   \
-              WH_3l_ossf_minus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_75/datacard.txt \
+WH3l_2018 = f"WH_3l_sssf_plus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/{variable}/datacard.txt   \
+              WH_3l_sssf_minus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/{variable}/datacard.txt \
+              WH_3l_ossf_plus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/{variable}/datacard.txt   \
+              WH_3l_ossf_minus_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/{variable}/datacard.txt \
               "
 
 WH3l_2018_WZ_CR_3l_events = f"WH_3l_WZ_CR_0j_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/events/datacard.txt "
 
-WH3l_2018_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/BDT_WH3l_OSSF_new_v9_0_75/datacard.txt "
+WH3l_2018_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2018=../Full2018_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/{variable}/datacard.txt "
 
 # ---------
 # Full 2017
@@ -78,15 +78,15 @@ WHSS_2017_WZ_CR_SS_var = f"WH_SS_WZ_1j_2017=../Full2017_v9/WH3l/datacards_origin
                            WH_SS_WZ_2j_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/hww2l2v_13TeV_WH_SS_WZ_2j/{variable}/datacard.txt \
                            "
 
-WH3l_2017 = f"WH_3l_sssf_plus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt   \
-              WH_3l_sssf_minus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt \
-              WH_3l_ossf_plus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_75/datacard.txt   \
-              WH_3l_ossf_minus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_75/datacard.txt \
+WH3l_2017 = f"WH_3l_sssf_plus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/{variable}/datacard.txt   \
+              WH_3l_sssf_minus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/{variable}/datacard.txt \
+              WH_3l_ossf_plus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/{variable}/datacard.txt   \
+              WH_3l_ossf_minus_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/{variable}/datacard.txt \
               "
 
 WH3l_2017_WZ_CR_3l_events = f"WH_3l_WZ_CR_0j_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/events/datacard.txt "
 
-WH3l_2017_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/BDT_WH3l_OSSF_new_v9_0_75/datacard.txt "
+WH3l_2017_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2017=../Full2017_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/{variable}/datacard.txt "
 
 
 # ------------
@@ -116,15 +116,15 @@ WHSS_2016noHIPM_WZ_CR_SS_var = f"WH_SS_WZ_1j_2016noHIPM=../2016noHIPM_v9/WH3l/da
                                  WH_SS_WZ_2j_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/hww2l2v_13TeV_WH_SS_WZ_2j/{variable}/datacard.txt \
                                  "
 
-WH3l_2016noHIPM = f"WH_3l_sssf_plus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt   \
-                    WH_3l_sssf_minus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt \
-                    WH_3l_ossf_plus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_5/datacard.txt   \
-                    WH_3l_ossf_minus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_5/datacard.txt \
+WH3l_2016noHIPM = f"WH_3l_sssf_plus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/{variable}/datacard.txt   \
+                    WH_3l_sssf_minus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/{variable}/datacard.txt \
+                    WH_3l_ossf_plus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/{variable}/datacard.txt   \
+                    WH_3l_ossf_minus_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/{variable}/datacard.txt \
                     "
 
 WH3l_2016noHIPM_WZ_CR_3l_events = f"WH_3l_WZ_CR_0j_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/events/datacard.txt "
 
-WH3l_2016noHIPM_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/BDT_WH3l_OSSF_new_v9_0_5/datacard.txt "
+WH3l_2016noHIPM_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2016noHIPM=../2016noHIPM_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/{variable}/datacard.txt "
 
 
 # ---------
@@ -154,15 +154,15 @@ WHSS_2016HIPM_WZ_CR_SS_var = f"WH_SS_WZ_1j_2016HIPM=../2016HIPM_v9/WH3l/datacard
                                WH_SS_WZ_2j_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/hww2l2v_13TeV_WH_SS_WZ_2j/{variable}/datacard.txt \
                                "
 
-WH3l_2016HIPM = f"WH_3l_sssf_plus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt   \
-                  WH_3l_sssf_minus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/BDT_WH3l_SSSF_new_v9_0_75/datacard.txt \
-                  WH_3l_ossf_plus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_5/datacard.txt   \
-                  WH_3l_ossf_minus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/BDT_WH3l_OSSF_new_v9_0_5/datacard.txt \
+WH3l_2016HIPM = f"WH_3l_sssf_plus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_plus_pt2ge20/{variable}/datacard.txt   \
+                  WH_3l_sssf_minus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_sssf_minus_pt2ge20/{variable}/datacard.txt \
+                  WH_3l_ossf_plus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_plus_pt2ge20/{variable}/datacard.txt   \
+                  WH_3l_ossf_minus_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_13TeV_ossf_minus_pt2ge20/{variable}/datacard.txt \
                   "
 
 WH3l_2016HIPM_WZ_CR_3l_events = f"WH_3l_WZ_CR_0j_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/events/datacard.txt "
 
-WH3l_2016HIPM_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/BDT_WH3l_OSSF_new_v9_0_5/datacard.txt "
+WH3l_2016HIPM_WZ_CR_3l_var    = f"WH_3l_WZ_CR_0j_2016HIPM=../2016HIPM_v9/WH3l/datacards_original_signal_scale/wh3l_wz_13TeV/{variable}/datacard.txt "
 
 
 # Here we define the actual combine commands we want to use
