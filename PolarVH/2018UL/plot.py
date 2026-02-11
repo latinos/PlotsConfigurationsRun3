@@ -69,12 +69,12 @@ groupPlot['VgS']  = {
     #'samples'  : ['ZgS']
 #}
 
-groupPlot['Higgs']  = {  
-    'nameHR'   : 'H>WW/#tau#tau',
-    'isSignal' : 0,
-    'color'    : 634, # kRed+2 
-    'samples'  : ['ggH_hww','qqH_hww','ZH_hww','ggZH_hww','ttH_hww','ggH_htt','qqH_htt','ZH_htt']
-}
+# groupPlot['Higgs']  = {  
+#     'nameHR'   : 'H>WW/#tau#tau',
+#     'isSignal' : 0,
+#     'color'    : 634, # kRed+2 
+#     'samples'  : ['ggH_hww','qqH_hww','ZH_hww','ggZH_hww','ttH_hww','ggH_htt','qqH_htt','ZH_htt']
+# }
 
 #groupPlot['WH_minus']  = {  
     #'nameHR'   : 'W^{-} H (x 10)',

@@ -8,29 +8,50 @@ import os,glob
 # DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2018_UL2018_nAODv9_Full2018v9/DATAl1loose2018v9__l2loose__l2tightOR2018v9/
 # FAKE: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2018_UL2018_nAODv9_Full2018v9/DATAl1loose2018v9__l2loose__fakeW/
 
-mcProduction = 'Summer20UL18_106x_nAODv9_Full2018v9'
-dataReco     = 'Run2018_UL2018_nAODv9_Full2018v9'
-mcSteps      = 'MCl1loose2018v9__MCCorr2018v9NoJERInHorn__l2tightOR2018v9{var}'
-fakeSteps    = 'DATAl1loose2018v9__l2loose__fakeW'
-dataSteps    = 'DATAl1loose2018v9__l2loose__l2tightOR2018v9'
+# mcProduction = 'Summer20UL18_106x_nAODv9_Full2018v9'
+# dataReco     = 'Run2018_UL2018_nAODv9_Full2018v9'
+# mcSteps      = 'MCl1loose2018v9__MCCorr2018v9NoJERInHorn__l2tightOR2018v9{var}'
+# fakeSteps    = 'DATAl1loose2018v9__l2loose__fakeW'
+# dataSteps    = 'DATAl1loose2018v9__l2loose__l2tightOR2018v9'
+
+mcProduction = ''
+dataReco     = ''
+mcSteps      = '{var}'
+fakeSteps    = ''
+dataSteps    = ''
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
 
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+# /gwteraz/users/amassiro/
+# data: ZHpolarPostProc-Data
+# MC background: ZHpolarPostProc-Backgrounds
+# MC signal: ZHpolarPostProc
+
+
+
+# treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+treeBaseDir = '/gwteraz/users/amassiro/'
 limitFiles  = -1  # why on earth would you want to limit the number of files? Debug reason??
 
 
 def makeMCDirectory(var=''):
-    return os.path.join(treeBaseDir, mcProduction, mcSteps.format(var=''))
+    return os.path.join(treeBaseDir, 'ZHpolarPostProc-Backgrounds')
+
+def makeMCDirectorySignal(var=''):
+    return os.path.join(treeBaseDir, 'ZHpolarPostProc')
+
 
 mcDirectory   = makeMCDirectory()
-fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+mcDirectorySignal   = makeMCDirectorySignal()
+fakeDirectory = os.path.join(treeBaseDir, 'ZHpolarPostProc-Data')
+dataDirectory = os.path.join(treeBaseDir, 'ZHpolarPostProc-Data')
 
 print (" mcDirectory = " , mcDirectory)
-
+print (" mcDirectorySignal = " , mcDirectorySignal)
+print (" fakeDirectory = " , fakeDirectory)
+print (" dataDirectory = " , dataDirectory)
 
 samples = {}
 
@@ -38,7 +59,8 @@ from mkShapesRDF.lib.search_files import SearchFiles
 s = SearchFiles()
 
 useXROOTD = True
-redirector = 'root://eoscms.cern.ch/'
+#redirector = 'root://eoscms.cern.ch/'
+redirector = ''
 
 def nanoGetSampleFiles(path, name):
     _files = s.searchFiles(path, name, redirector=redirector)
@@ -123,7 +145,9 @@ mcCommonWeight        = 'XSWeight*SFweight*METFilter_MC*PromptGenLepMatch2l'
 ###### H>gluglu #######
 
 # the string "ZH_H_ZToLL_ZL" here is very important, since the root files that will be selected must have the format "nanoLatino_ZH_H_ZToLL_ZL__part*.root"
-files = nanoGetLocalSampleFiles("/eos/user/a/amassiro/HIG/ZHpolarPostProc/Summer20UL18_106x_nAODv9_Full2018v9/MCFull2018v9/", "ZH_H_ZToLL_ZL")
+# files = nanoGetLocalSampleFiles("/eos/user/a/amassiro/HIG/ZHpolarPostProc/Summer20UL18_106x_nAODv9_Full2018v9/MCFull2018v9/", "ZH_H_ZToLL_ZL")
+files = nanoGetSampleFiles(mcDirectorySignal, 'ZH_H_ZToLL_ZL') 
+
 # print (" list of files ZH_H_ZToLL_ZL = ", files)
 
 samples["PolarVH"] = {
@@ -264,96 +288,96 @@ samples['VVV'] = {
 signals = []
 
 ############ ggH H->WW ############
-samples['ggH_hww'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 2
-}
-signals.append('ggH_hww')
+# samples['ggH_hww'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 2
+# }
+# signals.append('ggH_hww')
 
-############ VBF H->WW ############
-samples['qqH_hww'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('qqH_hww')
+# ############ VBF H->WW ############
+# samples['qqH_hww'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('qqH_hww')
 
-############ ZH H->WW ############
-samples['ZH_hww'] = {
-    'name':   nanoGetSampleFiles(mcDirectory, 'HZJ_HToWW_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('ZH_hww')
+# ############ ZH H->WW ############
+# samples['ZH_hww'] = {
+#     'name':   nanoGetSampleFiles(mcDirectory, 'HZJ_HToWW_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('ZH_hww')
 
-samples['ggZH_hww'] = {
-    'name':   nanoGetSampleFiles(mcDirectory, 'GluGluZH_HToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('ggZH_hww')
+# samples['ggZH_hww'] = {
+#     'name':   nanoGetSampleFiles(mcDirectory, 'GluGluZH_HToWWTo2L2Nu_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('ggZH_hww')
 
-############ WH H->WW ############
-samples['WH_hww_plus'] = {
-    'name':   nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWW_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('WH_hww_plus')
+# ############ WH H->WW ############
+# samples['WH_hww_plus'] = {
+#     'name':   nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWW_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('WH_hww_plus')
 
-samples['WH_hww_minus'] = {
-    'name':   nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWW_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
+# samples['WH_hww_minus'] = {
+#     'name':   nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWW_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
 
-signals.append('WH_hww_minus')
+# signals.append('WH_hww_minus')
 
-############ ttH ############
-samples['ttH_hww'] = {
-    'name':   nanoGetSampleFiles(mcDirectory, 'ttHToNonbb_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 2
-}
-signals.append('ttH_hww')
+# ############ ttH ############
+# samples['ttH_hww'] = {
+#     'name':   nanoGetSampleFiles(mcDirectory, 'ttHToNonbb_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 2
+# }
+# signals.append('ttH_hww')
 
-############ H->TauTau ############
-samples['ggH_htt'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToTauTau_M125_Powheg'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 20
-}
-signals.append('ggH_htt')
+# ############ H->TauTau ############
+# samples['ggH_htt'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToTauTau_M125_Powheg'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 20
+# }
+# signals.append('ggH_htt')
 
-samples['qqH_htt'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'VBFHToTauTau_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 10
-}
-signals.append('qqH_htt')
+# samples['qqH_htt'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToTauTau_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 10
+# }
+# signals.append('qqH_htt')
 
-samples['ZH_htt'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'ZHToTauTau_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('ZH_htt')
+# samples['ZH_htt'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'ZHToTauTau_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('ZH_htt')
 
-############ WH H->TauTau ############
-samples['WH_htt_plus'] = {
-    'name':  nanoGetSampleFiles(mcDirectory, 'WplusHToTauTau_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('WH_htt_plus')
+# ############ WH H->TauTau ############
+# samples['WH_htt_plus'] = {
+#     'name':  nanoGetSampleFiles(mcDirectory, 'WplusHToTauTau_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('WH_htt_plus')
 
-samples['WH_htt_minus'] = {
-    'name':  nanoGetSampleFiles(mcDirectory, 'WminusHToTauTau_M125'),
-    'weight': mcCommonWeight + '*1',
-    'FilesPerJob': 4
-}
-signals.append('WH_htt_minus')
+# samples['WH_htt_minus'] = {
+#     'name':  nanoGetSampleFiles(mcDirectory, 'WminusHToTauTau_M125'),
+#     'weight': mcCommonWeight + '*1',
+#     'FilesPerJob': 4
+# }
+# signals.append('WH_htt_minus')
 
 
 ###########################################
