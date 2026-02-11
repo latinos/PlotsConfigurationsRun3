@@ -99,14 +99,23 @@ DataRun = [
     ['I','Run2024I-Prompt-v1'],
 ]
 
-DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
+# DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
+
+# DataTrig = {
+#     'MuonEG'   : 'Trigger_ElMu' ,
+#     'Muon0'    : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+#     'Muon1'    : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+#     'EGamma0'  : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+#     'EGamma1'  : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+# }
+
+DataSets = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'   : 'Trigger_ElMu' ,
-    'Muon0'    : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'Muon1'    : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'EGamma0'  : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
-    'EGamma1'  : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'Muon0'    : 'HLT_IsoMu24 > 0.5',
+    'Muon1'    : 'HLT_IsoMu24 > 0.5',
+    'EGamma0'  : 'HLT_Ele30_WPTight_Gsf > 0.5 && HLT_IsoMu24 < 0.5',
+    'EGamma1'  : 'HLT_Ele30_WPTight_Gsf > 0.5 && HLT_IsoMu24 < 0.5',
 }
 
 #########################################
@@ -289,9 +298,9 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    if datatag.startswith('MuonEG'):
-        files = nanoGetSampleFiles(dataDirectoryMuonEG, datatag)
-    elif datatag.startswith('Muon'):
+    # if datatag.startswith('MuonEG'):
+    #     files = nanoGetSampleFiles(dataDirectoryMuonEG, datatag)
+    if datatag.startswith('Muon'):
         files = nanoGetSampleFiles(dataDirectoryMuon, datatag)
     elif datatag.startswith('EGamma'):
         files = nanoGetSampleFiles(dataDirectoryEGamma, datatag)
@@ -317,9 +326,9 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    if datatag.startswith('MuonEG'):
-        files = nanoGetSampleFiles(fakeDirectoryMuonEG, datatag)
-    elif datatag.startswith('Muon'):
+    # if datatag.startswith('MuonEG'):
+    #     files = nanoGetSampleFiles(fakeDirectoryMuonEG, datatag)
+    if datatag.startswith('Muon'):
         files = nanoGetSampleFiles(fakeDirectoryMuon, datatag)
     elif datatag.startswith('EGamma'):
         files = nanoGetSampleFiles(fakeDirectoryEGamma, datatag)

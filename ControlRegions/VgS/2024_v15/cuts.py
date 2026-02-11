@@ -23,7 +23,7 @@ cuts['WgS_WtoMu_gStoEE'] = {
 }
 
 cuts['WgS_WtoE_gStoMuMu'] = {
-    'expr': '(abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 13 && abs(Lepton_pdgId[2]) == 13) && (Lepton_pdgId[1] * Lepton_pdgId[2] < 0)',
+    'expr': '(abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 13 && abs(Lepton_pdgId[2]) == 13) && (Lepton_pdgId[1] * Lepton_pdgId[2] < 0) && (Alt(Lepton_pt,0,0)>32)',
     'categories': {
         '0j'  : 'zeroJet',
         '1j'  : 'oneJet && Alt(CleanJet_pt,1,0)<30',

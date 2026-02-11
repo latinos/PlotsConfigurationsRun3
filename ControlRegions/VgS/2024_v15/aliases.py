@@ -187,10 +187,29 @@ aliases['nHardJets'] = {
     'samples' : mc
 }
 
-# Data/MC scale factors and systematic uncertainties
+# Single lepton trigger selection
+aliases['TrigSLWP'] = {
+    'expr' : '(HLT_IsoMu24 || HLT_Ele30_WPTight_Gsf)',
+    'samples' : mc
+}
+
+aliases['TrigSLSF'] = {
+    'expr' : 'TriggerSFWeight_sngMu * TriggerSFWeight_sngEl',
+    'samples' : mc
+}
+    
+# 3-leptons recoSF
+aliases['RecoSF3l'] = {
+    'expr' : 'Lepton_RecoSF[0] * Lepton_RecoSF[1] * Lepton_RecoSF[2]',
+    'samples' : mc
+}
+
+
+# Data/MC scale factors and systematic uncertainties - Trigger scale factors are missing!
 aliases['SFweight'] = {
-    'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF', 'btagSFbc', ' btagSFlight']),
-    #'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF']),
+    'expr': ' * '.join(['TrigSLWP', 'TrigSLSF', 'RecoSF3l', 'puWeight', 'LepWPCut', 'LepWPSF', 'btagSFbc', 'btagSFlight']),
+    # 'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF', 'btagSFbc', 'btagSFlight']),
+    # 'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF']),
     'samples': mc
 }
 
