@@ -2,9 +2,9 @@ import os
 import copy
 import inspect
 
-# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/ControlRegions/WZ/2022EE_v12
+# /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3/PlotsConfigurationsRun3/ControlRegions/WZ/2023_v12
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations) # 2022EE_v12
+configurations = os.path.dirname(configurations) # 2023_v12
 configurations = os.path.dirname(configurations) # WZ
 configurations = os.path.dirname(configurations) # ControlRegions
 configurations = os.path.dirname(configurations) # PlotsConfigurationsRun3
@@ -52,32 +52,36 @@ aliases['multiJet'] = {
     'expr': 'Alt(CleanJet_pt, 1, 0) > 30.'
 }
 
-##########################################################################
-# B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22EE/
-##########################################################################
+aliases['noJetInHorn'] = {
+    'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.6 && abs(CleanJet_eta) < 3.1) == 0',
+}
+
+########################################################################
+# B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer23/
+########################################################################
 
 # Algo / WP / WP cut
 btagging_WPs = {
     "DeepFlavB" : {
-        "loose"    : "0.0614",
-        "medium"   : "0.3196",
-        "tight"    : "0.7300",
-        "xtight"   : "0.8184",
-        "xxtight"  : "0.9542",
+        "loose"    : "0.0479",
+        "medium"   : "0.2431",
+        "tight"    : "0.6553",
+        "xtight"   : "0.7667",
+        "xxtight"  : "0.9459",
     },
     "RobustParTAK4B" : {
-        "loose"    : "0.0897",
-        "medium"   : "0.4510",
-        "tight"    : "0.8604",
-        "xtight"   : "0.9234",
-        "xxtight"  : "0.9893",
+        "loose"    : "0.0358",
+        "medium"   : "0.1917",
+        "tight"    : "0.6172",
+        "xtight"   : "0.7515",
+        "xxtight"  : "0.9659",
     },
     "PNetB" : {
-        "loose"    : "0.0499",
-        "medium"   : "0.2605",
-        "tight"    : "0.6915",    
-        "xtight"   : "0.8033",
-        "xxtight"  : "0.9664",
+        "loose"    : "0.0681",
+        "medium"   : "0.3487",
+        "tight"    : "0.7969",    
+        "xtight"   : "0.8882",
+        "xxtight"  : "0.9883",
     }
 }
 
@@ -178,45 +182,42 @@ aliases['SFweightMuDown'] = {
     'samples': mc
 }
 
-# The following aliases have already been defined.
-"""
-# WH3l_mOSll for data
-aliases['WH3l_mOSll'] = {
-    'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/mOS_ll.cc"'],
-    'class'      : 'mOS_ll',
-    'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
-    'samples'    : ['DATA'],
-}
+# # WH3l_mOSll for data
+# aliases['WH3l_mOSll'] = {
+#     'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/mOS_ll.cc"'],
+#     'class'      : 'mOS_ll',
+#     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
+#     'samples'    : ['DATA'],
+# }
 
-# WH3l_mlll for data
-aliases['WH3l_mlll'] = {
-    'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/m_lll.cc"'],
-    'class'      : 'm_lll',
-    'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
-    'samples'    : ['DATA'],
-}
+# # WH3l_mlll for data
+# aliases['WH3l_mlll'] = {
+#     'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/m_lll.cc"'],
+#     'class'      : 'm_lll',
+#     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
+#     'samples'    : ['DATA'],
+# }
 
-# WH3l_ZVeto for data
-aliases['WH3l_ZVeto'] = {
-    'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/z_veto.cc"'],
-    'class'      : 'z_veto',
-    'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
-    'samples'    : ['DATA'],
-}
+# # WH3l_ZVeto for data
+# aliases['WH3l_ZVeto'] = {
+#     'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/z_veto.cc"'],
+#     'class'      : 'z_veto',
+#     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
+#     'samples'    : ['DATA'],
+# }
 
-# WH3l_flagOSSF for data
-aliases['WH3l_flagOSSF'] = {
-    'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/flag_ossf.cc"'],
-    'class'      : 'flag_ossf',
-    'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
-    'samples'    : ['DATA'],
-}
+# # WH3l_flagOSSF for data
+# aliases['WH3l_flagOSSF'] = {
+#     'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/flag_ossf.cc"'],
+#     'class'      : 'flag_ossf',
+#     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
+#     'samples'    : ['DATA'],
+# }
 
-# WH3l_flagOSSF for data
-aliases['WH3l_chlll'] = {
-    'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/ch_lll.cc"'],
-    'class'      : 'ch_lll',
-    'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
-    'samples'    : ['DATA'],
-}
-"""
+# # WH3l_flagOSSF for data
+# aliases['WH3l_chlll'] = {
+#     'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/ch_lll.cc"'],
+#     'class'      : 'ch_lll',
+#     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
+#     'samples'    : ['DATA'],
+# }
