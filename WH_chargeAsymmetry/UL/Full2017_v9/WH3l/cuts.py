@@ -6,15 +6,15 @@ cuts = {}
 # Alt(WH3l_mOSll,0,9999) > 12 && Alt(WH3l_mOSll,1,9999) > 12 && Alt(WH3l_mOSll,2,9999) > 12 \
 
 preselections = '(nLepton>=3 && Alt(Lepton_pt,3,0)<10) \
-             && Alt(Lepton_pt,0,0)>25 \
-             && Alt(Lepton_pt,1,0)>10 \
-             && (abs(Lepton_pdgId[1])==13 || Lepton_pt[1]>13) \
-             && (WH3l_mOSll[0] < 0 || WH3l_mOSll[0] > 12) \
-             && (WH3l_mOSll[1] < 0 || WH3l_mOSll[1] > 12) \
-             && (WH3l_mOSll[2] < 0 || WH3l_mOSll[2] > 12) \
-             && abs(WH3l_chlll) == 1 \
-             && bVeto \
-'
+              && Alt(Lepton_pt,0,0)>25 \
+              && Alt(Lepton_pt,1,0)>10 \
+              && (abs(Lepton_pdgId[1])==13 || Lepton_pt[1]>13) \
+              && (WH3l_mOSll[0] < 0 || WH3l_mOSll[0] > 12) \
+              && (WH3l_mOSll[1] < 0 || WH3l_mOSll[1] > 12) \
+              && (WH3l_mOSll[2] < 0 || WH3l_mOSll[2] > 12) \
+              && abs(WH3l_chlll) == 1 \
+              && bVeto \
+              '
 
 ## Signal region
 
@@ -50,6 +50,7 @@ cuts['wh3l_wz_13TeV'] = 'WH3l_flagOSSF == 1 \
 
 # CR 1jet - WHSS
 cuts['hww2l2v_13TeV_WH_SS_WZ_1j'] = '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11))\
+                                    && PuppiMET_pt > 45 \
                                     && Alt(Lepton_pt,1,0)>20 \
                                     && Alt(Lepton_pt,2,0)>15 \
                                     && Alt(CleanJet_pt, 0, 0)>30 \
@@ -59,10 +60,12 @@ cuts['hww2l2v_13TeV_WH_SS_WZ_1j'] = '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13)
 
 # CR 2jets - WHSS
 cuts['hww2l2v_13TeV_WH_SS_WZ_2j'] = '((Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13) || (Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11)) \
+                                    && PuppiMET_pt > 45 \
                                     && Alt(Lepton_pt,1,0)>20 \
                                     && Alt(Lepton_pt,2,0)>15 \
                                     && Alt(CleanJet_pt, 0, 0)>30 \
                                     && Alt(CleanJet_pt, 1, 0)>30 \
+                                    && Alt(CleanJet_pt, 2, 0)<30 \
                                     && WH3l_mlll > 100 \
                                     '
 
