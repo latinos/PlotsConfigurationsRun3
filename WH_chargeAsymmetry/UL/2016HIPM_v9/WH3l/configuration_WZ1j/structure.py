@@ -35,11 +35,11 @@ scale_histo_qqH_htt      = 0.0/1                               # 0.0
 
 structure = {}
 
-structure['top']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_top,
-}
+# structure['top']  = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : scale_histo_top,
+# }
 
 structure['WW']  = {
     'isSignal' : 0,
