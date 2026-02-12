@@ -3,7 +3,6 @@ cuts = {}
 # Preselections - applied to all the cuts
 preselections = 'Alt(Lepton_pt,0,0)>25 \
               && Alt(Lepton_pt,1,0)>10 \
-              && (abs(Lepton_pdgId[1])==13 || Lepton_pt[1]>13) \
               && Alt(Lepton_pt,2,0)>10 \
               && (nLepton>=3 && Alt(Lepton_pt,3,0)<10) \
               && abs(WH3l_chlll) == 1 \

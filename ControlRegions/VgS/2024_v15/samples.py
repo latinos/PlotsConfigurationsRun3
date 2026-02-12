@@ -206,7 +206,7 @@ samples['ZZ'] = {
 ### Vg/Vgstar
 
 # Wg
-files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100')
+files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
 samples['Wg'] = {
     'name': files,
@@ -225,7 +225,7 @@ samples['Zg'] = {
 }
 
 # WgS
-files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100') + \
+files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
         nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
 
 samples['WgS'] = {
@@ -234,8 +234,8 @@ samples['WgS'] = {
     'FilesPerJob': 30,
 }
 
-addSampleWeight(samples, 'WgS', "WGtoLNuG-1J_PTG100", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
-addSampleWeight(samples, 'WgS', "WZTo3LNu",           "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
+addSampleWeight(samples, 'WgS', "WZTo3LNu",    "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
 
 # ZgS
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
@@ -310,29 +310,29 @@ for _, sd in DataRun:
     samples['DATA']['name'].extend(files)
     addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
 
-###########################################
-################## FAKE ###################
-###########################################
+# ###########################################
+# ################## FAKE ###################
+# ###########################################
 
-samples['Fake'] = {
-    'name': [],
-    'weight': 'METFilter_DATA*fakeW',
-    'weights': [],
-    'isData': ['all'],
-    'FilesPerJob': 100
-}
+# samples['Fake'] = {
+#     'name': [],
+#     'weight': 'METFilter_DATA*fakeW',
+#     'weights': [],
+#     'isData': ['all'],
+#     'FilesPerJob': 100
+# }
 
-for _, sd in DataRun:
-  for pd in DataSets:
-    datatag = pd + '_' + sd
+# for _, sd in DataRun:
+#   for pd in DataSets:
+#     datatag = pd + '_' + sd
 
-    # if datatag.startswith('MuonEG'):
-    #     files = nanoGetSampleFiles(fakeDirectoryMuonEG, datatag)
-    if datatag.startswith('Muon'):
-        files = nanoGetSampleFiles(fakeDirectoryMuon, datatag)
-    elif datatag.startswith('EGamma'):
-        files = nanoGetSampleFiles(fakeDirectoryEGamma, datatag)
+#     # if datatag.startswith('MuonEG'):
+#     #     files = nanoGetSampleFiles(fakeDirectoryMuonEG, datatag)
+#     if datatag.startswith('Muon'):
+#         files = nanoGetSampleFiles(fakeDirectoryMuon, datatag)
+#     elif datatag.startswith('EGamma'):
+#         files = nanoGetSampleFiles(fakeDirectoryEGamma, datatag)
 
-    samples['Fake']['name'].extend(files)
-    addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
+#     samples['Fake']['name'].extend(files)
+#     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
 

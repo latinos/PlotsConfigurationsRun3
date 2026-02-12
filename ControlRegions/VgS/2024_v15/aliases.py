@@ -23,13 +23,16 @@ mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 eleWP = 'cutBased_LooseID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
+# We want only the leading lepton to pass the tight selections
 aliases['LepWPCut'] = {
-    'expr': 'LepCut3l__ele_'+eleWP+'__mu_'+muWP,
+    # 'expr': 'LepCut3l__ele_'+eleWP+'__mu_'+muWP,
+    'expr' : "Lepton_isTightElectron_" + eleWP + "[0]>0.5 || Lepton_isTightMuon_" + muWP + "[0]>0.5",
     'samples': mc + ['DATA'],
 }
 
 aliases['LepWPSF'] = {
-    'expr': 'LepSF3l__ele_'+eleWP+'__mu_'+muWP,
+    'expr' : "Lepton_tightElectron_" + eleWP + "_IdIsoSF[0]*Lepton_tightMuon_" + muWP + "_IdIsoSF[0]",
+    # 'expr': 'LepSF3l__ele_'+eleWP+'__mu_'+muWP,
     'samples': mc
 }
 

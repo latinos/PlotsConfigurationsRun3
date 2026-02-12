@@ -1,5 +1,12 @@
 groupPlot = {}
 
+groupPlot['DY']  = {
+    'nameHR'   : "DY",
+    'isSignal' : 0,
+    'color'    : '#832db6', # 418 kGreen+2
+    'samples'  : ['DY']
+}
+
 groupPlot['top']  = {
     'nameHR'   : 'top',
     'isSignal' : 0,
@@ -14,46 +21,11 @@ groupPlot['WW']  = {
     'samples'  : ['WW', 'ggWW']
 }
 
-groupPlot['DY']  = {
-    'nameHR'   : "DY",
-    'isSignal' : 0,
-    'color'    : '#832db6', # 418 kGreen+2
-    'samples'  : ['DY']
-}
-
-groupPlot['Wg']  = {
-    'nameHR'   : 'W#gamma',
-    'isSignal' : 0,
-    'color'    : '#e76300', 
-    'samples'  : ['Wg']
-}
-
-groupPlot['WgS']  = {
-    'nameHR'   : 'W#gamma*',
-    'isSignal' : 0,
-    'color'    : '#92dadd', 
-    'samples'  : ['WgS']
-}
-
-groupPlot['Zg']  = {
-    'nameHR'   : 'Z#gamma',
-    'isSignal' : 0,
-    'color'    : '#e76300', 
-    'samples'  : ['Zg']
-}
-
-groupPlot['ZgS']  = {
-    'nameHR'   : 'Z#gamma*',
-    'isSignal' : 0,
-    'color'    : '#92dadd', 
-    'samples'  : ['ZgS']
-}
-
 groupPlot['WZ']  = {
     'nameHR'   : "WZ",
     'isSignal' : 0,
     'color'    : '#a96b59', # 617 kViolet + 1 
-    'samples'  : ['WZ', 'ZZ']
+    'samples'  : ['WZ']
 }
 
 groupPlot['ZZ']  = {
@@ -63,12 +35,47 @@ groupPlot['ZZ']  = {
     'samples'  : ['ZZ']
 }
 
+groupPlot['Wg']  = {
+    'nameHR'   : 'W#gamma',
+    'isSignal' : 0,
+    'color'    : '#e76300', 
+    'samples'  : ['Wg']
+}
+
+groupPlot['Zg']  = {
+    'nameHR'   : 'Z#gamma',
+    'isSignal' : 0,
+    'color'    : '#e76300', 
+    'samples'  : ['Zg']
+}
+
+groupPlot['WgS']  = {
+    'nameHR'   : 'W#gamma*',
+    'isSignal' : 0,
+    'color'    : '#92dadd', 
+    'samples'  : ['WgS']
+}
+
+groupPlot['ZgS']  = {
+    'nameHR'   : 'Z#gamma*',
+    'isSignal' : 0,
+    'color'    : '#92dadd', 
+    'samples'  : ['ZgS']
+}
+
 groupPlot['VVV']  = {
     'nameHR'   : "VVV",
     'isSignal' : 0,
     'color'    : '#a96b59', # 617 kViolet + 1 
     'samples'  : ['VVV']
 }
+
+# groupPlot['Fake']  = {
+#     'nameHR'   : 'nonprompt',
+#     'isSignal' : 0,
+#     'color'    : 921,
+#     'samples'  : ['Fake']
+# }
 
 # keys here must match keys in samples.py    
                     
@@ -106,38 +113,6 @@ plot['ggWW']  = {
     'scale'    : 1.0,
 }
 
-plot['Wg']  = {
-    'nameHR'   : 'Wg',
-    'color'    : 857,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
-plot['WgS']  = {
-    'nameHR'   : 'WgS',
-    'color'    : 858,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
-plot['Zg']  = {
-    'nameHR'   : 'Zg',
-    'color'    : 857,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
-plot['ZgS']  = {
-    'nameHR'   : 'ZgS',
-    'color'    : 858,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
 plot['WZ']  = {
     'nameHR'   : 'WZ',
     'color'    : '#a96b59',
@@ -154,6 +129,38 @@ plot['ZZ']  = {
     'scale'    : 1.0,
 }
 
+plot['Wg']  = {
+    'nameHR'   : 'Wg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['Zg']  = {
+    'nameHR'   : 'Zg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['WgS']  = {
+    'nameHR'   : 'WgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['ZgS']  = {
+    'nameHR'   : 'ZgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
 plot['VVV']  = {
     'nameHR'   : 'VVV',
     'color'    : 617,
@@ -162,13 +169,13 @@ plot['VVV']  = {
     'scale'    : 1.0,
 }
 
-plot['Fake']  = {
-    'nameHR'   : 'nonprompt',
-    'color'    : 921,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
+# plot['Fake']  = {
+#     'nameHR'   : 'nonprompt',
+#     'color'    : 921,
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : 1.0,
+# }
 
 
 # data
