@@ -341,7 +341,7 @@ samples['Fake'] = {
     'weight': 'METFilter_DATA*fakeW',
     'weights': [],
     'isData': ['all'],
-    'FilesPerJob': 50
+    'FilesPerJob': 25
 }
 
 for _, sd in DataRun:
