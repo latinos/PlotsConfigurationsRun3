@@ -22,6 +22,20 @@ variables['mll'] = {
     'fold' : 0
 }
 
+variables['mll_bin2'] = {
+    'name': 'mll',    
+    'range' : (40,0,200), 
+    'xaxis' : 'm_{ll} [GeV]',
+    'fold' : 0
+}
+
+variables['mll_bin3'] = {
+    'name': 'mll',    
+    'range' : (20,0,200), 
+    'xaxis' : 'm_{ll} [GeV]',
+    'fold' : 0
+}
+
 variables['ptll']  = {  
     'name': 'ptll',     
     'range' : (40,0,200),   

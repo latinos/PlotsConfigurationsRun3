@@ -37,6 +37,16 @@ aliases['PromptGenLepMatch2l'] = {
     'samples': mc
 }
 
+aliases['PromptGenLepMatch1l'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) == 1',
+    'samples': mc
+}
+
+aliases['PromptGenLepMatch1lZg'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) >= 1',
+    'samples': mc
+}
+
 # Jet bins
 # using Alt(CleanJet_pt, n, 0) instead of Sum(CleanJet_pt >= 30) because jet pt ordering is not strictly followed in JES-varied samples
 

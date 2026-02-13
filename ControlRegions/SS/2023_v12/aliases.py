@@ -36,6 +36,16 @@ aliases['PromptGenLepMatch2l'] = {
     'samples': mc
 }
 
+aliases['PromptGenLepMatch1l'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) == 1',
+    'samples': mc
+}
+
+aliases['PromptGenLepMatch1lZg'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) >= 1',
+    'samples': mc
+}
+
 # Jet bins
 # using Alt(CleanJet_pt, n, 0) instead of Sum(CleanJet_pt >= 30) because jet pt ordering is not strictly followed in JES-varied samples
 
@@ -134,7 +144,7 @@ tagger = 'particleNet'
 # path = "your/path"
 
 eff_map_year = '2023' # ['2022', '20222', '2023', '20232']
-year = 'Run3-22EFGSep23-Summer22EE-NanoAODv12' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
+year = 'Run3-23CSep23-Summer23-NanoAODv12' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
 
 for flavour in ['bc', 'light']:
     for shift in ['central', 'up_uncorrelated', 'down_uncorrelated', 'up_correlated', 'down_correlated']:

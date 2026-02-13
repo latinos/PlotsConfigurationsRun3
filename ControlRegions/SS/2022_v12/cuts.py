@@ -12,9 +12,40 @@ preselections = 'mll>12  \
 
 # Inclusive cuts
 
+## m-m
+#cuts['ss_mm_MIC'] = {
+#    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) && nLepton==2',
+#    'categories' : {
+#        '0j' : 'zeroJet',
+#        '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',
+#        '2j' : 'multiJet',
+#        'inc' : '1',
+#    }
+#}
+## e-e
+#cuts['ss_ee_MIC'] = {
+#    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2 && abs(mll - 91) > 15',
+#    'categories' : {
+#        '0j' : 'zeroJet',
+#        '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',
+#        '2j' : 'multiJet',
+#        'inc' : '1',
+#    }
+#}
+## e-m
+#cuts['ss_em_MIC'] = {
+#    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*11) && nLepton==2',
+#    'categories' : {
+#        '0j' : 'zeroJet',
+#        '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',
+#        '2j' : 'multiJet',
+#        'inc' : '1',
+#    }
+#}
+
 # m-m
-cuts['ss_mm_MIC'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) && nLepton==2',
+cuts['ss_mm_MIC_SR'] = {
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*13) && nLepton==2 && ptll>30  && PuppiMET_pt > 20 && mth > 60 && mtw2 > 30',
     'categories' : {
         '0j' : 'zeroJet',
         '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',
@@ -23,8 +54,8 @@ cuts['ss_mm_MIC'] = {
     }
 }
 # e-e
-cuts['ss_ee_MIC'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2 && abs(mll - 91) > 15',
+cuts['ss_ee_MIC_SR'] = {
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2 && abs(mll - 91) > 15 && ptll>30  && PuppiMET_pt > 20 && mth > 60 && mtw2 > 30',
     'categories' : {
         '0j' : 'zeroJet',
         '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',
@@ -33,8 +64,8 @@ cuts['ss_ee_MIC'] = {
     }
 }
 # e-m
-cuts['ss_em_MIC'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*11) && nLepton==2',
+cuts['ss_em_MIC_SR'] = {
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 13*11) && nLepton==2 && ptll>30  && PuppiMET_pt > 20 && mth > 60 && mtw2 > 30',
     'categories' : {
         '0j' : 'zeroJet',
         '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',

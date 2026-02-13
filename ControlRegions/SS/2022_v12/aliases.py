@@ -50,6 +50,16 @@ aliases['PromptGenLepMatch2l'] = {
     'samples': mc
 }
 
+aliases['PromptGenLepMatch1l'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) == 1',
+    'samples': mc
+}
+
+aliases['PromptGenLepMatch1lZg'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) >= 1',
+    'samples': mc
+}
+
 # Conept
 aliases['Lepton_conept'] = {
     'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',

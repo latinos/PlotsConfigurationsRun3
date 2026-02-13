@@ -3,7 +3,8 @@ cuts = {}
 # cuts
 preselections = 'mll>12  \
              && Lepton_pt[0]>25 \
-             && (Lepton_pt[1]>10 || (Lepton_pt[1]>13 && abs(Lepton_pdgId[1]) == 1)) \
+             && Lepton_pt[1]>10 \
+             && (abs(Lepton_pdgId[1])==13 || Lepton_pt[1]>13) \
              && abs(Lepton_eta[0])<2.5 && abs(Lepton_eta[1])<2.5 \
              && bVeto \
              && noJetInHorn'
@@ -23,7 +24,7 @@ cuts['ss_mm_MIC'] = {
 }
 # e-e
 cuts['ss_ee_MIC'] = {
-    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2',
+    'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2 && abs(mll - 91) > 15',
     'categories' : {
         '0j' : 'zeroJet',
         '1j' : 'oneJet && Alt(CleanJet_pt, 1, 0) < 30',
@@ -62,7 +63,7 @@ cuts['ss_em_MIC'] = {
 # }
 # # e-e
 # cuts['ss_ee'] = {
-#     'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2',
+#     'expr' : '(Lepton_pdgId[0]*Lepton_pdgId[1] == 11*11) && nLepton==2 && abs(mll - 91) > 15',
 #     'categories' : {
 #         '0j_plus_ptge20' : 'zeroJet && Lepton_pdgId[0] == +11 && Lepton_pdgId[1] == +11 && Lepton_pt[1]>=20',
 #         '0j_minus_ptge20' : 'zeroJet && Lepton_pdgId[0] == -11 && Lepton_pdgId[1] == -11 && Lepton_pt[1]>=20',

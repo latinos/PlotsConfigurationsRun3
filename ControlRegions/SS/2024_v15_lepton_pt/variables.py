@@ -52,7 +52,14 @@ variables['pt1']  = {
 
 variables['pt2']  = {
     'name': 'Lepton_pt[1]',     
-    'range' : (40,0,160),   
+    'range' : (30,0,150),   
+    'xaxis' : 'p_{T} 2nd lep',
+    'fold'  : 3                         
+}
+
+variables['pt2_lower']  = {
+    'name': 'Lepton_pt[1]',     
+    'range' : (10,0,50),   
     'xaxis' : 'p_{T} 2nd lep',
     'fold'  : 3                         
 }

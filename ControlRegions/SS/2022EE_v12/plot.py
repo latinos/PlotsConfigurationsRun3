@@ -35,14 +35,14 @@ groupPlot['Vg']  = {
     'nameHR' : 'V#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
-    'samples'  : ['Vg']
+    'samples'  : ['Zg', 'Wg']
 }
 
 groupPlot['VgS']  = {
     'nameHR' : 'V#gamma*',
     'isSignal' : 0,
     'color': '#92dadd', 
-    'samples'  : ['VgS']
+    'samples'  : ['WgS', 'ZgS']
 }
 
 
@@ -124,22 +124,38 @@ plot['ggWW']  = {
 }
 
 
-plot['Vg']  = {
-    'nameHR'   : 'Vg',
+plot['Zg']  = {
+    'nameHR'   : 'Zg',
     'color'    : 857,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
-plot['VgS']  = {
-    'nameHR'   : 'VgS',
+plot['Wg']  = {
+    'nameHR'   : 'Wg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['ZgS']  = {
+    'nameHR'   : 'ZgS',
     'color'    : 858,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
+plot['WgS']  = {
+    'nameHR'   : 'WgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
 
 plot['WZ']  = {
     'nameHR'   : 'WZ',
@@ -196,6 +212,7 @@ plot['DATA']  = {
     'isData'   : 1 ,
     'isBlind'  : 0
 }
+
 
 # Legend definition
 legend = {}
