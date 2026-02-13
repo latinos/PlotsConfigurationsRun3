@@ -41,12 +41,12 @@ groupPlot['top']  = {
     'samples'  : ['top']
 }
 
-groupPlot['Fake']  = {  
-    'nameHR'   : 'Non-prompt',
-    'isSignal' : 0,
-    'color'    : 921,    # kGray + 1
-    'samples'  : ['Fake']
-}
+# groupPlot['Fake']  = {  
+#     'nameHR'   : 'Non-prompt',
+#     'isSignal' : 0,
+#     'color'    : 921,    # kGray + 1
+#     'samples'  : ['Fake']
+# }
 
 groupPlot['WW']  = {  
     'nameHR'   : 'WW',
@@ -263,12 +263,12 @@ plot['WH_htt_minus'] = {
 # Fake #
 ########
 
-plot['Fake']  = { 
-    'color'    : 921,    # kGray + 1
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0                  
-}
+# plot['Fake']  = { 
+#     'color'    : 921,    # kGray + 1
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : 1.0                  
+# }
 
 
 ########

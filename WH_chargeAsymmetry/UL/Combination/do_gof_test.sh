@@ -64,6 +64,17 @@ else
   fi
 fi
 
+echo "                               "
+echo "After processing:              "
+echo "==============================="
+echo "Final State      : $FINAL_STATE"
+echo "Datacard         : $DATACARD   "
+echo "Output directory : $DIR        "
+echo "Variable         : $VARIABLE   "
+echo "POIs             : $POIS       "
+echo "==============================="
+
+
 # Setting up environment
 cd $HOME/work/combine/CMSSW_14_1_0_pre4/src/
 eval `scramv1 ru -sh`
@@ -173,7 +184,7 @@ hadd -f higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120.toys.root higgsCombine${F
 combineTool.py -M CollectGoodnessOfFit --input higgsCombine_${FINAL_STATE}.GoodnessOfFit.mH120.root higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120.toys.root -m 120.0 -o ../GoF/GoF_${FINAL_STATE}_${VARIABLE}.json
 
 # Plot results
-plotGof.py ../GoF/GoF_${FINAL_STATE}_${VARIABLE}.json --statistic saturated --mass 120.0 -o ../GoF/GoF_${FINAL_STATE}_${VARIABLE} --title-right=${FINAL_STATE}_${VARIABLE} --range 0 1000
+plotGof.py ../GoF/GoF_${FINAL_STATE}_${VARIABLE}.json --statistic saturated --mass 120.0 -o ../GoF/GoF_${FINAL_STATE}_${VARIABLE} --title-right=${FINAL_STATE}_${VARIABLE}
 
 echo "Done!"
 

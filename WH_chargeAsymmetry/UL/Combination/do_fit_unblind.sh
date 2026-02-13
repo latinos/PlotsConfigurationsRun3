@@ -7,9 +7,28 @@ then
 	echo "bash do_fit_unblind.sh FullRun2_WHSS_high_pt"
 	echo "bash do_fit_unblind.sh FullRun2_WH3l"
 	echo ""
+	echo "bash do_fit_unblind.sh 2017_2018_high_pt"
+	echo "bash do_fit_unblind.sh 2017_2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2017_2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh 2016noHIPM_2017_2018_high_pt"
+	echo "bash do_fit_unblind.sh 2016noHIPM_2017_2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2016noHIPM_2017_2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh 2016HIPM_2017_2018_high_pt"
+	echo "bash do_fit_unblind.sh 2016HIPM_2017_2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2016HIPM_2017_2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh Full2016_high_pt"
+	echo "bash do_fit_unblind.sh Full2016_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh Full2016_WH3l"
+	echo ""
 	echo "bash do_fit_unblind.sh Full2018_high_pt"
+	echo "bash do_fit_unblind.sh Full2018_high_pt_noCR"
 	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt_noCR"
 	echo "bash do_fit_unblind.sh 2018_WH3l"
+	echo "bash do_fit_unblind.sh 2018_WH3l_noCR"
 	echo ""
 	echo "bash do_fit_unblind.sh Full2017_high_pt"
 	echo "bash do_fit_unblind.sh 2017_WHSS_high_pt"
@@ -66,6 +85,134 @@ elif [ $FINAL_STATE == FullRun2_WH3l ]; then
 			--output_name   Combination/FitResults_FullRun2_WH3l_binning_unblind.txt \
 			--freeze_nuisances r_higgs
 
+###################
+### 2017 + 2018 ###
+###################
+
+elif [ $FINAL_STATE == 2017_2018_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_2017_2018_v9_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2017_2018_v9_high_pt_binning \
+			--output_name   Combination/FitResults_2017_2018_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == 2017_2018_WHSS_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_2017_2018_v9_WHSS_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2017_2018_v9_WHSS_high_pt_binning \
+			--output_name   Combination/FitResults_2017_2018_WHSS_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == 2017_2018_WH3l ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2017_2018_v9_WH3l_binning \
+			--output_name   Combination/FitResults_2017_2018_WH3l_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+################################
+### 2016noHIPM + 2017 + 2018 ###
+################################
+
+elif [ $FINAL_STATE == 2016noHIPM_2017_2018_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_2016noHIPM_2017_2018_v9_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2016noHIPM_2017_2018_v9_high_pt_binning \
+			--output_name   Combination/FitResults_2016noHIPM_2017_2018_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == 2016noHIPM_2017_2018_WHSS_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_2016noHIPM_2017_2018_v9_WHSS_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2016noHIPM_2017_2018_v9_WHSS_high_pt_binning \
+			--output_name   Combination/FitResults_2016noHIPM_2017_2018_WHSS_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == 2016noHIPM_2017_2018_WH3l ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2016noHIPM_2017_2018_v9_WH3l_binning \
+			--output_name   Combination/FitResults_2016noHIPM_2017_2018_WH3l_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+	
+################################
+### 2016HIPM + 2017 + 2018 ###
+################################
+
+elif [ $FINAL_STATE == 2016HIPM_2017_2018_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_2016HIPM_2017_2018_v9_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2016HIPM_2017_2018_v9_high_pt_binning \
+			--output_name   Combination/FitResults_2016HIPM_2017_2018_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == 2016HIPM_2017_2018_WHSS_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_2016HIPM_2017_2018_v9_WHSS_high_pt_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2016HIPM_2017_2018_v9_WHSS_high_pt_binning \
+			--output_name   Combination/FitResults_2016HIPM_2017_2018_WHSS_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+elif [ $FINAL_STATE == 2016HIPM_2017_2018_WH3l ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_2016HIPM_2017_2018_v9_WH3l_binning \
+			--output_name   Combination/FitResults_2016HIPM_2017_2018_WH3l_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+	
+#################			
+### Full 2016 ###
+#################
+			
+# Full 2016 high pT
+elif [ $FINAL_STATE == Full2016_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2016_v9_high_pt_binning \
+			--output_name   Combination/FitResults_Full2016_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+	
+# Full 2016 WHSS high pT
+elif [ $FINAL_STATE == Full2016_WHSS_high_pt ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2016_v9_WHSS_high_pt_binning \
+			--output_name   Combination/FitResults_Full2016_WHSS_high_pt_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+# Full 2016 WH3l
+elif [ $FINAL_STATE == Full2016_WH3l ]; then
+	python3 script_combine_datacards_binning.py
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2016_v9_WH3l_binning \
+			--output_name   Combination/FitResults_Full2016_WH3l_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
+	
 #################
 ### Full 2018 ###
 #################
@@ -80,6 +227,17 @@ elif [ $FINAL_STATE == Full2018_high_pt ]; then
 			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2018_v9_high_pt_binning \
 			--output_name   Combination/FitResults_Full2018_high_pt_binning_unblind.txt \
 			--freeze_nuisances r_higgs
+
+# Full 2018 high pT no WZ CR
+elif [ $FINAL_STATE == Full2018_high_pt_noCR ]; then
+	python3 script_combine_datacards_binning.py
+
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_Full2018_v9_high_pt_noCR_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2018_v9_high_pt_noCR_binning \
+			--output_name   Combination/FitResults_Full2018_high_pt_noCR_binning_unblind.txt \
+			--freeze_nuisances r_higgs
 	
 # Full 2018 WHSS high pT
 elif [ $FINAL_STATE == 2018_WHSS_high_pt ]; then
@@ -92,6 +250,17 @@ elif [ $FINAL_STATE == 2018_WHSS_high_pt ]; then
 			--output_name   Combination/FitResults_Full2018_WHSS_high_pt_binning_unblind.txt \
 			--freeze_nuisances r_higgs
 
+# Full 2018 WHSS high pT no WZ CR
+elif [ $FINAL_STATE == 2018_WHSS_high_pt_noCR ]; then
+	python3 script_combine_datacards_binning.py
+	
+	echo "nuisance edit drop WH_htt_plus  WH_SS_mm_1j_minus_2018 CMS_scale_met_2018" >> Combination/WH_chargeAsymmetry_WH_Full2018_v9_WHSS_high_pt_noCR_binning.txt
+
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2018_v9_WHSS_high_pt_noCR_binning \
+			--output_name   Combination/FitResults_Full2018_WHSS_high_pt_noCR_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+
 # Full 2018 WH3l high pT
 elif [ $FINAL_STATE == 2018_WH3l ]; then
 	python3 script_combine_datacards_binning.py
@@ -101,6 +270,15 @@ elif [ $FINAL_STATE == 2018_WH3l ]; then
 			--output_name   Combination/FitResults_Full2018_WH3l_binning_unblind.txt \
 			--freeze_nuisances r_higgs
 
+# Full 2018 WH3l high pT no WZ CR
+elif [ $FINAL_STATE == 2018_WH3l_noCR ]; then
+	python3 script_combine_datacards_binning.py
+	
+	python3 ../scripts/script_workspace_and_fit_unblind.py \
+			--datacard_name Combination/WH_chargeAsymmetry_WH_Full2018_v9_WH3l_noCR_binning \
+			--output_name   Combination/FitResults_Full2018_WH3l_noCR_binning_unblind.txt \
+			--freeze_nuisances r_higgs
+	
 			
 #################			
 ### Full 2017 ###
@@ -207,9 +385,28 @@ else
 	echo "bash do_fit_unblind.sh FullRun2_WHSS_high_pt"
 	echo "bash do_fit_unblind.sh FullRun2_WH3l"
 	echo ""
+	echo "bash do_fit_unblind.sh 2017_2018_high_pt"
+	echo "bash do_fit_unblind.sh 2017_2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2017_2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh 2016noHIPM_2017_2018_high_pt"
+	echo "bash do_fit_unblind.sh 2016noHIPM_2017_2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2016noHIPM_2017_2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh 2016HIPM_2017_2018_high_pt"
+	echo "bash do_fit_unblind.sh 2016HIPM_2017_2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2016HIPM_2017_2018_WH3l"
+	echo ""
+	echo "bash do_fit_unblind.sh Full2016_high_pt"
+	echo "bash do_fit_unblind.sh Full2016_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh Full2016_WH3l"
+	echo ""
 	echo "bash do_fit_unblind.sh Full2018_high_pt"
+	echo "bash do_fit_unblind.sh Full2018_high_pt_noCR"
 	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt"
+	echo "bash do_fit_unblind.sh 2018_WHSS_high_pt_noCR"
 	echo "bash do_fit_unblind.sh 2018_WH3l"
+	echo "bash do_fit_unblind.sh 2018_WH3l_noCR"
 	echo ""
 	echo "bash do_fit_unblind.sh Full2017_high_pt"
 	echo "bash do_fit_unblind.sh 2017_WHSS_high_pt"

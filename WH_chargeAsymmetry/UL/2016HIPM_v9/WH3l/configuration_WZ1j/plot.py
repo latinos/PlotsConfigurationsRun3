@@ -34,12 +34,12 @@ scale_histo_qqH_htt      = 0.0/1                               # 0.0
 
 groupPlot = {}
 
-groupPlot['top']  = {  
-    'nameHR'   : 'tW+ and t#bar{t}',
-    'isSignal' : 0,
-    'color'    : 400,   # kYellow
-    'samples'  : ['top']
-}
+# groupPlot['top']  = {  
+#     'nameHR'   : 'tW+ and t#bar{t}',
+#     'isSignal' : 0,
+#     'color'    : 400,   # kYellow
+#     'samples'  : ['top']
+# }
 
 groupPlot['Fake']  = {  
     'nameHR'   : 'Non-prompt',
@@ -116,13 +116,13 @@ groupPlot['WH_plus']  = {
 
 plot = {}
 
-plot['top'] = {   
-    'nameHR' : 'tW and t#bar{t}',
-    'color'    : 400,   # kYellow
-    'isSignal' : 0,
-    'isData'   : 0, 
-    'scale'    : scale_histo_top,
-}
+# plot['top'] = {   
+#     'nameHR' : 'tW and t#bar{t}',
+#     'color'    : 400,   # kYellow
+#     'isSignal' : 0,
+#     'isData'   : 0, 
+#     'scale'    : scale_histo_top,
+# }
 
 plot['WW']  = {
     'color'    : 851, # kAzure -9 

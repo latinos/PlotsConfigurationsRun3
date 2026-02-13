@@ -53,11 +53,11 @@ structure['Vg']  = {
     'scaleSampleForDatacard' : scale_histo_Vg,
 }
 
-structure['VgS']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_VgS,
-}
+# structure['VgS']  = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : scale_histo_VgS,
+# }
 
 structure['ZZ']  = {
     'isSignal' : 0,
