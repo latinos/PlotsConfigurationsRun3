@@ -66,11 +66,11 @@ structure = {}
 # }
 
 
-# structure['Vg']  = { 
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scaleSampleForDatacard' : scale_histo_Vg,
-# }
+structure['Vg']  = { 
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scaleSampleForDatacard' : scale_histo_Vg,
+}
 
 structure['VgS']  = { 
     'isSignal' : 0,
