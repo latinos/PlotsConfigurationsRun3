@@ -18,7 +18,7 @@ elif dataset_samples == 'amassiro':
     mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
     mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' # Using DYto2L-2Jets_MLL-50 from Amassiro (DS, 21Nov25)
     dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
-    dataSteps    = 'DATAl2loose2022v12__l2loose'
+    dataSteps    = 'DATAl2loose2022v12__l2loose' # Choose l2loose sample but apply tight selections in analysis (eleWP and muWP)
 
 # fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
 
@@ -141,6 +141,8 @@ samples['DY'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 2,
 }
+
+addSampleWeight(samples,'DY','DYto2L-2Jets_MLL-50','DY_LO_ZpTrw')
 
 # remove backgrounds from data for ZpT reweighting:
 top_samples = ['TTTo2L2Nu', 'TWminusto2L2Nu', 'TbarWplusto2L2Nu']#, 'ST_tW_top']

@@ -24,7 +24,7 @@ variables['mll'] = {
 
 variables['ptll']  = {  
     'name': 'ptll',     
-    'range' : (40,0,200),   
+    'range' : (160,0,80),   
     'xaxis' : 'p_{T}^{ll} [GeV]',
     'fold' : 0
 }

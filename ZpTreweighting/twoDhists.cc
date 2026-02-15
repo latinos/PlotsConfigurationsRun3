@@ -30,6 +30,9 @@
 #include <TROOT.h>
 #include <TStyle.h>
 
+#include "ROOT/RVec.hxx"
+using namespace ROOT;
+using namespace ROOT::VecOps;
 
 struct dataset {
   int year;
@@ -43,7 +46,10 @@ dataset mkDataset(int year) {
   d.year    = year;
   if (year == 2022) {
     d.samples = {
-        {"DY" , "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12_OLD/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight/nanoLatino_DYto2L-2Jets_MLL-50__part*.root"}
+        {"DY" , "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight/nanoLatino_DYto2L-2Jets_MLL-50__part*.root"}
+        // The DYto2L-2Jets_MLL-50 sample contains in input cards:
+        // set run_card ptj 10 (minimum jet pT = 10 GeV)
+        // set run_card mll_sf 50.0 (minimum ll invariant mass = 50 GeV)
     };
     d.algo = {
         {"DeepFlavB", {{"loose" , 0.0583}, {"medium" , 0.3086}, {"tight" , 0.7183}}},
@@ -63,11 +69,18 @@ dataset mkDataset(int year) {
   return d;
 }
 
+int CountJetsAbovePt(float* pts, Int_t njet, float threshold) {
+  int count = 0;
+  for (Int_t i = 0; i < njet; ++i) {
+    if (pts[i] > threshold) ++count;
+  }
+  return count;
+}
 
-void genptll_vs_ptll(
+void twoDhists(
     int year = 2022,
     std::string process = "DY",
-    std::string algo = "DeepFlavB",
+    std::string algo = "PNetB",
     std::string const WP = "loose"
 ){
     dataset d = mkDataset(year);
@@ -86,6 +99,9 @@ void genptll_vs_ptll(
     Events->SetBranchStatus("*", 0);
     Events->SetBranchStatus("XSWeight", 1);
     Events->SetBranchStatus("nCleanJet", 1);
+    Events->SetBranchStatus("CleanJet_pt", 1);
+    Events->SetBranchStatus("nGenJet", 1);
+    Events->SetBranchStatus("GenJet_pt", 1);
     Events->SetBranchStatus("nLepton", 1);
     Events->SetBranchStatus("Lepton_pt", 1);
     Events->SetBranchStatus("Lepton_eta", 1);
@@ -96,6 +112,12 @@ void genptll_vs_ptll(
         
     double XSWeight;
     Int_t nCleanJet;
+    // ROOT::RVec<float> CleanJet_pt;  // or using RVecF CleanJet_pt;
+    // std::vector<float>* CleanJet_pt = nullptr;
+    float CleanJet_pt[200];
+    float GenJet_pt[200];
+
+    Int_t nGenJet;
     Int_t nLepton;
     float Lepton_pt[100];
     float Lepton_eta[100];
@@ -105,6 +127,9 @@ void genptll_vs_ptll(
 
     Events->SetBranchAddress("XSWeight", &XSWeight);
     Events->SetBranchAddress("nCleanJet", &nCleanJet);
+    Events->SetBranchAddress("CleanJet_pt", CleanJet_pt);
+    Events->SetBranchAddress("nGenJet", &nGenJet);
+    Events->SetBranchAddress("GenJet_pt", &GenJet_pt);
     Events->SetBranchAddress("nLepton", &nLepton);
     Events->SetBranchAddress("Lepton_pt", Lepton_pt);
     Events->SetBranchAddress("Lepton_eta", Lepton_eta);
@@ -121,9 +146,13 @@ void genptll_vs_ptll(
     */
 
     Float_t ptbins[11] =  {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    Float_t jetbins[11] =  {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     TH1F *ptll_pull = new TH1F{"ptll_pull", "ptll_pull", 100, -2, 2};
     ptll_pull->GetXaxis()->SetTitle("(reco ptll - gen ptll)/gen ptll");
+
+    TH1F *gen_jet_pt = new TH1F{"gen_jet_pt", "gen_jet_pt", 50, 0, 100};
+    gen_jet_pt->GetXaxis()->SetTitle("pT [GeV]");
 
     TH2F *genReco_pT_0j = new TH2F{"gen_vs_reco_pt_0j", "gen_vs_reco_pt_0j", 10, ptbins, 10, ptbins};
     genReco_pT_0j->GetYaxis()->SetTitle("p_{T} [GeV]");
@@ -144,6 +173,10 @@ void genptll_vs_ptll(
     TH2F *genReco_pT_inclJets = new TH2F{"gen_vs_reco_pt_inclJets", "gen_vs_reco_pt_inclJets", 10, ptbins, 10, ptbins};
     genReco_pT_inclJets->GetYaxis()->SetTitle("p_{T} [GeV]");
     genReco_pT_inclJets->GetXaxis()->SetTitle("gen p_{T} [GeV]");
+
+    TH2F *gen_vs_reco_nJet = new TH2F{"gen_vs_reco_nJet", "gen_vs_reco_nJet", 10, jetbins, 10, jetbins};
+    gen_vs_reco_nJet->GetYaxis()->SetTitle("Reco nJet");
+    gen_vs_reco_nJet->GetXaxis()->SetTitle("Gen nJet");
     
     int entries = Events->GetEntries();
     for (unsigned int i = 0; i < Events->GetEntries(); i ++) 
@@ -168,13 +201,23 @@ void genptll_vs_ptll(
       {genReco_pT_2j->Fill(gen_ptll, ptll, XSWeight);}
       else if (nCleanJet >= 3)
       {genReco_pT_3pj->Fill(gen_ptll, ptll, XSWeight);}
+
+      int nRecoJet = CountJetsAbovePt(CleanJet_pt, nCleanJet, 30.);
+      int nCleanGenJet = CountJetsAbovePt(GenJet_pt, nGenJet, 5.);
+      gen_vs_reco_nJet->Fill(nCleanGenJet, nRecoJet, XSWeight); // Sum(CleanJet_pt>30) = nRecoJet
+      // gen_vs_reco_nJet->Fill(nGenJet, Sum(CleanJet_pt>30), XSWeight);
+      
+      for (int gj = 0; gj < nGenJet; gj++)
+      {gen_jet_pt->Fill(GenJet_pt[gj]);}
     }
     ptll_pull->Write();
+    gen_jet_pt->Write();
     genReco_pT_inclJets->Write();
     genReco_pT_0j->Write();
     genReco_pT_1j->Write();
     genReco_pT_2j->Write();
     genReco_pT_3pj->Write();
+    gen_vs_reco_nJet->Write();
 
     auto normalize_columns = [](TH2F *h) {
       int nx = h->GetNbinsX();
@@ -193,7 +236,7 @@ void genptll_vs_ptll(
       }
     };
 
-    auto draw_and_save = [&](TH2F *h, const char *tag) {
+    auto draw_and_save = [&](TH2F *h, const char *qty, const char *tag) {
       normalize_columns(h);
       // gStyle->SetOptStat(0);
       TCanvas *c = new TCanvas(Form("c_%s",tag), "",800,600);
@@ -210,8 +253,8 @@ void genptll_vs_ptll(
           st->Draw();
       }
       gPad->Update(); // Ensure stat box is created
-      TString cname = Form("genReco_pT2Dhist_%s_%d_%s_%s_%s.png",
-                          tag, year, process.c_str(), algo.c_str(), WP.c_str());
+      TString cname = Form("genReco_%s2Dhist_%s_%d_%s_%s_%s.png",
+                          qty, tag, year, process.c_str(), algo.c_str(), WP.c_str());
       c->SaveAs(cname);
       delete c;
     };
@@ -224,11 +267,20 @@ void genptll_vs_ptll(
     c1->SaveAs(cname1);
     delete c1;
 
-    draw_and_save(genReco_pT_inclJets, "inclJets");
-    draw_and_save(genReco_pT_0j, "0j");
-    draw_and_save(genReco_pT_1j, "1j");
-    draw_and_save(genReco_pT_2j, "2j");
-    draw_and_save(genReco_pT_3pj,"3pj");
+    TCanvas *c2 = new TCanvas("c2", "",800,600);
+    c2->cd();
+    gen_jet_pt->Draw();
+    // gen_jet_pt->Fit("gaus"); // Fit with Gaussian
+    TString cname2 = "gen_jet_pt" + std::to_string(year) + "_" + process + "_" + algo + "_" + WP + ".png";
+    c2->SaveAs(cname2);
+    delete c2;
+
+    draw_and_save(genReco_pT_inclJets, "pT",  "inclJets");
+    draw_and_save(genReco_pT_0j, "pT",  "0j");
+    draw_and_save(genReco_pT_1j, "pT",  "1j");
+    draw_and_save(genReco_pT_2j, "pT",  "2j");
+    draw_and_save(genReco_pT_3pj, "pT", "3pj");
+    draw_and_save(gen_vs_reco_nJet, "nJet", "");
 
 
 }
