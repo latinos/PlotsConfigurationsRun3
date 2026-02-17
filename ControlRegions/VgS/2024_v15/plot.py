@@ -3,70 +3,70 @@ groupPlot = {}
 groupPlot['DY']  = {
     'nameHR'   : "DY",
     'isSignal' : 0,
-    'color'    : '#832db6', # 418 kGreen+2
+    'color'    : 418, # 418 kGreen+2
     'samples'  : ['DY']
 }
 
 groupPlot['top']  = {
     'nameHR'   : 'top',
     'isSignal' : 0,
-    'color'    : '#ffa90e', # 400 kYellow                           
+    'color'    : 400, # 400 kYellow                           
     'samples'  : ['top']
 }
 
 groupPlot['WW']  = {
     'nameHR'   : 'WW',
     'isSignal' : 0,
-    'color'    : '#3f90da', # 851 kAzure -9
+    'color'    : 851, # 851 kAzure -9
     'samples'  : ['WW', 'ggWW']
 }
 
 groupPlot['WZ']  = {
     'nameHR'   : "WZ",
     'isSignal' : 0,
-    'color'    : '#a96b59', # 617 kViolet + 1 
+    'color'    : 617, # kViolet + 1 
     'samples'  : ['WZ']
 }
 
 groupPlot['ZZ']  = {
     'nameHR'   : "ZZ",
     'isSignal' : 0,
-    'color'    : '#a96b59', # 617 kViolet + 1 
+    'color'    : 618, # kViolet + 2
     'samples'  : ['ZZ']
 }
 
 groupPlot['Wg']  = {
     'nameHR'   : 'W#gamma',
     'isSignal' : 0,
-    'color'    : '#e76300', 
+    'color'    : 801, # kOrange + 1
     'samples'  : ['Wg']
-}
-
-groupPlot['Zg']  = {
-    'nameHR'   : 'Z#gamma',
-    'isSignal' : 0,
-    'color'    : '#e76300', 
-    'samples'  : ['Zg']
 }
 
 groupPlot['WgS']  = {
     'nameHR'   : 'W#gamma*',
     'isSignal' : 0,
-    'color'    : '#92dadd', 
+    'color'    : 633, # kRed + 1
     'samples'  : ['WgS']
+}
+
+groupPlot['Zg']  = {
+    'nameHR'   : 'Z#gamma',
+    'isSignal' : 0,
+    'color'    : 601, # kBlue + 1
+    'samples'  : ['Zg']
 }
 
 groupPlot['ZgS']  = {
     'nameHR'   : 'Z#gamma*',
     'isSignal' : 0,
-    'color'    : '#92dadd', 
+    'color'    : 433, # kCyan + 1
     'samples'  : ['ZgS']
 }
 
 groupPlot['VVV']  = {
     'nameHR'   : "VVV",
     'isSignal' : 0,
-    'color'    : '#a96b59', # 617 kViolet + 1 
+    'color'    : 619, # kViolet + 3
     'samples'  : ['VVV']
 }
 
