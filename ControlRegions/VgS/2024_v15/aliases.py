@@ -23,34 +23,45 @@ mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 eleWP = 'cutBased_LooseID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
+# Build Wg* lepton ID for second and third leptons
+# Electrons: https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/LeptonSel_cfg.py#L209-L256
+# Muons:     https://github.com/latinos/LatinoAnalysis/blob/UL_production/NanoGardener/python/data/LeptonSel_cfg.py#L6018-L6064
+# In summary: Wg* ID is the same as the tight ID but with relaxed isolation. Any easier implementation? E.g., Lepton_tightID_XXX || Lepton_Iso < YYY
+aliases['LepWgSCut'] = {
+    'expr' : '( ( (abs(Alt(Lepton_pdgId,1,0)) == 11 && Alt(Electron_promptMVA,1,0) > 0.90 && Alt(Electron_pfRelIso03_all,1,999) < 0.3) \
+               || (abs(Alt(Lepton_pdgId,1,0)) == 13 && Alt(Muon_promptMVA,1,0)     > 0.67) ) \
+             && ( (abs(Alt(Lepton_pdgId,2,0)) == 11 && Alt(Electron_promptMVA,2,0) > 0.90 && Alt(Electron_pfRelIso03_all,2,999) < 0.3) \
+               || (abs(Alt(Lepton_pdgId,2,0)) == 13 && Alt(Muon_promptMVA,2,0)     > 0.67) ) ) \
+    ',
+    'samples': mc + ['DATA'],
+}
+
+
 # We want only the leading lepton to pass the tight selections
 aliases['LepWPCut'] = {
-    # 'expr': 'LepCut3l__ele_'+eleWP+'__mu_'+muWP,
-    'expr' : "Lepton_isTightElectron_" + eleWP + "[0]>0.5 || Lepton_isTightMuon_" + muWP + "[0]>0.5",
+    'expr' : "(Lepton_isTightElectron_" + eleWP + "[0]>0.5 || Lepton_isTightMuon_" + muWP + "[0]>0.5)",
     'samples': mc + ['DATA'],
 }
 
 aliases['LepWPSF'] = {
     'expr' : "Lepton_tightElectron_" + eleWP + "_IdIsoSF[0]*Lepton_tightMuon_" + muWP + "_IdIsoSF[0]",
-    # 'expr': 'LepSF3l__ele_'+eleWP+'__mu_'+muWP,
     'samples': mc
 }
 
-# Gen-matching to prompt only (GenLepMatch3l matches to *any* gen lepton)
+
+# Gen-matching to prompt only (match to *any* gen lepton)
 aliases['PromptGenLepMatch3l'] = {
-    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0) * Alt(Lepton_promptgenmatched, 2, 0))',
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) >= 3)',
     'samples': mc
 }
 
-# Gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch2l'] = {
-    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) == 2)',
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) >= 2)',
     'samples': mc
 }
 
-# Gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch1l'] = {
-    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) == 1)',
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) >= 1)',
     'samples': mc
 }
 
@@ -61,13 +72,13 @@ aliases['PromptGenLepMatch1l'] = {
 #     'samples': mc + ['Fake', 'DATA']
 # }
 
-# Fake leptons transfer factor
-aliases['fakeW'] = {
-    'linesToAdd'     : [f'#include "{configurations}/utils/macros/fake_rate_reader_class_run3.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"{configurations}/utils/data/FakeRate/2024_v15_pt/\");')"],
-    'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-    'samples'        : ['Fake']
-}
+# # Fake leptons transfer factor
+# aliases['fakeW'] = {
+#     'linesToAdd'     : [f'#include "{configurations}/utils/macros/fake_rate_reader_class_run3.cc"'],
+#     'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"{configurations}/utils/data/FakeRate/2024_v15_pt/\");')"],
+#     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+#     'samples'        : ['Fake']
+# }
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass >0 && Gen_ZGstar_mass < 4',
@@ -211,8 +222,6 @@ aliases['RecoSF3l'] = {
 # Data/MC scale factors and systematic uncertainties - Trigger scale factors are missing!
 aliases['SFweight'] = {
     'expr': ' * '.join(['TrigSLWP', 'TrigSLSF', 'RecoSF3l', 'puWeight', 'LepWPCut', 'LepWPSF', 'btagSFbc', 'btagSFlight']),
-    # 'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF', 'btagSFbc', 'btagSFlight']),
-    # 'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF']),
     'samples': mc
 }
 

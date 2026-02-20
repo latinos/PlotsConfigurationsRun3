@@ -30,8 +30,10 @@ def makeMCDirectory(var=""):
 
 
 mcDirectory   = makeMCDirectory()
+
 fakeDirectoryMuon = os.path.join(treeBaseDir, dataRecoMuon, dataSteps)
 dataDirectoryMuon = os.path.join(treeBaseDir, dataRecoMuon, dataSteps)
+
 fakeDirectoryEGamma = os.path.join(treeBaseDir, dataRecoEGamma, dataSteps)
 dataDirectoryEGamma = os.path.join(treeBaseDir, dataRecoEGamma, dataSteps)
 fakeDirectoryMuonEG = os.path.join(treeBaseDir, dataRecoMuonEG, dataSteps)
@@ -99,16 +101,6 @@ DataRun = [
     ['I','Run2024I-Prompt-v1'],
 ]
 
-# DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
-
-# DataTrig = {
-#     'MuonEG'   : 'Trigger_ElMu' ,
-#     'Muon0'    : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-#     'Muon1'    : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-#     'EGamma0'  : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
-#     'EGamma1'  : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
-# }
-
 DataSets = ['Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
@@ -123,9 +115,10 @@ DataTrig = {
 #########################################
 
 # SFweight does not include btag weights
-mcCommonWeight1Match = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
-mcCommonWeight2Match = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
-mcCommonWeight       = 'XSWeight*METFilter_Common*PromptGenLepMatch3l*SFweight'
+mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
+mcCommonWeight1Match  = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
+mcCommonWeight2Match  = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
+mcCommonWeight3Match  = 'XSWeight*METFilter_Common*PromptGenLepMatch3l*SFweight'
 
 
 ###########################################
@@ -142,12 +135,13 @@ files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-10to50') + \
 
 samples['DY'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 50
 }
 
 # top
 files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+        nanoGetSampleFiles(mcDirectory, 'TTToSemiLeptonic') + \
         nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
         nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') + \
         nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
@@ -155,18 +149,19 @@ files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
 
 samples['top'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 30,
 }
 
-addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
+addSampleWeight(samples,'top','TTTo2L2Nu',       'Top_pTrw')
+addSampleWeight(samples,'top','TTToSemiLeptonic','Top_pTrw')
 
 # WW and ggWW
 files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
 samples['WW'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 50,
 }
 
@@ -182,16 +177,17 @@ files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
 
 samples['ggWW'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 50,
 }
 
 # WZ
-files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
+files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') # + \
+        # nanoGetSampleFiles(mcDirectory, 'WZToLNu2Q')
 
 samples['WZ'] = {
     'name': files,
-    'weight': mcCommonWeight + ' * (Gen_ZGstar_mass >= 50)',
+    'weight': mcCommonWeightNoMatch + ' * (Gen_ZGstar_mass >= 50)',
     'FilesPerJob': 30,
 }
 
@@ -199,7 +195,7 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZ')
 
 samples['ZZ'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 5,
 }
 
@@ -210,7 +206,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
 samples['Wg'] = {
     'name': files,
-    'weight': mcCommonWeight1Match + '*(Gen_ZGstar_mass <= 0)',
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'FilesPerJob': 30,
 }
 
@@ -220,7 +216,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
 
 samples['Zg'] = {
     'name': files,
-    'weight': mcCommonWeight2Match + '*(Gen_ZGstar_mass <= 0)',
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'FilesPerJob': 30,
 }
 
@@ -230,7 +226,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
 
 samples['WgS'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 30,
 }
 
@@ -243,12 +239,12 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
 
 samples['ZgS'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch + '*((Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4))',
     'FilesPerJob': 30,
 }
 
-addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50",    "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
-addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
+# addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50",    "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
+# addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
 
 
 # Multiboson
@@ -259,28 +255,10 @@ files = nanoGetSampleFiles(mcDirectory, 'WWW') + \
 
 samples['VVV'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeightNoMatch,
     'FilesPerJob': 5,
 }
 
-
-# # ggH
-# files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
-
-# samples['ggH_hww'] = {
-#     'name': files,
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 10,
-# }
-
-# # VBF
-# files = nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125')
-
-# samples['qqH_hww'] = {
-#     'name': files,
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 10,
-# }
 
 ###########################################
 ################## DATA ###################
@@ -298,8 +276,6 @@ for _, sd in DataRun:
   for pd in DataSets:
     datatag = pd + '_' + sd
 
-    # if datatag.startswith('MuonEG'):
-    #     files = nanoGetSampleFiles(dataDirectoryMuonEG, datatag)
     if datatag.startswith('Muon'):
         files = nanoGetSampleFiles(dataDirectoryMuon, datatag)
     elif datatag.startswith('EGamma'):
@@ -326,8 +302,6 @@ for _, sd in DataRun:
 #   for pd in DataSets:
 #     datatag = pd + '_' + sd
 
-#     # if datatag.startswith('MuonEG'):
-#     #     files = nanoGetSampleFiles(fakeDirectoryMuonEG, datatag)
 #     if datatag.startswith('Muon'):
 #         files = nanoGetSampleFiles(fakeDirectoryMuon, datatag)
 #     elif datatag.startswith('EGamma'):

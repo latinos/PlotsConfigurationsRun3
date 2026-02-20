@@ -34,26 +34,26 @@ scale_histo_WH_htt_plus  = 0.1320381988/0.133786809382       # 0.986929873051
 
 groupPlot = {}
  
-groupPlot['top']  = {  
-    'nameHR'   : 'tW+ and t#bar{t}',
-    'isSignal' : 0,
-    'color'    : 400,   # kYellow
-    'samples'  : ['top']
-}
+# groupPlot['top']  = {  
+#     'nameHR'   : 'tW+ and t#bar{t}',
+#     'isSignal' : 0,
+#     'color'    : 400,   # kYellow
+#     'samples'  : ['top']
+# }
 
-groupPlot['WW']  = {  
-    'nameHR'   : 'WW',
-    'isSignal' : 0,
-    'color'    : 851, # kAzure -9 
-    'samples'  : ['WW', 'ggWW', 'WWewk']
-}
+# groupPlot['WW']  = {  
+#     'nameHR'   : 'WW',
+#     'isSignal' : 0,
+#     'color'    : 851, # kAzure -9 
+#     'samples'  : ['WW', 'ggWW', 'WWewk']
+# }
 
-groupPlot['DY']  = {  
-    'nameHR'   : "DY",
-    'isSignal' : 0,
-    'color'    : 418,    # kGreen+2
-    'samples'  : ['DY']
-}
+# groupPlot['DY']  = {  
+#     'nameHR'   : "DY",
+#     'isSignal' : 0,
+#     'color'    : 418,    # kGreen+2
+#     'samples'  : ['DY']
+# }
 
 groupPlot['Fake']  = {  
     'nameHR'   : 'Non-prompt',
@@ -90,12 +90,12 @@ groupPlot['WZ']  = {
     'samples'  : ['WZ']
 }
 
-groupPlot['Vg']  = {  
-    'nameHR'   : "V#gamma",
-    'isSignal' : 0,
-    'color'    : 810,   # kOrange + 10
-    'samples'  : ['Vg']
-}
+# groupPlot['Vg']  = {  
+#     'nameHR'   : "V#gamma",
+#     'isSignal' : 0,
+#     'color'    : 810,   # kOrange + 10
+#     'samples'  : ['Vg']
+# }
 
 groupPlot['VgS']  = {
     'nameHR'   : "V#gamma*",
@@ -137,48 +137,48 @@ plot = {}
 #     'scale'    : 0.5,
 # }
 
-plot['DY']  = {  
-    'color'    : 418,    # kGreen+2
-    'isSignal' : 0,
-    'isData'   : 0, 
-    'scale'    : scale_histo_DY,
-}
+# plot['DY']  = {  
+#     'color'    : 418,    # kGreen+2
+#     'isSignal' : 0,
+#     'isData'   : 0, 
+#     'scale'    : scale_histo_DY,
+# }
 
-plot['top'] = {   
-    'nameHR' : 'tW and t#bar{t}',
-    'color'    : 400,   # kYellow
-    'isSignal' : 0,
-    'isData'   : 0, 
-    'scale'    : scale_histo_top,
-}
+# plot['top'] = {   
+#     'nameHR' : 'tW and t#bar{t}',
+#     'color'    : 400,   # kYellow
+#     'isSignal' : 0,
+#     'isData'   : 0, 
+#     'scale'    : scale_histo_top,
+# }
 
-plot['WW']  = {
-    'color'    : 851, # kAzure -9 
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : scale_histo_WW,
-}
+# plot['WW']  = {
+#     'color'    : 851, # kAzure -9 
+#     'isSignal' : 0,
+#     'isData'   : 0,    
+#     'scale'    : scale_histo_WW,
+# }
 
-plot['WWewk']  = {
-    'color'    : 850, # kAzure -10
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : scale_histo_WWewk,
-}
+# plot['WWewk']  = {
+#     'color'    : 850, # kAzure -10
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : scale_histo_WWewk,
+# }
 
-plot['ggWW']  = {
-    'color'    : 850, # kAzure -10
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : scale_histo_ggWW,
-}
+# plot['ggWW']  = {
+#     'color'    : 850, # kAzure -10
+#     'isSignal' : 0,
+#     'isData'   : 0,    
+#     'scale'    : scale_histo_ggWW,
+# }
 
-plot['Vg']  = {
-    'color'    : 859, # kAzure -1  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : scale_histo_Vg,
-}
+# plot['Vg']  = {
+#     'color'    : 859, # kAzure -1  
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : scale_histo_Vg,
+# }
 
 plot['VgS'] = { 
     'color'    : 617, # kViolet + 1  

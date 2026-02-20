@@ -8,13 +8,6 @@ variables['events'] = {
     'fold'  : 3
 }
 
-variables['nvtx'] = {
-    'name'  : 'PV_npvsGood',
-    'range' : (100, 0, 100),
-    'xaxis' : 'number of vertices',
-    'fold'  : 3
-}
-
 variables['mll'] = {
     'name': 'mll',
     'range' : (60,0,120),
@@ -33,5 +26,12 @@ variables['mllTwoThree'] = {
     'name': 'mllTwoThree',
     'range' : (60,0,120),
     'xaxis' : 'm(\ell_2,\ell_3) [GeV]',
+    'fold' : 3
+}
+
+variables['puppimet'] = {
+    'name': 'PuppiMET_pt',
+    'range' : (25,0,100),
+    'xaxis' : 'PUPPI pT miss [GeV]',
     'fold' : 3
 }
