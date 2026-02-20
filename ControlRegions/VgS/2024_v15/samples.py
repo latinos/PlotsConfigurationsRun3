@@ -3,10 +3,10 @@ from mkShapesRDF.lib.search_files import SearchFiles
 searchFiles = SearchFiles()
 
 redirector = ""
-useXROOTD = False
+useXROOTD  = False
 
 mcProduction   = 'Summer24_150x_nAODv15_Full2024v15'
-mcSteps        = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
+mcSteps        = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight' # Is it correct? This means that the leading AND sub-leading leptons pass any of the tight selections
 
 dataRecoMuon   = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
 dataRecoEGamma = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
