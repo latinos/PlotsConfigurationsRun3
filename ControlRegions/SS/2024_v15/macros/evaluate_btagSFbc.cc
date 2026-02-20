@@ -91,12 +91,6 @@ class btagSFbc {
 
 btagSFbc::btagSFbc(TString eff_map, const std::string year) {
 
-    // --- Patch graphics classes first ---
-    //const char* graphicsClasses[] = { "TPaletteAxis", "TCanvas", "TFrame", "TAttBBox2D", "TBox" };
-    //for (auto clsname : graphicsClasses) {
-    //    if (TClass* cl = TClass::GetClass(clsname)) cl->IgnoreTObjectStreamer();
-    //}
-
   std::string home = std::string(std::getenv("STARTPATH"));
   std::string to_replace = "start.sh";
   size_t start  = home.find(to_replace);
@@ -120,7 +114,7 @@ btagSFbc::btagSFbc(TString eff_map, const std::string year) {
 
   //h_bjet_eff = (TH2F*)reff->Get("bjet_eff")->Clone();
   //h_cjet_eff = (TH2F*)reff->Get("cjet_eff")->Clone();
-  h_bjet_eff = dynamic_cast<TH2F*>(reff->Get("bjet_eff"));
+  h_bjet_eff = reff->Get<TH2F>("bjet_eff");
   if (h_bjet_eff) {
       h_bjet_eff = (TH2F*)h_bjet_eff->Clone();
       h_bjet_eff->SetDirectory(0);
@@ -140,12 +134,14 @@ float btagSFbc::getEff(float pt, float eta, int flavour) {
     xbin = h_bjet_eff->GetXaxis()->FindBin(pt);
     ybin = h_bjet_eff->GetYaxis()->FindBin(eta);
     eff  = h_bjet_eff->GetBinContent(xbin, ybin);
+    std::cout << ">>> DEBUG: H_BJET_EFF EFF = " << eff << std::endl;
   }
   else if (flavour == 4) {
     if (!h_cjet_eff) return 1.0;
     xbin = h_cjet_eff->GetXaxis()->FindBin(pt);
     ybin = h_cjet_eff->GetYaxis()->FindBin(eta);
     eff  = h_cjet_eff->GetBinContent(xbin, ybin);
+    std::cout << ">>> DEBUG: H_CJET_EFF EFF = " << eff << std::endl;
   }
   else 
   {

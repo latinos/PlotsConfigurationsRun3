@@ -116,7 +116,7 @@ mcCommonWeight1lZg       = 'XSWeight*METFilter_Common*PromptGenLepMatch1lZg*SFwe
 
 # DY
 files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-10to50')')
+        nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-10to50')
 
 samples['DY'] = {
     'name': files,
@@ -232,8 +232,7 @@ addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-200to400", "(Gen_ZGst
 addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-400to600", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
 addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-600", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
 
-files =  nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
-         nanoGetSampleFiles(mcDirectory, "WZTo3LNu") 
+files =  nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
         
 
 samples['WgS'] = {
@@ -243,7 +242,18 @@ samples['WgS'] = {
 }
 
 addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-addSampleWeight(samples, 'WgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+
+files =  nanoGetSampleFiles(mcDirectory, "WZTo3LNu") 
+        
+
+samples['WZS'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 50,
+}
+
+addSampleWeight(samples, 'WZS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+
 
 # Multiboson
 files = nanoGetSampleFiles(mcDirectory, 'WWW') + \

@@ -84,11 +84,6 @@ class btagSFlight {
 
 btagSFlight::btagSFlight(TString eff_map, const std::string year) {
     
-    // --- Patch graphics classes first ---
-    //const char* graphicsClasses[] = { "TPaletteAxis", "TCanvas", "TFrame", "TAttBBox2D", "TBox" };
-    //for (auto clsname : graphicsClasses) {
-    //    if (TClass* cl = TClass::GetClass(clsname)) cl->IgnoreTObjectStreamer();
-    //}
 
     std::string home = std::string(std::getenv("STARTPATH"));
     std::string to_replace = "start.sh";

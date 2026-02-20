@@ -232,8 +232,7 @@ addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mas
 addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
 
 
-files =  nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
-         nanoGetSampleFiles(mcDirectory, "WZTo3LNu") 
+files =  nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
         
 
 samples['WgS'] = {
@@ -243,7 +242,17 @@ samples['WgS'] = {
 }
 
 addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-addSampleWeight(samples, 'WgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+
+files =  nanoGetSampleFiles(mcDirectory, "WZTo3LNu") 
+        
+
+samples['WZS'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 50,
+}
+
+addSampleWeight(samples, 'WZS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
 
 
 # Multiboson

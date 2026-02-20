@@ -31,20 +31,40 @@ groupPlot['DY']  = {
 }
 
 
-groupPlot['Vg']  = {
-    'nameHR' : 'V#gamma',
+groupPlot['Zg']  = {
+    'nameHR' : 'Z#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
-    'samples'  : ['Zg', 'Wg']
+    'samples'  : ['Zg']
 }
 
-groupPlot['VgS']  = {
-    'nameHR' : 'V#gamma*',
+groupPlot['Wg']  = {
+    'nameHR' : 'W#gamma',
+    'isSignal' : 0,
+    'color': '#f593d3',
+    'samples'  : ['Wg']
+}
+
+groupPlot['ZgS']  = {
+    'nameHR' : 'Z#gamma*',
     'isSignal' : 0,
     'color': '#92dadd', 
-    'samples'  : ['WgS', 'ZgS']
+    'samples'  : ['ZgS']
 }
 
+groupPlot['WgS']  = {
+    'nameHR' : 'W#gamma*',
+    'isSignal' : 0,
+    'color': '#a0a0ff',
+    'samples'  : ['WgS']
+}
+
+groupPlot['WZS']  = {
+    'nameHR' : 'WZ*',
+    'isSignal' : 0,
+    'color': '#2121d1',
+    'samples'  : ['WZS']
+}
 
 groupPlot['VZ']  = {
     'nameHR' : "VZ",
@@ -137,7 +157,7 @@ plot['Wg']  = {
     'color'    : 857,
     'isSignal' : 0,
     'isData'   : 0,
-    'scale'    : 1.0,
+    'scale'    : 0.33,
 }
 
 
@@ -151,6 +171,14 @@ plot['ZgS']  = {
 
 plot['WgS']  = {
     'nameHR'   : 'WgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.,
+}
+
+plot['WZS']  = {
+    'nameHR'   : 'WZS',
     'color'    : 858,
     'isSignal' : 0,
     'isData'   : 0,

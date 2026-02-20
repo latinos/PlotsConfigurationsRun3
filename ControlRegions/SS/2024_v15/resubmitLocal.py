@@ -2,8 +2,8 @@ import os
 import glob
 import subprocess 
 
-resubmitLine = "queue 1 Folder in DY_38 DATA_77"
-condorFolder = 'condor/DY_CR_2023_wp90iso_Tight_HWW_test'
+resubmitLine = "queue 1 Folder in WgS_16"
+condorFolder = 'condor/SS_2024v15_checkWG_norm'
 
 samples = resubmitLine[len('queue 1 Folder in '):].split(' ')
 print(str(samples))
@@ -25,8 +25,8 @@ for sample in samples:
     fSh += f'cd tmp\n'
     fSh += f'cp ../script.py . \n'
     fSh += f'cp ../../run.sh . \n'
-    fSh += f'cp {frameworkPath}mkShapesRDF/include/headers.hh . \n'
-    fSh += f'cp /afs/cern.ch/user/s/squinto/private/work/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py . \n'
+    fSh += f'cp /afs/cern.ch/user/s/squinto/private/work/mkShapesRDF_LCG109/mkShapesRDF/include/headers.hh . \n'
+    fSh += f'cp /afs/cern.ch/user/s/squinto/private/work/mkShapesRDF_LCG109/mkShapesRDF/shapeAnalysis/runner.py . \n'
     fSh += f'echo "run locally" >../err.txt\n'
     fSh += f'./run.sh {sample} 2>>../err.txt 1>../out.txt\n'
     fSh += f'cd ..; rm -r tmp\n'
