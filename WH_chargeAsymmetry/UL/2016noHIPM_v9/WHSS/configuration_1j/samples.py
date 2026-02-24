@@ -107,60 +107,6 @@ mcCommonWeight        = 'XSWeight*SFweight*METFilter_MC*PromptGenLepMatch2l'
 #############  BACKGROUNDS  ###############
 ###########################################
 
-# ###### DY #######
-# files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-10to50_NLO') + \
-#         nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50')
-
-# samples['DY'] = {
-#     'name': files,
-#     'weight': mcCommonWeight + '*(Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13)*( !(Sum(PhotonGen_isPrompt==1 && PhotonGen_pt>15 && abs(PhotonGen_eta)<2.6) > 0))',
-#     'FilesPerJob': 8,
-# }
-
-# ##### Top #######
-# files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
-#         nanoGetSampleFiles(mcDirectory, 'ST_s-channel') + \
-#         nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
-#         nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop') + \
-#         nanoGetSampleFiles(mcDirectory, 'ST_tW_antitop') + \
-#         nanoGetSampleFiles(mcDirectory, 'ST_tW_top')
-
-# samples['top'] = {
-#     'name': files,
-#     'weight': mcCommonWeight, # +'*ttHMVA_SF_flip_2l',
-#     'FilesPerJob': 8,
-# }
-# addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
-
-# ###### WW ########
-# samples['WW'] = {
-#     'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu'),
-#     'weight': mcCommonWeight + '*nllW*ewknloW',
-#     'FilesPerJob': 4
-# }
-
-# samples['WWewk'] = {
-#     'name': nanoGetSampleFiles(mcDirectory, 'WpWmJJ_EWK_noTop'),
-#     'weight': mcCommonWeight + '*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)', # Filter tops and Higgs,
-#     'FilesPerJob': 8
-# }
-
-# files = nanoGetSampleFiles(mcDirectory, 'GluGluToWWToENEN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToENMN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToENTN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToMNEN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToMNMN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToMNTN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNEN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNMN') + \
-#         nanoGetSampleFiles(mcDirectory, 'GluGluToWWToTNTN')
-
-# samples['ggWW'] = {
-#     'name': files,
-#     'weight': mcCommonWeight + '*1.53/1.4',
-#     'FilesPerJob': 8
-# }
-
 # Charge-flip estimated from data, and covering DY, WW, and Top
 samples['ChargeFlip'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50'),
