@@ -17,8 +17,8 @@ parser = argparse.ArgumentParser(description='Extract data and fit with Gaussian
 parser.add_argument('-f', action='store_true', help='Fit the ratio plot using Erf.')
 args = parser.parse_args()
 
-# root_file = ROOT.TFile("mkShapes__ZpTreweighting.root")
-root_file = ROOT.TFile("mkShapes__beforeZpTreweighting_highLepPtThreshold_30_18.root")
+root_file = ROOT.TFile("mkShapes__ZpTreweighting.root")
+# root_file = ROOT.TFile("mkShapes__beforeZpTreweighting_highLepPtThreshold_30_18.root")
 zee_dir = root_file.Get("Zmm_0j")
 ptll_dir = zee_dir.Get("ptll")
 
@@ -34,9 +34,31 @@ histo_trueData.Add(histo_top, -1)
 histo_trueData.Add(histo_diboson, -1)
 histo_trueData.Add(histo_SMhiggs, -1)
 
+# # Rebin hists
+# histo_trueData.Rebin(4)
+# histo_DY.Rebin(4)
+
 # Create a ratio plot of DATA to DY
 histo_ratio = histo_trueData.Clone("histo_ratio")
 histo_ratio.Divide(histo_DY)
+
+# Calculate the integral/sum of histo_DY and histo_ratio for x axis in [0, 50)
+integral_histo_DY = histo_DY.Integral(histo_DY.FindBin(0), histo_DY.FindBin(50) - 1)
+integral_histo_ratio = histo_ratio.Integral(histo_ratio.FindBin(0), histo_ratio.FindBin(50) - 1)
+numerator = 0.0
+denominator = 0.0
+first_bin = histo_DY.FindBin(0)
+last_bin = histo_DY.FindBin(50)
+
+for bin_idx in range(first_bin, last_bin + 1):
+    mc_events = histo_DY.GetBinContent(bin_idx)
+    weight = histo_ratio.GetBinContent(bin_idx)
+    numerator += mc_events
+    denominator += mc_events * weight
+
+norm_factor = numerator / denominator if denominator != 0 else 1.0
+print("Normalization factor:", norm_factor)
+
 
 # fitting_functions = ["[0]*x**6 + [1]*x**5 + [2]*x**4 + [3]*x**3 + [4]*x**2 + [5]*x + [6]", "[0]*([1]*TMath::Erf((x-[2])/[3]) + [4]*x + [5]*x**2)"]
 fitting_functions = ["[0]*([1]*TMath::Erf((x-[2])/[3]) + [4]*x + [5]*x**2 + [6])"]
@@ -178,7 +200,19 @@ for fitfunc, initguess, savename in zip(fitting_functions, initial_guesses, save
             param_values = [fit_func.GetParameter(i) for i in range(fit_func.GetNpar())]
             param_str = ", ".join([f"p{i}={v:.2f}" for i, v in enumerate(param_values)])
             # Display fit function and parameters
-            latex.DrawLatex(0.15, 0.25, param_str)
             latex.DrawLatex(0.15, 0.35, f"f(x) = {func_formula}")
+            latex.DrawLatex(0.15, 0.3, param_str)
+            latex.DrawLatex(0.15, 0.25, f"Normalization factor = {norm_factor:.2f}")
+            formula = fit_func.GetTitle()  # e.g., "[0]*x + [1]"
+            n_params = fit_func.GetNpar()
+            params = [fit_func.GetParameter(i) for i in range(n_params)]
+            # Replace [i] with parameter values
+            for i, p in enumerate(params):
+                formula = formula.replace(f"[{i}]", f"{p:.3f}")
+            print(f"Fit function with parameters: {formula}")
+
     c_ratio_only.SaveAs(f"ZpTreweighting_ratio_fit_{savename}.pdf")
     c_ratio_only.SaveAs(f"ZpTreweighting_ratio_fit_{savename}.png")
+print(f"Integral of DY histogram from 0 to 50 GeV: {integral_histo_DY}")
+print(f"Integral of ratio histogram from 0 to 50 GeV: {integral_histo_ratio}")
+print(f"Normalization factor = {norm_factor}")

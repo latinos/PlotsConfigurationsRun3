@@ -69,12 +69,42 @@ dataset mkDataset(int year) {
   return d;
 }
 
+// Count the number of jets above a defined threshold (used for counting number of clean jets)
 int CountJetsAbovePt(float* pts, Int_t njet, float threshold) {
   int count = 0;
   for (Int_t i = 0; i < njet; ++i) {
     if (pts[i] > threshold) ++count;
   }
   return count;
+}
+
+// Calculate delta R between two vectors
+float deltaR(float GenJet_eta, float GenJet_phi, float Lepton_eta, float Lepton_phi) {
+    float dEta = GenJet_eta - Lepton_eta;
+    float dPhi = GenJet_phi - Lepton_phi;
+    while (dPhi > M_PI) dPhi -= 2 * M_PI;
+    while (dPhi <= -M_PI) dPhi += 2 * M_PI;
+    return std::sqrt(dEta * dEta + dPhi * dPhi);
+}
+
+// Count number of clean jets (pT above a defined threshold) not matched to any lepton
+int CountJetsAbovePtNoLeps(float* pts, Int_t njet, float threshold, Int_t nLepton, float* Lepton_phi, float* Lepton_eta, float* GenJet_phi, float* GenJet_eta) {
+    int count = 0;
+    for (Int_t i = 0; i < njet; ++i) {
+        if (pts[i] > threshold) {
+            bool matched = false;
+            for (Int_t l = 0; l < nLepton; ++l) {
+                if (deltaR(GenJet_eta[i], GenJet_phi[i], Lepton_eta[l], Lepton_phi[l]) < 0.4) {
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                ++count;
+            }
+        }
+    }
+    return count;
 }
 
 void twoDhists(
@@ -98,45 +128,74 @@ void twoDhists(
 
     Events->SetBranchStatus("*", 0);
     Events->SetBranchStatus("XSWeight", 1);
-    Events->SetBranchStatus("nCleanJet", 1);
-    Events->SetBranchStatus("CleanJet_pt", 1);
+    // Gen variables
     Events->SetBranchStatus("nGenJet", 1);
     Events->SetBranchStatus("GenJet_pt", 1);
+    Events->SetBranchStatus("GenJet_eta", 1);
+    Events->SetBranchStatus("GenJet_phi", 1);
+    Events->SetBranchStatus("nLeptonGen", 1);
+    Events->SetBranchStatus("LeptonGen_pt", 1);
+    Events->SetBranchStatus("LeptonGen_eta", 1);
+    Events->SetBranchStatus("LeptonGen_phi", 1);
+    Events->SetBranchStatus("gen_ptll", 1);
+    // Reco variables
+    Events->SetBranchStatus("nCleanJet", 1);
+    Events->SetBranchStatus("CleanJet_pt", 1);
+    Events->SetBranchStatus("CleanJet_phi", 1);
+    Events->SetBranchStatus("CleanJet_eta", 1);
     Events->SetBranchStatus("nLepton", 1);
     Events->SetBranchStatus("Lepton_pt", 1);
     Events->SetBranchStatus("Lepton_eta", 1);
+    Events->SetBranchStatus("Lepton_phi", 1);
     Events->SetBranchStatus("Lepton_pdgId", 1);    
     Events->SetBranchStatus("mll", 1);
     Events->SetBranchStatus("ptll", 1);
-    Events->SetBranchStatus("gen_ptll", 1);
         
     double XSWeight;
-    Int_t nCleanJet;
-    // ROOT::RVec<float> CleanJet_pt;  // or using RVecF CleanJet_pt;
-    // std::vector<float>* CleanJet_pt = nullptr;
-    float CleanJet_pt[200];
+    // Gen variables
     float GenJet_pt[200];
-
+    float GenJet_eta[200];
+    float GenJet_phi[200];
     Int_t nGenJet;
+    Int_t nLeptonGen;
+    float LeptonGen_pt[100];
+    float LeptonGen_eta[100];
+    float LeptonGen_phi[100];
+    float gen_ptll;
+    // Reco variables
+    Int_t nCleanJet;
+    float CleanJet_pt[200];
+    float CleanJet_phi[200];
+    float CleanJet_eta[200];
     Int_t nLepton;
     float Lepton_pt[100];
     float Lepton_eta[100];
+    float Lepton_phi[100];
     int   Lepton_pdgId[100];
     Double_t mll, ptll;
-    float gen_ptll;
 
     Events->SetBranchAddress("XSWeight", &XSWeight);
-    Events->SetBranchAddress("nCleanJet", &nCleanJet);
-    Events->SetBranchAddress("CleanJet_pt", CleanJet_pt);
     Events->SetBranchAddress("nGenJet", &nGenJet);
     Events->SetBranchAddress("GenJet_pt", &GenJet_pt);
+    Events->SetBranchAddress("GenJet_eta", &GenJet_eta);
+    Events->SetBranchAddress("GenJet_phi", &GenJet_phi);
+    Events->SetBranchAddress("nLeptonGen", &nLeptonGen);
+    Events->SetBranchAddress("LeptonGen_pt", LeptonGen_pt);
+    Events->SetBranchAddress("LeptonGen_eta", LeptonGen_eta);
+    Events->SetBranchAddress("LeptonGen_phi", LeptonGen_phi);
+    Events->SetBranchAddress("gen_ptll", &gen_ptll);
+
+    Events->SetBranchAddress("nCleanJet", &nCleanJet);
+    Events->SetBranchAddress("CleanJet_pt", CleanJet_pt);
+    Events->SetBranchAddress("CleanJet_phi", CleanJet_phi);
+    Events->SetBranchAddress("CleanJet_eta", CleanJet_eta);
     Events->SetBranchAddress("nLepton", &nLepton);
     Events->SetBranchAddress("Lepton_pt", Lepton_pt);
     Events->SetBranchAddress("Lepton_eta", Lepton_eta);
+    Events->SetBranchAddress("Lepton_phi", Lepton_phi);
     Events->SetBranchAddress("Lepton_pdgId", Lepton_pdgId);
     Events->SetBranchAddress("mll", &mll);
     Events->SetBranchAddress("ptll", &ptll);
-    Events->SetBranchAddress("gen_ptll", &gen_ptll);
     
 
     /*
@@ -177,6 +236,13 @@ void twoDhists(
     TH2F *gen_vs_reco_nJet = new TH2F{"gen_vs_reco_nJet", "gen_vs_reco_nJet", 10, jetbins, 10, jetbins};
     gen_vs_reco_nJet->GetYaxis()->SetTitle("Reco nJet");
     gen_vs_reco_nJet->GetXaxis()->SetTitle("Gen nJet");
+
+    TH2F *gen_vs_reco_nJetNoLep = new TH2F{"gen_vs_reco_nJet_noLeptons", "gen_vs_reco_nJet_noLeptons", 10, jetbins, 10, jetbins};
+    gen_vs_reco_nJetNoLep->GetYaxis()->SetTitle("Reco nJet");
+    gen_vs_reco_nJetNoLep->GetXaxis()->SetTitle("Gen nJet");
+    TH2F *gen_vs_reco_nJetNoLepBoth = new TH2F{"gen_vs_reco_nJet_noLeptonsBoth", "gen_vs_reco_nJet_noLeptonsBoth", 10, jetbins, 10, jetbins};
+    gen_vs_reco_nJetNoLepBoth->GetYaxis()->SetTitle("Reco nJet");
+    gen_vs_reco_nJetNoLepBoth->GetXaxis()->SetTitle("Gen nJet");
     
     int entries = Events->GetEntries();
     for (unsigned int i = 0; i < Events->GetEntries(); i ++) 
@@ -203,9 +269,14 @@ void twoDhists(
       {genReco_pT_3pj->Fill(gen_ptll, ptll, XSWeight);}
 
       int nRecoJet = CountJetsAbovePt(CleanJet_pt, nCleanJet, 30.);
-      int nCleanGenJet = CountJetsAbovePt(GenJet_pt, nGenJet, 5.);
+      int nCleanGenJet = CountJetsAbovePt(GenJet_pt, nGenJet, 30.);
       gen_vs_reco_nJet->Fill(nCleanGenJet, nRecoJet, XSWeight); // Sum(CleanJet_pt>30) = nRecoJet
       // gen_vs_reco_nJet->Fill(nGenJet, Sum(CleanJet_pt>30), XSWeight);
+
+      int nCleanGenJetNoLep = CountJetsAbovePtNoLeps(GenJet_pt, nGenJet, 30., nLeptonGen, LeptonGen_phi, LeptonGen_eta, GenJet_phi, GenJet_eta);
+      gen_vs_reco_nJetNoLep->Fill(nCleanGenJetNoLep, nRecoJet, XSWeight); // Sum(CleanJet_pt>30) = nRecoJet
+      int nRecoJetNoLep = CountJetsAbovePtNoLeps(CleanJet_pt, nCleanJet, 30., nLepton, Lepton_phi, Lepton_eta, CleanJet_phi, CleanJet_eta);
+      gen_vs_reco_nJetNoLepBoth->Fill(nCleanGenJetNoLep, nRecoJetNoLep, XSWeight); // Sum(CleanJet_pt>30) = nRecoJet
       
       for (int gj = 0; gj < nGenJet; gj++)
       {gen_jet_pt->Fill(GenJet_pt[gj]);}
@@ -218,6 +289,8 @@ void twoDhists(
     genReco_pT_2j->Write();
     genReco_pT_3pj->Write();
     gen_vs_reco_nJet->Write();
+    gen_vs_reco_nJetNoLep->Write();
+    gen_vs_reco_nJetNoLepBoth->Write();
 
     auto normalize_columns = [](TH2F *h) {
       int nx = h->GetNbinsX();
@@ -237,22 +310,22 @@ void twoDhists(
     };
 
     auto draw_and_save = [&](TH2F *h, const char *qty, const char *tag) {
-      normalize_columns(h);
-      // gStyle->SetOptStat(0);
+      gStyle->SetOptStat(0);
       TCanvas *c = new TCanvas(Form("c_%s",tag), "",800,600);
+      normalize_columns(h);
       c->cd();
       h->Draw("COLZ");
       gPad->Update(); // Ensure stat box is created
-      TPaveStats *st = (TPaveStats*)h->GetListOfFunctions()->FindObject("stats");
-      if (st) {
-          std::cout<<" Stat box found! "<<std::endl;
-          st->SetX1NDC(0.15); // left
-          st->SetX2NDC(0.45); // right
-          st->SetY1NDC(0.7); // top
-          st->SetY2NDC(0.9); // bottom
-          st->Draw();
-      }
-      gPad->Update(); // Ensure stat box is created
+      // TPaveStats *st = (TPaveStats*)h->GetListOfFunctions()->FindObject("stats");
+      // if (st) {
+      //     std::cout<<" Stat box found! "<<std::endl;
+      //     st->SetX1NDC(0.15); // left
+      //     st->SetX2NDC(0.45); // right
+      //     st->SetY1NDC(0.7); // top
+      //     st->SetY2NDC(0.9); // bottom
+      //     st->Draw();
+      // }
+      // gPad->Update(); // Ensure stat box is created
       TString cname = Form("genReco_%s2Dhist_%s_%d_%s_%s_%s.png",
                           qty, tag, year, process.c_str(), algo.c_str(), WP.c_str());
       c->SaveAs(cname);
@@ -275,12 +348,15 @@ void twoDhists(
     c2->SaveAs(cname2);
     delete c2;
 
-    draw_and_save(genReco_pT_inclJets, "pT",  "inclJets");
-    draw_and_save(genReco_pT_0j, "pT",  "0j");
-    draw_and_save(genReco_pT_1j, "pT",  "1j");
-    draw_and_save(genReco_pT_2j, "pT",  "2j");
-    draw_and_save(genReco_pT_3pj, "pT", "3pj");
+    // draw_and_save(genReco_pT_inclJets, "pT",  "inclJets");
+    // draw_and_save(genReco_pT_0j, "pT",  "0j");
+    // draw_and_save(genReco_pT_1j, "pT",  "1j");
+    // draw_and_save(genReco_pT_2j, "pT",  "2j");
+    // draw_and_save(genReco_pT_3pj, "pT", "3pj");
     draw_and_save(gen_vs_reco_nJet, "nJet", "");
+    draw_and_save(gen_vs_reco_nJetNoLep, "nJetNoLeptons", "");
+    draw_and_save(gen_vs_reco_nJetNoLepBoth, "nJetNoLeptonsBoth", "");
+
 
 
 }
