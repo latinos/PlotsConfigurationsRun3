@@ -98,84 +98,105 @@ echo "POI setup:         " $POI
 echo "Optimizer options: " $OPTMIZER_OPTIONS
 echo "--------------------------------------"
 
-### Prepare workspace from datacard
-echo "Preparing workspace ..."
+### Check if expected output is already there
+skip_jobs_submission=false
+n_done=$(ls GoF_${FINAL_STATE}_${VARIABLE}/combine_task.*.out | wc -l)
 
-text2workspace.py \
-Combination/${DATACARD}_${VARIABLE}.txt \
--o Combination/${DATACARD}_${VARIABLE}_WH_strength.root \
--P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
--m 125 \
---PO verbose \
---PO 'map=.*/ggH_hww:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/qqH_hww:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/ZH_hww:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/ggZH_hww:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/ttH_hww:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
---PO 'map=.*/WH_h.*_plus:r_WH[1,-10.0,10.0]' \
---PO 'map=.*/WH_h.*_minus:r_WH[1,-10.0,10.0]'
+if [[ "$n_done" -eq 200 ]]; then
 
-echo "Workspace done!"
+	echo "All jobs already done!"
 
-# Redefine DATACARD variable for the rest of the script
-DATACARD=${DIR}/Combination/${DATACARD}_${VARIABLE}_WH_strength.root
+	skip_jobs_submission=true
 
-### Create directories:
-mkdir -p GoF
-mkdir -p GoF_${FINAL_STATE}_${VARIABLE}
+    cd GoF_${FINAL_STATE}_${VARIABLE}
 
-cp /afs/cern.ch/user/n/ntrevisa/public/utils/index.php GoF/
+fi
 
-### Fit on data and 200 toys and then plotting
-cd GoF_${FINAL_STATE}_${VARIABLE}
-
-echo "Performing fit on data..."
-
-combineTool.py -M GoodnessOfFit ${DATACARD} --algo=saturated ${POI} ${OPTMIZER_OPTIONS} -n _${FINAL_STATE}
-
-echo "Done!"
-
-echo "Performing fit on 1000 toys..."
-
-combineTool.py -M GoodnessOfFit ${DATACARD} --algo=saturated -t 1 -s 0:199:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' ${POI} ${OPTMIZER_OPTIONS} -n $FINAL_STATE
-
-# Modify the sh file in order to submit 200 jobs running 5 toys each
-sed -i 's/-t 1/-t 5/g' condor_combine_task.sh
-
-# Finally, submit jobs to condor
-condor_submit condor_combine_task.sub
-
-echo "Jobs submitted!"
-
-# Check jobs
-while true; do
-
-	condor_q
+### If the output is not there, then produce it
+if [[ "$skip_jobs_submission" = false ]]; then
 	
-	n_done=$(ls combine_task.*.out | wc -l)
+	### Prepare workspace from datacard
+	echo "Output is not there, yet!"
 	
-	echo "Jobs done: $n_done / 200"
-
-    if [[ "$n_done" -eq 200 ]]; then
-
-		echo "All jobs done!"
-
-		break
-
-	fi
-
-	sleep 10
-
-done
+	echo "Preparing workspace ..."
 	
-echo "Done!"
+	text2workspace.py \
+		Combination/${DATACARD}_${VARIABLE}.txt \
+		-o Combination/${DATACARD}_${VARIABLE}_WH_strength.root \
+		-P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
+		-m 125 \
+		--PO verbose \
+		--PO 'map=.*/ggH_hww:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/qqH_hww:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/ZH_hww:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/ggZH_hww:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/ttH_hww:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/ggH_htt:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/qqH_htt:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/ZH_htt:r_higgs[1,0.99,1.01]' \
+		--PO 'map=.*/WH_h.*_plus:r_WH[1,-10.0,10.0]' \
+		--PO 'map=.*/WH_h.*_minus:r_WH[1,-10.0,10.0]'
+	
+	echo "Workspace done!"
+	
+	# Redefine DATACARD variable for the rest of the script
+	DATACARD=${DIR}/Combination/${DATACARD}_${VARIABLE}_WH_strength.root
+	
+	### Create directories:
+	mkdir -p GoF
+	mkdir -p GoF_${FINAL_STATE}_${VARIABLE}
+	
+	cp /afs/cern.ch/user/n/ntrevisa/public/utils/index.php GoF/
+	
+	### Fit on data and 200 toys and then plotting
+	cd GoF_${FINAL_STATE}_${VARIABLE}
+	
+	echo "Performing fit on data..."
+	
+	combineTool.py -M GoodnessOfFit ${DATACARD} --algo=saturated ${POI} ${OPTMIZER_OPTIONS} -n _${FINAL_STATE}
+	
+	echo "Done!"
+	
+	echo "Performing fit on 1000 toys..."
+	
+	combineTool.py -M GoodnessOfFit ${DATACARD} --algo=saturated -t 1 -s 0:199:1 --dry-run --job-mode=condor --sub-opts='+JobFlavour="workday"' ${POI} ${OPTMIZER_OPTIONS} -n $FINAL_STATE
+	
+	# Modify the sh file in order to submit 200 jobs running 5 toys each
+	sed -i 's/-t 1/-t 5/g' condor_combine_task.sh
+	
+	# Finally, submit jobs to condor
+	condor_submit condor_combine_task.sub
+	
+	echo "Jobs submitted!"
+	
+	# Check jobs
+	while true; do
+		
+		condor_q
+		
+		n_done=$(ls combine_task.*.out | wc -l)
+		
+		echo "Jobs done: $n_done / 200"
+		
+		if [[ "$n_done" -eq 200 ]]; then
+			
+			echo "All jobs done!"
+			
+			break
+			
+		fi
+		
+		sleep 10
+		
+	done
+	
+	echo "Done!"
+	
+	echo "Preparing and plotting results..."
+	
+	sleep 30
 
-echo "Preparing and plotting results..."
-
-sleep 30
+fi
 
 # Hadd output files from 100 jobs
 hadd -f higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120.toys.root higgsCombine${FINAL_STATE}.GoodnessOfFit.mH120.*.root
