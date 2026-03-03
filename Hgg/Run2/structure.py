@@ -2,16 +2,16 @@
 # structure configuration for datacard
 #
 
-# keys here must match keys in samples.py    
-                    
+# keys here must match keys in samples.py
+
 structure = {}
 
-structure['DY']  = {  
+structure['DY']  = {
     'isSignal' : 0,
     'isData'   : 0,
 }
 
-structure['top'] = {   
+structure['top'] = {
     'isSignal' : 0,
     'isData'   : 0,
 }
@@ -31,7 +31,7 @@ structure['ggWW']  = {
     'isData'   : 0,
 }
 
-structure['Vg']  = { 
+structure['Vg']  = {
     'isSignal' : 0,
     'isData'   : 0,
 }
@@ -47,12 +47,12 @@ structure['WZ'] = {
     'scaleSampleForDatacard' : 1.138 # NLO -> NNLO k-factor
 }
 
-structure['ZZ']  = { 
+structure['ZZ']  = {
     'isSignal' : 0,
     'isData'   : 0,
 }
 
-structure['VVV']  = { 
+structure['VVV']  = {
     'isSignal' : 0,
     'isData'   : 0,
 }
@@ -66,24 +66,24 @@ structure['Hgluglu'] = {
     #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
 }
 
-structure['qqZHgluglu'] = {
-    'isSignal' : 1,
-    'isData'   : 0,
-    #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
-}
-
-structure['ggZHgluglu'] = {
-    'isSignal' : 1,
-    'isData'   : 0,
-    #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
-}
-
-structure['WHgluglu'] = {
-    'isSignal' : 1,
-    'isData'   : 0,
-    #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
-}
-
+# structure['qqZHgluglu'] = {
+#     'isSignal' : 1,
+#     'isData'   : 0,
+#     #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+# }
+#
+# structure['ggZHgluglu'] = {
+#     'isSignal' : 1,
+#     'isData'   : 0,
+#     #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+# }
+#
+# structure['WHgluglu'] = {
+#     'isSignal' : 1,
+#     'isData'   : 0,
+#     #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+# }
+#
 
 
 structure['ggH_hww'] = {
@@ -123,32 +123,32 @@ structure['ttH_hww'] = {
     'isData'   : 0,
 }
 
-structure['ggH_htt'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-}
-
-structure['qqH_htt'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-}
-
-structure['ZH_htt'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-}
-
-structure['WH_htt_plus'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
-}
-
-structure['WH_htt_minus'] = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
-}
+# structure['ggH_htt'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+# }
+#
+# structure['qqH_htt'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+# }
+#
+# structure['ZH_htt'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+# }
+#
+# structure['WH_htt_plus'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+# }
+#
+# structure['WH_htt_minus'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     #'scaleSampleForDatacard' : 10 # scaling signal to have sensitivity
+# }
 
 
 # Fakes
@@ -169,7 +169,9 @@ structure['Fake_em']  = {
 
 
 # Data
-structure['DATA']  = { 
+structure['DATA']  = {
     'isSignal' : 0,
-    'isData'   : 1 
+    'isData'   : 1
 }
+
+

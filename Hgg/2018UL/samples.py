@@ -153,6 +153,36 @@ samples["Hgluglu"] = {
 # 59000×0.8839×0.08187×0.033658×3
 #
 
+
+
+files = nanoGetLocalSampleFiles("/eos/user/a/amassiro/HIG/ZHggPostProc/Summer20UL18_106x_nAODv9_Full2018v9/MCFull2018v9/", "ZHllHgg")
+
+samples["qqZHgluglu"] = {
+    "name": files,
+    #"weight": mcCommonWeight,  --> missing post processing
+    #"weight": 1,
+    "weight": "baseW*genWeight*0.7612*0.08187*0.033658*3",
+    "FilesPerJob": 200,
+}
+
+
+#
+# ggZH: 1.227E-01  pb
+#
+
+files = nanoGetLocalSampleFiles("/eos/user/a/amassiro/HIG/ZHggPostProc/Summer20UL18_106x_nAODv9_Full2018v9/MCFull2018v9/", "ggZHllHgg")
+
+samples["ggZHgluglu"] = {
+    "name": files,
+    #"weight": mcCommonWeight,  --> missing post processing
+    #"weight": 1,
+    "weight": "baseW*genWeight*0.1227*0.08187*0.033658*3",
+    "FilesPerJob": 200,
+}
+
+
+
+
 ###########################################
 #############  BACKGROUNDS  ###############
 ###########################################

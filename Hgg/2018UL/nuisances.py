@@ -1,5 +1,6 @@
 import sys
- 
+import os
+
 # Enable reading YR for Higgs XS and uncertainties
 sys.path.append('../macros/')
 #import HiggsXSection
