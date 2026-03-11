@@ -5,10 +5,15 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12_OLD'
-mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
-dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12_OLD'
-dataSteps    = 'DATAl2loose2022EEv12__l2tight'
+# mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12_OLD'
+# mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
+# dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12_OLD'
+# dataSteps    = 'DATAl2loose2022EEv12__l2tight'
+
+mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
+mcSteps = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
+dataReco = 'Run2022EE_Prompt_nAODv12_Full2022v12'
+dataSteps = 'DATAl2loose2022EEv12__l2loose'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -90,7 +95,7 @@ DataRun = [
 DataSets = ['EGamma']
 
 DataTrig = {
-    'EGamma'         : 'Trigger_dblEl'
+    'EGamma'         : 'Trigger_sngEl || Trigger_dblEl'
 }
 
 
