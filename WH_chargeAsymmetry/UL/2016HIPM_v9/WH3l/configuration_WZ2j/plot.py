@@ -41,12 +41,12 @@ groupPlot['top']  = {
     'samples'  : ['top']
 }
 
-groupPlot['Fake']  = {  
-    'nameHR'   : 'Non-prompt',
-    'isSignal' : 0,
-    'color'    : 921,    # kGray + 1
-    'samples'  : ['Fake']
-}
+# groupPlot['Fake']  = {  
+#     'nameHR'   : 'Non-prompt',
+#     'isSignal' : 0,
+#     'color'    : 921,    # kGray + 1
+#     'samples'  : ['Fake']
+# }
 
 groupPlot['WW']  = {  
     'nameHR'   : 'WW',
@@ -69,12 +69,12 @@ groupPlot['Vg']  = {
     'samples'  : ['Vg']
 }
 
-groupPlot['VgS']  = {
-    'nameHR' : "V#gamma*",
-    'isSignal' : 0,
-    'color'    : 617,
-    'samples'  : ['VgS']
-}
+# groupPlot['VgS']  = {
+#     'nameHR' : "V#gamma*",
+#     'isSignal' : 0,
+#     'color'    : 617,
+#     'samples'  : ['VgS']
+# }
 
 groupPlot['ZZ']  = {  
     'nameHR'   : "ZZ",
@@ -138,12 +138,12 @@ plot['Vg']  = {
     'scale'    : scale_histo_Vg,
 }
 
-plot['VgS']  = { 
-    'color'    : 859, # kAzure -1  
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : scale_histo_VgS,
-}
+# plot['VgS']  = { 
+#     'color'    : 859, # kAzure -1  
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : scale_histo_VgS,
+# }
 
 plot['ZZ']  = { 
     'color'    : 858, # kAzure -2  
@@ -263,12 +263,12 @@ plot['WH_htt_minus'] = {
 # Fake #
 ########
 
-plot['Fake']  = { 
-    'color'    : 921,    # kGray + 1
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0                  
-}
+# plot['Fake']  = { 
+#     'color'    : 921,    # kGray + 1
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : 1.0                  
+# }
 
 
 ########

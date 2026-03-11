@@ -61,7 +61,7 @@ variables['BDTG6_TT'] = {
 # DeltaPhi between the tri-lepton system and the met
 variables['WH3l_dphilllmet'] = {
     'name': 'WH3l_dphilllmet',
-    'range' : (10,0,5),
+    'range' : (20,0,3.2),
     'xaxis' : '#Delta #Phi(lll,met)',
     'fold' : 0
 }
@@ -69,21 +69,21 @@ variables['WH3l_dphilllmet'] = {
 # m(OS lepton pairs)
 variables['WH3l_mOSll0'] = {
     'name': 'Alt(WH3l_mOSll, 0, 0)',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'm_{l1,l2}',
     'fold' : 0
 }
 
 variables['WH3l_mOSll1'] = {
     'name': 'Alt(WH3l_mOSll, 1, 0)',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'm_{l2,l3}',
     'fold' : 0
 }
 
 variables['WH3l_mOSll2'] = {
     'name': 'Alt(WH3l_mOSll, 2, 0)',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'm_{l2,l3}',
     'fold' : 0
 }
@@ -98,21 +98,21 @@ variables['WH3l_mOSll2'] = {
 # pT(OS lepton pairs)
 variables['WH3l_ptOSll0'] = {
     'name': 'Alt(WH3l_ptOSll, 0, 0)',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'p_T^{l1,l2}',
     'fold' : 0
 }
 
 variables['WH3l_ptOSll1'] = {
     'name': 'Alt(WH3l_ptOSll, 1, 0)',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'p_T^{l2,l3}',
     'fold' : 0
 }
 
 variables['WH3l_ptOSll2'] = {
     'name': 'Alt(WH3l_ptOSll, 2, 0)',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'p_T^{l2,l3}',
     'fold' : 0
 }
@@ -127,21 +127,21 @@ variables['WH3l_ptOSll2'] = {
 # DeltaPhi(OS leptons)
 variables['WH3l_drOSll0'] = {
     'name': 'Alt(WH3l_drOSll, 0, 0)',
-    'range' : (10,0,5),
+    'range' : (20,0,3.2),
     'xaxis' : '#Delta R_{l1,l2}',
     'fold' : 0
 }
 
 variables['WH3l_drOSll1'] = {
     'name': 'Alt(WH3l_drOSll, 1, 0)',
-    'range' : (10,0,5),
+    'range' : (20,0,3.2),
     'xaxis' : '#Delta R_{l2,l3}',
     'fold' : 0
 }
 
 variables['WH3l_drOSll2'] = {
     'name': 'Alt(WH3l_drOSll, 2, 0)',
-    'range' : (10,0,5),
+    'range' : (20,0,3.2),
     'xaxis' : '#Delta R_{l2,l3}',
     'fold' : 0
 }
@@ -156,14 +156,14 @@ variables['WH3l_drOSll2'] = {
 # DeltaPhi(l,met)
 variables['WH3l_dphilmet0'] = {
     'name': 'Alt(WH3l_dphilmet, 0, 0)',
-    'range' : (10,0,5),
+    'range' : (20,0,3.2),
     'xaxis' : '#Delta #Phi_{l1,met}',
     'fold' : 0
 }
 
 variables['WH3l_dphilmet1'] = {
     'name': 'Alt(WH3l_dphilmet, 1, 0)',
-    'range' : (10,0,5),
+    'range' : (20,0,3.2),
     'xaxis' : '#Delta #Phi_{l2,met}',
     'fold' : 0
 }
@@ -185,7 +185,7 @@ variables['WH3l_dphilmet2'] = {
 # pT(WWW)
 variables['WH3l_ptWWW'] = {
     'name': 'WH3l_ptWWW',
-    'range' : (10,0,400),
+    'range' : (20,0,400),
     'xaxis' : 'p_T^{WWW}',
     'fold' : 0
 }
@@ -207,7 +207,7 @@ variables['dphillmet'] = {
 
 variables['mlljj20_whss'] = {
     'name'  : 'mlljj20_whss',
-    'range' : (50, 0, 300),
+    'range' : (20, 0, 1000),
     'xaxis' : 'mlljj20_whss [GeV]',
     'fold'  : 3
 }
@@ -223,50 +223,50 @@ variables['mll'] = {
     'name'  : 'mll',
     'range' : (20, 40,120),
     'xaxis' : 'm_{ll} [GeV]',
-    'fold'  : 0
+    'fold'  : 3
 }
 
 variables['mtw1'] = {
     'name'  : 'mtw1',
-    'range' : (40,0,200),
+    'range' : (20,0,400),
     'xaxis' : 'm_{T}^{W_{1}} [GeV]',
     'fold'  : 3
 }
 
 variables['dphill']  = {  
     'name'  : 'abs(dphill)',     
-    'range' : (20,0,3.14),   
+    'range' : (20,0,3.2),   
     'xaxis' : '#Delta#phi_{ll}',
     'fold'  : 3
 }
 
-# variables['jetpt1'] = {
-#     'name': 'CleanJet_pt[0]*(CleanJet_pt[0]>30)',
-#     'range' : (10,0.,200),
-#     'xaxis' : 'p_{T} 1st jet [GeV]',
-#     'fold' : 0
-# }
+variables['jetpt1'] = {
+    'name': 'CleanJet_pt[0]*(CleanJet_pt[0]>30)',
+    'range' : (20,0.,200),
+    'xaxis' : 'p_{T} 1st jet [GeV]',
+    'fold' : 0
+}
 
-# variables['pt1'] = {
-#     'name': 'Alt(Lepton_pt, 0, 0)',
-#     'range' : (10,0.,200),
-#     'xaxis' : 'p_{T} 1st lep [GeV]',
-#     'fold' : 0
-# }
+variables['pt1'] = {
+    'name': 'Alt(Lepton_pt, 0, 0)',
+    'range' : (20,0.,200),
+    'xaxis' : 'p_{T} 1st lep [GeV]',
+    'fold' : 0
+}
 
-# variables['pt2'] = {
-#     'name': 'Alt(Lepton_pt, 1, 0)',
-#     'range' : (10,0.,200),
-#     'xaxis' : 'p_{T} 2nd lep [GeV]',
-#     'fold' : 0
-# }
+variables['pt2'] = {
+    'name': 'Alt(Lepton_pt, 1, 0)',
+    'range' : (20,0.,200),
+    'xaxis' : 'p_{T} 2nd lep [GeV]',
+    'fold' : 0
+}
 
-# variables['pt3'] = {
-#     'name': 'Alt(Lepton_pt, 2, 0)',
-#     'range' : (7,0.,100),
-#     'xaxis' : 'p_{T} 3rd lep [GeV]',
-#     'fold' : 0
-# }
+variables['pt3'] = {
+    'name': 'Alt(Lepton_pt, 2, 0)',
+    'range' : (20,0.,100),
+    'xaxis' : 'p_{T} 3rd lep [GeV]',
+    'fold' : 0
+}
 
 # variables['WH3l_ptlll'] = {
 #     'name'  : 'WH3l_ptlll',

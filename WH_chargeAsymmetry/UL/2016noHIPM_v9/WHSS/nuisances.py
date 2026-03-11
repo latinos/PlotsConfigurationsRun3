@@ -346,10 +346,10 @@ nuisances['chargeFlip_syst'] = {
 
 # Top pT reweighting uncertainty
 nuisances['TopPtRew'] = {
-    'name'       : 'CMS_top_pT_reweighting',
-    'kind'       : 'weight',
-    'type'       : 'shape',
-    'samples'    : {
+    'name'    : 'CMS_top_pT_reweighting',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
         'top': ["1.", "1./Top_pTrw"]
     },
     'symmetrize' : True

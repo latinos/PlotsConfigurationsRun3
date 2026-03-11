@@ -55,14 +55,6 @@ for jet_pt_threshold in jet_pt_thrs:
         'samples': mc + ['DATA','DATA_unprescaled']
 }
 
-    # aliases[f'drlj_{jet_pt_threshold}'] = {
-    #     'linesToAdd'     : [f'#include "{configurations}/macros/away_jet_class.cc"'],
-    #     'linesToProcess' : [f"ROOT.gInterpreter.Declare('away_jet away_jet_{jet_pt_threshold} = away_jet();')"],
-    #     'expr'           : f'away_jet_{jet_pt_threshold}({jet_pt_threshold},nLepton,nCleanJet,Lepton_pt,Lepton_eta,Lepton_phi,CleanJet_pt,CleanJet_eta,CleanJet_phi)',
-    # 'samples': mc + ['DATA']
-    # }
-
-
 # DeltaR (l1,j1)
 aliases['dRl1j1'] = {
     'expr': 'CleanJet_pt[0] >= 10 ? TMath::Sqrt(dphilep1jet1*dphilep1jet1 + (Lepton_eta[0]-CleanJet_eta[0])*(Lepton_eta[0]-CleanJet_eta[0])) : -9999',

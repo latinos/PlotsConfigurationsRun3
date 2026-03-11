@@ -41,11 +41,11 @@ structure['top']  = {
     'scaleSampleForDatacard' : scale_histo_top,
 }
 
-structure['WW']  = {
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scaleSampleForDatacard' : scale_histo_WW,
-}
+# structure['WW']  = {
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scaleSampleForDatacard' : scale_histo_WW,
+# }
 
 structure['Vg']  = {
     'isSignal' : 0,

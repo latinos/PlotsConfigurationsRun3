@@ -55,6 +55,14 @@ nuisances['lumi_2022'] = {
     'samples' : dict((skey, '1.014') for skey in mc)
 }
 
+nuisances['fake_norm']  = {
+    'name'    : 'fake_norm',
+    'samples' : {
+        'Fake' : '1.30',
+    },
+    'type' : 'lnN'
+}
+
 ### MC statistical uncertainty
 autoStats = True
 if autoStats:

@@ -4,6 +4,8 @@ then
 	echo "$0: Missing arguments 'final state':"
 	echo ""
 	echo "bash do_impact_plots_unblind.sh FullRun2"
+	echo "bash do_impact_plots_unblind.sh FullRun2_WHSS"
+	echo "bash do_impact_plots_unblind.sh FullRun2_WH3l"
 	echo ""
 	echo "bash do_impact_plots_unblind.sh Full2018"
 	echo "bash do_impact_plots_unblind.sh Full2017"
@@ -47,6 +49,24 @@ if [ $FINAL_STATE == FullRun2 ]; then
 	RANGES=r_WH=-10,10
 	NAME=Impacts_${FINAL_STATE}_v9_binning_WH_strength
 
+# Full Run2 WHSS
+elif [ $FINAL_STATE == FullRun2_WHSS ]; then
+
+	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_WHSS_high_pt_binning_WH_strength.root
+	POI=r_WH
+	PARAMETERS=r_WH=1,r_higgs=1
+	RANGES=r_WH=-10,10
+	NAME=Impacts_${FINAL_STATE}_v9_binning_WH_strength
+	
+# Full Run2 WH3l
+elif [ $FINAL_STATE == FullRun2_WH3l ]; then
+
+	WORKSPACE=../Combination/WH_chargeAsymmetry_WH_FullRun2_v9_WH3l_binning_WH_strength.root
+	POI=r_WH
+	PARAMETERS=r_WH=1,r_higgs=1
+	RANGES=r_WH=-10,10
+	NAME=Impacts_${FINAL_STATE}_v9_binning_WH_strength
+	
 # Full 2018
 elif [ $FINAL_STATE == Full2018 ]; then
 
@@ -89,6 +109,8 @@ else
  	echo "I still don't know this final state. Here is the list of the available final states:"
 	echo ""
 	echo "bash do_impact_plots_unblind.sh FullRun2"
+	echo "bash do_impact_plots_unblind.sh FullRun2_WHSS"
+	echo "bash do_impact_plots_unblind.sh FullRun2_WH3l"
 	echo ""
 	echo "bash do_impact_plots_unblind.sh Full2018"
 	echo "bash do_impact_plots_unblind.sh Full2017"

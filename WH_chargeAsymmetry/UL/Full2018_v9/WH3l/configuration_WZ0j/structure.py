@@ -150,10 +150,10 @@ structure['WH_htt_minus'] = {
     'scaleSampleForDatacard' : scale_histo_WH_htt_plus*signal_normalization,
 }
 
-structure['Fake']  = {
-    'isSignal' : 0,
-    'isData'   : 0
-}
+# structure['Fake']  = {
+#     'isSignal' : 0,
+#     'isData'   : 0
+# }
 
 
 # Data
