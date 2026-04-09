@@ -8,6 +8,14 @@ groupPlot['top']  = {
 }
 
 
+groupPlot['Fake']  = {
+    'nameHR' : 'nonprompt',
+    'isSignal' : 0,
+    'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
+    'samples'  : ['Fake']
+}
+
+
 groupPlot['WW']  = {
     'nameHR' : 'WW',
     'isSignal' : 0,
@@ -20,6 +28,52 @@ groupPlot['DY']  = {
     'isSignal' : 0,
     'color'    : '#832db6',    # 418 kGreen+2
     'samples'  : ['DY']
+}
+
+
+groupPlot['Vg']  = {
+    'nameHR' : 'V#gamma',
+    'isSignal' : 0,
+    'color': '#e76300', 
+    'samples'  : ['Zg', 'Wg']
+}
+
+
+groupPlot['VgS']  = {
+    'nameHR' : 'V#gamma*',
+    'isSignal' : 0,
+    'color': '#92dadd', 
+    'samples'  : ['ZgS', 'WgS', 'WZS']
+}
+
+
+groupPlot['VZ']  = {
+    'nameHR' : "VZ",
+    'isSignal' : 0,
+    'color'    : '#a96b59',  
+    'samples'  : ['WZ', 'ZZ']
+}
+
+groupPlot['VVV']  = {
+    'nameHR' : "VVV",
+    'isSignal' : 0,
+    'color'    : '#717581',  
+    'samples'  : ['VVV']
+}
+
+
+groupPlot['ggF']  = {
+    'nameHR' : "ggF",
+    'isSignal' : 1,
+    'color'    : '#bd1f01',   # 632 kRed
+    'samples'  : ['ggH_hww']
+}
+
+groupPlot['VBF']  = {
+    'nameHR' : "VBF",
+    'isSignal' : 1,
+    'color'    : '#b9ac70',   # 632 kRed
+    'samples'  : ['qqH_hww']
 }
 
 
@@ -44,6 +98,16 @@ plot['top']  = {
 }
 
 
+
+plot['Fake']  = {
+    'nameHR'   : 'nonprompt',
+    'color'    : 921,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
 plot['WW']  = {
     'nameHR'   : 'WW',
     'color'    : 851,
@@ -61,6 +125,93 @@ plot['ggWW']  = {
 }
 
 
+plot['Zg']  = {
+    'nameHR'   : 'Zg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['Wg']  = {
+    'nameHR'   : 'Wg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 0.33,
+}
+
+
+plot['ZgS']  = {
+    'nameHR'   : 'ZgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['WgS']  = {
+    'nameHR'   : 'WgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.,
+}
+
+plot['WZS']  = {
+    'nameHR'   : 'WZS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['WZ']  = {
+    'nameHR'   : 'WZ',
+    'color'    : '#a96b59',
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['ZZ']  = {
+    'nameHR'   : 'ZZ',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['VVV']  = {
+    'nameHR'   : 'VVV',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+# Higgs
+
+plot['ggH_hww'] = {
+    'nameHR'   : 'ggF',
+    'color'    : 632,
+    'isSignal' : 1,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['qqH_hww'] = {
+    'nameHR'   : 'VBF',
+    'color'    : 632,
+    'isSignal' : 1,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
 # data
 
 plot['DATA']  = { 
@@ -70,6 +221,8 @@ plot['DATA']  = {
     'isData'   : 1 ,
     'isBlind'  : 0
 }
+
+
 # Legend definition
 legend = {}
 legend['lumi'] = 'L =  109.08 fb^{-1}'

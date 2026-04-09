@@ -1,20 +1,216 @@
 groupPlot = {}
 
-groupPlot['DY']  = {  
-    'nameHR'   : 'DY',
+groupPlot['top']  = {
+    'nameHR' : 'top',
     'isSignal' : 0,
-    'color'    : '#832db6', #kGreen+4
+    'color': '#ffa90e',   # 400 kYellow                                                                                                                                                                                                                                  
+    'samples'  : ['top']
+}
+
+
+groupPlot['Fake']  = {
+    'nameHR' : 'nonprompt',
+    'isSignal' : 0,
+    'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
+    'samples'  : ['Fake']
+}
+
+
+groupPlot['WW']  = {
+    'nameHR' : 'WW',
+    'isSignal' : 0,
+    'color': '#3f90da', # 851 kAzure -9                                                                                                                                                                                                                                  
+    'samples'  : ['WW', 'ggWW']
+}
+
+groupPlot['DY']  = {
+    'nameHR' : "DY",
+    'isSignal' : 0,
+    'color'    : '#832db6',    # 418 kGreen+2
     'samples'  : ['DY']
 }
 
-plot = {}
 
+groupPlot['Vg']  = {
+    'nameHR' : 'V#gamma',
+    'isSignal' : 0,
+    'color': '#e76300', 
+    'samples'  : ['Zg', 'Wg']
+}
+
+
+groupPlot['VgS']  = {
+    'nameHR' : 'V#gamma*',
+    'isSignal' : 0,
+    'color': '#92dadd', 
+    'samples'  : ['ZgS', 'WgS', 'WZS']
+}
+
+
+groupPlot['VZ']  = {
+    'nameHR' : "VZ",
+    'isSignal' : 0,
+    'color'    : '#a96b59',  
+    'samples'  : ['WZ', 'ZZ']
+}
+
+groupPlot['VVV']  = {
+    'nameHR' : "VVV",
+    'isSignal' : 0,
+    'color'    : '#717581',  
+    'samples'  : ['VVV']
+}
+
+
+groupPlot['ggF']  = {
+    'nameHR' : "ggF",
+    'isSignal' : 1,
+    'color'    : '#bd1f01',   # 632 kRed
+    'samples'  : ['ggH_hww']
+}
+
+groupPlot['VBF']  = {
+    'nameHR' : "VBF",
+    'isSignal' : 1,
+    'color'    : '#b9ac70',   # 632 kRed
+    'samples'  : ['qqH_hww']
+}
+
+
+plot = {}
+# keys here must match keys in samples.py    
+                    
 plot['DY']  = {  
-    'color'    : 418,    # kGreen+2
+    'nameHR'   : 'DY',
+    'color'    : 418,
     'isSignal' : 0,
     'isData'   : 0, 
+    'scale'    : 1.,
+}
+
+
+plot['top']  = {
+    'nameHR'   : 'top',
+    'color'    : 400,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.,
+}
+
+
+
+plot['Fake']  = {
+    'nameHR'   : 'nonprompt',
+    'color'    : 921,
+    'isSignal' : 0,
+    'isData'   : 0,
     'scale'    : 1.0,
 }
+
+
+plot['WW']  = {
+    'nameHR'   : 'WW',
+    'color'    : 851,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['ggWW']  = {
+    'nameHR'   : 'ggWW',
+    'color'    : 921,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['Zg']  = {
+    'nameHR'   : 'Zg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['Wg']  = {
+    'nameHR'   : 'Wg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 0.33,
+}
+
+
+plot['ZgS']  = {
+    'nameHR'   : 'ZgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['WgS']  = {
+    'nameHR'   : 'WgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.,
+}
+
+plot['WZS']  = {
+    'nameHR'   : 'WZS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['WZ']  = {
+    'nameHR'   : 'WZ',
+    'color'    : '#a96b59',
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['ZZ']  = {
+    'nameHR'   : 'ZZ',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['VVV']  = {
+    'nameHR'   : 'VVV',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+# Higgs
+
+plot['ggH_hww'] = {
+    'nameHR'   : 'ggF',
+    'color'    : 632,
+    'isSignal' : 1,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+
+plot['qqH_hww'] = {
+    'nameHR'   : 'VBF',
+    'color'    : 632,
+    'isSignal' : 1,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
 
 # data
 

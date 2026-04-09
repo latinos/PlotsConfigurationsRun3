@@ -11,28 +11,13 @@ preselections = 'Lepton_pt[0] > 25 \
               && noJetInHorn \
 '
 
-# Individual cuts and categories
-cuts['Zee_incl']  = '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11)'
-cuts['Zee_incl_ptll30']  = '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11) && ptll > 30'
-
-cuts['Zmm_incl']  = '(Lepton_pdgId[0] * Lepton_pdgId[1] == -13*13)'
-cuts['Zmm_incl_ptll30']  = '(Lepton_pdgId[0] * Lepton_pdgId[1] == -13*13) && ptll > 30'
-
 cuts['Zee']  = {
    'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11)',
    'categories' : {
       '0j' : 'zeroJet',
       '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
       '2j' : 'multiJet',
-   }
-}
-
-cuts['Zee_ptll30']  = {
-   'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11) && ptll >30',
-   'categories' : {
-      '0j' : 'zeroJet',
-      '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
-      '2j' : 'multiJet',
+      'inc' : '1',
    }
 }
 
@@ -42,14 +27,6 @@ cuts['Zmm']  = {
       '0j' : 'zeroJet',
       '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
       '2j' : 'multiJet',
-   }
-}
-
-cuts['Zmm_ptll30']  = {
-   'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -13*13) && ptll > 30',
-   'categories' : {
-      '0j' : 'zeroJet',
-      '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
-      '2j' : 'multiJet',
+      'inc' : '1',
    }
 }
