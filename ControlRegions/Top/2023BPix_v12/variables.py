@@ -17,7 +17,7 @@ variables['nvtx'] = {
 
 variables['mll'] = {
     'name': 'mll',    
-    'range' : (100,0,200), 
+    'range' : (60,60,120), 
     'xaxis' : 'm_{ll} [GeV]',
     'fold' : 0
 }
@@ -137,16 +137,16 @@ variables['jeteta2_fine_binning']  = {
     'fold' : 0
 }
 
-variables['jetdeepb']  = {
+variables['jetpnetb']  = {
     'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 0, -99)',
-    'range' : (30,-1,1),
+    'range' : (20,0,1),
     'xaxis' : 'B tagger 1st jet (PNetB)',
     'fold' : 0
 }
 
-variables['jetdeepb2']  = {
+variables['jetpnetb2']  = {
     'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 1, -99) -999.99*(CleanJet_pt[1]<20)',
-    'range' : ([0., 0.0499, 1.],),
+    'range' : ([0., 0.0359, 1.],),
     'xaxis' : 'B tagger 2nd jet (PNetB)',
     'fold' : 0
 }

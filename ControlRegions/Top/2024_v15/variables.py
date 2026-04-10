@@ -137,16 +137,16 @@ variables['jeteta2_fine_binning']  = {
     'fold' : 0
 }
 
-variables['jetpnetb']  = {
-    'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 0, -99)',
+variables['jetupartb']  = {
+    'name': 'Alt(Take(Jet_btagUParTAK4B, CleanJet_jetIdx), 0, -99)',
     'range' : (20,0,1),
-    'xaxis' : 'B tagger 1st jet (PNetB)',
+    'xaxis' : 'B tagger 1st jet (UParTAK4B)',
     'fold' : 0
 }
 
-variables['jetpnetb2']  = {
-    'name': 'Alt(Take(Jet_btagPNetB, CleanJet_jetIdx), 1, -99) -999.99*(CleanJet_pt[1]<20)',
-    'range' : ([0., 0.0499, 1.],),
-    'xaxis' : 'B tagger 2nd jet (PNetB)',
+variables['jetupartb2']  = {
+    'name': 'Alt(Take(Jet_btagUParTAK4B, CleanJet_jetIdx), 1, -99) -999.99*(CleanJet_pt[1]<20)',
+    'range' : ([0., 0.0246, 1.],),
+    'xaxis' : 'B tagger 2nd jet (UParTAK4B)',
     'fold' : 0
 }
