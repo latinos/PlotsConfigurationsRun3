@@ -1,8 +1,9 @@
-mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
-mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
-dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
-dataSteps    = 'DATAl2loose2023BPixv12__l2loose'
-fakeSteps    = 'DATAl2loose2023BPixv12__l2loose'
+mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
+mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
+dataRecoMuon     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
+dataRecoEGamma     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataRecoMuonEG     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG'
+dataSteps    = 'DATAl2loose2024v15__l2loose'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
@@ -25,8 +26,8 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
-fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+#dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 print(treeBaseDir)
 
 # merge cuts
@@ -44,8 +45,11 @@ cuts2j = _mergedCuts
 
 nuisances = {}
 
+
+################################ EXPERIMENTAL UNCERTAINTIES  #################################
+
 nuisances['JER'] = {
-    'name': 'CMS_res_j_2023BPix',
+    'name': 'CMS_res_j_2024',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -58,7 +62,8 @@ nuisances['JER'] = {
     'AsLnN': '0'
 }
 
-jes_systs    = ["Absolute", "Absolute_2023BPix", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023BPix", "EC2_2023BPix", "RelativeBal", "RelativeSample_2023BPix", "HF_2023BPix"] # Reduced set of 11 uncertainties
+jes_systs    = ["Absolute", "Absolute_2024", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2024", "EC2_2024", "RelativeBal", "RelativeSample_2024", "HF_2024"] # Reduced set of 11 uncertainties
+#jes_systs = ['jesTotal']
 
 for js in jes_systs:
     
@@ -76,7 +81,7 @@ for js in jes_systs:
     }
 
 nuisances['MET'] = {
-    'name': 'CMS_scale_met_2023BPix',
+    'name': 'CMS_scale_met_2024',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -91,7 +96,7 @@ nuisances['MET'] = {
 
 ##### Lepton scale
 nuisances['lepscale'] = {
-    'name': 'CMS_lepscale_2023BPix',
+    'name': 'CMS_lepscale_2024',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -105,7 +110,7 @@ nuisances['lepscale'] = {
 }
 ##### Lepton resolution
 nuisances['lepres'] = {
-    'name': 'CMS_lepres_2023BPix',
+    'name': 'CMS_lepres_2024',
     'skipCMS' : 1,
     'kind': 'suffix',
     'type': 'shape',
@@ -126,7 +131,7 @@ for flavour in ['bc', 'light']:
         if corr == 'correlated':
             name = f'CMS_btagSF{flavour}_{corr}'
         else:
-            name = f'CMS_btagSF{flavour}_2023BPix'
+            name = f'CMS_btagSF{flavour}_2024'
         nuisances[f'btagSF{flavour}{corr}'] = {
             'name': name,
             'skipCMS' : 1,
@@ -141,7 +146,7 @@ for flavour in ['bc', 'light']:
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2023BPix',
+    'name': 'CMS_eff_hwwtrigger_2024',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, trig_syst) for skey in mc)
@@ -150,16 +155,16 @@ nuisances['trigg'] = {
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2023BPix',
+    'name': 'CMS_eff_e_2024',
     'kind': 'weight',
     'type': 'shape',
-    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
+    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc), # IN THIS SAMPLES THERE'S AN ERROR AND SFUP AND SFDO ARE THE SAME, NEEDS TO BE FIXED
 }
 
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2023BPix',
+    'name': 'CMS_eff_m_2024',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
@@ -167,7 +172,7 @@ nuisances['eff_m'] = {
 
 
 nuisances['PU'] = {
-    'name'    : 'CMS_pileup_2023BPix',
+    'name'    : 'CMS_pileup_2024',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.05') for skey in mc),
 }
@@ -247,37 +252,37 @@ nuisances['fake_syst'] = {
     },
 }
 
-nuisances['lumi_2023BPix'] = {
-    'name'    : 'lumi_2023BPix',
+nuisances['lumi_2024'] = {
+    'name'    : 'lumi_2024',
     'type'    : 'lnN',
-    'samples' : dict((skey, '1.013') for skey in mc)
+    'samples' : dict((skey, '1.016') for skey in mc)
 }
 
 ##rate parameters
 
 nuisances['DYnorm']  = {
-    'name'  : 'CMS_hww_DYnorm2j_VBF_DF_2023BPix',
+    'name'  : 'CMS_hww_DYnorm2j_VBF_DF_2024',
     'skipCMS': 1,
     'type'  : 'rateParam',
     'samples'  : {'DY' : '1.00' },
 }
 
 nuisances['WWnorm']  = {
-    'name'  : 'CMS_hww_WWnorm2j_VBF_DF_2023BPix',
+    'name'  : 'CMS_hww_WWnorm2j_VBF_DF_2024',
     'skipCMS': 1,
     'type'  : 'rateParam',
     'samples'  : {'WW' : '1.00' },
 }
 
 nuisances['ggWWnorm']  = {
-    'name'  : 'CMS_hww_ggWWnorm2j_VBF_DF_2023BPix',
+    'name'  : 'CMS_hww_ggWWnorm2j_VBF_DF_2024',
     'skipCMS': 1,
     'type'  : 'rateParam',
     'samples'  : {'ggWW' : '1.00' },
 }
 
 nuisances['topnorm']  = {
-    'name'  : 'CMS_hww_topnorm2j_VBF_DF_2023BPix',
+    'name'  : 'CMS_hww_topnorm2j_VBF_DF_2024',
     'skipCMS': 1,
     'type'  : 'rateParam',
     'samples'  : {'top' : '1.00' },

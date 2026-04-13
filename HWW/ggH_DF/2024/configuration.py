@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "ggF_DF_2023"   
+tag = "ggF_DF_2024v15_DBNN_DF"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/HWW/ggF/2023/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/HWW/ggF/2024/rootFiles__{}".format(tag)
 
 # path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -19,13 +19,14 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 # luminosity to normalize to (in 1/fb) https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis
-lumi = 17.8
+lumi = 109.08
+
 
 # file with dict of aliases to define
 aliasesFile = "aliases.py"
 
 # file with dict of variables
-variablesFile = "variables.py"
+variablesFile = "variables_df.py"
 
 # file with dict of cuts
 cutsFile = "cuts.py"
@@ -43,7 +44,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "Plots/{}".format(tag)
+plotPath = "Plots/HWW/{}".format(tag)
 
 # this lines are executed right before the runner on the condor node
 mountEOS = [

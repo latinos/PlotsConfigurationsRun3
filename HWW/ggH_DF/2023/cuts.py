@@ -34,7 +34,6 @@ cuts['hww_sr']  = {
       'mp_1j_pt2lt20' : ' Lepton_pdgId[0] > 0 && Lepton_pt[1]<20 && oneJet && Alt(CleanJet_pt,1,0)<30',
       # 
       '2j' : ' (mjj<65 || mjj>105) && mjj<120 && multiJet',
-      #'inc' : '(mjj<65 || mjj>105)',
    }
 }
 
