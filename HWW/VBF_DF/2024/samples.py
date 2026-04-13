@@ -182,7 +182,7 @@ samples['ggWW'] = {
     'FilesPerJob': 50,
 }
 
-"""
+
 # WZ
 files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
 
@@ -268,7 +268,7 @@ samples['VVV'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 5,
 }
-"""
+
 
 # ggH
 files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
@@ -291,7 +291,7 @@ samples['qqH_hww'] = {
 ###########################################
 ################## DATA ###################
 ###########################################
-"""
+
 samples['DATA'] = { 
     'name': [],  
     'weight': 'LepWPCut*METFilter_DATA',     
@@ -342,4 +342,3 @@ for _, sd in DataRun:
 
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
-"""

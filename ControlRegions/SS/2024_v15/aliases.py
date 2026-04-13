@@ -42,11 +42,6 @@ aliases['PromptGenLepMatch2l'] = {
 }
 
 aliases['PromptGenLepMatch1l'] = {
-    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) == 1',
-    'samples': mc
-}
-
-aliases['PromptGenLepMatch1lZg'] = {
     'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) >= 1',
     'samples': mc
 }
@@ -141,13 +136,8 @@ aliases['bReq'] = {
 eff_map_year = '2024' # ['2022', '2022EE', '2023', '2023BPix']
 year = 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
 
-shifts_per_flavour = {
-    'bc': ['central', 'down', 'down_fsrdef', 'down_hdamp', 'down_isrdef', 'down_jer', 'down_jes', 'down_mass', 'down_statistic', 'down_tune', 'up', 'up_fsrdef', 'up_hdamp', 'up_isrdef', 'up_jer', 'up_jes', 'up_mass', 'up_statistic', 'up_tune'],
-    'light': ['central', 'down', 'down_correlated', 'down_uncorrelated', 'up', 'up_correlated', 'up_uncorrelated'],
-}
-
 for flavour in ['bc', 'light']:
-    for shift in shifts_per_flavour[flavour]:
+    for shift in ['central', 'down_correlated', 'down_uncorrelated', 'up_correlated', 'up_uncorrelated']:
         btagsf = 'btagSF' + flavour
         if shift != 'central':
             btagsf += '_' + shift
@@ -162,6 +152,23 @@ for flavour in ['bc', 'light']:
 aliases['nHardJets'] = {
     'expr'    :  'Sum(Take(Jet_genJetIdx,CleanJet_jetIdx) >= 0 && Take(GenJet_pt,Take(Jet_genJetIdx,CleanJet_jetIdx)) > 25)',
     'samples' : mc
+}
+
+# CR definition
+aliases['topcr'] = {
+    'expr': 'mll > 50 && ((zeroJet && !bVeto) || bReq) && mtw2 > 30'
+}
+aliases['dycr'] = {
+    'expr': 'mth < 60 && mll > 40 && mll < 80 && bVeto && mtw2 > 30'
+}
+aliases['wwcr'] = {
+    'expr': 'mth > 60 && mtw2 > 30 && mll > 100 && bVeto'
+}
+
+
+# SR definition
+aliases['sr'] = {
+    'expr': 'mth > 60 && mtw2 > 30 && bVeto'
 }
 
 # Data/MC scale factors and systematic uncertainties

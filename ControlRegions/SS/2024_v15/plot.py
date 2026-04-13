@@ -31,40 +31,21 @@ groupPlot['DY']  = {
 }
 
 
-groupPlot['Zg']  = {
-    'nameHR' : 'Z#gamma',
+groupPlot['Vg']  = {
+    'nameHR' : 'V#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
-    'samples'  : ['Zg']
+    'samples'  : ['Zg', 'Wg']
 }
 
-groupPlot['Wg']  = {
-    'nameHR' : 'W#gamma',
-    'isSignal' : 0,
-    'color': '#f593d3',
-    'samples'  : ['Wg']
-}
 
-groupPlot['ZgS']  = {
-    'nameHR' : 'Z#gamma*',
+groupPlot['VgS']  = {
+    'nameHR' : 'V#gamma*',
     'isSignal' : 0,
     'color': '#92dadd', 
-    'samples'  : ['ZgS']
+    'samples'  : ['ZgS', 'WgS', 'WZS']
 }
 
-groupPlot['WgS']  = {
-    'nameHR' : 'W#gamma*',
-    'isSignal' : 0,
-    'color': '#a0a0ff',
-    'samples'  : ['WgS']
-}
-
-groupPlot['WZS']  = {
-    'nameHR' : 'WZ*',
-    'isSignal' : 0,
-    'color': '#2121d1',
-    'samples'  : ['WZS']
-}
 
 groupPlot['VZ']  = {
     'nameHR' : "VZ",

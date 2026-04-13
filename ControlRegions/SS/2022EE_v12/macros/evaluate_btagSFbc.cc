@@ -47,16 +47,10 @@ class btagSFbc {
     {
         correction::Correction::Ref cset_btag_comb;
         correction::Correction::Ref cset_btag_wps;
-        if (year == "2024")
-        {
-            cset_btag_comb = cset->at(tagger + "_kinfit");
-            cset_btag_wps   = cset->at(tagger + "_wp_values");
-        }
-        else
-        {
-            cset_btag_comb = cset->at(tagger + "_comb");
-            cset_btag_wps   = cset->at(tagger + "_wp_values");
-        }
+
+        cset_btag_comb = cset->at(tagger + "_comb");
+        cset_btag_wps   = cset->at(tagger + "_wp_values");
+    
       
         float btag_sf = 1.;
         for (unsigned iJ{0}; iJ != nCleanJet; ++iJ) 
@@ -67,7 +61,7 @@ class btagSFbc {
           {
             if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 5)
               btag_sf *= cset_btag_comb->evaluate({shift, WP, 5, std::abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
-            else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4 && year != "2024")
+            else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4)
               btag_sf *= cset_btag_comb->evaluate({shift, WP, 4, std::abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
           }
           else
@@ -77,7 +71,7 @@ class btagSFbc {
 
             if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 5)
               btag_sf *= (1-btag_eff*cset_btag_comb->evaluate({shift, WP, 5, std::abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
-            else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4 && year != "2024")
+            else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4)
               btag_sf *= (1-btag_eff*cset_btag_comb->evaluate({shift, WP, 4, std::abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
           }
         }
@@ -91,26 +85,14 @@ class btagSFbc {
 
 btagSFbc::btagSFbc(TString eff_map, const std::string year) {
 
-    // --- Patch graphics classes first ---
-    //const char* graphicsClasses[] = { "TPaletteAxis", "TCanvas", "TFrame", "TAttBBox2D", "TBox" };
-    //for (auto clsname : graphicsClasses) {
-    //    if (TClass* cl = TClass::GetClass(clsname)) cl->IgnoreTObjectStreamer();
-    //}
-
   std::string home = std::string(std::getenv("STARTPATH"));
   std::string to_replace = "start.sh";
   size_t start  = home.find(to_replace);
   size_t stop   = to_replace.length();
   home.replace(start, stop, "");
   
-  if (year == "Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15")
-    {
-        cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging_preliminary.json.gz");
-    }
-    else
-    {
-       cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging.json.gz"); 
-    }
+
+  cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging.json.gz");
 
   TFile *reff = TFile::Open(eff_map, "READ");
   if (!reff || reff->IsZombie()) {
@@ -120,7 +102,7 @@ btagSFbc::btagSFbc(TString eff_map, const std::string year) {
 
   //h_bjet_eff = (TH2F*)reff->Get("bjet_eff")->Clone();
   //h_cjet_eff = (TH2F*)reff->Get("cjet_eff")->Clone();
-  h_bjet_eff = dynamic_cast<TH2F*>(reff->Get("bjet_eff"));
+  h_bjet_eff = reff->Get<TH2F>("bjet_eff");
   if (h_bjet_eff) {
       h_bjet_eff = (TH2F*)h_bjet_eff->Clone();
       h_bjet_eff->SetDirectory(0);

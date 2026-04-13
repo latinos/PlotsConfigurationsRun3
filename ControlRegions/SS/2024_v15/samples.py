@@ -125,6 +125,7 @@ mcCommonWeight1lZg       = 'XSWeight*METFilter_Common*PromptGenLepMatch1lZg*SFwe
 ###########################################
 
 # DY
+
 files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
@@ -180,6 +181,7 @@ samples['ggWW'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 50,
 }
+
 
 # WZ
 files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
@@ -340,4 +342,3 @@ for _, sd in DataRun:
 
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
-

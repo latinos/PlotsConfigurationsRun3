@@ -80,19 +80,19 @@ for js in jes_systs:
         'AsLnN'     : '0'
     }
 
-#nuisances['MET'] = {
-#    'name': 'CMS_scale_met_2024',
-#    'skipCMS' : 1,
-#    'kind': 'suffix',
-#    'type': 'shape',
-#    'mapUp': 'unclustEnup',
-#    'mapDown': 'unclustEndo',
-#    #'separator': '__',
-#    'samples': dict((skey, ['1', '1']) for skey in mc),
-#    'folderUp': makeMCDirectory('unclustEnup_suffix'),
-#    'folderDown': makeMCDirectory('unclustEndo_suffix'),
-#    'AsLnN': '0'
-#}
+nuisances['MET'] = {
+    'name': 'CMS_scale_met_2024',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'unclustEnup',
+    'mapDown': 'unclustEndo',
+    #'separator': '__',
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('unclustEnup_suffix'),
+    'folderDown': makeMCDirectory('unclustEndo_suffix'),
+    'AsLnN': '0'
+}
 
 ##### Lepton scale
 nuisances['lepscale'] = {

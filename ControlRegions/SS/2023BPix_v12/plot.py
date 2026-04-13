@@ -31,53 +31,26 @@ groupPlot['DY']  = {
 }
 
 
-groupPlot['Zg']  = {
-    'nameHR' : 'Z#gamma',
+groupPlot['Vg']  = {
+    'nameHR' : 'V#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
-    'samples'  : ['Zg']
+    'samples'  : ['Vg']
 }
 
-groupPlot['Wg']  = {
-    'nameHR' : 'W#gamma',
-    'isSignal' : 0,
-    'color': '#f593d3',
-    'samples'  : ['Wg']
-}
-
-groupPlot['ZgS']  = {
-    'nameHR' : 'Z#gamma*',
+groupPlot['VgS']  = {
+    'nameHR' : 'V#gamma*',
     'isSignal' : 0,
     'color': '#92dadd', 
-    'samples'  : ['ZgS']
+    'samples'  : ['VgS']
 }
 
-groupPlot['WgS']  = {
-    'nameHR' : 'W#gamma*',
-    'isSignal' : 0,
-    'color': '#a0a0ff',
-    'samples'  : ['WgS']
-}
-
-groupPlot['WZS']  = {
-    'nameHR' : 'WZ*',
-    'isSignal' : 0,
-    'color': '#2121d1',
-    'samples'  : ['WZS']
-}
 
 groupPlot['VZ']  = {
     'nameHR' : "VZ",
     'isSignal' : 0,
-    'color'    : '#a96b59',  
+    'color'    : '#a96b59',   # 617 kViolet + 1 
     'samples'  : ['WZ', 'ZZ']
-}
-
-groupPlot['VVV']  = {
-    'nameHR' : "VVV",
-    'isSignal' : 0,
-    'color'    : '#717581',  
-    'samples'  : ['VVV']
 }
 
 
@@ -144,46 +117,22 @@ plot['ggWW']  = {
 }
 
 
-plot['Zg']  = {
-    'nameHR'   : 'Zg',
+plot['Vg']  = {
+    'nameHR'   : 'Vg',
     'color'    : 857,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
-plot['Wg']  = {
-    'nameHR'   : 'Wg',
-    'color'    : 857,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 0.33,
-}
-
-
-plot['ZgS']  = {
-    'nameHR'   : 'ZgS',
+plot['VgS']  = {
+    'nameHR'   : 'VgS',
     'color'    : 858,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
-plot['WgS']  = {
-    'nameHR'   : 'WgS',
-    'color'    : 858,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.,
-}
-
-plot['WZS']  = {
-    'nameHR'   : 'WZS',
-    'color'    : 858,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
 
 plot['WZ']  = {
     'nameHR'   : 'WZ',
@@ -193,7 +142,7 @@ plot['WZ']  = {
     'scale'    : 1.0,
 }
 
-
+"""
 plot['ZZ']  = {
     'nameHR'   : 'ZZ',
     'color'    : 617,
@@ -201,15 +150,7 @@ plot['ZZ']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
-
-plot['VVV']  = {
-    'nameHR'   : 'VVV',
-    'color'    : 617,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
+"""
 
 # Higgs
 
@@ -240,7 +181,6 @@ plot['DATA']  = {
     'isData'   : 1 ,
     'isBlind'  : 0
 }
-
 
 
 # Legend definition

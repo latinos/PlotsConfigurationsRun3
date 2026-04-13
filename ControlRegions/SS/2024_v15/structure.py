@@ -29,18 +29,37 @@ structure['ggWW']  = {
                   }
 
 
-structure['Vg']  = { 
+structure['Zg']  = { 
                   'isSignal' : 0,
                   'isData'   : 0,
                   }
 
-structure['VgS']  = { 
+structure['ZgS']  = { 
                   'isSignal' : 0,
                   'isData'   : 0,
                   }
 
+structure['Wg']  = { 
+                  'isSignal' : 0,
+                  'isData'   : 0,
+                  }
+
+structure['WgS']  = { 
+                  'isSignal' : 0,
+                  'isData'   : 0,
+                  }
+
+structure['WZS']  = { 
+                  'isSignal' : 0,
+                  'isData'   : 0,
+                  }
 
 structure['WZ']  = { 
+                  'isSignal' : 0,
+                  'isData'   : 0,
+                  }
+
+structure['ZZ']  = { 
                   'isSignal' : 0,
                   'isData'   : 0,
                   }
@@ -50,9 +69,14 @@ structure['WW']  = {
                   'isData'   : 0,
                   }
 
+structure['VVV']  = { 
+                  'isSignal' : 0,
+                  'isData'   : 0,
+                  }
+
 
 structure['ggH_hww'] = {
-                  'isSignal' : 1,
+                  'isSignal' : 0,
                   'isData'   : 0,    
                   }
 
