@@ -1,3 +1,7 @@
+# Danush Shekar (UIC)
+# Built on top of the DY CR 2022v12 config from this file: https://github.com/latinos/PlotsConfigurationsRun3/blob/2040efccdab8bc42d670a5e2cae8676d7b0f106c/ControlRegions/DY/2022_v12/samples.py
+
+
 from mkShapesRDF.lib.search_files import SearchFiles
 
 searchFiles = SearchFiles()
@@ -15,9 +19,9 @@ if dataset_samples == 'calderon':
     dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
     dataSteps    = 'DATAl2loose2022v12__sblancof__l2loose'
 elif dataset_samples == 'amassiro':
-    mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
+    mcProduction = 'Summer22_130x_nAODv12_Full2022v12_OLD' # new datasets were produced around 11Apr26, using old datasets to compare with prior results (DS, 13Apr26)
     mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' # Using DYto2L-2Jets_MLL-50 from Amassiro (DS, 21Nov25)
-    dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
+    dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12_OLD'  # new datasets were produced around 11Apr26, using old datasets to compare with prior results (DS, 13Apr26)
     dataSteps    = 'DATAl2loose2022v12__l2loose' # Choose l2loose sample but apply tight selections in analysis (eleWP and muWP)
 
 # fakeSteps    = 'DATAl1loose2022EFGv12__fakeW'
@@ -142,7 +146,7 @@ samples['DY'] = {
     'FilesPerJob': 2,
 }
 
-addSampleWeight(samples,'DY','DYto2L-2Jets_MLL-50','DY_LO_ZpTrw')
+addSampleWeight(samples,'DY','DYto2L-2Jets_MLL-50','DY_NLO_ZpTrw')
 
 # remove backgrounds from data for ZpT reweighting:
 top_samples = ['TTTo2L2Nu', 'TWminusto2L2Nu', 'TbarWplusto2L2Nu']#, 'ST_tW_top']

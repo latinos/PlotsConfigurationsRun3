@@ -8,8 +8,9 @@ preselections = 'Lepton_pt[0] > 25 \
               && abs(Lepton_eta[1]) < 2.5 \
               && mll > 60 \
               && mll < 120 \
-              && zeroJet \
 '
+# Remove zeroJet preselection as weights are being derived in nJet bins (DS, 18Mar26)
+            #   && zeroJet \
 
 # Individual cuts and categories
 

@@ -1,7 +1,6 @@
 import os
 import copy
 import inspect
-import json
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 
@@ -133,19 +132,6 @@ aliases['multiJet'] = {
 
 aliases['noJetInHorn'] = {
     'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.6 && abs(CleanJet_eta) < 3.1) == 0',
-}
-
-# exec(open('dyZpTrw.py', "r").read())
-# aliases['DY_LO_ZpTrw'] = {
-#     'expr': '('+DYrew['2022_NLO']['w'].replace('x', 'gen_Zpt')+')*(zeroJet)*(ptll < 50) + 1*(zeroJet)*(ptll >= 50)',
-#     'samples': ['DY']
-# }
-_dyzptrw_json = os.path.join(os.path.dirname(configurations), 'dyZpTrw.json')
-with open(_dyzptrw_json) as _fj:
-    DYrew = json.load(_fj)
-aliases['DY_LO_ZpTrw'] = {
-    'expr': '('+DYrew['2022']['LO'].replace('x', 'gen_Zpt')+')*(zeroJet)*(ptll < 50) + 1*(zeroJet)*(ptll >= 50)',
-    'samples': ['DY']
 }
 
 ########################################################################
