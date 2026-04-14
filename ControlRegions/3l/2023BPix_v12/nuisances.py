@@ -44,9 +44,6 @@ cuts2j = _mergedCuts
 
 nuisances = {}
 
-
-################################ EXPERIMENTAL UNCERTAINTIES  #################################
-
 nuisances['JER'] = {
     'name': 'CMS_res_j_2023BPix',
     'skipCMS' : 1,
@@ -62,7 +59,6 @@ nuisances['JER'] = {
 }
 
 jes_systs    = ["Absolute", "Absolute_2023BPix", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023BPix", "EC2_2023BPix", "RelativeBal", "RelativeSample_2023BPix", "HF_2023BPix"] # Reduced set of 11 uncertainties
-#jes_systs = ['jesTotal']
 
 for js in jes_systs:
     
@@ -139,6 +135,7 @@ for flavour in ['bc', 'light']:
             'samples': dict((skey, btag_syst) for skey in mc),
         }
 
+
 ##### Trigger Scale Factors                                                                                                                                                                                
 
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
@@ -156,7 +153,7 @@ nuisances['eff_e'] = {
     'name': 'CMS_eff_e_2023BPix',
     'kind': 'weight',
     'type': 'shape',
-    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc), # IN THIS SAMPLES THERE'S AN ERROR AND SFUP AND SFDO ARE THE SAME, NEEDS TO BE FIXED
+    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
 }
 
 ##### Muon Efficiency and energy scale
@@ -221,8 +218,8 @@ nuisances['QCDscale_VV'] = {
     'samples' : {'WW'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
-nuisances['QCDscale_ggVV'] = {
-    'name': 'QCDscale_ggVV',
+nuisances['QCDscale_ggWW'] = {
+    'name': 'QCDscale_ggWW',
     'type': 'lnN',
     'samples': {'ggWW': '1.15'},
 }
@@ -248,6 +245,12 @@ nuisances['fake_syst'] = {
     'samples': {
         'Fake': '1.3'
     },
+}
+
+nuisances['lumi_2023BPix'] = {
+    'name'    : 'lumi_2023BPix',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.013') for skey in mc)
 }
 
 autoStats = True

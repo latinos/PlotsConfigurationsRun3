@@ -14,13 +14,14 @@ print(macros)
 print(fakerates)
 print(btagmaps)
 
+
 aliases = {}
 aliases = OrderedDict()
 
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
-# LepSF3l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
+# LepCut2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
 eleWP = 'cutBased_LooseID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
@@ -31,6 +32,11 @@ aliases['LepWPCut'] = {
 
 aliases['LepWPSF'] = {
     'expr': 'LepSF3l__ele_'+eleWP+'__mu_'+muWP,
+    'samples': mc
+}
+
+aliases['PromptGenLepMatch1l'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0)) >= 1',
     'samples': mc
 }
 
@@ -57,11 +63,11 @@ aliases['fakeW'] = {
 }
 
 aliases['gstarLow'] = {
-    'expr': 'Gen_ZGstar_mass >0 && Gen_ZGstar_mass < 4',
+    'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
     'samples': ['WZ', 'VgS', 'Vg']
 }
 aliases['gstarHigh'] = {
-    'expr': 'Gen_ZGstar_mass <0 || Gen_ZGstar_mass > 4',
+    'expr': 'Gen_ZGstar_mass < 0 || Gen_ZGstar_mass > 4',
     'samples': ['WZ', 'VgS', 'Vg'],
 }
 
@@ -123,37 +129,19 @@ aliases['bReq'] = {
     'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
 }
 
+aliases['topcr'] = {
+    'expr': 'mtw2>30 && mll>50 && ((zeroJet && !bVeto) || bReq)'
+}
+
 ##########################################################################
 # End of b tagging
 ##########################################################################
 
-# CR definition
-aliases['topcr'] = {
-    'expr': 'mll > 50 && ((zeroJet && !bVeto) || bReq) && mtw2 > 30'
-}
-aliases['dycr'] = {
-    'expr': 'mth < 60 && mll > 40 && mll < 80 && bVeto && mtw2 > 30'
-}
-aliases['wwcr'] = {
-    'expr': 'mth > 60 && mtw2 > 30 && mll > 100 && bVeto'
-}
-
-
-# SR definition
-aliases['sr'] = {
-    'expr': 'mth > 60 && mtw2 > 30 && bVeto'
-}
-
 eff_map_year = '2024' # ['2022', '2022EE', '2023', '2023BPix']
 year = 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
 
-shifts_per_flavour = {
-    'bc': ['central', 'down', 'down_fsrdef', 'down_hdamp', 'down_isrdef', 'down_jer', 'down_jes', 'down_mass', 'down_statistic', 'down_tune', 'up', 'up_fsrdef', 'up_hdamp', 'up_isrdef', 'up_jer', 'up_jes', 'up_mass', 'up_statistic', 'up_tune'],
-    'light': ['central', 'down', 'down_correlated', 'down_uncorrelated', 'up', 'up_correlated', 'up_uncorrelated'],
-}
-
 for flavour in ['bc', 'light']:
-    for shift in shifts_per_flavour[flavour]:
+    for shift in ['central', 'down_correlated', 'down_uncorrelated', 'up_correlated', 'up_uncorrelated']:
         btagsf = 'btagSF' + flavour
         if shift != 'central':
             btagsf += '_' + shift
@@ -170,26 +158,26 @@ aliases['nHardJets'] = {
     'samples' : mc
 }
 
+
 # Data/MC scale factors and systematic uncertainties
 aliases['SFweight'] = {
-    'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF', 'btagSFbc', ' btagSFlight']),
-    #'expr': ' * '.join(['SFweight3l', 'LepWPCut', 'LepWPSF']),
+    'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF', 'btagSFbc', ' btagSFlight']),
     'samples': mc
 }
 
 aliases['SFweightEleUp'] = {
-    'expr': 'LepSF3l__ele_'+eleWP+'__Up',
+    'expr': 'LepSF2l__ele_'+eleWP+'__Up',
     'samples': mc
 }
 aliases['SFweightEleDown'] = {
-    'expr': 'LepSF3l__ele_'+eleWP+'__Down',
+    'expr': 'LepSF2l__ele_'+eleWP+'__Down',
     'samples': mc
 }
 aliases['SFweightMuUp'] = {
-    'expr': 'LepSF3l__mu_'+muWP+'__Up',
+    'expr': 'LepSF2l__mu_'+muWP+'__Up',
     'samples': mc
 }
 aliases['SFweightMuDown'] = {
-    'expr': 'LepSF3l__mu_'+muWP+'__Down',
+    'expr': 'LepSF2l__mu_'+muWP+'__Down',
     'samples': mc
 }

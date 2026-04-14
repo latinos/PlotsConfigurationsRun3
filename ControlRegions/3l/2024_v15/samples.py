@@ -1,16 +1,17 @@
 from mkShapesRDF.lib.search_files import SearchFiles
+import os
 
 searchFiles = SearchFiles()
 
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
-mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
-dataRecoMuon     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
-dataRecoEGamma     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
-dataRecoMuonEG     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG'
-dataSteps    = 'DATAl2loose2024v15__l2loose'
+mcProduction   = 'Summer24_150x_nAODv15_Full2024v15'
+mcSteps        = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
+dataRecoMuon   = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
+dataRecoEGamma = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataRecoMuonEG = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG'
+dataSteps      = 'DATAl2loose2024v15__l2loose'
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -102,19 +103,18 @@ DataRun = [
 DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'         : 'Trigger_ElMu' ,
-    'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
-    'EGamma0'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
-    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'MuonEG'  : 'Trigger_ElMu' ,
+    'Muon0'   : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'Muon1'   : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'EGamma0' : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'EGamma1' : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
 }
 
 #########################################
 ############ MC COMMON ##################
 #########################################
 
-# SFweight does not include btag weights
-mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
+mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
 mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch3l*SFweight'
 
 
@@ -123,6 +123,7 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch3l*SFweight'
 ###########################################
 
 # DY
+
 files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
@@ -178,6 +179,7 @@ samples['ggWW'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 50,
 }
+
 
 # WZ
 files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
@@ -338,4 +340,3 @@ for _, sd in DataRun:
 
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
-

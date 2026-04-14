@@ -46,15 +46,10 @@ class btagSFlight {
         correction::Correction::Ref cset_btag_light;
         correction::Correction::Ref cset_btag_wps;
         if (year == "2024")
-        {
-            cset_btag_light = cset->at(tagger + "_negtagDY");
-            cset_btag_wps   = cset->at(tagger + "_wp_values");
-        }
-        else
-        {
-            cset_btag_light = cset->at(tagger + "_light");
-            cset_btag_wps   = cset->at(tagger + "_wp_values");
-        }
+
+        cset_btag_light = cset->at(tagger + "_light");
+        cset_btag_wps   = cset->at(tagger + "_wp_values");
+        
      
         float btag_sf = 1.;
         for (unsigned iJ{0}; iJ != nCleanJet; ++iJ) 
@@ -84,11 +79,6 @@ class btagSFlight {
 
 btagSFlight::btagSFlight(TString eff_map, const std::string year) {
     
-    // --- Patch graphics classes first ---
-    //const char* graphicsClasses[] = { "TPaletteAxis", "TCanvas", "TFrame", "TAttBBox2D", "TBox" };
-    //for (auto clsname : graphicsClasses) {
-    //    if (TClass* cl = TClass::GetClass(clsname)) cl->IgnoreTObjectStreamer();
-    //}
 
     std::string home = std::string(std::getenv("STARTPATH"));
     std::string to_replace = "start.sh";
@@ -96,14 +86,9 @@ btagSFlight::btagSFlight(TString eff_map, const std::string year) {
     size_t stop   = to_replace.length();
     home.replace(start, stop, "");
 
-    if (year == "Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15")
-    {
-        cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging_preliminary.json.gz");
-    }
-    else
-    {
-       cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging.json.gz"); 
-    }
+
+    cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging.json.gz"); 
+    
 
     TFile *reff = TFile::Open(eff_map, "READ");
     if (!reff || reff->IsZombie()) {

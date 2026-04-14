@@ -80,19 +80,19 @@ for js in jes_systs:
         'AsLnN'     : '0'
     }
 
-#nuisances['MET'] = {
-#    'name': 'CMS_scale_met_2024',
-#    'skipCMS' : 1,
-#    'kind': 'suffix',
-#    'type': 'shape',
-#    'mapUp': 'unclustEnup',
-#    'mapDown': 'unclustEndo',
+nuisances['MET'] = {
+    'name': 'CMS_scale_met_2024',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'unclustEnup',
+    'mapDown': 'unclustEndo',
     #'separator': '__',
-#    'samples': dict((skey, ['1', '1']) for skey in mc),
-#    'folderUp': makeMCDirectory('unclustEnup_suffix'),
-#    'folderDown': makeMCDirectory('unclustEndo_suffix'),
-#    'AsLnN': '0'
-#}
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('unclustEnup_suffix'),
+    'folderDown': makeMCDirectory('unclustEndo_suffix'),
+    'AsLnN': '0'
+}
 
 ##### Lepton scale
 nuisances['lepscale'] = {
@@ -125,36 +125,20 @@ nuisances['lepres'] = {
 
 ## B-tagger
 #Fixed BTV SF variations
-
-nuisance_sources = {
-    'bc': [ 'fsrdef', 'hdamp', 'isrdef', 'jer', 'jes', 'mass', 'statistic', 'tune'],
-    'light': [ 'correlated', 'uncorrelated'],
-}
-
-for source in nuisance_sources['bc']:
-    btag_syst = [f'btagSFbc_up_{source}/btagSFbc', f'btagSFbc_down_{source}/btagSFbc']
-    if source == 'statistic':
-        name = f'CMS_btagSFbc_correlated'
-    else :
-        name = f'CMS_btagSFbc_{source}_2024'
-    nuisances[f'btagSFbc_{source}'] = {
-        'name': name,
-        'skipCMS': 1,
-        'kind': 'weight',
-        'type': 'shape',
-        'samples': dict((skey, btag_syst) for skey in mc),
-    }
-
-for corr in nuisance_sources['light']:
-    btag_syst = [ f'btagSFlight_up_{corr}/btagSFlight', f'btagSFlight_down_{corr}/btagSFlight']
-    name = (f'CMS_btagSFlight_{corr}' if corr == 'correlated' else f'CMS_btagSFlight_2024')
-    nuisances[f'btagSFlight_{corr}'] = {
-        'name': name,
-        'skipCMS': 1,
-        'kind': 'weight',
-        'type': 'shape',
-        'samples': dict((skey, btag_syst) for skey in mc),
-    }
+for flavour in ['bc', 'light']:
+    for corr in ['uncorrelated', 'correlated']:
+        btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
+        if corr == 'correlated':
+            name = f'CMS_btagSF{flavour}_{corr}'
+        else:
+            name = f'CMS_btagSF{flavour}_2024'
+        nuisances[f'btagSF{flavour}{corr}'] = {
+            'name': name,
+            'skipCMS' : 1,
+            'kind': 'weight',
+            'type': 'shape',
+            'samples': dict((skey, btag_syst) for skey in mc),
+        }
 
 
 ##### Trigger Scale Factors                                                                                                                                                                                
@@ -239,8 +223,8 @@ nuisances['QCDscale_VV'] = {
     'samples' : {'WW'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
-nuisances['QCDscale_ggVV'] = {
-    'name': 'QCDscale_ggVV',
+nuisances['QCDscale_ggWW'] = {
+    'name': 'QCDscale_ggWW',
     'type': 'lnN',
     'samples': {'ggWW': '1.15'},
 }
@@ -266,6 +250,12 @@ nuisances['fake_syst'] = {
     'samples': {
         'Fake': '1.3'
     },
+}
+
+nuisances['lumi_2024'] = {
+    'name'    : 'lumi_2024',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.016') for skey in mc)
 }
 
 autoStats = True
