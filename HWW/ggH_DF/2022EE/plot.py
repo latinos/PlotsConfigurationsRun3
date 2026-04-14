@@ -7,12 +7,14 @@ groupPlot['top']  = {
     'samples'  : ['top']
 }
 
+
 groupPlot['Fake']  = {
     'nameHR' : 'nonprompt',
     'isSignal' : 0,
     'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
     'samples'  : ['Fake']
 }
+
 
 groupPlot['WW']  = {
     'nameHR' : 'WW',
@@ -30,17 +32,33 @@ groupPlot['DY']  = {
 
 
 groupPlot['Vg']  = {
-    'nameHR' : 'Vg',
+    'nameHR' : 'V#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
-    'samples'  : ['Vg']
+    'samples'  : ['Zg', 'Wg']
 }
+
+
+groupPlot['VgS']  = {
+    'nameHR' : 'V#gamma*',
+    'isSignal' : 0,
+    'color': '#92dadd', 
+    'samples'  : ['ZgS', 'WgS', 'WZS']
+}
+
 
 groupPlot['VZ']  = {
     'nameHR' : "VZ",
     'isSignal' : 0,
-    'color'    : '#a96b59',   # 617 kViolet + 1 
+    'color'    : '#a96b59',  
     'samples'  : ['WZ', 'ZZ']
+}
+
+groupPlot['VVV']  = {
+    'nameHR' : "VVV",
+    'isSignal' : 0,
+    'color'    : '#717581',  
+    'samples'  : ['VVV']
 }
 
 
@@ -80,6 +98,7 @@ plot['top']  = {
 }
 
 
+
 plot['Fake']  = {
     'nameHR'   : 'nonprompt',
     'color'    : 921,
@@ -87,6 +106,7 @@ plot['Fake']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
+
 
 plot['WW']  = {
     'nameHR'   : 'WW',
@@ -105,14 +125,46 @@ plot['ggWW']  = {
 }
 
 
-plot['Vg']  = {
-    'nameHR'   : 'Vg',
+plot['Zg']  = {
+    'nameHR'   : 'Zg',
     'color'    : 857,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
+plot['Wg']  = {
+    'nameHR'   : 'Wg',
+    'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 0.33,
+}
+
+
+plot['ZgS']  = {
+    'nameHR'   : 'ZgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['WgS']  = {
+    'nameHR'   : 'WgS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.,
+}
+
+plot['WZS']  = {
+    'nameHR'   : 'WZS',
+    'color'    : 858,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
 
 plot['WZ']  = {
     'nameHR'   : 'WZ',
@@ -122,7 +174,7 @@ plot['WZ']  = {
     'scale'    : 1.0,
 }
 
-"""
+
 plot['ZZ']  = {
     'nameHR'   : 'ZZ',
     'color'    : 617,
@@ -130,7 +182,15 @@ plot['ZZ']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
-"""
+
+plot['VVV']  = {
+    'nameHR'   : 'VVV',
+    'color'    : 617,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
 
 # Higgs
 

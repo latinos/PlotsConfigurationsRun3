@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "VBF_DF_2023BPix"  
+tag = "VBF_DF_2023BPixv12"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/HWW/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/HWW/VBF/2023BPix/rootFiles__{}".format(tag)
 
 # path to batch folder (used for condor submission)
 batchFolder = "condor"

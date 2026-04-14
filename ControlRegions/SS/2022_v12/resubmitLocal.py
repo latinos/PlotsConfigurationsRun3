@@ -2,8 +2,8 @@ import os
 import glob
 import subprocess 
 
-resubmitLine = "queue 1 Folder in top_0"
-condorFolder = 'condor/SS_2022v12'
+resubmitLine = "queue 1 Folder in DY_38 DATA_77"
+condorFolder = 'condor/DY_CR_2023_wp90iso_Tight_HWW_test'
 
 samples = resubmitLine[len('queue 1 Folder in '):].split(' ')
 print(str(samples))

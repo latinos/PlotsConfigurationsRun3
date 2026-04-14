@@ -1,8 +1,8 @@
 mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
 mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
 dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
-dataSteps    = 'DATAl2loose2023v12__l2tight'
-fakeSteps    = 'DATAl1loose2023v12'
+dataSteps    = 'DATAl2loose2023v12__l2loose'
+fakeSteps    = 'DATAl2loose2023v12__l2loose'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
@@ -44,9 +44,6 @@ cuts2j = _mergedCuts
 
 nuisances = {}
 
-
-################################ EXPERIMENTAL UNCERTAINTIES  #################################
-
 nuisances['JER'] = {
     'name': 'CMS_res_j_2023',
     'skipCMS' : 1,
@@ -61,20 +58,22 @@ nuisances['JER'] = {
     'AsLnN': '0'
 }
 
-nuisances['JES'] = {
-    'name': 'CMS_scale_j_2023',
-    'skipCMS' : 1,
-    'kind': 'suffix',
-    'type': 'shape',
-    'mapUp': 'jesTotalup',
-    'mapDown': 'jesTotaldo',
-    #'separator': '__',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
-    'folderUp': makeMCDirectory('jesTotalup_suffix'),
-    'folderDown': makeMCDirectory('jesTotaldo_suffix'),
-    'AsLnN': '0'
-}
+jes_systs    = ["Absolute", "Absolute_2023", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023", "EC2_2023", "RelativeBal", "RelativeSample_2023", "HF_2023"] # Reduced set of 11 uncertainties
 
+for js in jes_systs:
+    
+    nuisances[js] = {
+        'name'      : 'CMS_scale_j_' + js,
+        'skipCMS' : 1,
+        'kind'      : 'suffix',
+        'type'      : 'shape',
+        'mapUp'     : 'jesRegroed_' + js + 'up',
+        'mapDown'   : 'jesRegroed_' + js + 'do',
+        'samples'   : dict((skey, ['1', '1']) for skey in mc),
+        'folderUp'  : makeMCDirectory('jesRegroed_' + js + 'up_suffix'),
+        'folderDown': makeMCDirectory('jesRegroed_' + js + 'do_suffix'),
+        'AsLnN'     : '0'
+    }
 
 nuisances['MET'] = {
     'name': 'CMS_scale_met_2023',
@@ -104,7 +103,6 @@ nuisances['lepscale'] = {
     'folderDown': makeMCDirectory('leptonScaledo_suffix'),
     'AsLnN': '0'
 }
-
 ##### Lepton resolution
 nuisances['lepres'] = {
     'name': 'CMS_lepres_2023',
@@ -120,9 +118,8 @@ nuisances['lepres'] = {
     'AsLnN': '0'
 }
 
-### B-tagger
-# Fixed BTV SF variations
-
+## B-tagger
+#Fixed BTV SF variations
 for flavour in ['bc', 'light']:
     for corr in ['uncorrelated', 'correlated']:
         btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
@@ -138,21 +135,6 @@ for flavour in ['bc', 'light']:
             'samples': dict((skey, btag_syst) for skey in mc),
         }
 
-##### Standard B-tagger
-
-#for shift in ['jes', 'lf', 'hf', 'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2', 'cferr1', 'cferr2']:
-#    btag_syst = ['(btagSF%sup)/(btagSF)' % shift, '(btagSF%sdown)/(btagSF)' % shift]
-#
-#    name = 'CMS_btag_%s' % shift
-#    if 'stats' in shift:
-#        name += '_2023'
-#
-#    nuisances['btag_shape_%s' % shift] = {
-#        'name': name,
-#        'kind': 'weight',
-#        'type': 'shape',
-#        'samples': dict((skey, btag_syst) for skey in mc),
-#    }
 
 ##### Trigger Scale Factors                                                                                                                                                                                
 
@@ -171,7 +153,7 @@ nuisances['eff_e'] = {
     'name': 'CMS_eff_e_2023',
     'kind': 'weight',
     'type': 'shape',
-    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc), 
+    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
 }
 
 ##### Muon Efficiency and energy scale
@@ -209,7 +191,6 @@ nuisances['PS_FSR']  = {
 
 nuisances['UE_CP5']  = {
     'name'    : 'UEPS',
-    'skipCMS' : 1,
     'type'    : 'lnN',
     'samples' : dict((skey, '1.015') for skey in mc),
 }
@@ -226,7 +207,6 @@ nuisances['QCDscale_top']  = {
 
 nuisances['QCDscale_DY'] = {
     'name': 'QCDscale_DY',
-    'skipCMS': 1,
     'kind'  : 'weight',
     'type': 'shape',
     'samples': {'DY': ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
@@ -238,8 +218,8 @@ nuisances['QCDscale_VV'] = {
     'samples' : {'WW'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
-nuisances['QCDscale_ggVV'] = {
-    'name': 'QCDscale_ggVV',
+nuisances['QCDscale_ggWW'] = {
+    'name': 'QCDscale_ggWW',
     'type': 'lnN',
     'samples': {'ggWW': '1.15'},
 }
@@ -259,13 +239,48 @@ nuisances['QCDscale_qqH'] = {
     'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
-
 nuisances['fake_syst'] = {
     'name': 'CMS_fake_syst',
     'type': 'lnN',
     'samples': {
         'Fake': '1.3'
     },
+}
+
+nuisances['lumi_2023'] = {
+    'name'    : 'lumi_2023',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.013') for skey in mc)
+}
+
+##rate parameters
+
+nuisances['DYnorm']  = {
+    'name'  : 'CMS_hww_DYnorm2j_VBF_DF_2023',
+    'skipCMS': 1,
+    'type'  : 'rateParam',
+    'samples'  : {'DY' : '1.00' },
+}
+
+nuisances['WWnorm']  = {
+    'name'  : 'CMS_hww_WWnorm2j_VBF_DF_2023',
+    'skipCMS': 1,
+    'type'  : 'rateParam',
+    'samples'  : {'WW' : '1.00' },
+}
+
+nuisances['ggWWnorm']  = {
+    'name'  : 'CMS_hww_ggWWnorm2j_VBF_DF_2023',
+    'skipCMS': 1,
+    'type'  : 'rateParam',
+    'samples'  : {'ggWW' : '1.00' },
+}
+
+nuisances['topnorm']  = {
+    'name'  : 'CMS_hww_topnorm2j_VBF_DF_2023',
+    'skipCMS': 1,
+    'type'  : 'rateParam',
+    'samples'  : {'top' : '1.00' },
 }
 
 autoStats = True

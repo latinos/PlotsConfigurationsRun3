@@ -32,11 +32,19 @@ groupPlot['DY']  = {
 
 
 groupPlot['Vg']  = {
-    'nameHR' : 'Vg',
+    'nameHR' : 'V#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
     'samples'  : ['Vg']
 }
+
+groupPlot['VgS']  = {
+    'nameHR' : 'V#gamma*',
+    'isSignal' : 0,
+    'color': '#92dadd', 
+    'samples'  : ['VgS']
+}
+
 
 groupPlot['VZ']  = {
     'nameHR' : "VZ",
@@ -112,6 +120,14 @@ plot['ggWW']  = {
 plot['Vg']  = {
     'nameHR'   : 'Vg',
     'color'    : 857,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['VgS']  = {
+    'nameHR'   : 'VgS',
+    'color'    : 858,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,

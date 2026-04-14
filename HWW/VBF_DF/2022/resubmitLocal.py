@@ -3,8 +3,8 @@ import glob
 import subprocess 
 
 #resubmitLine = "queue 1 Folder in DATA_0 DATA_1"
-resubmitLine = "queue 1 Folder in WW_19"
-condorFolder = 'condor/VBF_DF_2022_test_fit'
+resubmitLine = "queue 1 Folder in DY_1 DATA_19"
+condorFolder = 'condor/ggH_DF_2022_test'
 
 samples = resubmitLine[len('queue 1 Folder in '):].split(' ')
 print(str(samples))

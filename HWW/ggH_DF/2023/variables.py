@@ -45,31 +45,13 @@ variables['mllVSmth2'] = {
     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 }
 
-#variables['snn_isSig']  = {   
-#    'name': 'snn_SigVSBkg[0]',      
-#    'range' : (10,0,1),
-#    'xaxis' : 'SNN(isSig)', 
+#variables['mth']  = {  
+#    'name': 'mth',     
+#    'range' : (20, 60, 200),   
+#    'xaxis' : 'm_{T}^{H} [GeV]',
 #    'fold' : 0,
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
-#
-#variables['dbnn_isSig']  = {   
-#    'name': 'dbnn_SigVSBkg[0]',      
-#    'range' : (10,0,1),
-#    'xaxis' : 'DBNN(isSig)', 
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-
-
-#variables['nvtx'] = {     
-#    'name'  : 'PV_npvsGood',      
-#    'range' : (100, 0, 100),  
-#    'xaxis' : 'number of vertices', 
-#    'fold'  : 3,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
 #
 #variables['mll'] = {
 #    'name': 'mll',    
@@ -79,42 +61,57 @@ variables['mllVSmth2'] = {
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
 #
-#variables['mth']  = {  
-#    'name': 'mth',     
-#    'range' : (20, 60, 200),   
-#    'xaxis' : 'm_{T}^{H} [GeV]',
+#variables['puppimet']  = {
+#    'name': 'PuppiMET_pt',
+#    'range' : (20,0,200),
+#    'xaxis' : 'Puppi MET p_{T} [GeV]',
+#    'fold' : 3,
+#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+#
+#variables['jetpt1']  = {
+#    'name': 'Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30)', 
+#    'range' : (20,0,200),
+#    'xaxis' : 'p_{T} 1st jet [GeV]',
 #    'fold' : 0,
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
 #
+#variables['jetpt2']  = {
+#    'name': 'Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
+#    'range' : (20,0,200),
+#    'xaxis' : 'p_{T} 2nd jet',
+#    'fold' : 0,
+#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+#
+#variables['jeteta1']  = {
+#    'name': 'Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
+#    'range' : (30,-4.7,4.7),
+#    'xaxis' : '#eta 1st jet',
+#    'fold' : 0,
+#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+#
+#variables['jeteta2']  = {
+#    'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
+#    'range' : (30,-4.7,4.7),
+#    'xaxis' : '#eta 2nd jet',
+#    'fold' : 0,
+#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+#
+#variables['dphillmet']  = {
+#    'name': 'dphillmet',
+#    'range' : (30, 0,3),
+#    'xaxis' : '#Delta #phi_{ll,MET}',
+#    'fold' : 0,
+#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
 #
 #variables['ptll']  = {  
 #    'name': 'ptll',     
 #    'range' : (20, 30,200),   
-#    'xaxis' : 'p_{T}^{ll} [GeV]',
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['drll']  = {
-#    'name': 'drll',
-#    'range' : (50, 0,5),
-#    'xaxis' : '#Delta R_{ll}',
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['dphill']  = {
-#    'name': 'dphill',
-#    'range' : (50, 0,5),
-#    'xaxis' : '#Delta #phi_{ll}',
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['ptll_more']  = {
-#    'name': 'ptll',
-#    'range' : (50, 0,100),
 #    'xaxis' : 'p_{T}^{ll} [GeV]',
 #    'fold' : 0,
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
@@ -152,93 +149,64 @@ variables['mllVSmth2'] = {
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])                         
 #}
 #
-#                        
-#variables['phi1']  = {
-#    'name': 'Lepton_phi[0]',
-#    'range' : (20,-3.2,3.2),
-#    'xaxis' : '#phi 1st lep',
-#    'fold'  : 3,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['phi2']  = {
-#    'name': 'Lepton_phi[1]',
-#    'range' : (20,-3.2,3.2),
-#    'xaxis' : '#phi 2nd lep',
-#    'fold'  : 3,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['jetdeepb']  = {
-#    'name': 'Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 0, -99)',
-#    'range' : (30,-1,1),
-#    'xaxis' : 'B tagger 1st jet (DeepFlavB)',
-#    'fold' : 2,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['jetdeepb2']  = {
-#    'name': 'Alt(Take(Jet_btagDeepFlavB, CleanJet_jetIdx), 1, -99) -999.99*(CleanJet_pt[1]<20)',
-#    'range' : ([0., 0.0583, 1.],),
-#    'xaxis' : 'B tagger 2nd jet (DeepFlavB)',
+#variables['dphill']  = {
+#    'name': 'dphill',
+#    'range' : (50, 0,5),
+#    'xaxis' : '#Delta #phi_{ll}',
 #    'fold' : 0,
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
 #
-#variables['trkMet']  = { 
-#    'name': 'TkMET_pt',
-#    'range' : (20,0,200),
-#    'xaxis' : 'trk met [GeV]',
-#    'fold' : 3,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['puppimet']  = {
-#    'name': 'PuppiMET_pt',
-#    'range' : (20,0,200),
-#    'xaxis' : 'Puppi MET p_{T} [GeV]',
-#    'fold' : 3,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-############## New Jet processing
-#
-#variables['njet']  = {
-#    'name': 'Sum(CleanJet_pt>30)',
-#    'range' : (5,0,5),
-#    'xaxis' : 'Number of jets',
-#    'fold' : 2,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
-#}
-#
-#variables['jetpt1']  = {
-#    'name': 'Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30)', 
-#    'range' : (20,0,200),
-#    'xaxis' : 'p_{T} 1st jet [GeV]',
+#variables['drll']  = {
+#    'name': 'drll',
+#    'range' : (50, 0,5),
+#    'xaxis' : '#Delta R_{ll}',
 #    'fold' : 0,
 #    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
 #
-#variables['jetpt2']  = {
-#    'name': 'Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
-#    'range' : (20,0,200),
-#    'xaxis' : 'p_{T} 2nd jet',
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#variables['Ctot'] = {
+#     'name': 'log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj)',
+#     'range' : (20,-4.,6.),
+#     'xaxis' : 'Ctot',
+#     'fold'  : 3,
+#     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
 #
-#variables['jeteta1']  = {
-#    'name': 'Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30)',
-#    'range' : (30,-4.7,4.7),
-#    'xaxis' : '#eta 1st jet',
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#variables['mlj11'] = {
+#     'name': 'm_lj[0]',
+#     'range' : (28,0.,1400.),
+#     'xaxis' : 'mlj11',
+#     'fold'  : 3,
+#     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
 #
-#variables['jeteta2']  = {
-#    'name': 'Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30)',
-#    'range' : (30,-4.7,4.7),
-#    'xaxis' : '#eta 2nd jet',
-#    'fold' : 0,
-#    'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#
+#variables['mlj12'] = {
+#     'name': 'm_lj[1]',
+#     'range' : (28,0.,1400.),
+#     'xaxis' : 'mlj12',
+#     'fold'  : 3,
+#     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
 #}
+#
+#
+#
+#variables['mlj21'] = {
+#     'name': 'm_lj[2]',
+#     'range' : (28,0.,1400.),
+#     'xaxis' : 'mlj21',
+#     'fold'  : 3,
+#     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+#
+#
+#variables['mlj22'] = {
+#     'name': 'm_lj[3]',
+#     'range' : (28,0.,1400.),
+#     'xaxis' : 'mlj22',
+#     'fold'  : 3,
+#     'blind'   :  dict([(cut, 'full') for cut in cuts2j if 'hww_sr' in cut])
+#}
+#
+#

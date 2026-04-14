@@ -48,12 +48,12 @@ groupPlot['Fake']  = {
     'samples'  : ['Fake']
 }
 
-groupPlot['WW']  = {  
-    'nameHR'   : 'WW',
-    'isSignal' : 0,
-    'color'    : 851, # kAzure -9 
-    'samples'  : ['WW'] # , 'ggWW', 'WWewk']
-}
+# groupPlot['WW']  = {  
+#     'nameHR'   : 'WW',
+#     'isSignal' : 0,
+#     'color'    : 851, # kAzure -9 
+#     'samples'  : ['WW'] # , 'ggWW', 'WWewk']
+# }
 
 groupPlot['VVV']  = {  
     'nameHR'   : 'VVV',
@@ -124,12 +124,12 @@ plot['top'] = {
     'scale'    : scale_histo_top,
 }
 
-plot['WW']  = {
-    'color'    : 851, # kAzure -9 
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : scale_histo_WW,
-}
+# plot['WW']  = {
+#     'color'    : 851, # kAzure -9 
+#     'isSignal' : 0,
+#     'isData'   : 0,    
+#     'scale'    : scale_histo_WW,
+# }
 
 plot['Vg']  = { 
     'color'    : 859, # kAzure -1  

@@ -8,21 +8,17 @@ preselections = ' mll > 12 \
             && ptll>30 \
             && PuppiMET_pt > 20 \
             && (Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13) \
-            && Sum(CleanJet_pt > 30) == 2 \
+            && Sum(CleanJet_pt > 30) >= 2 \
             && mjj > 120 \
             && noJetInHorn'
 
 
 # CUTS
 
-#####################
-### Signal region ###
-#####################
-
 cuts['hww_sr']  = {
    'expr': 'sr',
-    # Define the sub-categorization of sr
    'categories' : {
+      'inc' : '1',
       '2j_vbflike' : 'multiJet && vbflike',
       '2j_gghlike' : 'multiJet && gghlike',
       '2j_toplike' : 'multiJet && toplike',
@@ -32,7 +28,6 @@ cuts['hww_sr']  = {
 
 cuts['dycr']  = {
    'expr': 'dycr',
-    # Define the sub-categorization of sr
    'categories' : {
       '2j' : 'multiJet',
    }
@@ -40,9 +35,14 @@ cuts['dycr']  = {
 
 cuts['topcr']  = {
    'expr': 'topcr',
-    # Define the sub-categorization of sr
    'categories' : {
       '2j' : 'multiJet',
    }
 }
 
+cuts['wwcr']  = {
+   'expr': 'wwcr',
+   'categories' : {
+      '2j' : 'multiJet',
+   }
+}

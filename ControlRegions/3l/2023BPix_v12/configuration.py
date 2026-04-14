@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/Control_Regions/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/Control_Regions/Analysis_Note/3l/rootFiles__{}".format(tag)
 
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -19,7 +19,7 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 #: luminosity to normalize to (in 1/fb)
-lumi = 8.0
+lumi = 9.451
 
 #: file with dict of aliases to define
 aliasesFile = "aliases.py"
@@ -47,7 +47,7 @@ nuisancesFile = "nuisances.py"
 # plotPath = "/eos/user/g/gpizzati/www/rdf/2016/"
 
 #: path to folder where to save plots
-plotPath = "Plots/Control_Regions/{}".format(tag)
+plotPath = "Plots/Control_Regions/Analysis_Note/3l/{}".format(tag)
 
 #: this lines are executed right before the runner on the condor node
 mountEOS = [

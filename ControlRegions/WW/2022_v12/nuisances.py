@@ -1,8 +1,9 @@
 
 mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight'
-dataReco     = 'Run2022_Prompt_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022v12__l2tight'
+mcSteps = 'MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight' 
+dataReco = 'Run2022_ReReco_nAODv12_Full2022v12'
+fakeSteps = 'DATAl2loose2022v12__l2loose'
+dataSteps = 'DATAl2loose2022v12__l2loose'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
@@ -25,7 +26,7 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
-#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
 dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 print(treeBaseDir)
 
@@ -44,18 +45,216 @@ cuts2j = _mergedCuts
 
 nuisances = {}
 
+nuisances['JER'] = {
+    'name': 'CMS_res_j_2022',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'jerup',
+    'mapDown': 'jerdo',
+    #'separator': '__',
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('jerup_suffix'),
+    'folderDown': makeMCDirectory('jerdo_suffix'),
+    'AsLnN': '0'
+}
 
-################################ EXPERIMENTAL UNCERTAINTIES  #################################
+jes_systs    = ["Absolute", "Absolute_2022", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2022", "EC2_2022", "RelativeBal", "RelativeSample_2022", "HF_2022"] # Reduced set of 11 uncertainties
 
-#### Luminosity
-# https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3
+for js in jes_systs:
+    
+    nuisances[js] = {
+        'name'      : 'CMS_scale_j_' + js,
+        'skipCMS' : 1,
+        'kind'      : 'suffix',
+        'type'      : 'shape',
+        'mapUp'     : 'jesRegroed_' + js + 'up',
+        'mapDown'   : 'jesRegroed_' + js + 'do',
+        'samples'   : dict((skey, ['1', '1']) for skey in mc),
+        'folderUp'  : makeMCDirectory('jesRegroed_' + js + 'up_suffix'),
+        'folderDown': makeMCDirectory('jesRegroed_' + js + 'do_suffix'),
+        'AsLnN'     : '0'
+    }
+
+nuisances['MET'] = {
+    'name': 'CMS_scale_met_2022',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'unclustEnup',
+    'mapDown': 'unclustEndo',
+    #'separator': '__',
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('unclustEnup_suffix'),
+    'folderDown': makeMCDirectory('unclustEndo_suffix'),
+    'AsLnN': '0'
+}
+
+##### Lepton scale
+nuisances['lepscale'] = {
+    'name': 'CMS_lepscale_2022',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'leptonScaleup',
+    'mapDown': 'leptonScaledo',
+    #'separator': '__',
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('leptonScaleup_suffix'),
+    'folderDown': makeMCDirectory('leptonScaledo_suffix'),
+    'AsLnN': '0'
+}
+##### Lepton resolution
+nuisances['lepres'] = {
+    'name': 'CMS_lepres_2022',
+    'skipCMS' : 1,
+    'kind': 'suffix',
+    'type': 'shape',
+    'mapUp': 'leptonResolutionup',
+    'mapDown': 'leptonResolutiondo',
+    #'separator': '__',
+    'samples': dict((skey, ['1', '1']) for skey in mc),
+    'folderUp': makeMCDirectory('leptonResolutionup_suffix'),
+    'folderDown': makeMCDirectory('leptonResolutiondo_suffix'),
+    'AsLnN': '0'
+}
+
+## B-tagger
+#Fixed BTV SF variations
+for flavour in ['bc', 'light']:
+    for corr in ['uncorrelated', 'correlated']:
+        btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
+        if corr == 'correlated':
+            name = f'CMS_btagSF{flavour}_{corr}'
+        else:
+            name = f'CMS_btagSF{flavour}_2022'
+        nuisances[f'btagSF{flavour}{corr}'] = {
+            'name': name,
+            'skipCMS' : 1,
+            'kind': 'weight',
+            'type': 'shape',
+            'samples': dict((skey, btag_syst) for skey in mc),
+        }
+
+
+##### Trigger Scale Factors                                                                                                                                                                                
+
+trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
+
+nuisances['trigg'] = {
+    'name': 'CMS_eff_hwwtrigger_2022',
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': dict((skey, trig_syst) for skey in mc)
+}
+
+##### Electron Efficiency and energy scale
+
+nuisances['eff_e'] = {
+    'name': 'CMS_eff_e_2022',
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc), 
+}
+
+##### Muon Efficiency and energy scale
+
+nuisances['eff_m'] = {
+    'name': 'CMS_eff_m_2022',
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
+}
+
+
+nuisances['PU'] = {
+    'name'    : 'CMS_pileup_2022',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.05') for skey in mc),
+}
+
+##### PS
+
+nuisances['PS_ISR']  = {
+    'name'    : 'ps_isr',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
+    'AsLnN'   : '0',
+}
+nuisances['PS_FSR']  = {
+    'name'    : 'ps_fsr',
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc),
+    'AsLnN'   : '0',
+}
+
+nuisances['UE_CP5']  = {
+    'name'    : 'UEPS',
+    'type'    : 'lnN',
+    'samples' : dict((skey, '1.015') for skey in mc),
+}
+
+
+## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
+
+nuisances['QCDscale_top']  = {
+    'name'  : 'QCDscale_ttbar',
+    'kind'  : 'weight',
+    'type'  : 'shape',
+    'samples'  : {'top' : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+}
+
+nuisances['QCDscale_DY'] = {
+    'name': 'QCDscale_DY',
+    'kind'  : 'weight',
+    'type': 'shape',
+    'samples': {'DY': ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+}
+nuisances['QCDscale_VV'] = {
+    'name' : 'QCDscale_VV',
+    'kind' : 'weight',
+    'type' : 'shape',
+    'samples' : {'WW'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+}
+
+nuisances['QCDscale_ggWW'] = {
+    'name': 'QCDscale_ggWW',
+    'type': 'lnN',
+    'samples': {'ggWW': '1.15'},
+}
+
+
+nuisances['QCDscale_ggH'] = {
+    'name' : 'QCDscale_ggH',
+    'kind' : 'weight',
+    'type' : 'shape',
+    'samples' : {'ggH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+}
+
+nuisances['QCDscale_qqH'] = {
+    'name' : 'QCDscale_qqH',
+    'kind' : 'weight',
+    'type' : 'shape',
+    'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+}
+
+nuisances['fake_syst'] = {
+    'name': 'CMS_fake_syst',
+    'type': 'lnN',
+    'samples': {
+        'Fake': '1.3'
+    },
+}
+
 nuisances['lumi_2022'] = {
     'name'    : 'lumi_2022',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.014') for skey in mc)
 }
 
-### MC statistical uncertainty
+
 autoStats = True
 if autoStats:
     ## Use the following if you want to apply the automatic combine MC stat nuisances.
