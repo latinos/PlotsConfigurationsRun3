@@ -69,7 +69,7 @@ structure['WW']  = {
                   }
 
 structure['VVV']  = {
-                  'isSignal' : 1,
+                  'isSignal' : 0,
                   'isData'   : 0,
                   }
 
