@@ -34,10 +34,10 @@ cd -
 
 if [ "$DATE" != "" ]; then
 	echo "Copying datacards to the web ..."
-	mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
-	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/
-	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
+	mkdir -p /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
+	cp ~/index.php /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/
+	cp ~/index.php /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
 	cp ~/index.php datacards_original_signal_scale/
-	cp -r datacards_original_signal_scale/ /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
+	cp -r datacards_original_signal_scale/ /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
 	echo "Done!"
 fi

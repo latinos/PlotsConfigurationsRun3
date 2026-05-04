@@ -36,10 +36,10 @@ cp ~/index.php plots_WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90/
 
 if [ "$DATE" != "" ]; then
 	echo "Copying plots to the web ..."
-	mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
-	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/
-	cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
-	cp -r plots_WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90/ /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
-	cp /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90/rootFile/plots_WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90_DYflip_data.root /eos/user/n/ntrevisa/www/plots/${DATE}/2017/
+	mkdir -p /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
+	cp ~/index.php /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/
+	cp ~/index.php /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
+	cp -r plots_WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90/ /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
+	cp /eos/user/n/ntrevisa/mkShapesRDF_rootfiles/WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90/rootFile/plots_WHSS_2017_v9_chargeAsymmetry_Mu82_EleUL90_DYflip_data.root /eos/user/n/ntrevisa/www/plots/WH_charge_asymmetry/${DATE}/2017/
 	echo "Done!"
 fi

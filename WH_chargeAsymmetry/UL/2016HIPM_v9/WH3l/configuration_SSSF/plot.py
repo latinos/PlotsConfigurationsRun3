@@ -65,14 +65,14 @@ groupPlot['VVV']  = {
 groupPlot['Vg']  = {
     'nameHR' : "V#gamma",
     'isSignal' : 0,
-    'color'    : 859,
+    'color'    : 810, # kOrange + 10
     'samples'  : ['Vg']
 }
 
 groupPlot['VgS']  = {
     'nameHR' : "V#gamma*",
     'isSignal' : 0,
-    'color'    : 409,   # kGreen - 9
+    'color'    : 617,
     'samples'  : ['VgS']
 }
 
