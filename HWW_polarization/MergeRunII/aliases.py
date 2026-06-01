@@ -9,8 +9,18 @@ configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 aliases = {}
 aliases = OrderedDict()
 
-mc = [skey for skey in samples if skey not in ('Fake', 'DATA', 'Dyemb')]
-mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+
+#eleWP = 'mvaFall17V2Iso_WP90_tthmva_70'
+#muWP  = 'cut_Tight_HWWW_tthmva_80'
+#aliases['LepWPCut'] = {
+#    'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
+#    'samples': mc + ['DATA']
+#}
+#aliases['LepWPSF'] = {
+#    'expr': 'LepSF2l__ele_'+eleWP+'__mu_'+muWP,
+#    'samples': mc
+#}
 
 eleWP = 'mvaFall17V2Iso_WP90'
 muWP  = 'cut_Tight_HWWW'
@@ -19,22 +29,22 @@ aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_mvaFall17V2Iso_WP90__mu_cut_Tight_HWWW*\
     ( ((abs(Lepton_pdgId[0])==13 && Muon_mvaTTH[Lepton_muonIdx[0]]>0.82) || (abs(Lepton_pdgId[0])==11 && Lepton_mvaTTH_UL[0]>0.90)) \
     && ((abs(Lepton_pdgId[1])==13 && Muon_mvaTTH[Lepton_muonIdx[1]]>0.82) || (abs(Lepton_pdgId[1])==11 && Lepton_mvaTTH_UL[1]>0.90)) )',
-    'samples': mc_emb + ['DATA','Fake']
+    'samples': mc + ['DATA','Fake']
 }
 
 aliases['LepWPSF'] = {
     'expr': 'LepSF2l__ele_'+eleWP+'__mu_'+muWP,
-    'samples': mc_emb
+    'samples': mc
 }
 
 # ttHMVA SFs and uncertainties
 # RVecD results = {SF, SF_up_out_el, SF_up_out_mu, SF_down_out_el, SF_down_out_mu};
 aliases['LepWPttHMVASF_tot'] = {
-    'linesToAdd' : ['#include "/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/ttHMVASF_class.cc"'], 
-    'linesToProcess':["""ROOT.gInterpreter.Declare('ttHMVASF tth_sf("2018", "all");')"""],
-    'expr' :   'tth_sf(2, "nominal",Lepton_pt,Lepton_eta,Lepton_pdgId)', 
+    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/ttHMVASF_cc.so","", ROOT.kTRUE)',
+                      'ROOT.gInterpreter.Declare("ttHMVASF tth_sf;")'],
+    'expr' :   'tth_sf("2018", 2, "all", "nominal",Lepton_pt,Lepton_eta,Lepton_pdgId)',
     'samples'    : mc
-} 
+}
 
 aliases['LepWPttHMVASF'] = {
     'expr' : 'LepWPttHMVASF_tot[0]',
@@ -57,17 +67,6 @@ aliases['LepWPttHMVASFMuDown'] = {
     'samples'    : mc
 }
 
-aliases['embednorm'] = {
-    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/EmbededNormalization_cc.so","", ROOT.kTRUE)',
-                      """ROOT.gInterpreter.Declare('EmbededNormalization emb_sf("2018UL");')"""],
-    'expr' :   'emb_sf(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, Lepton_muonIdx, Lepton_electronIdx, Muon_genPartIdx, Electron_genPartIdx)',
-    'samples'    : 'Dyemb'
-}
-
-aliases['embedtotal'] = {
-    'expr': 'embednorm*genWeight*TriggerSFWeight_2l',
-    'samples': 'Dyemb'
-}
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
@@ -134,17 +133,9 @@ aliases['fakeWStatMuDown'] = {
 
 
 aliases['CleanJet_VetoMap'] = {
-    'linesToAdd': [
-        '#include "correction.h"',
-        'string path_file = "/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/examples/Full2018_v9/jetvetomaps.json";',
-        'auto csetJet_File = correction::CorrectionSet::from_file(path_file);',
-        'correction::Correction::Ref cset_jet_Map = (correction::Correction::Ref) csetJet_File->at("Summer19UL18_V1");',
-        '#include "/afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/examples/Full2018_v9/jet_veto_2018.cc"',
-    ],
-    'expr': "Jet_Veto(CleanJet_pt,CleanJet_eta,CleanJet_phi,Jet_neEmEF,Jet_chEmEF,CleanJet_jetIdx)"
-    #'linesToAdd': [".L /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/examples/Full2018_v9/jet_veto_2018.cc+"],
-    #'class' : 'Jet_Veto',
-    #'args': 'CleanJet_pt,CleanJet_eta,CleanJet_phi,Jet_neEmEF,Jet_chEmEF,CleanJet_jetIdx',
+    'linesToAdd': [".L /afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/examples/Full2018_v9/jet_veto_2018.cc+"],
+    'class' : 'Jet_Veto',
+    'args': 'CleanJet_pt,CleanJet_eta,CleanJet_phi,Jet_neEmEF,Jet_chEmEF,CleanJet_jetIdx',
 }
 
 aliases['gstarLow'] = {
@@ -156,6 +147,47 @@ aliases['gstarHigh'] = {
     'expr': 'Gen_ZGstar_mass < 0 || Gen_ZGstar_mass > 4',
     'samples': 'WZ'
 }
+
+'''
+# Fake leptons transfer factor
+aliases['fakeW'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP,
+    'samples': ['Fake']
+}
+# And variations - already divided by central values in formulas !
+aliases['fakeWEleUp'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_EleUp',
+    'samples': ['Fake']
+}
+aliases['fakeWEleDown'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_EleDown',
+    'samples': ['Fake']
+}
+aliases['fakeWMuUp'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_MuUp',
+    'samples': ['Fake']
+}
+aliases['fakeWMuDown'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_MuDown',
+    'samples': ['Fake']
+}
+aliases['fakeWStatEleUp'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statEleUp',
+    'samples': ['Fake']
+}
+aliases['fakeWStatEleDown'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statEleDown',
+    'samples': ['Fake']
+}
+aliases['fakeWStatMuUp'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statMuUp',
+    'samples': ['Fake']
+}
+aliases['fakeWStatMuDown'] = {
+    'expr': 'fakeW2l_ele_'+eleWP+'_mu_'+muWP+'_statMuDown',
+    'samples': ['Fake']
+}
+'''
 
 # gen-matching to prompt only (GenLepMatch2l matches to *any* gen lepton)
 aliases['PromptGenLepMatch2l'] = {
@@ -190,33 +222,6 @@ aliases['getGenZpt_OTF'] = {
     'samples': ['DY']
 }
 
-aliases['KFactor_ggWW_NLO'] = {
-    'linesToProcess':[
-        'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/ggzz_kfactor_cc.so","", ROOT.kTRUE)',
-        "ROOT.gInterpreter.Declare('ggzz_K_producer k_reader_GGZZ = ggzz_K_producer();')"
-    ],
-    'expr': f'k_reader_GGZZ(nLHEPart,LHEPart_pt,LHEPart_eta,LHEPart_phi,LHEPart_mass,LHEPart_pdgId,LHEPart_status)',
-    'samples': ['ggWW','ggH_gWW_Int']
-}
-aliases['KFactor_ggWW'] = {
-    'expr': 'KFactor_ggWW_NLO[0]',
-    'samples': ['ggWW','ggH_gWW_Int']
-}
-aliases['KFactor_ggWW_Up'] = {
-    'expr': 'KFactor_ggWW_NLO[1]',
-    'samples': ['ggWW','ggH_gWW_Int']
-}
-aliases['KFactor_ggWW_Down'] = {
-    'expr': 'KFactor_ggWW_NLO[2]',
-    'samples': ['ggWW','ggH_gWW_Int']
-}
-
-#aliases['ggH_NNLO_kFactor'] = {
-#    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/computeNNLOkfactor_cc.so","", ROOT.kTRUE)',
-#                      'ROOT.gInterpreter.Declare("ComputeNNLOkfactor ggww_nnlo;")'],
-#    'expr' :   'ggww_nnlo(nLHEPart,LHEPart_pt,LHEPart_eta,LHEPart_phi,LHEPart_mass,LHEPart_pdgId,LHEPart_status)',
-#    'samples'    : ['ggWW']
-#}
 
 #DYrew = {}
 exec(open('DYrew30.py', "r").read())
@@ -238,15 +243,15 @@ aliases['DY_LO_pTllrw'] = {
 
 # No jet with pt > 30 GeV
 aliases['zeroJet'] = {
-    'expr': 'Alt(CleanJet_pt,0, 0) < 30.'
+    'expr': 'Alt(CleanJet_pt,0, 0) < 30.',
 }
 
 aliases['oneJet'] = {
-    'expr': 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0'
+    'expr': 'Alt(CleanJet_pt,0, 0) > 30.',
 }
 
 aliases['multiJet'] = {
-    'expr': 'Alt(CleanJet_pt,1, 0) > 30.'
+    'expr': 'Alt(CleanJet_pt,1, 0) > 30.',
 }
 
 ####################################################################################
@@ -304,6 +309,18 @@ for flavour in ['bc', 'light']:
         }
         
 
+'''
+aliases['bVetoSF'] = {
+    'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>20 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_{}_shape, CleanJet_jetIdx)+1*(CleanJet_pt<20 || abs(CleanJet_eta)>2.5))))'.format(bSF),
+    'samples': mc
+}
+
+aliases['bReqSF'] = {
+    'expr': 'TMath::Exp(Sum(LogVec((CleanJet_pt>30 && abs(CleanJet_eta)<2.5)*Take(Jet_btagSF_{}_shape, CleanJet_jetIdx)+1*(CleanJet_pt<30 || abs(CleanJet_eta)>2.5))))'.format(bSF),
+    'samples': mc
+}
+'''
+
 # Top control region                                                                                                                                                                                       
 aliases['topcr'] = {
     'expr': 'mth>40 && PuppiMET_pt>20 && mll > 12 && ((zeroJet && !bVeto) || bReq) && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
@@ -320,6 +337,36 @@ aliases['wwcr'] = {
 aliases['sr'] = {
     'expr': 'mth>40 && PuppiMET_pt>20 && bVeto && mll > 12 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
 }
+
+
+'''
+# Overall b tag SF
+aliases['btagSF'] = {
+    'expr': '(bVeto || (topcr && zeroJet))*bVetoSF + (topcr && !zeroJet)*bReqSF',
+    #'expr': 'bVeto*bVetoSF + topcr*bReqSF',
+    #    'expr': 'bVeto*bVetoSF',
+    'samples': mc
+}
+
+
+for shift in ['jes','lf','hf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']:
+    for targ in ['bVeto', 'bReq']:
+        alias = aliases['%sSF%sup' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
+        alias['expr'] = alias['expr'].replace('btagSF_{}_shape'.format(bSF), 'btagSF_{}_shape_up_{}'.format(bSF, shift))
+
+        alias = aliases['%sSF%sdown' % (targ, shift)] = copy.deepcopy(aliases['%sSF' % targ])
+        alias['expr'] = alias['expr'].replace('btagSF_{}_shape'.format(bSF), 'btagSF_{}_shape_down_{}'.format(bSF, shift))
+        
+    aliases['btagSF%sup' % shift] = {
+        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'up'),
+        'samples': mc
+    }
+
+    aliases['btagSF%sdown' % shift] = {
+        'expr': aliases['btagSF']['expr'].replace('SF', 'SF' + shift + 'down'),
+        'samples': mc
+    }
+'''
 
 
 ####################################################################################
@@ -343,6 +390,8 @@ aliases['Jet_PUIDSF_down'] = {
 }
 
 aliases['SFweight'] = {
+    #'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'btagSF', 'L1PreFiringWeight_Nom', 'Lepton_rochesterSF']),
+    #'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'btagSF', 'L1PreFiringWeight_Nom', 'LepWPttHMVASF']),
     'expr': ' * '.join(['SFweight2l', 'LepWPCut', 'LepWPSF','Jet_PUIDSF', 'btagSFbc', 'btagSFlight', 'L1PreFiringWeight_Nom', 'LepWPttHMVASF']),
     'samples': mc
 }
@@ -350,58 +399,30 @@ aliases['SFweight'] = {
 # variations
 aliases['SFweightEleUp'] = {
     'expr': 'LepSF2l__ele_'+eleWP+'__Up',
-    'samples': mc_emb,
+    'samples': mc,
 }
 aliases['SFweightEleDown'] = {
     'expr': 'LepSF2l__ele_'+eleWP+'__Do',
-    'samples': mc_emb,
+    'samples': mc,
 }
 aliases['SFweightMuUp'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Up',
-    'samples': mc_emb,
+    'samples': mc,
 }
 aliases['SFweightMuDown'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Do',
-    'samples': mc_emb,
+    'samples': mc,
 }
 
 
-samplesToAdd = ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot', 'ggH_perp']
-for i in np.linspace(-1, 1, 201):
-    jlim = round(1.0 - abs(i), 2)
-    
-    if abs(round(i,2)) == 1.0:
-        jlist = [jlim]
-    else:
-        jlist = [-jlim, 0.0, jlim]
-    
-    for j in jlist:        
-        i = round(i, 2)
-        j = round(j, 2)
-
-        if i<0.0:
-            itxt = str(i).replace("-", "m")
-        else:
-            itxt = str(i)
-        itxt = itxt.replace(".", "p")
-
-        if j<0.0:
-            jtxt = str(j).replace("-", "m")
-        else:
-            jtxt = str(j)
-        jtxt = jtxt.replace(".", "p")
-
-        weighttxt = f"p_GEN_fL_{itxt}_fPerp_{jtxt}"
-        txt = f"_fL_{itxt}_fPerp_{jtxt}"
-
-        samplesToAdd.append('ggH'+txt)
-
-aliases['Weight2MINLO'] = {  
-    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/weight2MINLO_class_cc.so","", ROOT.kTRUE)',
-                      """ROOT.gInterpreter.Declare('Weight2MINLO minloWeight("NNLOPS_reweight.root");')"""],
-    'expr' : 'minloWeight(HTXS_njets30, HTXS_Higgs_pt)',  
-    'samples': samplesToAdd
+aliases['Weight2MINLO'] = {
+    #'linesToAdd': ['/afs/cern.ch/work/s/sblancof/private/Run2Analysis/mkShapesRDF/examples/Full2017_v9/weight2MINLO.cc'],
+    'linesToAdd': ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/weight2MINLO.cc+'],
+    'class': 'Weight2MINLO',
+    'args': '"NNLOPS_reweight.root", HTXS_njets30, HTXS_Higgs_pt',
+    'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot']
 }
+
 
 ## GGHUncertaintyProducer wasn't run for GluGluHToWWTo2L2Nu_Powheg_M125 
 thus = [
@@ -422,11 +443,10 @@ for thu in thus:
         'linesToAdd': ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/gghuncertainty.cc+'],
         'class': 'GGHUncertainty',
         'args': '"{}", HTXS_njets30, HTXS_Higgs_pt, HTXS_stage_1_pTjet30'.format(thu),
-        'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt', 'ggH_perp']
+        'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt']
     }
     
 
-"""
 aliases['Higgs_WW_Rew'] = {
     'linesToAdd' : ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/doHiggsPolarization.cc+'],
     'class' : 'DoHiggsPolarizationWeight',
@@ -453,15 +473,15 @@ aliases['Higgs_WW_TTInt'] = {
     'expr': 'Higgs_WW_Rew[3]',
     'samples': ['ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt', 'qqH_HWLWL', 'qqH_HWTWT'],
 }
-"""
+
 
 ####
 #### Interference qq/ggWW - qq/ggH
 ####
 
 aliases['HWW_interference'] = {
-    'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
-                      'ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
+    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
                       'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/IvyFramework/IvyDataTools/lib/libIvyFrameworkIvyDataTools.so","", ROOT.kTRUE)',
                       'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/IvyFramework/IvyAutoMELA/lib/libIvyFrameworkIvyAutoMELA.so","", ROOT.kTRUE)',
                       'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/MelaAnalytics/GenericMEComputer/lib/libMelaAnalyticsGenericMEComputer.so","", ROOT.kTRUE)',
@@ -502,35 +522,31 @@ aliases['qqHWW_Total'] = {
 
 
 aliases['D_ME'] = {
-    'linesToProcess':['ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
-                      'ROOT.gSystem.Load("/afs/cern.ch/work/s/sblancof/private/Run2Analysis/AlmaLinux9_mkShapes/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
+    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libmcfm_705.so","", ROOT.kTRUE)',
+                      'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/JHUGenMELA/MELA/data/slc7_amd64_gcc920/libJHUGenMELAMELA.so","", ROOT.kTRUE)',
                       'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/RecoMELA_VBF_cc.so","", ROOT.kTRUE)',
                       'ROOT.gInterpreter.Declare("RECOMELA_VBF a;")'],
     'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
-    'afterNuis': True,
-    'samples': ['Dyemb','Fake','DATA'],
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    #'exprSlot': ['a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
+    #             ['nCleanJet', 'nLepton', 'PuppiMET_pt', 'PuppiMET_phi', 'Lepton_pt', 'Lepton_phi', 'Lepton_eta', 'CleanJet_pt', 'CleanJet_phi', 'CleanJet_eta', 'Lepton_pdgId']],
+    'afterNuis': True
 }
 
 aliases['D_VBF_QCD'] = {
     'expr': 'D_ME[0]',
-    'afterNuis': True,
-    'samples': ['Dyemb','Fake','DATA'],
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    #'exprSlot': ['D_ME[0]',['D_ME']],
+    'afterNuis': True
 }
 
 aliases['D_VBF_VH'] = {
     'expr': 'D_ME[1]',
-    'afterNuis': True,
-    'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    #'exprSlot': ['D_ME[1]',['D_ME']],
+    'afterNuis': True
 }
 
 aliases['D_QCD_VH'] = {
     'expr': 'D_ME[2]',
-    'afterNuis': True,
-    'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 aliases['D_VBF_DY'] = {
@@ -538,124 +554,90 @@ aliases['D_VBF_DY'] = {
                       'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/RecoMoMEMta_VBF_cc.so","", ROOT.kTRUE)',
                       'ROOT.gInterpreter.Declare("RecoMoMEMta_VBF EvMoMEMta;")'],
     'expr' :   'EvMoMEMta(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1])',
-    'afterNuis': True,
-    'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 aliases['Ctot'] = {
     'expr': 'detajj!=0 ? log((abs(2 * Lepton_eta[0] - CleanJet_eta[0] - CleanJet_eta[1]) + abs(2 * Lepton_eta[1] - CleanJet_eta[0] - CleanJet_eta[1])) / detajj) : -1.0',
-    'afterNuis': True,
-    'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 aliases['btagDeepFlavB'] = {
     'expr': 'Alt(Jet_btagDeepFlavB, Alt(CleanJet_jetIdx, 0, -1), -2.0)',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 aliases['btagDeepFlavB_1'] = {
     'expr': 'Alt(Jet_btagDeepFlavB, Alt(CleanJet_jetIdx, 1, -1), -2.0)',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
+
 
 aliases['RandomForest_evaluator'] = {
-    'linesToProcess' : [
-        'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/evaluate_RF_polarization_cc.so","", ROOT.kTRUE)',
-        """ROOT.gInterpreter.Declare('EvaluateRF rf_evaluator("2018");')"""
-    ],
-    'expr': 'rf_evaluator(mll,mth,mtw1,mtw2,mjj,mcollWW,ptll,Ctot,Lepton_pt,Lepton_eta,Lepton_phi,dphilmet1,dphilmet2,dphill,detall,dphijj,detajj,dphilep1jet1,dphilep2jet1,dphilep1jet2,dphilep2jet2,btagDeepFlavB,btagDeepFlavB_1,drll,mpmet,PuppiMET_pt,PuppiMET_phi,D_VBF_QCD,D_VBF_VH,D_QCD_VH,D_VBF_DY,mTi,zeroJet,oneJet,multiJet)',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'linesToAdd' : ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/evaluate_RF_polarization.cc+'],
+    'class' : 'evaluate_dnn',
+    'args': 'mll,mth,mtw1,mtw2,mjj,mcollWW,ptll,Ctot,Lepton_pt,Lepton_eta,Lepton_phi,dphilmet1,dphilmet2,dphill,detall,dphijj,detajj,dphilep1jet1,dphilep2jet1,dphilep1jet2,dphilep2jet2,btagDeepFlavB,btagDeepFlavB_1,drll,mpmet,PuppiMET_pt,PuppiMET_phi,D_VBF_QCD,D_VBF_VH,D_QCD_VH,D_VBF_DY,mTi',
+    'afterNuis': True
 }
 
+
 #### 0 Jets
-aliases['RF_score2_0J_LL'] = {
+aliases['RF_score_0J_LL'] = {
     'expr': 'RandomForest_evaluator[0][0]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_0J_TT'] = {
+aliases['RF_score_0J_TT'] = {
     'expr': 'RandomForest_evaluator[0][1]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_0J_Bkg'] = {
+aliases['RF_score_0J_Bkg'] = {
     'expr': 'RandomForest_evaluator[0][2]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 
 #### 1 Jets
-aliases['RF_score2_1J_LL'] = {
+aliases['RF_score_1J_LL'] = {
     'expr': 'RandomForest_evaluator[1][0]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_1J_TT'] = {
+aliases['RF_score_1J_TT'] = {
     'expr': 'RandomForest_evaluator[1][1]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_1J_Bkg'] = {
+aliases['RF_score_1J_Bkg'] = {
     'expr': 'RandomForest_evaluator[1][2]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 
 #### 2 Jets
-aliases['RF_score2_2J_LL'] = {
+aliases['RF_score_2J_LL'] = {
     'expr': 'RandomForest_evaluator[2][0]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_2J_TT'] = {
+aliases['RF_score_2J_TT'] = {
     'expr': 'RandomForest_evaluator[2][1]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_2J_Bkg'] = {
+aliases['RF_score_2J_Bkg'] = {
     'expr': 'RandomForest_evaluator[2][2]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 
 #### VBF
-aliases['RF_score2_VBF_LL'] = {
+aliases['RF_score_VBF_LL'] = {
     'expr': 'RandomForest_evaluator[3][0]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_VBF_TT'] = {
+aliases['RF_score_VBF_TT'] = {
     'expr': 'RandomForest_evaluator[3][1]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
-aliases['RF_score2_VBF_Bkg'] = {
+aliases['RF_score_VBF_Bkg'] = {
     'expr': 'RandomForest_evaluator[3][2]',
-    'afterNuis': True,
-    #'samples': ['Dyemb','Fake','DATA']
-    #'samples': ['Dyemb','Fake','DATA','Dyveto','top'],
+    'afterNuis': True
 }
 
 

@@ -28,12 +28,12 @@ structure['WW_minnlo']  = {
                   'isData'   : 0    
                   }
 
-structure['WWewk_si']  = { # WWewk_si
+structure['WWewk']  = { # WWewk_si
                   'isSignal' : 0,
                   'isData'   : 0
                   }
 
-structure['ggWW_si']  = { # ggWW_si
+structure['ggWW']  = { # ggWW_si
                   'isSignal' : 0,
                   'isData'   : 0    
                   }
@@ -91,22 +91,23 @@ structure['qqH_hww'] = {
 #}
 
 index = 2
-for i in np.linspace(-1, 1, 21):
+for i in np.linspace(-1, 1, 201):
     jlim = round(1.0 - abs(i), 2)
-    jn = 2 * 10*abs(jlim) + 2
-    for j in np.linspace(-1*jlim, jlim, int(jn)-1):
-        i = round(i, 1)
-        j = round(j, 1)
+    if abs(round(i,2)) == 1.0:
+        jlist = [jlim]
+    else:
+        jlist = [-jlim, 0.0, jlim]
 
-        #if round(i,1)<=0.7:
-        #    continue
+    for j in jlist:
+        i = round(i, 2)
+        j = round(j, 2)
 
         if i<0.0:
             itxt = str(i).replace("-", "m")
         else:
             itxt = str(i)
         itxt = itxt.replace(".", "p")
-        
+
         if j<0.0:
             jtxt = str(j).replace("-", "m")
         else:
@@ -125,7 +126,8 @@ for i in np.linspace(-1, 1, 21):
             'isData'   : 0,
             'scaleSampleForDatacard' : {cut : 1.03621 for cut in cuts.keys()},
         }
-        index = index + 1
+        
+    index = index + 1
 
 
 ############

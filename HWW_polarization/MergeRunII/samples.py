@@ -123,8 +123,8 @@ mcCommonWeightMatched = 'XSWeight*SFweight*PromptGenLepMatch2l*METFilter_MC'
 #############    SIGNALS    ###############
 ########################################### 
 
-doSignals = False
-doTotal = False
+doSignals = True
+doTotal = True
 
 ###########################################
 #############  BACKGROUNDS  ###############
@@ -134,7 +134,7 @@ doTotal = False
 ###### DY #######
 useEmbeddedDY = True
 useDYtt = True
-runDYveto = False
+runDYveto = True
 
 embed_tautauveto = '' #Setup
 if useEmbeddedDY:
@@ -369,7 +369,7 @@ signals = []
 samples['ggH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + nanoGetSampleFiles(mcDirectory, 'GGHjjToWWTo2L2Nu_minloHJJ_M125'),
     'weight': mcCommonWeight,
-    'FilesPerJob': 5,
+    'FilesPerJob': 1,
     #'EventsPerJob': 25000,
     'friendFiles': recoDirectory,
 }
