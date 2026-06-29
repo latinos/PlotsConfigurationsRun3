@@ -45,7 +45,6 @@ class btagSFlight {
     {
         correction::Correction::Ref cset_btag_light;
         correction::Correction::Ref cset_btag_wps;
-        if (year == "2024")
 
         cset_btag_light = cset->at(tagger + "_light");
         cset_btag_wps   = cset->at(tagger + "_wp_values");

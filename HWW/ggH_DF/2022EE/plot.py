@@ -12,7 +12,7 @@ groupPlot['Fake']  = {
     'nameHR' : 'nonprompt',
     'isSignal' : 0,
     'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
-    'samples'  : ['Fake']
+    'samples'  : ['Fake_e', 'Fake_m']
 }
 
 
@@ -35,7 +35,7 @@ groupPlot['Vg']  = {
     'nameHR' : 'V#gamma',
     'isSignal' : 0,
     'color': '#e76300', 
-    'samples'  : ['Zg', 'Wg']
+    'samples'  : ['Vg']
 }
 
 
@@ -43,7 +43,7 @@ groupPlot['VgS']  = {
     'nameHR' : 'V#gamma*',
     'isSignal' : 0,
     'color': '#92dadd', 
-    'samples'  : ['ZgS', 'WgS', 'WZS']
+    'samples'  : ['VgS']
 }
 
 
@@ -51,7 +51,7 @@ groupPlot['VZ']  = {
     'nameHR' : "VZ",
     'isSignal' : 0,
     'color'    : '#a96b59',  
-    'samples'  : ['WZ', 'ZZ']
+    'samples'  : ['VZ']
 }
 
 groupPlot['VVV']  = {
@@ -99,8 +99,16 @@ plot['top']  = {
 
 
 
-plot['Fake']  = {
-    'nameHR'   : 'nonprompt',
+plot['Fake_e']  = {
+    'nameHR'   : 'nonprompt_e',
+    'color'    : 921,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
+plot['Fake_m']  = {
+    'nameHR'   : 'nonprompt_m',
     'color'    : 921,
     'isSignal' : 0,
     'isData'   : 0,
@@ -125,59 +133,26 @@ plot['ggWW']  = {
 }
 
 
-plot['Zg']  = {
-    'nameHR'   : 'Zg',
+plot['Vg']  = {
+    'nameHR'   : 'Vg',
     'color'    : 857,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
-plot['Wg']  = {
-    'nameHR'   : 'Wg',
-    'color'    : 857,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 0.33,
-}
-
-
-plot['ZgS']  = {
-    'nameHR'   : 'ZgS',
+plot['VgS']  = {
+    'nameHR'   : 'VgS',
     'color'    : 858,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
-plot['WgS']  = {
-    'nameHR'   : 'WgS',
-    'color'    : 858,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.,
-}
 
-plot['WZS']  = {
-    'nameHR'   : 'WZS',
-    'color'    : 858,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
-plot['WZ']  = {
-    'nameHR'   : 'WZ',
+plot['VZ']  = {
+    'nameHR'   : 'VZ',
     'color'    : '#a96b59',
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
-
-
-plot['ZZ']  = {
-    'nameHR'   : 'ZZ',
-    'color'    : 617,
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0,

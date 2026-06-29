@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "ggF_DF_2024v15_DBNN_DF"   
+tag = "ggF_DF_2024_0526_SNN"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -26,7 +26,7 @@ lumi = 109.08
 aliasesFile = "aliases.py"
 
 # file with dict of variables
-variablesFile = "variables_df.py"
+variablesFile = "variables.py"
 
 # file with dict of cuts
 cutsFile = "cuts.py"
@@ -44,7 +44,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "Plots/HWW/{}".format(tag)
+plotPath = "Plots/HWW/ggF_DF_2024_0526_SNN"
 
 # this lines are executed right before the runner on the condor node
 mountEOS = [

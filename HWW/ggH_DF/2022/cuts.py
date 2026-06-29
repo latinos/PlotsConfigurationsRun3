@@ -39,7 +39,7 @@ cuts['hww_sr']  = {
 
 cuts['wwcr']  = {
    'expr': 'wwcr',
-    # Define the sub-categorization of sr
+    # Define the sub-categorization of wwcr
    'categories' : {
       '0j' : 'zeroJet',
       '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
@@ -49,7 +49,7 @@ cuts['wwcr']  = {
 
 cuts['topcr']  = {
    'expr': 'topcr',
-    # Define the sub-categorization of sr
+    # Define the sub-categorization of topcr
    'categories' : {
       '0j' : 'zeroJet',
       '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
@@ -59,7 +59,7 @@ cuts['topcr']  = {
 
 cuts['dyttcr']  = {
    'expr': 'dycr',
-    # Define the sub-categorization of sr
+    # Define the sub-categorization of dyttcrs
    'categories' : {
       '0j' : 'zeroJet',
       '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',

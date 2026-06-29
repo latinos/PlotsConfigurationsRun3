@@ -25,24 +25,26 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
-fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+#dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 print(treeBaseDir)
 
 # merge cuts
-_mergedCuts = []
-for cut in list(cuts.keys()):
-    __cutExpr = ''
-    if type(cuts[cut]) == dict:
-        __cutExpr = cuts[cut]['expr']
-        for cat in list(cuts[cut]['categories'].keys()):
-            _mergedCuts.append(cut + '_' + cat)
-    elif type(cuts[cut]) == str:
-        _mergedCuts.append(cut)
-
-cuts2j = _mergedCuts
+cuts0j = []
+cuts1j = []
+cuts2j = []
+#cuts=[]
+for k in cuts:
+  for cat in cuts[k]['categories']:
+    if '0j' in cat: cuts0j.append(k+'_'+cat)
+    elif '1j' in cat: cuts1j.append(k+'_'+cat)
+    elif '2j' in cat: cuts2j.append(k+'_'+cat)
+    else: print('WARNING: name of category does not contain either 0j,1j,2j')
 
 nuisances = {}
+
+
+################################ EXPERIMENTAL UNCERTAINTIES  #################################
 
 nuisances['JER'] = {
     'name': 'CMS_res_j_2023BPix',
@@ -59,6 +61,7 @@ nuisances['JER'] = {
 }
 
 jes_systs    = ["Absolute", "Absolute_2023BPix", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023BPix", "EC2_2023BPix", "RelativeBal", "RelativeSample_2023BPix", "HF_2023BPix"] # Reduced set of 11 uncertainties
+#jes_systs = ['jesTotal']
 
 for js in jes_systs:
     
@@ -141,7 +144,7 @@ for flavour in ['bc', 'light']:
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2023BPix',
+    'name': 'eff_hwwtrigger_2023BPix',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, trig_syst) for skey in mc)
@@ -150,7 +153,7 @@ nuisances['trigg'] = {
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2023BPix',
+    'name': 'eff_e_2023BPix',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
@@ -159,7 +162,7 @@ nuisances['eff_e'] = {
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2023BPix',
+    'name': 'eff_m_2023BPix',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
@@ -239,49 +242,182 @@ nuisances['QCDscale_qqH'] = {
     'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
-nuisances['fake_syst'] = {
-    'name': 'CMS_fake_syst',
+##### FAKES
+
+nuisances['fake_syst_e'] = {
+    'name': 'CMS_fake_syst_e',
+    'skipCMS': 1,
     'type': 'lnN',
     'samples': {
-        'Fake': '1.3'
+        'Fake_e': '1.3'
     },
+}
+
+nuisances['fake_syst_m'] = {
+    'name': 'CMS_fake_syst_m',
+    'skipCMS': 1,
+    'type': 'lnN',
+    'samples': {
+        'Fake_m': '1.3'
+    },
+}
+
+nuisances['fake_ele'] = {
+    'name': 'CMS_fake_e_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWEleUp', 'fakeWEleDown'],
+    }
+}
+
+nuisances['fake_ele_stat'] = {
+    'name': 'CMS_fake_stat_e_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWStatEleUp', 'fakeWStatEleDown']
+    }
+}
+
+nuisances['fake_mu'] = {
+    'name': 'CMS_fake_m_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWMuUp', 'fakeWMuDown'],
+    }
+}
+
+nuisances['fake_mu_stat'] = {
+    'name': 'CMS_fake_stat_m_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWStatMuUp', 'fakeWStatMuDown'],
+    }
 }
 
 nuisances['lumi_2023BPix'] = {
     'name'    : 'lumi_2023BPix',
     'type'    : 'lnN',
-    'samples' : dict((skey, '1.013') for skey in mc)
+    'samples' : dict((skey, '1.016') for skey in mc)
 }
 
 ##rate parameters
 
-nuisances['DYnorm']  = {
-    'name'  : 'CMS_hww_DYnorm2j_VBF_DF_2023BPix',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'DY' : '1.00' },
-}
+nuisances['DYnorm0j']  = {
+               'name'  : 'CMS_hww_DYnorm0j_2023BPix',
+               'samples'  : {
+                   'DY' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
 
-nuisances['WWnorm']  = {
-    'name'  : 'CMS_hww_WWnorm2j_VBF_DF_2023BPix',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'WW' : '1.00' },
-}
+nuisances['DYnorm1j']  = {
+               'name'  : 'CMS_hww_DYnorm1j_2023BPix',
+               'samples'  : {
+                   'DY' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
 
-nuisances['ggWWnorm']  = {
-    'name'  : 'CMS_hww_ggWWnorm2j_VBF_DF_2023BPix',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'ggWW' : '1.00' },
-}
+nuisances['DYnorm2j']  = {
+                 'name'  : 'CMS_hww_DYnorm2j_2023BPix',
+                 'samples'  : {
+                   'DY' : '1.00',
+                     },
+                 'type'  : 'rateParam',
+                 'cuts'  : cuts2j
+                }
 
-nuisances['topnorm']  = {
-    'name'  : 'CMS_hww_topnorm2j_VBF_DF_2023BPix',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'top' : '1.00' },
-}
+
+nuisances['WWnorm0j']  = {
+               'name'  : 'CMS_hww_WWnorm0j_2023BPix',
+               'samples'  : {
+                   'WW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+
+nuisances['ggWWnorm0j']  = {
+               'name'  : 'CMS_hww_WWnorm0j_2023BPix',
+               'samples'  : {
+                   'ggWW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+
+nuisances['WWnorm1j']  = {
+               'name'  : 'CMS_hww_WWnorm1j_2023BPix',
+               'samples'  : {
+                   'WW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+
+nuisances['ggWWnorm1j']  = {
+               'name'  : 'CMS_hww_WWnorm1j_2023BPix',
+               'samples'  : {
+                   'ggWW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+
+nuisances['WWnorm2j']  = {
+               'name'  : 'CMS_hww_WWnorm2j_2023BPix',
+               'samples'  : {
+                   'WW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts2j
+              }
+
+nuisances['ggWWnorm2j']  = {
+               'name'  : 'CMS_hww_WWnorm2j_2023BPix',
+               'samples'  : {
+                   'ggWW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts2j
+              }
+
+nuisances['Topnorm0j']  = {
+               'name'  : 'CMS_hww_Topnorm0j_2023BPix',
+               'samples'  : {
+                   'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+
+nuisances['Topnorm1j']  = {
+               'name'  : 'CMS_hww_Topnorm1j_2023BPix',
+               'samples'  : {
+                   'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+
+nuisances['Topnorm2j']  = {
+               'name'  : 'CMS_hww_Topnorm2j_2023BPix',
+               'samples'  : {
+                   'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts2j
+              }
 
 autoStats = True
 if autoStats:
