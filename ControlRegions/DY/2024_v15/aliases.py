@@ -22,7 +22,7 @@ mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
-eleWP = 'cutBased_LooseID_tthMVA_Run3'
+eleWP = 'cutBased_MediumID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
 aliases['LepWPCut'] = {
@@ -57,7 +57,7 @@ aliases['Lepton_conept'] = {
 # Fake leptons transfer factor
 aliases['fakeW'] = {
     'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
@@ -129,9 +129,6 @@ aliases['bReq'] = {
     'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
 }
 
-##########################################################################
-# End of b tagging
-##########################################################################
 
 eff_map_year = '2024' # ['2022', '2022EE', '2023', '2023BPix']
 year = 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']

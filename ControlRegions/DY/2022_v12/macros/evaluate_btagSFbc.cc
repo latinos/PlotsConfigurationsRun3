@@ -49,8 +49,7 @@ class btagSFbc {
         correction::Correction::Ref cset_btag_wps;
 
         cset_btag_comb = cset->at(tagger + "_comb");
-        cset_btag_wps   = cset->at(tagger + "_wp_values");
-    
+        cset_btag_wps   = cset->at(tagger + "_wp_values"); 
       
         float btag_sf = 1.;
         for (unsigned iJ{0}; iJ != nCleanJet; ++iJ) 
