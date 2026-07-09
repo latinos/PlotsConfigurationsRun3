@@ -1,0 +1,25 @@
+# before anything
+ulimit -s unlimited
+
+# run analysis
+mkShapesRDF -c 1
+mkShapesRDF -o 0 -b 1
+mkShapesRDF -o 2
+
+# to check failures and resubmit
+mkShapesRDF -o 1 -f .
+mkShapesRDF -o 1 -f . -r 1
+
+# plot
+mkPlot
+#for fit
+mkPlot --logOnly --onlyPlot cratio --onlyCut VBS_2j_em_isBKG,top_2j_em,DY_2j_em --showIntegralLegend 1
+#for input variables
+mkPlot --logOnly --onlyPlot cratio --showIntegralLegend 1
+
+
+# create DC
+mkDatacards --onlyVariables dnn_TTvsLL_49,dnn_TTvsLL_36,dnn_TTvsLL_25,dnn_TTvsLL_16,dnn_TTvsLL_16v2,dnn_TTvsLL_4 --onlyCuts VBS_2j_em_isVBS
+mkDatacards --onlyVariables dnn_isVBS --onlyCuts VBS_2j_em_isBKG
+mkDatacards --onlyVariables events --onlyCuts top_2j_em,DY_2j_em
+

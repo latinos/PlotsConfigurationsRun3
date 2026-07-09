@@ -114,10 +114,8 @@ DataTrig = {
 ############ MC COMMON ##################
 #########################################
 
-mcCommonWeightNoMatch  = 'XSWeight*METFilter_Common*SFweight'
+mcCommonWeightNoMatch  = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
 mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
-mcCommonWeight1l       = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
-mcCommonWeight1lZg       = 'XSWeight*METFilter_Common*PromptGenLepMatch1lZg*SFweight'
 
 
 ###########################################
@@ -207,7 +205,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
 
 samples['Zg'] = {
     'name': files,
-    'weight': mcCommonWeight1lZg + '*(Gen_ZGstar_mass <= 0)',
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'FilesPerJob': 50,
 }
 
@@ -215,7 +213,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
 samples['Wg'] = {
     'name': files,
-    'weight': mcCommonWeight1l + '*(Gen_ZGstar_mass <= 0)',
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'FilesPerJob': 50,
 }
 

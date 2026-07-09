@@ -29,9 +29,9 @@ aliases['LepWPSF'] = {
 # ttHMVA SFs and uncertainties 
 # RVecD results = {SF, SF_up_out_el, SF_up_out_mu, SF_down_out_el, SF_down_out_mu};
 aliases['LepWPttHMVASF_tot'] = {
-    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/ttHMVASF_cc.so","", ROOT.kTRUE)',
-                      'ROOT.gInterpreter.Declare("ttHMVASF tth_sf;")'],
-    'expr' :   'tth_sf("2017", 2, "all", "nominal",Lepton_pt,Lepton_eta,Lepton_pdgId)',
+    'linesToAdd' : ['#include "/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/ttHMVASF_class.cc"'],
+    'linesToProcess':["""ROOT.gInterpreter.Declare('ttHMVASF tth_sf("2017", "all");')"""],
+    'expr' :   'tth_sf(2, "nominal",Lepton_pt,Lepton_eta,Lepton_pdgId)',
     'samples'    : mc
 }
 
@@ -143,9 +143,18 @@ aliases['Top_pTrw'] = {
 }
 
 aliases['CleanJet_VetoMap'] = {
-    'linesToAdd': [".L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/Full2017_v9/jet_veto_2017.cc+"],
-    'class' : 'Jet_Veto',
-    'args': 'CleanJet_pt,CleanJet_eta,CleanJet_phi,Jet_neEmEF,Jet_chEmEF,CleanJet_jetIdx',
+    'linesToAdd': [
+        '#include "correction.h"',
+        'string path_file = "/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/Full2017_v9/jetvetomaps.json";',
+        'auto csetJet_File = correction::CorrectionSet::from_file(path_file);',
+        'correction::Correction::Ref cset_jet_Map = (correction::Correction::Ref) csetJet_File->at("Summer19UL17_V1");',
+        '#include "/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/Full2017_v9/jet_veto_2017.cc"',
+    ],
+    'expr': "Jet_Veto(CleanJet_pt,CleanJet_eta,CleanJet_phi,Jet_neEmEF,Jet_chEmEF,CleanJet_jetIdx)"
+    # Old - inefficient
+    #'linesToAdd': [".L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/Full2017_v9/jet_veto_2017.cc+"],
+    #'class' : 'Jet_Veto',
+    #'args': 'CleanJet_pt,CleanJet_eta,CleanJet_phi,Jet_neEmEF,Jet_chEmEF,CleanJet_jetIdx',
 }
 
 aliases['gstarLow'] = {
@@ -393,12 +402,17 @@ aliases['SFweightMuDown'] = {
 
 
 samplesToAdd = ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot', 'ggH_perp']
-for i in np.linspace(-1, 1, 21):
+for i in np.linspace(-1, 1, 201):
     jlim = round(1.0 - abs(i), 2)
-    jn = 2 * 10*abs(jlim) + 2
-    for j in np.linspace(-1*jlim, jlim, int(jn)-1):
-        i = round(i, 1)
-        j = round(j, 1)
+
+    if abs(round(i,2)) == 1.0:
+        jlist = [jlim]
+    else:
+        jlist = [-jlim, 0.0, jlim]
+
+    for j in jlist:
+        i = round(i, 2)
+        j = round(j, 2)
 
         if i<0.0:
             itxt = str(i).replace("-", "m")
@@ -418,13 +432,11 @@ for i in np.linspace(-1, 1, 21):
         samplesToAdd.append('ggH'+txt)
 
 aliases['Weight2MINLO'] = {
-    'linesToAdd': ['.L /eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/weight2MINLO.cc+'],
-    'class': 'Weight2MINLO',
-    'args': '"NNLOPS_reweight.root", HTXS_njets30, HTXS_Higgs_pt',
-    #'samples': ['ggH_hww', 'ggH_HWLWL', 'ggH_HWTWT', 'ggH_HWW_Int', 'ggH_HWW_TTInt','ggH_gWW_Int', 'ggH_gWW_Tot', 'ggH_perp']
+    'linesToProcess':['ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/weight2MINLO_class_cc.so","", ROOT.kTRUE)',
+                      """ROOT.gInterpreter.Declare('Weight2MINLO minloWeight("NNLOPS_reweight.root");')"""],
+    'expr' : 'minloWeight(HTXS_njets30, HTXS_Higgs_pt)',
     'samples': samplesToAdd
 }
-
 
 ## GGHUncertaintyProducer wasn't run for GluGluHToWWTo2L2Nu_Powheg_M125 
 thus = [
@@ -522,22 +534,30 @@ aliases['D_ME'] = {
                       'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/RecoMELA_VBF_cc.so","", ROOT.kTRUE)',
                       'ROOT.gInterpreter.Declare("RECOMELA_VBF a;")'],
     'expr' :   'a(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt, Lepton_phi, Lepton_eta, CleanJet_pt, CleanJet_phi, CleanJet_eta, Lepton_pdgId)',
-    'afterNuis': True
+    'afterNuis': True,
+    'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['D_VBF_QCD'] = {
     'expr': 'D_ME[0]',
-    'afterNuis': True
+    'afterNuis': True,
+    'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['D_VBF_VH'] = {
     'expr': 'D_ME[1]',
-    'afterNuis': True
+    'afterNuis': True,
+    'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['D_QCD_VH'] = {
     'expr': 'D_ME[2]',
-    'afterNuis': True
+    'afterNuis': True,
+    'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 
@@ -546,22 +566,30 @@ aliases['D_VBF_DY'] = {
                     'ROOT.gSystem.Load("/eos/user/s/sblancof/Run2Analysis/mkShapesRDF/examples/extended/RecoMoMEMta_VBF_cc.so","", ROOT.kTRUE)',
                     'ROOT.gInterpreter.Declare("RecoMoMEMta_VBF EvMoMEMta;")'],
    'expr' :   'EvMoMEMta(nCleanJet, nLepton, PuppiMET_pt, PuppiMET_phi, Lepton_pt[0], Lepton_pt[1], Lepton_phi[0], Lepton_phi[1], Lepton_eta[0], Lepton_eta[1], CleanJet_pt[0], CleanJet_pt[1], CleanJet_phi[0], CleanJet_phi[1], CleanJet_eta[0], CleanJet_eta[1], Lepton_pdgId[0], Lepton_pdgId[1])',
-    'afterNuis': True
+    'afterNuis': True,
+    'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['Ctot'] = {
     'expr': 'detajj!=0 ? log((abs(2 * Lepton_eta[0] - CleanJet_eta[0] - CleanJet_eta[1]) + abs(2 * Lepton_eta[1] - CleanJet_eta[0] - CleanJet_eta[1])) / detajj) : -1.0',
-    'afterNuis': True
+    'afterNuis': True,
+    'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['btagDeepFlavB'] = {
     'expr': 'Alt(Jet_btagDeepFlavB, Alt(CleanJet_jetIdx, 0, -1), -2.0)',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['btagDeepFlavB_1'] = {
     'expr': 'Alt(Jet_btagDeepFlavB, Alt(CleanJet_jetIdx, 1, -1), -2.0)',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 aliases['RandomForest_evaluator'] = {
@@ -570,65 +598,91 @@ aliases['RandomForest_evaluator'] = {
         """ROOT.gInterpreter.Declare('EvaluateRF rf_evaluator("2017");')"""
     ],
     'expr': 'rf_evaluator(mll,mth,mtw1,mtw2,mjj,mcollWW,ptll,Ctot,Lepton_pt,Lepton_eta,Lepton_phi,dphilmet1,dphilmet2,dphill,detall,dphijj,detajj,dphilep1jet1,dphilep2jet1,dphilep1jet2,dphilep2jet2,btagDeepFlavB,btagDeepFlavB_1,drll,mpmet,PuppiMET_pt,PuppiMET_phi,D_VBF_QCD,D_VBF_VH,D_QCD_VH,D_VBF_DY,mTi,zeroJet,oneJet,multiJet)',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 #### 0 Jets
-aliases['RF_score_0J_LL'] = {
+aliases['RF_score2_0J_LL'] = {
     'expr': 'RandomForest_evaluator[0][0]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_0J_TT'] = {
+aliases['RF_score2_0J_TT'] = {
     'expr': 'RandomForest_evaluator[0][1]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_0J_Bkg'] = {
+aliases['RF_score2_0J_Bkg'] = {
     'expr': 'RandomForest_evaluator[0][2]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 
 #### 1 Jets
-aliases['RF_score_1J_LL'] = {
+aliases['RF_score2_1J_LL'] = {
     'expr': 'RandomForest_evaluator[1][0]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_1J_TT'] = {
+aliases['RF_score2_1J_TT'] = {
     'expr': 'RandomForest_evaluator[1][1]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_1J_Bkg'] = {
+aliases['RF_score2_1J_Bkg'] = {
     'expr': 'RandomForest_evaluator[1][2]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 
 #### 2 Jets
-aliases['RF_score_2J_LL'] = {
+aliases['RF_score2_2J_LL'] = {
     'expr': 'RandomForest_evaluator[2][0]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_2J_TT'] = {
+aliases['RF_score2_2J_TT'] = {
     'expr': 'RandomForest_evaluator[2][1]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_2J_Bkg'] = {
+aliases['RF_score2_2J_Bkg'] = {
     'expr': 'RandomForest_evaluator[2][2]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 
 
 #### VBF
-aliases['RF_score_VBF_LL'] = {
+aliases['RF_score2_VBF_LL'] = {
     'expr': 'RandomForest_evaluator[3][0]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_VBF_TT'] = {
+aliases['RF_score2_VBF_TT'] = {
     'expr': 'RandomForest_evaluator[3][1]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
-aliases['RF_score_VBF_Bkg'] = {
+aliases['RF_score2_VBF_Bkg'] = {
     'expr': 'RandomForest_evaluator[3][2]',
-    'afterNuis': True
+    'afterNuis': True,
+    #'samples': ['Dyemb','Fake','DATA']
+    #'samples': ['Dyemb','Fake','DATA','Dyveto','top','ggWW'],
 }
 

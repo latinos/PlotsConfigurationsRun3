@@ -8,7 +8,8 @@
 # samples, treeBaseDir, mcProduction, mcSteps
 # imported from cuts.py
 # cuts
-
+import os
+from cuts import cuts
 nuisances = {}
 
 #from mkShapesRDF.lib.HiggsXSection import HiggsXSection
@@ -184,12 +185,13 @@ nuisances['electronpt'] = {
     'name'       : 'CMS_scale_e_2017',
     'kind'       : 'suffix',
     'type'       : 'shape',
-    'mapUp'      : 'ElepTup',
-    'mapDown'    : 'ElepTdo',
+    'mapUp'      : 'ElepT_up',
+    'mapDown'    : 'ElepT_do',
     'samples'    : dict((skey, ['1', '1']) for skey in mc if skey not in ["ggWW", "ggH_gWW_Int"]),
     'folderUp'   : makeMCDirectory('ElepTup_suffix'),
     'folderDown' : makeMCDirectory('ElepTdo_suffix'),
-    'AsLnN'      : '0'
+    'AsLnN'      : '0',
+    'separator'  : '__'
 }
 nuisances['electronptembd'] = {
     'name'       : 'CMS_scale_e_2017',
@@ -221,13 +223,14 @@ nuisances['muonpt'] = {
     'name'       : 'CMS_scale_m_2017',
     'kind'       : 'suffix',
     'type'       : 'shape',
-    'mapUp'      : 'MupTup',
-    'mapDown'    : 'MupTdo',
+    'mapUp'      : 'MupT_up',
+    'mapDown'    : 'MupT_do',
     #'samples'    : dict((skey, ['1', '1']) for skey in mc if skey not in ["ggWW","ggH_hww","ggH_gWW_Int","ggH_HWLWL","ggH_HWTWT"]), # exclude ggWW
     'samples'    : dict((skey, ['1', '1']) for skey in mc if skey not in ["ggWW", "ggH_gWW_Int"]),
     'folderUp'   : makeMCDirectory('MupTup_suffix'),
     'folderDown' : makeMCDirectory('MupTdo_suffix'),
-    'AsLnN'      : '0'
+    'AsLnN'      : '0',
+    'separator'  : '__'
 }
 nuisances['muonptembd'] = {
     'name'       : 'CMS_scale_m_2017',
@@ -246,15 +249,16 @@ jes_systs    = ['JESAbsolute','JESAbsolute_2017','JESBBEC1','JESBBEC1_2017','JES
 
 for js in jes_systs:
     nuisances[js] = {
-      'name'      : 'CMS_scale_' + js.replace("JES","j_"),
-      'kind'      : 'suffix',
-      'type'      : 'shape',
-      'mapUp'     : js + 'up',
-      'mapDown'   : js + 'do',
-      'samples'   : dict((skey, ['1', '1']) for skey in mc),
-      'folderUp'  : makeMCDirectory('RDF__JESup_suffix'),
-      'folderDown': makeMCDirectory('RDF__JESdo_suffix'),
-      'AsLnN'     : '0'
+        'name'      : 'CMS_scale_' + js.replace("JES","j_"),
+        'kind'      : 'suffix',
+        'type'      : 'shape',
+        'mapUp'     : js + '_up',
+        'mapDown'   : js + '_do',
+        'samples'   : dict((skey, ['1', '1']) for skey in mc if 'ggWW' not in skey),
+        'folderUp'  : makeMCDirectory('RDF__JESup_suffix'),
+        'folderDown': makeMCDirectory('RDF__JESdo_suffix'),
+        'AsLnN'     : '0',
+        'separator'  : '__'
   }
 
 ##### Jet energy resolution
@@ -262,14 +266,15 @@ nuisances['JER'] = {
     'name'       : 'CMS_res_j_2017',
     'kind'       : 'suffix',
     'type'       : 'shape',
-    'mapUp'      : 'JERup',
-    'mapDown'    : 'JERdo',
+    'mapUp'      : 'JER_up',
+    'mapDown'    : 'JER_do',
     #'samples'    : dict((skey, ['1', '1']) for skey in mc if skey != "ggWW"), # exclude ggWW
     'samples'    : dict((skey, ['1', '1']) for skey in mc if skey not in ["ggWW", "ggH_gWW_Int"]),
     #'samples'   : dict((skey, ['1', '1']) for skey in mc),
     'folderUp'   : makeMCDirectory('JERup_suffix'),
     'folderDown' : makeMCDirectory('JERdo_suffix'),
-    'AsLnN'      : '0'
+    'AsLnN'      : '0',
+    'separator'  : '__'
 }
 
 ##### MET energy scale
@@ -277,12 +282,13 @@ nuisances['met'] = {
     'name'      : 'CMS_scale_met_2017',
     'kind'      : 'suffix',
     'type'      : 'shape',
-    'mapUp'     : 'METup',
-    'mapDown'   : 'METdo',
+    'mapUp'     : 'MET_up',
+    'mapDown'   : 'MET_do',
     'samples'   : dict((skey, ['1', '1']) for skey in mc),
     'folderUp'  : makeMCDirectory('METup_suffix'),
     'folderDown': makeMCDirectory('METdo_suffix'),
-    'AsLnN'     : '0'
+    'AsLnN'     : '0',
+    'separator'  : '__'
 }
 
 ##### Di-Tau vetoing for embedding 
@@ -551,12 +557,24 @@ variations = ['Alt(LHEScaleWeight,0,1)', 'Alt(LHEScaleWeight,1,1)', 'Alt(LHEScal
 for ibin in ['0j','1j','2j']:
     nuisances['QCDscale_top_'+ibin]  = {
         'name'  : 'QCDscale_top_'+ibin,
-        'kind'  : 'weight',
+        'kind'  : 'weight_envelope',
         'type'  : 'shape',
         'AsLnN': '0',
         'cutspost' : [cut for cut in total_cuts if ibin in cut],
         'samples'  : {
             'top' : variations,
+        }
+    }
+
+for ibin in ['0j','1j','2j']:
+    nuisances['QCDscale_WW_'+ibin]  = {
+        'name'  : 'QCDscale_WW_'+ibin,
+        'kind'  : 'weight_envelope',
+        'type'  : 'shape',
+        'AsLnN': '0',
+        'cutspost' : [cut for cut in total_cuts if ibin in cut],
+        'samples'  : {
+            'WW_minnlo' : variations,
         }
     }
 
@@ -573,14 +591,10 @@ nuisances['QCDscale_VV'] = {
     'kind' : 'weight_envelope',
     'type' : 'shape',
     'samples' : {
-        'WW'  : variations,
-        'WW_minnlo'  : variations,
-	'Zg'  : variations,
-        'Wg'  : variations,
+        #'WW'  : variations,
+        #'WW_minnlo'  : variations,
         'ZZ'  : variations,
         'WZ'  : variations,
-        'WgS' : variations,
-        'ZgS' : variations,
         'Vg'  : variations,
         'VgS'  : variations,
     }

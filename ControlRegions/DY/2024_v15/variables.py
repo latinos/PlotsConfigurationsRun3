@@ -136,3 +136,10 @@ variables['jeteta2_fine_binning']  = {
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
 }
+
+variables['mth']  = {  
+    'name': 'mth',     
+    'range' : (20, 0, 200),   
+    'xaxis' : 'm_{T}^{H} [GeV]',
+    'fold' : 0,
+}

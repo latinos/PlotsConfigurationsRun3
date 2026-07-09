@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "ggF_DF_2022"   
+tag = "ggF_DF_2022_for_combination"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "rootFiles/HWW/ggF/2022/rootFiles__{}".format(tag)
+outputFolder = "rootFiles/HWW/ggF/rootFiles__{}".format(tag)
 
 #: path to batch folder (used for condor submission)
 batchFolder = "condor"
@@ -47,6 +47,7 @@ nuisancesFile = "nuisances.py"
 # plotPath = "/eos/user/g/gpizzati/www/rdf/2016/"
 
 #: path to folder where to save plots
+#plotPath = "Plots/HWW/{}".format(tag)
 plotPath = "Plots/{}".format(tag)
 
 #: this lines are executed right before the runner on the condor node

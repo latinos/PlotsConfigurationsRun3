@@ -25,24 +25,26 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
-fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+#dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 print(treeBaseDir)
 
 # merge cuts
-_mergedCuts = []
-for cut in list(cuts.keys()):
-    __cutExpr = ''
-    if type(cuts[cut]) == dict:
-        __cutExpr = cuts[cut]['expr']
-        for cat in list(cuts[cut]['categories'].keys()):
-            _mergedCuts.append(cut + '_' + cat)
-    elif type(cuts[cut]) == str:
-        _mergedCuts.append(cut)
-
-cuts2j = _mergedCuts
+cuts0j = []
+cuts1j = []
+cuts2j = []
+#cuts=[]
+for k in cuts:
+  for cat in cuts[k]['categories']:
+    if '0j' in cat: cuts0j.append(k+'_'+cat)
+    elif '1j' in cat: cuts1j.append(k+'_'+cat)
+    elif '2j' in cat: cuts2j.append(k+'_'+cat)
+    else: print('WARNING: name of category does not contain either 0j,1j,2j')
 
 nuisances = {}
+
+
+################################ EXPERIMENTAL UNCERTAINTIES  #################################
 
 nuisances['JER'] = {
     'name': 'CMS_res_j_2023',
@@ -59,6 +61,7 @@ nuisances['JER'] = {
 }
 
 jes_systs    = ["Absolute", "Absolute_2023", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023", "EC2_2023", "RelativeBal", "RelativeSample_2023", "HF_2023"] # Reduced set of 11 uncertainties
+#jes_systs = ['jesTotal']
 
 for js in jes_systs:
     
@@ -239,12 +242,64 @@ nuisances['QCDscale_qqH'] = {
     'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
 }
 
-nuisances['fake_syst'] = {
-    'name': 'CMS_fake_syst',
+##### FAKES
+
+nuisances['fake_syst_e'] = {
+    'name': 'CMS_fake_syst_e',
+    'skipCMS': 1,
     'type': 'lnN',
     'samples': {
-        'Fake': '1.3'
+        'Fake_e': '1.3'
     },
+}
+
+nuisances['fake_syst_m'] = {
+    'name': 'CMS_fake_syst_m',
+    'skipCMS': 1,
+    'type': 'lnN',
+    'samples': {
+        'Fake_m': '1.3'
+    },
+}
+
+nuisances['fake_ele'] = {
+    'name': 'CMS_fake_e_2023',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWEleUp', 'fakeWEleDown'],
+    }
+}
+
+nuisances['fake_ele_stat'] = {
+    'name': 'CMS_fake_stat_e_2023',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWStatEleUp', 'fakeWStatEleDown']
+    }
+}
+
+nuisances['fake_mu'] = {
+    'name': 'CMS_fake_m_2023',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWMuUp', 'fakeWMuDown'],
+    }
+}
+
+nuisances['fake_mu_stat'] = {
+    'name': 'CMS_fake_stat_m_2023',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake': ['fakeWStatMuUp', 'fakeWStatMuDown'],
+    }
 }
 
 nuisances['lumi_2023'] = {
@@ -255,33 +310,114 @@ nuisances['lumi_2023'] = {
 
 ##rate parameters
 
-nuisances['DYnorm']  = {
-    'name'  : 'CMS_hww_DYnorm2j_VBF_DF_2023',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'DY' : '1.00' },
-}
+nuisances['DYnorm0j']  = {
+               'name'  : 'CMS_hww_DYnorm0j_2023',
+               'samples'  : {
+                   'DY' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
 
-nuisances['WWnorm']  = {
-    'name'  : 'CMS_hww_WWnorm2j_VBF_DF_2023',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'WW' : '1.00' },
-}
+nuisances['DYnorm1j']  = {
+               'name'  : 'CMS_hww_DYnorm1j_2023',
+               'samples'  : {
+                   'DY' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
 
-nuisances['ggWWnorm']  = {
-    'name'  : 'CMS_hww_ggWWnorm2j_VBF_DF_2023',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'ggWW' : '1.00' },
-}
+nuisances['DYnorm2j']  = {
+                 'name'  : 'CMS_hww_DYnorm2j_2023',
+                 'samples'  : {
+                   'DY' : '1.00',
+                     },
+                 'type'  : 'rateParam',
+                 'cuts'  : cuts2j
+                }
 
-nuisances['topnorm']  = {
-    'name'  : 'CMS_hww_topnorm2j_VBF_DF_2023',
-    'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'top' : '1.00' },
-}
+
+nuisances['WWnorm0j']  = {
+               'name'  : 'CMS_hww_WWnorm0j_2023',
+               'samples'  : {
+                   'WW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+
+nuisances['ggWWnorm0j']  = {
+               'name'  : 'CMS_hww_WWnorm0j_2023',
+               'samples'  : {
+                   'ggWW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+
+nuisances['WWnorm1j']  = {
+               'name'  : 'CMS_hww_WWnorm1j_2023',
+               'samples'  : {
+                   'WW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+
+nuisances['ggWWnorm1j']  = {
+               'name'  : 'CMS_hww_WWnorm1j_2023',
+               'samples'  : {
+                   'ggWW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+
+nuisances['WWnorm2j']  = {
+               'name'  : 'CMS_hww_WWnorm2j_2023',
+               'samples'  : {
+                   'WW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts2j
+              }
+
+nuisances['ggWWnorm2j']  = {
+               'name'  : 'CMS_hww_WWnorm2j_2023',
+               'samples'  : {
+                   'ggWW' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts2j
+              }
+
+nuisances['Topnorm0j']  = {
+               'name'  : 'CMS_hww_Topnorm0j_2023',
+               'samples'  : {
+                   'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts0j
+              }
+
+nuisances['Topnorm1j']  = {
+               'name'  : 'CMS_hww_Topnorm1j_2023',
+               'samples'  : {
+                   'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts1j
+              }
+
+nuisances['Topnorm2j']  = {
+               'name'  : 'CMS_hww_Topnorm2j_2023',
+               'samples'  : {
+                   'top' : '1.00',
+                   },
+               'type'  : 'rateParam',
+               'cuts'  : cuts2j
+              }
 
 autoStats = True
 if autoStats:

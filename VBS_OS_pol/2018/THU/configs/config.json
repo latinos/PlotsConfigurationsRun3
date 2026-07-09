@@ -1,0 +1,4473 @@
+{
+  "folder": "/afs/cern.ch/work/t/tkello/Polarization/PlotsConfigurationsRun3/VBS_OS_pol/Full2018_v9/THU",
+  "jdlconfigfile": "jdl_dict.py",
+  "batchVars": [
+    "samples",
+    "aliases",
+    [
+      "cuts",
+      {
+        "cuts": "cuts",
+        "preselections": "preselections"
+      }
+    ],
+    [
+      "plot",
+      {
+        "plot": "plot",
+        "groupPlot": "groupPlot",
+        "legend": "legend"
+      }
+    ],
+    "variables",
+    "nuisances",
+    "structure",
+    "lumi",
+    "mountEOS"
+  ],
+  "outputFolder": "rootFiles__RDF_2018_v9_THU",
+  "batchFolder": "condor",
+  "configsFolder": "/afs/cern.ch/work/t/tkello/Polarization/PlotsConfigurationsRun3/VBS_OS_pol/Full2018_v9/THU/configs",
+  "outputFile": "mkShapes__RDF_2018_v9_THU.root",
+  "runnerFile": "default",
+  "tag": "RDF_2018_v9_THU",
+  "samples": {
+    "WWewk_LL": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_pol_LL",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LL__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LL__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LL__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LL__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LL__part4.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LL__part5.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_LT": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_pol_LT",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part4.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part5.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part6.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part7.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part8.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part9.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part10.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part11.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part12.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part13.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part14.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part15.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part16.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part17.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part18.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part19.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part20.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part21.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part22.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part23.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part24.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part25.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part26.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part27.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_LT__part28.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_TL": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_pol_TL",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part4.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part5.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part6.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part7.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TL__part8.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_TT": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_pol_TT",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TT__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TT__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TT__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TT__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_pol_TT__part4.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_CMWW_LL": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_CMWW_pol_LL",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part4.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part5.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part6.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part7.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LL__part8.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_CMWW_LT": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_CMWW_pol_LT",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part4.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part5.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_LT__part6.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_CMWW_TL": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_CMWW_pol_TL",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part3.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part4.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part5.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part6.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TL__part7.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    },
+    "WWewk_CMWW_TT": {
+      "name": [
+        [
+          "WpWmJJ_EWK_noTop_CMWW_pol_TT",
+          [
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TT__part0.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TT__part1.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TT__part2.root",
+            "root://eoscms.cern.ch///store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer20UL18_106x_nAODv9_Full2018v9/MCl1loose2018v9__MCCorr2018v9NoJERInHorn/nanoLatino_WpWmJJ_EWK_noTop_CMWW_pol_TT__part3.root"
+          ]
+        ]
+      ],
+      "weight": "XSWeight*(Sum(abs(GenPart_pdgId)==6 || GenPart_pdgId==25)==0)",
+      "FilesPerJob": 2
+    }
+  },
+  "aliases": {
+    "gstarLow": {
+      "expr": "Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4",
+      "samples": "VgS"
+    },
+    "gstarHigh": {
+      "expr": "Gen_ZGstar_mass < 0 || Gen_ZGstar_mass > 4",
+      "samples": "VgS"
+    },
+    "PromptGenLepMatch2l": {
+      "expr": "Alt(Lepton_promptgenmatched, 0, 0) * Alt(Lepton_promptgenmatched, 1, 0)",
+      "samples": [
+        "WWewk_LL",
+        "WWewk_LT",
+        "WWewk_TL",
+        "WWewk_TT",
+        "WWewk_CMWW_LL",
+        "WWewk_CMWW_LT",
+        "WWewk_CMWW_TL",
+        "WWewk_CMWW_TT"
+      ]
+    },
+    "Top_pTrw": {
+      "expr": "(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt(TMath::Exp(0.0615 - 0.0005 * topGenPt) * TMath::Exp(0.0615 - 0.0005 * antitopGenPt))) + (topGenPt * antitopGenPt <= 0.)",
+      "samples": [
+        "top"
+      ]
+    }
+  },
+  "cuts": {
+    "cuts": {
+      "VBS": {
+        "expr": "true",
+        "categories": {
+          "incl": "true"
+        }
+      }
+    },
+    "preselections": "true"
+  },
+  "plot": {
+    "plot": {
+      "WWewk_CMWW_LL": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "WWewk_CMWW_LT": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "WWewk_CMWW_TL": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "WWewk_CMWW_TT": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "top": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "WWjj_QCD": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "ggWW": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      },
+      "dytt": {
+        "nameHR": "name",
+        "color": 418,
+        "isSignal": 0,
+        "isData": 0
+      }
+    },
+    "groupPlot": {
+      "dy": {
+        "nameHR": "DY",
+        "isSignal": 0,
+        "color": 418,
+        "samples": [
+          "dytt"
+        ]
+      },
+      "WW": {
+        "nameHR": "WW",
+        "isSignal": 0,
+        "color": 851,
+        "samples": [
+          "WWjj_QCD",
+          "ggWW"
+        ]
+      },
+      "top": {
+        "nameHR": "tW and t#bar{t}",
+        "isSignal": 0,
+        "color": 400,
+        "samples": [
+          "top"
+        ]
+      },
+      "WWewk_CMWW_LL": {
+        "nameHR": "VBS LL (CMWW)",
+        "isSignal": 1,
+        "color": 800,
+        "samples": [
+          "WWewk_CMWW_LL"
+        ]
+      },
+      "WWewk_CMWW_LT": {
+        "nameHR": "VBS LT (CMWW)",
+        "isSignal": 1,
+        "color": 802,
+        "samples": [
+          "WWewk_CMWW_LT"
+        ]
+      },
+      "WWewk_CMWW_TL": {
+        "nameHR": "VBS TL (CMWW)",
+        "isSignal": 1,
+        "color": 804,
+        "samples": [
+          "WWewk_CMWW_TL"
+        ]
+      },
+      "WWewk_CMWW_TT": {
+        "nameHR": "VBS TT (CMWW)",
+        "isSignal": 1,
+        "color": 806,
+        "samples": [
+          "WWewk_CMWW_TT"
+        ]
+      }
+    },
+    "legend": {
+      "lumi": "L = 59.83 fb^{-1}",
+      "sqrt": "#sqrt{s} = 13 TeV"
+    }
+  },
+  "variables": {
+    "events": {
+      "name": "1",
+      "range": [
+        1,
+        0,
+        2
+      ],
+      "xaxis": "events",
+      "fold": 0
+    }
+  },
+  "nuisances": {
+    "PS_ISR": {
+      "name": "PS_ISR",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_LT": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_TL": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_TT": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_CMWW_LL": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_CMWW_LT": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_CMWW_TL": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ],
+        "WWewk_CMWW_TT": [
+          "PSWeight[2]",
+          "PSWeight[0]"
+        ]
+      },
+      "AsLnN": "0"
+    },
+    "PS_FSR": {
+      "name": "PS_FSR",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_LT": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_TL": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_TT": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_CMWW_LL": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_CMWW_LT": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_CMWW_TL": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ],
+        "WWewk_CMWW_TT": [
+          "PSWeight[3]",
+          "PSWeight[1]"
+        ]
+      },
+      "AsLnN": "0"
+    },
+    "pdf_WWewk_1": {
+      "name": "pdf_WWewk_1",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[1]",
+          "LHEPdfWeight[1]"
+        ]
+      }
+    },
+    "pdf_WWewk_2": {
+      "name": "pdf_WWewk_2",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[2]",
+          "LHEPdfWeight[2]"
+        ]
+      }
+    },
+    "pdf_WWewk_3": {
+      "name": "pdf_WWewk_3",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[3]",
+          "LHEPdfWeight[3]"
+        ]
+      }
+    },
+    "pdf_WWewk_4": {
+      "name": "pdf_WWewk_4",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[4]",
+          "LHEPdfWeight[4]"
+        ]
+      }
+    },
+    "pdf_WWewk_5": {
+      "name": "pdf_WWewk_5",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[5]",
+          "LHEPdfWeight[5]"
+        ]
+      }
+    },
+    "pdf_WWewk_6": {
+      "name": "pdf_WWewk_6",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[6]",
+          "LHEPdfWeight[6]"
+        ]
+      }
+    },
+    "pdf_WWewk_7": {
+      "name": "pdf_WWewk_7",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[7]",
+          "LHEPdfWeight[7]"
+        ]
+      }
+    },
+    "pdf_WWewk_8": {
+      "name": "pdf_WWewk_8",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[8]",
+          "LHEPdfWeight[8]"
+        ]
+      }
+    },
+    "pdf_WWewk_9": {
+      "name": "pdf_WWewk_9",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[9]",
+          "LHEPdfWeight[9]"
+        ]
+      }
+    },
+    "pdf_WWewk_10": {
+      "name": "pdf_WWewk_10",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[10]",
+          "LHEPdfWeight[10]"
+        ]
+      }
+    },
+    "pdf_WWewk_11": {
+      "name": "pdf_WWewk_11",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[11]",
+          "LHEPdfWeight[11]"
+        ]
+      }
+    },
+    "pdf_WWewk_12": {
+      "name": "pdf_WWewk_12",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[12]",
+          "LHEPdfWeight[12]"
+        ]
+      }
+    },
+    "pdf_WWewk_13": {
+      "name": "pdf_WWewk_13",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[13]",
+          "LHEPdfWeight[13]"
+        ]
+      }
+    },
+    "pdf_WWewk_14": {
+      "name": "pdf_WWewk_14",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[14]",
+          "LHEPdfWeight[14]"
+        ]
+      }
+    },
+    "pdf_WWewk_15": {
+      "name": "pdf_WWewk_15",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[15]",
+          "LHEPdfWeight[15]"
+        ]
+      }
+    },
+    "pdf_WWewk_16": {
+      "name": "pdf_WWewk_16",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[16]",
+          "LHEPdfWeight[16]"
+        ]
+      }
+    },
+    "pdf_WWewk_17": {
+      "name": "pdf_WWewk_17",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[17]",
+          "LHEPdfWeight[17]"
+        ]
+      }
+    },
+    "pdf_WWewk_18": {
+      "name": "pdf_WWewk_18",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[18]",
+          "LHEPdfWeight[18]"
+        ]
+      }
+    },
+    "pdf_WWewk_19": {
+      "name": "pdf_WWewk_19",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[19]",
+          "LHEPdfWeight[19]"
+        ]
+      }
+    },
+    "pdf_WWewk_20": {
+      "name": "pdf_WWewk_20",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[20]",
+          "LHEPdfWeight[20]"
+        ]
+      }
+    },
+    "pdf_WWewk_21": {
+      "name": "pdf_WWewk_21",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[21]",
+          "LHEPdfWeight[21]"
+        ]
+      }
+    },
+    "pdf_WWewk_22": {
+      "name": "pdf_WWewk_22",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[22]",
+          "LHEPdfWeight[22]"
+        ]
+      }
+    },
+    "pdf_WWewk_23": {
+      "name": "pdf_WWewk_23",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[23]",
+          "LHEPdfWeight[23]"
+        ]
+      }
+    },
+    "pdf_WWewk_24": {
+      "name": "pdf_WWewk_24",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[24]",
+          "LHEPdfWeight[24]"
+        ]
+      }
+    },
+    "pdf_WWewk_25": {
+      "name": "pdf_WWewk_25",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[25]",
+          "LHEPdfWeight[25]"
+        ]
+      }
+    },
+    "pdf_WWewk_26": {
+      "name": "pdf_WWewk_26",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[26]",
+          "LHEPdfWeight[26]"
+        ]
+      }
+    },
+    "pdf_WWewk_27": {
+      "name": "pdf_WWewk_27",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[27]",
+          "LHEPdfWeight[27]"
+        ]
+      }
+    },
+    "pdf_WWewk_28": {
+      "name": "pdf_WWewk_28",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[28]",
+          "LHEPdfWeight[28]"
+        ]
+      }
+    },
+    "pdf_WWewk_29": {
+      "name": "pdf_WWewk_29",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[29]",
+          "LHEPdfWeight[29]"
+        ]
+      }
+    },
+    "pdf_WWewk_30": {
+      "name": "pdf_WWewk_30",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[30]",
+          "LHEPdfWeight[30]"
+        ]
+      }
+    },
+    "pdf_WWewk_31": {
+      "name": "pdf_WWewk_31",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[31]",
+          "LHEPdfWeight[31]"
+        ]
+      }
+    },
+    "pdf_WWewk_32": {
+      "name": "pdf_WWewk_32",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[32]",
+          "LHEPdfWeight[32]"
+        ]
+      }
+    },
+    "pdf_WWewk_33": {
+      "name": "pdf_WWewk_33",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[33]",
+          "LHEPdfWeight[33]"
+        ]
+      }
+    },
+    "pdf_WWewk_34": {
+      "name": "pdf_WWewk_34",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[34]",
+          "LHEPdfWeight[34]"
+        ]
+      }
+    },
+    "pdf_WWewk_35": {
+      "name": "pdf_WWewk_35",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[35]",
+          "LHEPdfWeight[35]"
+        ]
+      }
+    },
+    "pdf_WWewk_36": {
+      "name": "pdf_WWewk_36",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[36]",
+          "LHEPdfWeight[36]"
+        ]
+      }
+    },
+    "pdf_WWewk_37": {
+      "name": "pdf_WWewk_37",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[37]",
+          "LHEPdfWeight[37]"
+        ]
+      }
+    },
+    "pdf_WWewk_38": {
+      "name": "pdf_WWewk_38",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[38]",
+          "LHEPdfWeight[38]"
+        ]
+      }
+    },
+    "pdf_WWewk_39": {
+      "name": "pdf_WWewk_39",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[39]",
+          "LHEPdfWeight[39]"
+        ]
+      }
+    },
+    "pdf_WWewk_40": {
+      "name": "pdf_WWewk_40",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[40]",
+          "LHEPdfWeight[40]"
+        ]
+      }
+    },
+    "pdf_WWewk_41": {
+      "name": "pdf_WWewk_41",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[41]",
+          "LHEPdfWeight[41]"
+        ]
+      }
+    },
+    "pdf_WWewk_42": {
+      "name": "pdf_WWewk_42",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[42]",
+          "LHEPdfWeight[42]"
+        ]
+      }
+    },
+    "pdf_WWewk_43": {
+      "name": "pdf_WWewk_43",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[43]",
+          "LHEPdfWeight[43]"
+        ]
+      }
+    },
+    "pdf_WWewk_44": {
+      "name": "pdf_WWewk_44",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[44]",
+          "LHEPdfWeight[44]"
+        ]
+      }
+    },
+    "pdf_WWewk_45": {
+      "name": "pdf_WWewk_45",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[45]",
+          "LHEPdfWeight[45]"
+        ]
+      }
+    },
+    "pdf_WWewk_46": {
+      "name": "pdf_WWewk_46",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[46]",
+          "LHEPdfWeight[46]"
+        ]
+      }
+    },
+    "pdf_WWewk_47": {
+      "name": "pdf_WWewk_47",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[47]",
+          "LHEPdfWeight[47]"
+        ]
+      }
+    },
+    "pdf_WWewk_48": {
+      "name": "pdf_WWewk_48",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[48]",
+          "LHEPdfWeight[48]"
+        ]
+      }
+    },
+    "pdf_WWewk_49": {
+      "name": "pdf_WWewk_49",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[49]",
+          "LHEPdfWeight[49]"
+        ]
+      }
+    },
+    "pdf_WWewk_50": {
+      "name": "pdf_WWewk_50",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[50]",
+          "LHEPdfWeight[50]"
+        ]
+      }
+    },
+    "pdf_WWewk_51": {
+      "name": "pdf_WWewk_51",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[51]",
+          "LHEPdfWeight[51]"
+        ]
+      }
+    },
+    "pdf_WWewk_52": {
+      "name": "pdf_WWewk_52",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[52]",
+          "LHEPdfWeight[52]"
+        ]
+      }
+    },
+    "pdf_WWewk_53": {
+      "name": "pdf_WWewk_53",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[53]",
+          "LHEPdfWeight[53]"
+        ]
+      }
+    },
+    "pdf_WWewk_54": {
+      "name": "pdf_WWewk_54",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[54]",
+          "LHEPdfWeight[54]"
+        ]
+      }
+    },
+    "pdf_WWewk_55": {
+      "name": "pdf_WWewk_55",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[55]",
+          "LHEPdfWeight[55]"
+        ]
+      }
+    },
+    "pdf_WWewk_56": {
+      "name": "pdf_WWewk_56",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[56]",
+          "LHEPdfWeight[56]"
+        ]
+      }
+    },
+    "pdf_WWewk_57": {
+      "name": "pdf_WWewk_57",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[57]",
+          "LHEPdfWeight[57]"
+        ]
+      }
+    },
+    "pdf_WWewk_58": {
+      "name": "pdf_WWewk_58",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[58]",
+          "LHEPdfWeight[58]"
+        ]
+      }
+    },
+    "pdf_WWewk_59": {
+      "name": "pdf_WWewk_59",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[59]",
+          "LHEPdfWeight[59]"
+        ]
+      }
+    },
+    "pdf_WWewk_60": {
+      "name": "pdf_WWewk_60",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[60]",
+          "LHEPdfWeight[60]"
+        ]
+      }
+    },
+    "pdf_WWewk_61": {
+      "name": "pdf_WWewk_61",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[61]",
+          "LHEPdfWeight[61]"
+        ]
+      }
+    },
+    "pdf_WWewk_62": {
+      "name": "pdf_WWewk_62",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[62]",
+          "LHEPdfWeight[62]"
+        ]
+      }
+    },
+    "pdf_WWewk_63": {
+      "name": "pdf_WWewk_63",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[63]",
+          "LHEPdfWeight[63]"
+        ]
+      }
+    },
+    "pdf_WWewk_64": {
+      "name": "pdf_WWewk_64",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[64]",
+          "LHEPdfWeight[64]"
+        ]
+      }
+    },
+    "pdf_WWewk_65": {
+      "name": "pdf_WWewk_65",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[65]",
+          "LHEPdfWeight[65]"
+        ]
+      }
+    },
+    "pdf_WWewk_66": {
+      "name": "pdf_WWewk_66",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[66]",
+          "LHEPdfWeight[66]"
+        ]
+      }
+    },
+    "pdf_WWewk_67": {
+      "name": "pdf_WWewk_67",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[67]",
+          "LHEPdfWeight[67]"
+        ]
+      }
+    },
+    "pdf_WWewk_68": {
+      "name": "pdf_WWewk_68",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[68]",
+          "LHEPdfWeight[68]"
+        ]
+      }
+    },
+    "pdf_WWewk_69": {
+      "name": "pdf_WWewk_69",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[69]",
+          "LHEPdfWeight[69]"
+        ]
+      }
+    },
+    "pdf_WWewk_70": {
+      "name": "pdf_WWewk_70",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[70]",
+          "LHEPdfWeight[70]"
+        ]
+      }
+    },
+    "pdf_WWewk_71": {
+      "name": "pdf_WWewk_71",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[71]",
+          "LHEPdfWeight[71]"
+        ]
+      }
+    },
+    "pdf_WWewk_72": {
+      "name": "pdf_WWewk_72",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[72]",
+          "LHEPdfWeight[72]"
+        ]
+      }
+    },
+    "pdf_WWewk_73": {
+      "name": "pdf_WWewk_73",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[73]",
+          "LHEPdfWeight[73]"
+        ]
+      }
+    },
+    "pdf_WWewk_74": {
+      "name": "pdf_WWewk_74",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[74]",
+          "LHEPdfWeight[74]"
+        ]
+      }
+    },
+    "pdf_WWewk_75": {
+      "name": "pdf_WWewk_75",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[75]",
+          "LHEPdfWeight[75]"
+        ]
+      }
+    },
+    "pdf_WWewk_76": {
+      "name": "pdf_WWewk_76",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[76]",
+          "LHEPdfWeight[76]"
+        ]
+      }
+    },
+    "pdf_WWewk_77": {
+      "name": "pdf_WWewk_77",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[77]",
+          "LHEPdfWeight[77]"
+        ]
+      }
+    },
+    "pdf_WWewk_78": {
+      "name": "pdf_WWewk_78",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[78]",
+          "LHEPdfWeight[78]"
+        ]
+      }
+    },
+    "pdf_WWewk_79": {
+      "name": "pdf_WWewk_79",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[79]",
+          "LHEPdfWeight[79]"
+        ]
+      }
+    },
+    "pdf_WWewk_80": {
+      "name": "pdf_WWewk_80",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[80]",
+          "LHEPdfWeight[80]"
+        ]
+      }
+    },
+    "pdf_WWewk_81": {
+      "name": "pdf_WWewk_81",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[81]",
+          "LHEPdfWeight[81]"
+        ]
+      }
+    },
+    "pdf_WWewk_82": {
+      "name": "pdf_WWewk_82",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[82]",
+          "LHEPdfWeight[82]"
+        ]
+      }
+    },
+    "pdf_WWewk_83": {
+      "name": "pdf_WWewk_83",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[83]",
+          "LHEPdfWeight[83]"
+        ]
+      }
+    },
+    "pdf_WWewk_84": {
+      "name": "pdf_WWewk_84",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[84]",
+          "LHEPdfWeight[84]"
+        ]
+      }
+    },
+    "pdf_WWewk_85": {
+      "name": "pdf_WWewk_85",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[85]",
+          "LHEPdfWeight[85]"
+        ]
+      }
+    },
+    "pdf_WWewk_86": {
+      "name": "pdf_WWewk_86",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[86]",
+          "LHEPdfWeight[86]"
+        ]
+      }
+    },
+    "pdf_WWewk_87": {
+      "name": "pdf_WWewk_87",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[87]",
+          "LHEPdfWeight[87]"
+        ]
+      }
+    },
+    "pdf_WWewk_88": {
+      "name": "pdf_WWewk_88",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[88]",
+          "LHEPdfWeight[88]"
+        ]
+      }
+    },
+    "pdf_WWewk_89": {
+      "name": "pdf_WWewk_89",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[89]",
+          "LHEPdfWeight[89]"
+        ]
+      }
+    },
+    "pdf_WWewk_90": {
+      "name": "pdf_WWewk_90",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[90]",
+          "LHEPdfWeight[90]"
+        ]
+      }
+    },
+    "pdf_WWewk_91": {
+      "name": "pdf_WWewk_91",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[91]",
+          "LHEPdfWeight[91]"
+        ]
+      }
+    },
+    "pdf_WWewk_92": {
+      "name": "pdf_WWewk_92",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[92]",
+          "LHEPdfWeight[92]"
+        ]
+      }
+    },
+    "pdf_WWewk_93": {
+      "name": "pdf_WWewk_93",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[93]",
+          "LHEPdfWeight[93]"
+        ]
+      }
+    },
+    "pdf_WWewk_94": {
+      "name": "pdf_WWewk_94",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[94]",
+          "LHEPdfWeight[94]"
+        ]
+      }
+    },
+    "pdf_WWewk_95": {
+      "name": "pdf_WWewk_95",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[95]",
+          "LHEPdfWeight[95]"
+        ]
+      }
+    },
+    "pdf_WWewk_96": {
+      "name": "pdf_WWewk_96",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[96]",
+          "LHEPdfWeight[96]"
+        ]
+      }
+    },
+    "pdf_WWewk_97": {
+      "name": "pdf_WWewk_97",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[97]",
+          "LHEPdfWeight[97]"
+        ]
+      }
+    },
+    "pdf_WWewk_98": {
+      "name": "pdf_WWewk_98",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[98]",
+          "LHEPdfWeight[98]"
+        ]
+      }
+    },
+    "pdf_WWewk_99": {
+      "name": "pdf_WWewk_99",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_LT": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_TL": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_TT": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEPdfWeight[99]",
+          "LHEPdfWeight[99]"
+        ]
+      }
+    },
+    "QCDscale_WWewk": {
+      "name": "QCDscale_WWewk",
+      "kind": "weight",
+      "type": "shape",
+      "samples": {
+        "WWewk_LL": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_LT": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_TL": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_TT": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_CMWW_LL": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_CMWW_LT": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_CMWW_TL": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ],
+        "WWewk_CMWW_TT": [
+          "LHEScaleWeight[2]",
+          "LHEScaleWeight[0]"
+        ]
+      }
+    }
+  },
+  "structure": {
+    "Zjj": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "dytt": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "dyll": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "Fake_e": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "Fake_m": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "top": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "WWjj_QCD": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "WWewk_CMWW_LL": {
+      "isSignal": 1,
+      "isData": 0
+    },
+    "WWewk_CMWW_LT": {
+      "isSignal": 1,
+      "isData": 0
+    },
+    "WWewk_CMWW_TL": {
+      "isSignal": 1,
+      "isData": 0
+    },
+    "WWewk_CMWW_TT": {
+      "isSignal": 1,
+      "isData": 0
+    },
+    "ggWW": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "Wg": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "Vg": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "VgS": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "VgS_L": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "VgS_H": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "Zg": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "VZ": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "WZ": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "VVV": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "ZZ": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "ggH_hww": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "qqH_hww": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "WH_hww": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "ZH_hww": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "ggZH_hww": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "ttH_hww": {
+      "isSignal": 0,
+      "isData": 0
+    },
+    "DATA": {
+      "isSignal": 0,
+      "isData": 1
+    }
+  },
+  "lumi": 59.83,
+  "mountEOS": [],
+  "minRatio": 0.5,
+  "maxRatio": 1.5,
+  "plotPath": "plots__RDF_2018_v9_THU"
+}

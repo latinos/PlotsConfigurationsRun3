@@ -14,9 +14,9 @@ preselections = 'Lepton_pt[0] > 25 \
 cuts['Zee']  = {
    'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11)',
    'categories' : {
-      '0j' : 'zeroJet',
-      '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
-      '2j' : 'multiJet',
+      #'0j' : 'zeroJet',
+      #'1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
+      #'2j' : 'multiJet',
       'inc' : '1',
    }
 }
@@ -24,9 +24,9 @@ cuts['Zee']  = {
 cuts['Zmm']  = {
    'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -13*13)',
    'categories' : {
-      '0j' : 'zeroJet',
-      '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
-      '2j' : 'multiJet',
+      #'0j' : 'zeroJet',
+      #'1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
+      #'2j' : 'multiJet',
       'inc' : '1',
    }
 }

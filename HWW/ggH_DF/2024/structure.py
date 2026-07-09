@@ -29,37 +29,17 @@ structure['ggWW']  = {
                   }
 
 
-structure['Zg']  = { 
+structure['Vg']  = { 
                   'isSignal' : 0,
                   'isData'   : 0,
                   }
 
-structure['ZgS']  = { 
+structure['VgS']  = { 
                   'isSignal' : 0,
                   'isData'   : 0,
                   }
 
-structure['Wg']  = { 
-                  'isSignal' : 0,
-                  'isData'   : 0,
-                  }
-
-structure['WgS']  = { 
-                  'isSignal' : 0,
-                  'isData'   : 0,
-                  }
-
-structure['WZS']  = { 
-                  'isSignal' : 0,
-                  'isData'   : 0,
-                  }
-
-structure['WZ']  = { 
-                  'isSignal' : 0,
-                  'isData'   : 0,
-                  }
-
-structure['ZZ']  = { 
+structure['VZ']  = { 
                   'isSignal' : 0,
                   'isData'   : 0,
                   }
