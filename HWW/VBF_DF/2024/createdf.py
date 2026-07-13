@@ -2,44 +2,46 @@ import uproot
 import pandas as pd
 import numpy as np
 
-root_path = "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationRun3/HWW/VBF_DF/2024/rootFiles/HWW/VBF/2024/rootFiles__VBF_DF_2024v15_DBNN_DF/mkShapes__VBF_DF_2024v15_DBNN_DF.root"
+#root_path = "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationRun3/HWW/VBF_DF/2024/rootFiles/HWW/VBF/2024/rootFiles__VBF_DF_2024v15_df_including_variations/mkShapes__VBF_DF_2024v15_df_including_variations.root"
+root_path = "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationRun3/HWW/VBF_DF/2024/rootFiles/HWW/VBF/2024/rootFiles__VBF_DF_2024v15_even_more_inclusive/mkShapes__VBF_DF_2024v15_even_more_inclusive.root"
 tree_path = "trees/hww_sr_inc/"
-output_path = "/eos/user/s/squinto/SWAN_projects/ML/df2024VBF_dbnn_all_events.pkl.gz"
+output_path = "/eos/user/s/squinto/SWAN_projects/ML/df2024VBF_dbnn_bin_migration_2.pkl.gz"
 
 label_map = {
     "ggH": "is_ggH",
     "qqH": "is_qqH",
     "top": "is_top",
     "WW":  "is_WW",
+    "ggWW" : "is_ggWW",
 }
 label_columns = list(label_map.values())
 
 suffixes = {
     "relsample_up": "_relsample_up",
     "relsample_down": "_relsample_down",
-    "jer_up": "_jer_up",
-    "jer_down": "_jer_down",
-    "absolute_up": "_absolute_up",
-    "absolute_down": "_absolute_down",
-    "flavor_up": "_flavor_up",
-    "flavor_down": "_flavor_down",
-    "lepres_up": "_lepres_up",
-    "lepres_down": "_lepres_down"
+    #"jer_up": "_jer_up",
+    #"jer_down": "_jer_down",
+    #"absolute_up": "_absolute_up",
+    #"absolute_down": "_absolute_down",
+    #"flavor_up": "_flavor_up",
+    #"flavor_down": "_flavor_down",
+    #"lepres_up": "_lepres_up",
+    #"lepres_down": "_lepres_down"
 }
 
-processes = ['top/Events;1', 'WW/Events;1', 'ggH_hww/Events;1', 'qqH_hww/Events;1']
+processes = ['top/Events;1', 'WW/Events;8', 'WW/Events;7', 'ggWW/Events;1', 'ggWW/Events;2', 'ggH_hww/Events;1', 'qqH_hww/Events;1']
 
 file = uproot.open(root_path)
 
 
-counts = {}
-for proc in processes:
-    tree = file[tree_path + proc]
-    counts[proc] = tree.num_entries
-
-min_events = max(counts.values())
-print(f"Conteggi per sample: {counts}")
-print(f"--> Bilanciamento su: {min_events} eventi per sample\n")
+#counts = {}
+#for proc in processes:
+#    tree = file[tree_path + proc]
+#    counts[proc] = tree.num_entries
+#
+#min_events = max(counts.values())
+#print(f"Conteggi per sample: {counts}")
+#print(f"--> Bilanciamento su: {min_events} eventi per sample\n")
 
 
 dfs = []
@@ -58,7 +60,7 @@ for proc in processes:
 
     df_balanced = df_temp_all
 
-    for version in ['nom', 'relsample_up', 'relsample_down', 'jer_up', 'jer_down', 'absolute_up', 'absolute_down', 'flavor_up', 'flavor_down', 'lepres_up', 'lepres_down']:
+    for version in ['nom', 'relsample_up', 'relsample_down']:#, 'jer_up', 'jer_down', 'absolute_up', 'absolute_down', 'flavor_up', 'flavor_down', 'lepres_up', 'lepres_down']:
         block_dict = {}
         
         for var in base_variables:
@@ -77,14 +79,14 @@ for proc in processes:
         df_version['is_nom'] = 1 if version == 'nom' else 0
         df_version['is_relsample_up'] = 1 if version == 'relsample_up' else 0
         df_version['is_relsample_down'] = 1 if version == 'relsample_down' else 0
-        df_version['is_jer_up'] = 1 if version == 'jer_up' else 0
-        df_version['is_jer_down'] = 1 if version == 'jer_down' else 0
-        df_version['is_absolute_up'] = 1 if version == 'absolute_up' else 0
-        df_version['is_absolute_down'] = 1 if version == 'absolute_down' else 0
-        df_version['is_flavor_up'] = 1 if version == 'flavor_up' else 0
-        df_version['is_flavor_down'] = 1 if version == 'flavor_down' else 0
-        df_version['is_lepres_up'] = 1 if version == 'lepres_up' else 0
-        df_version['is_lepres_down'] = 1 if version == 'lepres_down' else 0
+        #df_version['is_jer_up'] = 1 if version == 'jer_up' else 0
+        #df_version['is_jer_down'] = 1 if version == 'jer_down' else 0
+        #df_version['is_absolute_up'] = 1 if version == 'absolute_up' else 0
+        #df_version['is_absolute_down'] = 1 if version == 'absolute_down' else 0
+        #df_version['is_flavor_up'] = 1 if version == 'flavor_up' else 0
+        #df_version['is_flavor_down'] = 1 if version == 'flavor_down' else 0
+        #df_version['is_lepres_up'] = 1 if version == 'lepres_up' else 0
+        #df_version['is_lepres_down'] = 1 if version == 'lepres_down' else 0
 
 
         # Flag processo

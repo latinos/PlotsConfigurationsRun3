@@ -96,7 +96,8 @@ DataRun = [
     ['F','Run2024F-Prompt-v1'],
     ['G','Run2024G-Prompt-v1'],
     ['H','Run2024H-Prompt-v1'],
-    ['I','Run2024I-Prompt-v1'],
+    ['Iv1','Run2024I-Prompt-v1'],
+    ['Iv2','Run2024I-Prompt-v2'],
 ]
 
 
@@ -125,11 +126,7 @@ mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight
 
 # DY
 
-files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-10to50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-10to50') + \
+files = nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-10to50')
 
 samples['DY'] = {
@@ -181,79 +178,49 @@ samples['ggWW'] = {
     'FilesPerJob': 50,
 }
 
+# VZ
+files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') + \
+        nanoGetSampleFiles(mcDirectory, 'ZZ')
 
-# WZ
-files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
-
-samples['WZ'] = {
+samples['VZ'] = {
     'name': files,
-    'weight': mcCommonWeight + ' * (Gen_ZGstar_mass >= 50)',
+    'weight': mcCommonWeight,
     'FilesPerJob': 30,
 }
 
-files = nanoGetSampleFiles(mcDirectory, 'ZZ')
+addSampleWeight(samples, 'VZ', "WZTo3LNu", "Gen_ZGstar_mass >= 50")
 
-samples['ZZ'] = {
-    'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 5,
-}
-
-# Vg/Vgstar
+# Vg
         
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50')
+        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
+        nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
-samples['Zg'] = {
+samples['Vg'] = {
     'name': files,
     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'FilesPerJob': 50,
 }
 
-files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
-
-samples['Wg'] = {
-    'name': files,
-    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
-    'FilesPerJob': 50,
-}
-
+# Vgstar
 
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50')
+        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
+        nanoGetSampleFiles(mcDirectory, "WZTo3LNu") + \
+        nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
+
         
 
-samples['ZgS'] = {
+samples['VgS'] = {
     'name': files,
     'weight': mcCommonWeight,
     'FilesPerJob': 50,
 }
 
-addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-
-
-files =  nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
-        
-
-samples['WgS'] = {
-    'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 50,
-}
-
-addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-
-files =  nanoGetSampleFiles(mcDirectory, "WZTo3LNu") 
-        
-
-samples['WZS'] = {
-    'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 50,
-}
-
-addSampleWeight(samples, 'WZS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
 
 
 # Multiboson
@@ -267,7 +234,6 @@ samples['VVV'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 5,
 }
-
 
 # ggH
 files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
@@ -341,3 +307,8 @@ for _, sd in DataRun:
 
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
+
+samples['Fake']['subsamples'] = {
+  'e': 'abs(Lepton_pdgId[1]) == 11',
+  'm': 'abs(Lepton_pdgId[1]) == 13'
+}

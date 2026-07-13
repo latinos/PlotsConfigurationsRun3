@@ -6,7 +6,8 @@
 #include <iostream>
 #include "ROOT/RVec.hxx"
 
-#include "generated_code_vbf_clf.h"
+// Used for 19th of May datacards
+#include "generated_code_snn_vbf_test.h"
 
 using namespace ROOT;
 using namespace ROOT::VecOps;

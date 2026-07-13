@@ -5,6 +5,8 @@ import ROOT
 
 ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
+ROOT.gSystem.Load("libPhysics")
+ROOT.gSystem.Load("libROOTVecOps")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 macros = os.path.dirname(configurations) + '/macros/'
@@ -22,7 +24,7 @@ mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
-eleWP = 'cutBased_LooseID_tthMVA_Run3'
+eleWP = 'cutBased_MediumID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
 aliases['LepWPCut'] = {
@@ -57,10 +59,20 @@ aliases['Lepton_conept'] = {
 # Fake leptons transfer factor
 aliases['fakeW'] = {
     'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
+
+for stat in ['','Stat']:
+    for lep in ['Ele','Mu']:
+        for variation in ['Up','Down']:
+            aliases['fakeW'+stat+lep+variation] = {
+                'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
+                'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader{stat}{lep}{variation} = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"{stat}{lep}{variation}\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+                'expr'           : f'fr_reader{stat}{lep}{variation}(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+                'samples'        : ['Fake']
+            }
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
@@ -194,6 +206,11 @@ aliases['SFweightMuDown'] = {
     'samples': mc
 }
 
+aliases['Ctot'] = {
+    'expr': 'log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj)',
+    'afterNuis' : True
+}
+
 aliases['m_lj'] = {
   'linesToAdd': [f'#include "{macros}m_lj.cc"'],
   'class': 'm_lj',
@@ -207,8 +224,8 @@ aliases['vbf_clf'] = {
     'linesToAdd': [f'#include "{macros}vbf_clf.cc"'],
     'class': 'vbf_clf',
     'args': 'detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
-            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
-            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
+            Alt(CleanJet_eta, 0, -99), Alt(CleanJet_eta, 1, -99), \
+            Alt(CleanJet_pt, 0, -99), Alt(CleanJet_pt, 1, -99), \
             dphillmet, ptll, \
             log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj), \
             m_lj[0], m_lj[1], m_lj[2], m_lj[3], \
@@ -216,6 +233,85 @@ aliases['vbf_clf'] = {
     'afterNuis': True
 }
 
+aliases['dbnn_clf'] = {
+    'linesToAdd': [f'#include "{macros}dbnn_clf_no_mlj.cc"'],
+    'class': 'dbnn_clf',
+    'args': 'detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
+            CleanJet_eta[0], CleanJet_eta[1], \
+            CleanJet_pt[0], CleanJet_pt[1], \
+            dphillmet, ptll, Ctot, \
+            Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
+    'afterNuis': True
+}
+
+#aliases['dbnn_clf_relsample_up'] = {
+#    'linesToAdd': [f'#include "{macros}dbnn_clf_no_mlj_up.cc"'],
+#    'class': 'dbnn_clf_up',
+#    'args': 'detajj_jesRegroed_RelativeSample_2024up, dphill_jesRegroed_RelativeSample_2024up, drll_jesRegroed_RelativeSample_2024up, mjj_jesRegroed_RelativeSample_2024up, ht_jesRegroed_RelativeSample_2024up, mth_jesRegroed_RelativeSample_2024up, mll_jesRegroed_RelativeSample_2024up, PuppiMET_pt_jesRegroed_RelativeSample_2024up, \
+#            CleanJet_eta_jesRegroed_RelativeSample_2024up[0], CleanJet_eta_jesRegroed_RelativeSample_2024up[1], \
+#            CleanJet_pt_jesRegroed_RelativeSample_2024up[0], CleanJet_pt_jesRegroed_RelativeSample_2024up[1], \
+#            dphillmet_jesRegroed_RelativeSample_2024up, ptll_jesRegroed_RelativeSample_2024up, \
+#            Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
+#    'afterNuis': True
+#}
+
+"""
+#aliases['dbnn_clf_python'] = {
+
+#    'linesToAdd': [f'#include "{macros}evaluate_dbnn.cc"'],
+#    'class': 'evaluate_dbnn',
+#    'args': 'detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
+#            Alt(CleanJet_eta, 0, -99), Alt(CleanJet_eta, 1, -99), \
+#            Alt(CleanJet_pt, 0, -99), Alt(CleanJet_pt, 1, -99), \
+#            dphillmet, ptll, \
+#            log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj), \
+#            m_lj[0], m_lj[1], m_lj[2], m_lj[3], \
+#            Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
+#    'afterNuis': True
+#}
+
+
+#aliases['vbflike_dbnn'] = { 
+#    'expr': '(dbnn_clf[0] > dbnn_clf[1]) && (dbnn_clf[0] > dbnn_clf[2]) && (dbnn_clf[0] > dbnn_clf[3])',
+#    'afterNuis': True
+#}
+#
+#aliases['toplike_dbnn'] = { 
+#    'expr': '(dbnn_clf[2] > dbnn_clf[0]) && (dbnn_clf[2] > dbnn_clf[1]) && (dbnn_clf[2] > dbnn_clf[3])',
+#    'afterNuis': True
+#}
+#
+#aliases['wwlike_dbnn'] = { 
+#    'expr': '(dbnn_clf[3] > dbnn_clf[0]) && (dbnn_clf[3] > dbnn_clf[1]) && (dbnn_clf[3] > dbnn_clf[2])',
+#    'afterNuis': True
+#}
+#
+#aliases['gghlike_dbnn'] = { 
+#    'expr': '(dbnn_clf[1] > dbnn_clf[0]) && (dbnn_clf[1] > dbnn_clf[2]) && (dbnn_clf[1] > dbnn_clf[3])',
+#    'afterNuis': True
+#}
+
+aliases['vbflike_dbnn_python'] = { 
+    'expr': '(dbnn_clf_python[0] > dbnn_clf_python[1]) && (dbnn_clf_python[0] > dbnn_clf_python[2]) && (dbnn_clf_python[0] > dbnn_clf_python[3])',
+    'afterNuis': True
+}
+
+aliases['toplike_dbnn_python'] = { 
+    'expr': '(dbnn_clf_python[2] > dbnn_clf_python[0]) && (dbnn_clf_python[2] > dbnn_clf_python[1]) && (dbnn_clf_python[2] > dbnn_clf_python[3])',
+    'afterNuis': True
+}
+
+aliases['wwlike_dbnn_python'] = { 
+    'expr': '(dbnn_clf_python[3] > dbnn_clf_python[0]) && (dbnn_clf_python[3] > dbnn_clf_python[1]) && (dbnn_clf_python[3] > dbnn_clf_python[2])',
+    'afterNuis': True
+}
+
+aliases['gghlike_dbnn_python'] = { 
+    'expr': '(dbnn_clf_python[1] > dbnn_clf_python[0]) && (dbnn_clf_python[1] > dbnn_clf_python[2]) && (dbnn_clf_python[1] > dbnn_clf_python[3])',
+    'afterNuis': True
+}
+
+"""
 aliases['vbflike'] = { 
     'expr': '(vbf_clf[0] > vbf_clf[1]) && (vbf_clf[0] > vbf_clf[2]) && (vbf_clf[0] > vbf_clf[3])',
     'afterNuis': True
@@ -235,3 +331,19 @@ aliases['gghlike'] = {
     'expr': '(vbf_clf[1] > vbf_clf[0]) && (vbf_clf[1] > vbf_clf[2]) && (vbf_clf[1] > vbf_clf[3])',
     'afterNuis': True
 }
+"""
+
+aliases['mycleanjet'] = {
+    'linesToAdd': [f'#include "{macros}mycleanjet.cc"'],
+    'class': 'copy_cleanjet_pt',
+    'args': 'CleanJet_pt',
+    'afterNuis': True
+}
+
+aliases['mycleanjet_relsample_up'] = {
+    'linesToAdd': [f'#include "{macros}mycleanjet.cc"'],
+    'class': 'copy_cleanjet_pt',
+    'args': 'CleanJet_pt_jesRegroed_RelativeSample_2024up',
+    'afterNuis': True
+}
+"""

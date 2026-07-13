@@ -5,6 +5,8 @@ import ROOT
 
 ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
+ROOT.gSystem.Load("libPhysics")
+ROOT.gSystem.Load("libROOTVecOps")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 macros = os.path.dirname(configurations) + '/macros/'
@@ -21,8 +23,8 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
-# LepCut2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
-eleWP = 'cutBased_LooseID_tthMVA_Run3'
+# LepCut2l__ele_cutBased_MediumID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
+eleWP = 'cutBased_MediumID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
 aliases['LepWPCut'] = {
@@ -69,19 +71,29 @@ aliases['noJetInHorn'] = {
 Tag = 'ele_'+eleWP+'_mu_'+muWP
 
 # Lepton Cone pt
-aliases['Lepton_conept'] = {
-    'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
-    'linesToAdd': [f'#include "{macros}LeptonConePt_class.cc"'],
-    'samples': mc + ['Fake', 'DATA', 'DATA_unprescaled']
-}
+#aliases['Lepton_conept'] = {
+#    'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
+#    'linesToAdd': [f'#include "{macros}LeptonConePt_class.cc"'],
+#    'samples': mc + ['Fake', 'DATA', 'DATA_unprescaled']
+#}
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
     'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2022_v12_pt\");')"],
+    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2023BPix_v12_pt\");')"],
     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
+
+for stat in ['','Stat']:
+    for lep in ['Ele','Mu']:
+        for variation in ['Up','Down']:
+            aliases['fakeW'+stat+lep+variation] = {
+                'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
+                'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader{stat}{lep}{variation} = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"{stat}{lep}{variation}\", 2, \"std\", \"{fakerates}\", \"2023BPix_v12_pt\");')"],
+                'expr'           : f'fr_reader{stat}{lep}{variation}(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+                'samples'        : ['Fake']
+            }
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
@@ -212,19 +224,19 @@ aliases['SFweightMuDown'] = {
 
 # Additional variables for VBF-like category definition
 aliases['m_lj'] = {
-  'linesToAdd': [f'#include "{configurations}macros/m_lj.cc"'],
+  'linesToAdd': [f'#include "{macros}m_lj.cc"'],
   'class': 'm_lj',
   'args': 'CleanJet_pt, CleanJet_eta, CleanJet_phi, CleanJet_jetIdx, Jet_mass, Lepton_pt, Lepton_eta, Lepton_phi',
-  'afterNuis': True,
+  'afterNuis': False,
   #'samples': mc
 }
 
 aliases['vbf_clf'] = {
-    'linesToAdd': [f'#include "{configurations}macros/vbf_clf.cc"'],
+    'linesToAdd': [f'#include "{macros}vbf_clf.cc"'],
     'class': 'vbf_clf',
     'args': 'detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
-            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
-            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
+            Alt(CleanJet_eta, 0, -99), Alt(CleanJet_eta, 1, -99), \
+            Alt(CleanJet_pt, 0, -99), Alt(CleanJet_pt, 1, -99), \
             dphillmet, ptll, \
             log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj), \
             m_lj[0], m_lj[1], m_lj[2], m_lj[3], \

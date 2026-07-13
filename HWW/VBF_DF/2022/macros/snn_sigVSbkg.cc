@@ -11,7 +11,7 @@
 #include "ROOT/RVec.hxx"
 
 //#include "generated_code_dnn_TTVsOther.h"
-#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/ggH_DF/2022/generated_codes/generated_code_snn.h"
+#include "/afs/cern.ch/user/s/squinto/private/work/PlotsConfigurationsRun3/HWW/ggH_DF/2023/generated_codes/generated_code_snn.h"
 
 using namespace ROOT;
 using namespace ROOT::VecOps;

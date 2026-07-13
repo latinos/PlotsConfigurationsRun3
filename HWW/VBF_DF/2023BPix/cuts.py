@@ -40,9 +40,9 @@ cuts['topcr']  = {
    }
 }
 
-cuts['wwcr']  = {
-   'expr': 'wwcr',
-   'categories' : {
-      '2j' : 'multiJet',
-   }
-}
+#cuts['wwcr']  = {
+#   'expr': 'wwcr',
+#   'categories' : {
+#      '2j' : 'multiJet',
+#   }
+#}

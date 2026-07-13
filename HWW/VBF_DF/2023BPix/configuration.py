@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "VBF_DF_2023BPixv12"   
+tag = "VBF_DF_2023BPixv12_for_combination_1107"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"

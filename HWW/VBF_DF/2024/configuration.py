@@ -1,7 +1,8 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "VBF_DF_2024v15_DBNN_DF"   
+#tag = "VBF_DF_2024v15_compare_consistent"
+tag = "VBF_DF_2024v15_for_combination_1107"  
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -26,7 +27,7 @@ lumi = 109.08
 aliasesFile = "aliases.py"
 
 # file with dict of variables
-variablesFile = "variables_df.py"
+variablesFile = "variables.py"
 
 # file with dict of cuts
 cutsFile = "cuts.py"

@@ -25,8 +25,8 @@ def makeMCDirectory(var=''):
 
 
 mcDirectory = makeMCDirectory()
-fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+#dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 print(treeBaseDir)
 
 # merge cuts
@@ -44,6 +44,9 @@ cuts2j = _mergedCuts
 
 nuisances = {}
 
+
+################################ EXPERIMENTAL UNCERTAINTIES  #################################
+
 nuisances['JER'] = {
     'name': 'CMS_res_j_2023BPix',
     'skipCMS' : 1,
@@ -59,6 +62,7 @@ nuisances['JER'] = {
 }
 
 jes_systs    = ["Absolute", "Absolute_2023BPix", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023BPix", "EC2_2023BPix", "RelativeBal", "RelativeSample_2023BPix", "HF_2023BPix"] # Reduced set of 11 uncertainties
+#jes_systs = ['jesTotal']
 
 for js in jes_systs:
     
@@ -141,7 +145,7 @@ for flavour in ['bc', 'light']:
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2023BPix',
+    'name': 'eff_hwwtrigger_2023BPix',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, trig_syst) for skey in mc)
@@ -150,7 +154,7 @@ nuisances['trigg'] = {
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2023BPix',
+    'name': 'eff_e_2023BPix',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
@@ -159,7 +163,7 @@ nuisances['eff_e'] = {
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2023BPix',
+    'name': 'eff_m_2023BPix',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
@@ -167,10 +171,13 @@ nuisances['eff_m'] = {
 
 
 nuisances['PU'] = {
-    'name'    : 'CMS_pileup_2023BPix',
-    'type'    : 'lnN',
-    'samples' : dict((skey, '1.05') for skey in mc),
-}
+    'name': 'CMS_pileup_2023BPix',
+    'skipCMS'    : 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': dict((skey, ['puWeightUp/puWeight', 'puWeightDown/puWeight']) for skey in mc),
+    'AsLnN'   : '0'
+}      
 
 ##### PS
 
@@ -196,26 +203,89 @@ nuisances['UE_CP5']  = {
 }
 
 
+###### pdf uncertainties
+pdf_variations = ["LHEPdfWeight[%d]" %i for i in range(1,101)] # Float_t LHE pdf variation weights (w_var / w_nominal) for LHA IDs  320901 - 321000
+nuisances['pdf_WW']  = {
+    'name'  : 'CMS_pdf_WW',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'WW'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_top']  = {
+    'name'  : 'CMS_pdf_top',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'Top'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_ggH']  = {
+    'name'  : 'CMS_pdf_ggH',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'ggH_hww'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_qqH']  = {
+    'name'  : 'CMS_pdf_qqH',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'qqH_hww'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_qqbar'] = {
+    'name': 'pdf_qqbar',
+    'type': 'lnN',
+    'samples': {
+        'VZ': '1.04',
+        'Vg': '1.04',
+        'VgS': '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+    },
+}
+
+
 ## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
+variations = ['Alt(LHEScaleWeight,0,1)',
+              'Alt(LHEScaleWeight,1,1)',
+              'Alt(LHEScaleWeight,3,1)',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-4,1)',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-2,1)',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']
 
 nuisances['QCDscale_top']  = {
     'name'  : 'QCDscale_ttbar',
-    'kind'  : 'weight',
+    'kind'  : 'weight_envelope',
     'type'  : 'shape',
-    'samples'  : {'top' : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples'  : {'top' : variations}
 }
 
 nuisances['QCDscale_DY'] = {
     'name': 'QCDscale_DY',
-    'kind'  : 'weight',
+    'kind'  : 'weight_envelope',
     'type': 'shape',
-    'samples': {'DY': ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples': {'DY': variations}
 }
 nuisances['QCDscale_VV'] = {
     'name' : 'QCDscale_VV',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
-    'samples' : {'WW'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples' : {'WW'  : variations}
 }
 
 nuisances['QCDscale_ggWW'] = {
@@ -224,33 +294,84 @@ nuisances['QCDscale_ggWW'] = {
     'samples': {'ggWW': '1.15'},
 }
 
-
 nuisances['QCDscale_ggH'] = {
     'name' : 'QCDscale_ggH',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
-    'samples' : {'ggH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples' : {'ggH_hww'  : variations}
 }
 
 nuisances['QCDscale_qqH'] = {
     'name' : 'QCDscale_qqH',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
-    'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples' : {'qqH_hww'  : variations}
 }
 
-nuisances['fake_syst'] = {
-    'name': 'CMS_fake_syst',
+##### FAKES
+
+nuisances['fake_syst_e'] = {
+    'name': 'CMS_fake_syst_e',
+    'skipCMS': 1,
     'type': 'lnN',
     'samples': {
-        'Fake': '1.3'
+        'Fake_e': '1.3'
     },
+}
+
+nuisances['fake_syst_m'] = {
+    'name': 'CMS_fake_syst_m',
+    'skipCMS': 1,
+    'type': 'lnN',
+    'samples': {
+        'Fake_m': '1.3'
+    },
+}
+
+nuisances['fake_ele'] = {
+    'name': 'CMS_fake_e_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake_e': ['fakeWEleUp', 'fakeWEleDown'],
+    }
+}
+
+nuisances['fake_ele_stat'] = {
+    'name': 'CMS_fake_stat_e_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake_e': ['fakeWStatEleUp', 'fakeWStatEleDown']
+    }
+}
+
+nuisances['fake_mu'] = {
+    'name': 'CMS_fake_m_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake_m': ['fakeWMuUp', 'fakeWMuDown'],
+    }
+}
+
+nuisances['fake_mu_stat'] = {
+    'name': 'CMS_fake_stat_m_2023BPix',
+    'skipCMS': 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': {
+        'Fake_m': ['fakeWStatMuUp', 'fakeWStatMuDown'],
+    }
 }
 
 nuisances['lumi_2023BPix'] = {
     'name'    : 'lumi_2023BPix',
     'type'    : 'lnN',
-    'samples' : dict((skey, '1.013') for skey in mc)
+    'samples' : dict((skey, '1.016') for skey in mc)
 }
 
 ##rate parameters
@@ -262,18 +383,22 @@ nuisances['DYnorm']  = {
     'samples'  : {'DY' : '1.00' },
 }
 
-nuisances['WWnorm']  = {
-    'name'  : 'CMS_hww_WWnorm2j_VBF_DF_2023BPix',
+nuisances['WWnorm'] = {
+    'name'   : 'CMS_hww_WWnorm2j_VBF_DF_2023BPix',
     'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'WW' : '1.00' },
+    'type'   : 'rateParam',
+    'samples': {
+        'WW'   : '1.00',
+    },
 }
 
-nuisances['ggWWnorm']  = {
-    'name'  : 'CMS_hww_ggWWnorm2j_VBF_DF_2023BPix',
+nuisances['ggWWnorm'] = {
+    'name'   : 'CMS_hww_WWnorm2j_VBF_DF_2023BPix',
     'skipCMS': 1,
-    'type'  : 'rateParam',
-    'samples'  : {'ggWW' : '1.00' },
+    'type'   : 'rateParam',
+    'samples': {
+        'ggWW'   : '1.00',
+    },
 }
 
 nuisances['topnorm']  = {
