@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "ggF_DF_2024_0526_SNN"   
+tag = "ggF_DF_2024_for_combination_1107"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -44,7 +44,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "Plots/HWW/ggF_DF_2024_0526_SNN"
+plotPath = "Plots/HWW/{}".format(tag)
 
 # this lines are executed right before the runner on the condor node
 mountEOS = [

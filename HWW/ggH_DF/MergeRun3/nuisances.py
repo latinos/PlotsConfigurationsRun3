@@ -1,33 +1,7 @@
-mcProduction = 'Summer23_130x_nAODv12_Full2023v12'
-mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
-dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'
-dataSteps    = 'DATAl2loose2023v12__l2loose'
-fakeSteps    = 'DATAl2loose2023v12__l2loose'
+nuisances = {}
 
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
-limitFiles = -1
-
-mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
-
-redirector = ""
-
-useXROOTD = False
-
-def makeMCDirectory(var=''):
-    _treeBaseDir = treeBaseDir + ''
-    if useXROOTD:
-        _treeBaseDir = redirector + treeBaseDir
-    if var== '':
-        return '/'.join([_treeBaseDir, mcProduction, mcSteps])
-    else:
-        return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
-
-
-
-mcDirectory = makeMCDirectory()
-#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-#dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
-print(treeBaseDir)
+mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # merge cuts
 cuts0j = []
@@ -41,139 +15,162 @@ for k in cuts:
     elif '2j' in cat: cuts2j.append(k+'_'+cat)
     else: print('WARNING: name of category does not contain either 0j,1j,2j')
 
-nuisances = {}
-
-
 ################################ EXPERIMENTAL UNCERTAINTIES  #################################
 
-nuisances['JER'] = {
-    'name': 'CMS_res_j_2023',
-    'skipCMS' : 1,
-    'kind': 'suffix',
-    'type': 'shape',
-    'mapUp': 'jerup',
-    'mapDown': 'jerdo',
-    #'separator': '__',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
-    'folderUp': makeMCDirectory('jerup_suffix'),
-    'folderDown': makeMCDirectory('jerdo_suffix'),
-    'AsLnN': '0'
-}
+for year in ['2022', '2022EE', '2023', '2023BPix', '2024']:
 
-jes_systs    = ["Absolute", "Absolute_2023", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2023", "EC2_2023", "RelativeBal", "RelativeSample_2023", "HF_2023"] # Reduced set of 11 uncertainties
-#jes_systs = ['jesTotal']
-
-for js in jes_systs:
-    
-    nuisances[js] = {
-        'name'      : 'CMS_scale_j_' + js,
-        'skipCMS' : 1,
-        'kind'      : 'suffix',
-        'type'      : 'shape',
-        'mapUp'     : 'jesRegroed_' + js + 'up',
-        'mapDown'   : 'jesRegroed_' + js + 'do',
-        'samples'   : dict((skey, ['1', '1']) for skey in mc),
-        'folderUp'  : makeMCDirectory('jesRegroed_' + js + 'up_suffix'),
-        'folderDown': makeMCDirectory('jesRegroed_' + js + 'do_suffix'),
-        'AsLnN'     : '0'
-    }
-
-nuisances['MET'] = {
-    'name': 'CMS_scale_met_2023',
-    'skipCMS' : 1,
-    'kind': 'suffix',
-    'type': 'shape',
-    'mapUp': 'unclustEnup',
-    'mapDown': 'unclustEndo',
-    #'separator': '__',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
-    'folderUp': makeMCDirectory('unclustEnup_suffix'),
-    'folderDown': makeMCDirectory('unclustEndo_suffix'),
-    'AsLnN': '0'
-}
-
-##### Lepton scale
-nuisances['lepscale'] = {
-    'name': 'CMS_lepscale_2023',
-    'skipCMS' : 1,
-    'kind': 'suffix',
-    'type': 'shape',
-    'mapUp': 'leptonScaleup',
-    'mapDown': 'leptonScaledo',
-    #'separator': '__',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
-    'folderUp': makeMCDirectory('leptonScaleup_suffix'),
-    'folderDown': makeMCDirectory('leptonScaledo_suffix'),
-    'AsLnN': '0'
-}
-##### Lepton resolution
-nuisances['lepres'] = {
-    'name': 'CMS_lepres_2023',
-    'skipCMS' : 1,
-    'kind': 'suffix',
-    'type': 'shape',
-    'mapUp': 'leptonResolutionup',
-    'mapDown': 'leptonResolutiondo',
-    #'separator': '__',
-    'samples': dict((skey, ['1', '1']) for skey in mc),
-    'folderUp': makeMCDirectory('leptonResolutionup_suffix'),
-    'folderDown': makeMCDirectory('leptonResolutiondo_suffix'),
-    'AsLnN': '0'
-}
-
-## B-tagger
-#Fixed BTV SF variations
-for flavour in ['bc', 'light']:
-    for corr in ['uncorrelated', 'correlated']:
-        btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
-        if corr == 'correlated':
-            name = f'CMS_btagSF{flavour}_{corr}'
-        else:
-            name = f'CMS_btagSF{flavour}_2023'
-        nuisances[f'btagSF{flavour}{corr}'] = {
-            'name': name,
+    ### jes ###
+    jes_systs    = ["Absolute", f"Absolute_{year}", "FlavorQCD", "BBEC1", "EC2", "HF", f"BBEC1_{year}", "EC2_2024", "RelativeBal", f"RelativeSample_{year}", f"HF_{year}"] # Reduced set of 11 uncertainties
+    for js in jes_systs:
+        
+        nuisances[js] = {
+            'name'      : 'CMS_scale_j_' + js,
             'skipCMS' : 1,
-            'kind': 'weight',
-            'type': 'shape',
-            'samples': dict((skey, btag_syst) for skey in mc),
+            'kind'      : 'suffix',
+            'type'      : 'shape',
+            'mapUp'     : 'jesRegroed_' + js + 'up',
+            'mapDown'   : 'jesRegroed_' + js + 'do',
+            'samples'   : dict((skey, ['1', '1']) for skey in mc),
+            'AsLnN'     : '0'
         }
 
+    ### jer ###
+    nuisances[f'JER_{year}'] = {
+        'name': f'CMS_res_j_{year}',
+        'skipCMS' : 1,
+        'kind': 'suffix',
+        'type': 'shape',
+        'mapUp': 'jerup',
+        'mapDown': 'jerdo',
+        'samples': dict((skey, ['1', '1']) for skey in mc),
+        'AsLnN': '0'
+    }
 
-##### Trigger Scale Factors                                                                                                                                                                                
+    ### met ###
+    nuisances[f'MET_{year}'] = {
+        'name': f'CMS_scale_met_{year}',
+        'skipCMS' : 1,
+        'kind': 'suffix',
+        'type': 'shape',
+        'mapUp': 'unclustEnup',
+        'mapDown': 'unclustEndo',
+        'samples': dict((skey, ['1', '1']) for skey in mc),
+        'AsLnN': '0'
+    }
 
-trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
+    ### lep scale ###
+    nuisances[f'lepscale_{year}'] = {
+        'name': f'CMS_lepscale_{year}',
+        'skipCMS' : 1,
+        'kind': 'suffix',
+        'type': 'shape',
+        'mapUp': 'leptonScaleup',
+        'mapDown': 'leptonScaledo',
+        'samples': dict((skey, ['1', '1']) for skey in mc),
+        'AsLnN': '0'
+    }
 
-nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2023',
+    ### lep res ###
+    nuisances[f'lepres_{year}'] = {
+        'name': f'CMS_lepres_{year}',
+        'skipCMS' : 1,
+        'kind': 'suffix',
+        'type': 'shape',
+        'mapUp': 'leptonResolutionup',
+        'mapDown': 'leptonResolutiondo',
+        'samples': dict((skey, ['1', '1']) for skey in mc),
+        'AsLnN': '0'
+    }
+
+    ### btag ###
+    for flavour in ['bc', 'light']:
+        for corr in ['uncorrelated', 'correlated']:
+            btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
+            if corr == 'correlated':
+                name = f'CMS_btagSF{flavour}_{corr}'
+            else:
+                name = f'CMS_btagSF{flavour}_{year}'
+            nuisances[f'btagSF{flavour}{corr}'] = {
+                'name': name,
+                'skipCMS' : 1,
+                'kind': 'weight',
+                'type': 'shape',
+                'samples': dict((skey, btag_syst) for skey in mc),
+            }
+    
+    ### trig ###
+    trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
+    nuisances[f'trigg_{year}'] = {
+        'name': f'CMS_eff_hwwtrigger_{year}',
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': dict((skey, trig_syst) for skey in mc)
+    }
+
+    ### effe ###
+    nuisances[f'eff_e_{year}'] = {
+        'name': f'CMS_eff_e_{year}',
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
+    }
+
+    ### effm ###
+    nuisances[f'eff_m_{year}'] = {
+        'name': f'CMS_eff_m_{year}',
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
+    }
+
+    ### pu ###
+    nuisances[f'PU_{year}'] = {
+        'name': f'CMS_pileup_{year}',
+        'skipCMS'    : 1,
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': dict((skey, ['puWeightUp/puWeight', 'puWeightDown/puWeight']) for skey in mc),
+        'AsLnN'   : '0'
+    }
+
+    ### fakes ###
+    nuisances[f'fake_ele_{year}'] = {
+    'name': f'CMS_fake_e_{year}',
+    'skipCMS': 1,
     'kind': 'weight',
     'type': 'shape',
-    'samples': dict((skey, trig_syst) for skey in mc)
-}
-
-##### Electron Efficiency and energy scale
-
-nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2023',
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
-}
-
-##### Muon Efficiency and energy scale
-
-nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2023',
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
-}
-
-
-nuisances['PU'] = {
-    'name'    : 'CMS_pileup_2023',
-    'type'    : 'lnN',
-    'samples' : dict((skey, '1.05') for skey in mc),
-}
+    'samples': {
+        'Fake': ['fakeWEleUp', 'fakeWEleDown'],
+        }
+    }
+    nuisances[f'fake_ele_stat_{year}'] = {
+        'name': f'CMS_fake_stat_e_{year}',
+        'skipCMS': 1,
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': {
+            'Fake': ['fakeWStatEleUp', 'fakeWStatEleDown']
+        }
+    }
+    nuisances[f'fake_mu_{year}'] = {
+        'name': f'CMS_fake_m_{year}',
+        'skipCMS': 1,
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': {
+            'Fake': ['fakeWMuUp', 'fakeWMuDown'],
+        }
+    }
+    nuisances[f'fake_mu_stat_{year}'] = {
+        'name': f'CMS_fake_stat_m_{year}',
+        'skipCMS': 1,
+        'kind': 'weight',
+        'type': 'shape',
+        'samples': {
+            'Fake': ['fakeWStatMuUp', 'fakeWStatMuDown'],
+        }
+    }
+                                                                                                  
 
 ##### PS
 
@@ -184,6 +181,7 @@ nuisances['PS_ISR']  = {
     'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
     'AsLnN'   : '0',
 }
+
 nuisances['PS_FSR']  = {
     'name'    : 'ps_fsr',
     'kind'    : 'weight',
@@ -198,8 +196,7 @@ nuisances['UE_CP5']  = {
     'samples' : dict((skey, '1.015') for skey in mc),
 }
 
-
-##### pdf uncertainties
+###### pdf uncertainties
 pdf_variations = ["LHEPdfWeight[%d]" %i for i in range(1,101)] # Float_t LHE pdf variation weights (w_var / w_nominal) for LHA IDs  320901 - 321000
 nuisances['pdf_WW']  = {
     'name'  : 'CMS_pdf_WW',
@@ -255,7 +252,6 @@ nuisances['pdf_qqbar'] = {
     },
 }
 
-
 ## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
 variations = ['Alt(LHEScaleWeight,0,1)',
               'Alt(LHEScaleWeight,1,1)',
@@ -277,7 +273,6 @@ nuisances['QCDscale_DY'] = {
     'type': 'shape',
     'samples': {'DY': variations}
 }
-
 nuisances['QCDscale_VV'] = {
     'name' : 'QCDscale_VV',
     'kind' : 'weight_envelope',
@@ -305,8 +300,6 @@ nuisances['QCDscale_qqH'] = {
     'samples' : {'qqH_hww'  : variations}
 }
 
-##### FAKES
-
 nuisances['fake_syst_e'] = {
     'name': 'CMS_fake_syst_e',
     'skipCMS': 1,
@@ -325,56 +318,37 @@ nuisances['fake_syst_m'] = {
     },
 }
 
-nuisances['fake_ele'] = {
-    'name': 'CMS_fake_e_2023',
-    'skipCMS': 1,
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': {
-        'Fake_e': ['fakeWEleUp', 'fakeWEleDown'],
-    }
+### lumi ###
+nuisances['lumi_uncorrelated_2022'] = {
+    'name'    : 'lumi_2022',
+    'type'    : 'shape',
+    'samples' : dict((skey, '1.014') for skey in mc)
 }
-
-nuisances['fake_ele_stat'] = {
-    'name': 'CMS_fake_stat_e_2023',
-    'skipCMS': 1,
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': {
-        'Fake_e': ['fakeWStatEleUp', 'fakeWStatEleDown']
-    }
+nuisances['lumi_uncorrelated_2022EE'] = {
+    'name'    : 'lumi_2022EE',
+    'type'    : 'shape',
+    'samples' : dict((skey, '1.014') for skey in mc)
 }
-
-nuisances['fake_mu'] = {
-    'name': 'CMS_fake_m_2023',
-    'skipCMS': 1,
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': {
-        'Fake_m': ['fakeWMuUp', 'fakeWMuDown'],
-    }
-}
-
-nuisances['fake_mu_stat'] = {
-    'name': 'CMS_fake_stat_m_2023',
-    'skipCMS': 1,
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': {
-        'Fake_m': ['fakeWStatMuUp', 'fakeWStatMuDown'],
-    }
-}
-
-nuisances['lumi_2023'] = {
+nuisances['lumi_uncorrelated_2023'] = {
     'name'    : 'lumi_2023',
-    'type'    : 'lnN',
+    'type'    : 'shape',
     'samples' : dict((skey, '1.013') for skey in mc)
 }
+nuisances['lumi_uncorrelated_2023BPix'] = {
+    'name'    : 'lumi_2023BPix',
+    'type'    : 'shape',
+    'samples' : dict((skey, '1.016') for skey in mc)
+}
+nuisances['lumi_uncorrelated_2024'] = {
+    'name'    : 'lumi_2024',
+    'type'    : 'shape',
+    'samples' : dict((skey, '1.016') for skey in mc)
+}
 
-##rate parameters
+### rate parameters ###
 
 nuisances['DYnorm0j']  = {
-               'name'  : 'CMS_hww_DYnorm0j_2023',
+               'name'  : 'CMS_hww_DYnorm0j',
                'samples'  : {
                    'DY' : '1.00',
                    },
@@ -383,7 +357,7 @@ nuisances['DYnorm0j']  = {
               }
 
 nuisances['DYnorm1j']  = {
-               'name'  : 'CMS_hww_DYnorm1j_2023',
+               'name'  : 'CMS_hww_DYnorm1j',
                'samples'  : {
                    'DY' : '1.00',
                    },
@@ -392,7 +366,7 @@ nuisances['DYnorm1j']  = {
               }
 
 nuisances['DYnorm2j']  = {
-                 'name'  : 'CMS_hww_DYnorm2j_2023',
+                 'name'  : 'CMS_hww_DYnorm2j',
                  'samples'  : {
                    'DY' : '1.00',
                      },
@@ -402,7 +376,7 @@ nuisances['DYnorm2j']  = {
 
 
 nuisances['WWnorm0j']  = {
-               'name'  : 'CMS_hww_WWnorm0j_2023',
+               'name'  : 'CMS_hww_WWnorm0j',
                'samples'  : {
                    'WW' : '1.00',
                    },
@@ -411,7 +385,7 @@ nuisances['WWnorm0j']  = {
               }
 
 nuisances['ggWWnorm0j']  = {
-               'name'  : 'CMS_hww_WWnorm0j_2023',
+               'name'  : 'CMS_hww_WWnorm0j',
                'samples'  : {
                    'ggWW' : '1.00',
                    },
@@ -420,7 +394,7 @@ nuisances['ggWWnorm0j']  = {
               }
 
 nuisances['WWnorm1j']  = {
-               'name'  : 'CMS_hww_WWnorm1j_2023',
+               'name'  : 'CMS_hww_WWnorm1j',
                'samples'  : {
                    'WW' : '1.00',
                    },
@@ -429,7 +403,7 @@ nuisances['WWnorm1j']  = {
               }
 
 nuisances['ggWWnorm1j']  = {
-               'name'  : 'CMS_hww_WWnorm1j_2023',
+               'name'  : 'CMS_hww_WWnorm1j',
                'samples'  : {
                    'ggWW' : '1.00',
                    },
@@ -438,7 +412,7 @@ nuisances['ggWWnorm1j']  = {
               }
 
 nuisances['WWnorm2j']  = {
-               'name'  : 'CMS_hww_WWnorm2j_2023',
+               'name'  : 'CMS_hww_WWnorm2j',
                'samples'  : {
                    'WW' : '1.00',
                    },
@@ -447,7 +421,7 @@ nuisances['WWnorm2j']  = {
               }
 
 nuisances['ggWWnorm2j']  = {
-               'name'  : 'CMS_hww_WWnorm2j_2023',
+               'name'  : 'CMS_hww_WWnorm2j',
                'samples'  : {
                    'ggWW' : '1.00',
                    },
@@ -456,7 +430,7 @@ nuisances['ggWWnorm2j']  = {
               }
 
 nuisances['Topnorm0j']  = {
-               'name'  : 'CMS_hww_Topnorm0j_2023',
+               'name'  : 'CMS_hww_Topnorm0j',
                'samples'  : {
                    'top' : '1.00',
                    },
@@ -465,7 +439,7 @@ nuisances['Topnorm0j']  = {
               }
 
 nuisances['Topnorm1j']  = {
-               'name'  : 'CMS_hww_Topnorm1j_2023',
+               'name'  : 'CMS_hww_Topnorm1j',
                'samples'  : {
                    'top' : '1.00',
                    },
@@ -474,7 +448,7 @@ nuisances['Topnorm1j']  = {
               }
 
 nuisances['Topnorm2j']  = {
-               'name'  : 'CMS_hww_Topnorm2j_2023',
+               'name'  : 'CMS_hww_Topnorm2j',
                'samples'  : {
                    'top' : '1.00',
                    },

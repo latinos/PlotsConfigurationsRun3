@@ -1,8 +1,9 @@
-mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight'
-dataReco     = 'Run2022EE_Prompt_nAODv12_Full2022v12'
-dataSteps    = 'DATAl2loose2022EEv12__l2loose'
-fakeSteps    = 'DATAl2loose2022EEv12__l2loose'
+
+mcProduction = 'Summer22EE_130x_nAODv12_Full2022v12' 
+mcSteps = 'MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight' 
+dataReco = 'Run2022EE_Prompt_nAODv12_Full2022v12'
+fakeSteps = 'DATAl2loose2022EEv12__l2loose'
+dataSteps = 'DATAl2loose2022EEv12__l2loose'
 
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
 limitFiles = -1
@@ -42,7 +43,6 @@ for k in cuts:
     else: print('WARNING: name of category does not contain either 0j,1j,2j')
 
 nuisances = {}
-
 
 ################################ EXPERIMENTAL UNCERTAINTIES  #################################
 
@@ -170,10 +170,13 @@ nuisances['eff_m'] = {
 
 
 nuisances['PU'] = {
-    'name'    : 'CMS_pileup_2022EE',
-    'type'    : 'lnN',
-    'samples' : dict((skey, '1.05') for skey in mc),
-}
+    'name': 'CMS_pileup_2022EE',
+    'skipCMS'    : 1,
+    'kind': 'weight',
+    'type': 'shape',
+    'samples': dict((skey, ['puWeightUp/puWeight', 'puWeightDown/puWeight']) for skey in mc),
+    'AsLnN'   : '0'
+}      
 
 ##### PS
 
@@ -198,27 +201,90 @@ nuisances['UE_CP5']  = {
     'samples' : dict((skey, '1.015') for skey in mc),
 }
 
+##### pdf uncertainties
+pdf_variations = ["LHEPdfWeight[%d]" %i for i in range(1,101)] # Float_t LHE pdf variation weights (w_var / w_nominal) for LHA IDs  320901 - 321000
+nuisances['pdf_WW']  = {
+    'name'  : 'CMS_pdf_WW',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'WW'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_top']  = {
+    'name'  : 'CMS_pdf_top',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'Top'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_ggH']  = {
+    'name'  : 'CMS_pdf_ggH',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'ggH_hww'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_qqH']  = {
+    'name'  : 'CMS_pdf_qqH',
+    'skipCMS' : 1,
+    'kind'  : 'weight_rms',
+    'type'  : 'shape',
+    'AsLnN': '0',
+    'samples'  : {
+        'qqH_hww'   : pdf_variations,
+    },
+}
+
+nuisances['pdf_qqbar'] = {
+    'name': 'pdf_qqbar',
+    'type': 'lnN',
+    'samples': {
+        'VZ': '1.04',
+        'Vg': '1.04',
+        'VgS': '1.04', # PDF: 0.0064 / 0.1427 = 0.0448493
+    },
+}
+
 
 ## This should work for samples with either 8 or 9 LHE scale weights (Length$(LHEScaleWeight) == 8 or 9)
+variations = ['Alt(LHEScaleWeight,0,1)',
+              'Alt(LHEScaleWeight,1,1)',
+              'Alt(LHEScaleWeight,3,1)',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-4,1)',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-2,1)',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']
 
 nuisances['QCDscale_top']  = {
     'name'  : 'QCDscale_ttbar',
-    'kind'  : 'weight',
+    'kind'  : 'weight_envelope',
     'type'  : 'shape',
-    'samples'  : {'top' : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples'  : {'top' : variations}
 }
 
 nuisances['QCDscale_DY'] = {
     'name': 'QCDscale_DY',
-    'kind'  : 'weight',
+    'kind'  : 'weight_envelope',
     'type': 'shape',
-    'samples': {'DY': ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples': {'DY': variations}
 }
+
 nuisances['QCDscale_VV'] = {
     'name' : 'QCDscale_VV',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
-    'samples' : {'WW'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples' : {'WW'  : variations}
 }
 
 nuisances['QCDscale_ggWW'] = {
@@ -227,19 +293,18 @@ nuisances['QCDscale_ggWW'] = {
     'samples': {'ggWW': '1.15'},
 }
 
-
 nuisances['QCDscale_ggH'] = {
     'name' : 'QCDscale_ggH',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
-    'samples' : {'ggH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples' : {'ggH_hww'  : variations}
 }
 
 nuisances['QCDscale_qqH'] = {
     'name' : 'QCDscale_qqH',
-    'kind' : 'weight',
+    'kind' : 'weight_envelope',
     'type' : 'shape',
-    'samples' : {'qqH_hww'  : ['Alt(LHEScaleWeight,0, 1.)', 'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)']}
+    'samples' : {'qqH_hww'  : variations}
 }
 
 ##### FAKES
@@ -268,7 +333,7 @@ nuisances['fake_ele'] = {
     'kind': 'weight',
     'type': 'shape',
     'samples': {
-        'Fake': ['fakeWEleUp', 'fakeWEleDown'],
+        'Fake_e': ['fakeWEleUp', 'fakeWEleDown'],
     }
 }
 
@@ -278,7 +343,7 @@ nuisances['fake_ele_stat'] = {
     'kind': 'weight',
     'type': 'shape',
     'samples': {
-        'Fake': ['fakeWStatEleUp', 'fakeWStatEleDown']
+        'Fake_e': ['fakeWStatEleUp', 'fakeWStatEleDown']
     }
 }
 
@@ -288,7 +353,7 @@ nuisances['fake_mu'] = {
     'kind': 'weight',
     'type': 'shape',
     'samples': {
-        'Fake': ['fakeWMuUp', 'fakeWMuDown'],
+        'Fake_m': ['fakeWMuUp', 'fakeWMuDown'],
     }
 }
 
@@ -298,7 +363,7 @@ nuisances['fake_mu_stat'] = {
     'kind': 'weight',
     'type': 'shape',
     'samples': {
-        'Fake': ['fakeWStatMuUp', 'fakeWStatMuDown'],
+        'Fake_m': ['fakeWStatMuUp', 'fakeWStatMuDown'],
     }
 }
 

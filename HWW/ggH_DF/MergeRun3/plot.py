@@ -12,7 +12,7 @@ groupPlot['Fake']  = {
     'nameHR' : 'nonprompt',
     'isSignal' : 0,
     'color': '#94a4a2',    # 921 kGray + 1                                                                                                                          
-    'samples'  : ['Fake_e', 'Fake_m']
+    'samples'  : ['Fake_e', 'Fake_m', 'Fake']
 }
 
 
@@ -115,6 +115,14 @@ plot['Fake_m']  = {
     'scale'    : 1.0,
 }
 
+plot['Fake']  = {
+    'nameHR'   : 'nonprompt',
+    'color'    : 921,
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0,
+}
+
 plot['WW']  = {
     'nameHR'   : 'WW',
     'color'    : 851,
@@ -199,5 +207,5 @@ plot['DATA']  = {
 
 # Legend definition
 legend = {}
-legend['lumi'] = 'L =  109.08 fb^{-1}'
+legend['lumi'] = 'L = 171.0 fb^{-1}'
 legend['sqrt'] = '13.6 TeV'

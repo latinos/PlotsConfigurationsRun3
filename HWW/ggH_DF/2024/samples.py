@@ -96,7 +96,8 @@ DataRun = [
     ['F','Run2024F-Prompt-v1'],
     ['G','Run2024G-Prompt-v1'],
     ['H','Run2024H-Prompt-v1'],
-    ['I','Run2024I-Prompt-v1'],
+    ['Iv1','Run2024I-Prompt-v1'],
+    ['Iv2','Run2024I-Prompt-v2'],
 ]
 
 
@@ -158,7 +159,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 samples['WW'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 50,
+    'FilesPerJob': 1,
 }
 
 files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu')    + \
@@ -176,7 +177,6 @@ samples['ggWW'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 50,
 }
-
 
 # VZ
 files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') + \
@@ -235,7 +235,6 @@ samples['VVV'] = {
     'FilesPerJob': 5,
 }
 
-
 # ggH
 files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
 
@@ -253,7 +252,6 @@ samples['qqH_hww'] = {
     'weight': mcCommonWeight,
     'FilesPerJob': 10,
 }
-
 
 ###########################################
 ################## DATA ###################
@@ -309,3 +307,8 @@ for _, sd in DataRun:
 
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
+
+samples['Fake']['subsamples'] = {
+  'e': 'abs(Lepton_pdgId[1]) == 11',
+  'm': 'abs(Lepton_pdgId[1]) == 13'
+}
