@@ -1,0 +1,42 @@
+{
+    "ggH_hww": {
+        "QCDscale_ggH_SPECIAL_NUIS_envelope0": 0.8510241877257352,
+        "QCDscale_ggH_SPECIAL_NUIS_envelope1": 0.8298266203750778,
+        "QCDscale_ggH_SPECIAL_NUIS_envelope2": 1.0302075155871502,
+        "QCDscale_ggH_SPECIAL_NUIS_envelope3": 0.9775788550347289,
+        "QCDscale_ggH_SPECIAL_NUIS_envelope4": 1.1852316427505099,
+        "QCDscale_ggH_SPECIAL_NUIS_envelope5": 1.1561036132695357,
+        "ps_fsr": [
+            1.001421843626988,
+            0.9991883724630996
+        ],
+        "ps_isr": [
+            1.0002813844963594,
+            0.9997996864288606
+        ],
+        "QCDscale_ggH": [
+            0.8298266203750778,
+            1.1852316427505099
+        ]
+    },
+    "qqH_hww": {
+        "QCDscale_qqH_SPECIAL_NUIS_envelope0": 1.0070402757120545,
+        "QCDscale_qqH_SPECIAL_NUIS_envelope1": 1.005034973285927,
+        "QCDscale_qqH_SPECIAL_NUIS_envelope2": 1.000124643658872,
+        "QCDscale_qqH_SPECIAL_NUIS_envelope3": 0.9946787246807468,
+        "QCDscale_qqH_SPECIAL_NUIS_envelope4": 0.9959862696556683,
+        "QCDscale_qqH_SPECIAL_NUIS_envelope5": 0.9929431592408257,
+        "ps_fsr": [
+            1.0012927951431394,
+            0.9993386242889981
+        ],
+        "ps_isr": [
+            1.000231898880604,
+            0.999864540247093
+        ],
+        "QCDscale_qqH": [
+            0.9929431592408257,
+            1.0070402757120545
+        ]
+    }
+}

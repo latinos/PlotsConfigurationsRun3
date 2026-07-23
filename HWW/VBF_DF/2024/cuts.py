@@ -5,8 +5,8 @@ preselections = ' mll > 12 \
             && Lepton_pt[1]>13 \
             && Alt(Lepton_pt, 2, 0)<10.0  \
             && abs(Lepton_eta[0])<2.5 && abs(Lepton_eta[1])<2.5 \
-            && ptll>30 \
-            && PuppiMET_pt > 20 \
+            && ptll>20 \
+            && PuppiMET_pt > 10 \
             && (Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13) \
             && Sum(CleanJet_pt > 30) >= 2 \
             && mjj > 120 \
