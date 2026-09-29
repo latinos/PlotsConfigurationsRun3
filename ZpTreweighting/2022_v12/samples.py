@@ -19,7 +19,7 @@ dataSteps    = 'DATAl2loose2022v12__l2loose' # Choose l2loose sample but apply t
 ###### Tree base directory for the site ######
 ##############################################
 treeBaseDir = f'/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
-limitFiles = 2 # For running on smaller set of samples (DS, 21Nov25)
+limitFiles = -1 # For running on smaller set of samples (DS, 21Nov25)
 
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
@@ -117,21 +117,30 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 ###########################################
 
 # DY
-files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-10to50')
-        # Removed from git update on July 9, 2026
-        # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
-        # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
-        # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
+# `tag` is patched by automate.py to "{year}_{sample_type}_ZpTreweighting_{suffix}",
+# so pick the DY dataset based on the sample type embedded in it.
+sample_type = 'LO' if '_LO_' in tag else 'NLO'
+
+if sample_type == 'LO':
+    files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50-LO')
+else:
+    files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50') + \
+            nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-10to50')
+            # Removed from git update on July 9, 2026
+            # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
+            # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
+            # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
 
 samples['DY'] = {
     'name': files,
-    'weight': mcCommonWeight,# + '* DY_NLO_ZpTrw',
+    'weight': mcCommonWeight,# + '* DY_ZpTrw',
     'FilesPerJob': 10,
 }
 
-addSampleWeight(samples,'DY','DYto2L-2Jets_MLL-50','DY_NLO_ZpTrw')
-addSampleWeight(samples,'DY','DYto2L-2Jets_MLL-10to50','DY_NLO_ZpTrw')
+dy_sample_names = ['DYJetsToLL_M-50-LO'] if sample_type == 'LO' else ['DYto2L-2Jets_MLL-50', 'DYto2L-2Jets_MLL-10to50']
+for _dy_sample_name in dy_sample_names:
+    pass  # kept so this loop body stays valid if the line below is commented out
+    addSampleWeight(samples,'DY',_dy_sample_name,'DY_ZpTrw')
 
 # remove backgrounds from data for ZpT reweighting:
 

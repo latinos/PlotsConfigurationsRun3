@@ -365,7 +365,7 @@ def comment_addsampleweight_dy(samples_file, dry_run=False):
     #    ['"]DY_..._ZpTrw['"] — the DY ZpTrw weight argument
     #    [^)]*\))              — remaining args + closing paren
     pattern = re.compile(
-        r"^(?![ \t]*#)([ \t]*addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9]+_ZpTrw['\"][^)]*\))",
+        r"^(?![ \t]*#)([ \t]*addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9_]*ZpTrw['\"][^)]*\))",
         re.MULTILINE,
     )
 
@@ -396,7 +396,7 @@ def uncomment_addsampleweight_dy(samples_file, dry_run=False):
 
     # Match a commented addSampleWeight call referencing a DY_*_ZpTrw weight.
     pattern = re.compile(
-        r"^([ \t]*)#[ \t]*(addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9]+_ZpTrw['\"][^)]*\))",
+        r"^([ \t]*)#[ \t]*(addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9_]*ZpTrw['\"][^)]*\))",
         re.MULTILINE,
     )
 
@@ -740,16 +740,23 @@ def main():
         # Create RDF plots from the merged ROOT file
         run_mkplot(zptrw_dir, dry_run=args.dry_run)
         # Rename condor and config folders:
-        cmd = ["mv", os.path.join(zptrw_dir, "condor/"), os.path.join(zptrw_dir, f"condor_{args.year}_{args.sample_type}_obtainWeights")]
+        cmd = ["mv", os.path.join(zptrw_dir, "condor/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"condor_{args.year}_{args.sample_type}_obtainWeights")]
+        # cmd = ["mv", os.path.join(zptrw_dir, "condor/"), os.path.join(zptrw_dir, f"condor_{args.year}_{args.sample_type}_obtainWeights")]
         rc = run_cmd(cmd, cwd=zptrw_dir)
+        # cmd = ["mv", os.path.join("condor/"), os.path.join(f"condor_{args.year}_{args.sample_type}_obtainWeights/")]
+        # rc = run_cmd(cmd, cwd="/tmp/dshekar/")
         if rc != 0:
             sys.exit(f"ERROR: failed to rename condor directory (exit code {rc})")
         cmd = ["pwd"]
         rc = run_cmd(cmd, cwd=zptrw_dir)
-        cmd = ["mv", os.path.join(zptrw_dir, "configs/"), os.path.join(zptrw_dir, f"configs_{args.year}_{args.sample_type}_obtainWeights")]
+        cmd = ["mv", os.path.join(zptrw_dir, "configs/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"configs_{args.year}_{args.sample_type}_obtainWeights")]
         rc = run_cmd(cmd, cwd=zptrw_dir)
         if rc != 0:
             sys.exit(f"ERROR: failed to rename configs directory (exit code {rc})")
+        cmd = ["mv", os.path.join(zptrw_dir, f"extractPlots_{args.year}_{args.sample_type}_obtainWeights/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"extractPlots_{args.year}_{args.sample_type}_obtainWeights")]
+        rc = run_cmd(cmd, cwd=zptrw_dir)
+        cmd = ["mv", os.path.join(zptrw_dir, f"plots_{args.year}_{args.sample_type}_ZpTreweighting_obtainWeights/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"plots_{args.year}_{args.sample_type}_obtainWeights")]
+        rc = run_cmd(cmd, cwd=zptrw_dir)
 
     else:
         info("\n[skip-extract] Skipping weight extraction, plot archiving, and mkPlot "
@@ -783,14 +790,21 @@ def main():
         # Create comparison plots from the merged ROOT file
         run_mkplot(zptrw_dir, dry_run=args.dry_run)
         # Rename log, condor, and config folders:
-        cmd = ["mv", os.path.join(zptrw_dir, "condor/"), os.path.join(zptrw_dir, f"condor_{args.year}_{args.sample_type}_afterReweighting")]
+        cmd = ["mv", os.path.join(zptrw_dir, "condor/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"condor_{args.year}_{args.sample_type}_afterReweighting")]
+        # cmd = ["mv", os.path.join(zptrw_dir, "condor/"), os.path.join(zptrw_dir, f"condor_{args.year}_{args.sample_type}_afterReweighting")]
         rc = run_cmd(cmd, cwd=zptrw_dir)
+        # cmd = ["mv", os.path.join("condor/"), os.path.join(f"condor_{args.year}_{args.sample_type}_afterReweighting/")]
+        # rc = run_cmd(cmd, cwd="/tmp/dshekar/")
         if rc != 0:
             sys.exit(f"ERROR: failed to rename condor directory (exit code {rc})")
-        cmd = ["mv", os.path.join(zptrw_dir, "configs/"), os.path.join(zptrw_dir, f"configs_{args.year}_{args.sample_type}_afterReweighting")]
+        cmd = ["mv", os.path.join(zptrw_dir, "configs/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"configs_{args.year}_{args.sample_type}_afterReweighting")]
         rc = run_cmd(cmd, cwd=zptrw_dir)
         if rc != 0:
             sys.exit(f"ERROR: failed to rename configs directory (exit code {rc})")
+        cmd = ["mv", os.path.join(zptrw_dir, f"extractPlots_{args.year}_{args.sample_type}_afterReweighting/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"extractPlots_{args.year}_{args.sample_type}_afterReweighting")]
+        rc = run_cmd(cmd, cwd=zptrw_dir)
+        cmd = ["mv", os.path.join(zptrw_dir, f"plots_{args.year}_{args.sample_type}_ZpTreweighting_afterReweighting/"), os.path.join("/eos/user",os.environ.get("USER", "unknown")[0],os.environ.get("USER", "unknown"),"mkShapesRDF_rootfiles",cfg['tag'],f"plots_{args.year}_{args.sample_type}_afterReweighting")]
+        rc = run_cmd(cmd, cwd=zptrw_dir)
 
     banner("Workflow complete!")
     if args.second_analysis:

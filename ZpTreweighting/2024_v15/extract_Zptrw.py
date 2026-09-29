@@ -17,7 +17,7 @@ plt.style.use(style)
 
 parser = argparse.ArgumentParser(description='Extract data and fit with Gaussian.')
 parser.add_argument('-f', action='store_true', help='Fit the ratio plot using Erf.')
-parser.add_argument('-n', type=int, default=0, help='Normalization method:\n1: Ratio of integral of MC over weights*MC.\n2: Normalize MC to data integral before calculating rw factor.')
+parser.add_argument('-n', type=int, default=0, help='Normalization method:\n1: Ratio of integral of MC over weights*MC.\n2: Normalize MC to data integral before calculating rw factor.\n3: Extract weights without normalizing the DY histogram')
 parser.add_argument('-c', type=str, default="mm", help='Z decay channel.')
 parser.add_argument('-nj', type=int, default=0, help='Jet bin category(number of jet bins).')
 parser.add_argument('-i', '--input', default='mkShapes__ZpTreweighting.root', help='Path to the merged ROOT file (default: mkShapes__ZpTreweighting.root)')
@@ -90,19 +90,125 @@ integral_histo_DY = histo_DY.Integral(histo_DY.FindBin(fit_range[0]), histo_DY.F
 integral_histo_DATA = histo_trueData.Integral(histo_trueData.FindBin(fit_range[0]), histo_trueData.FindBin(fit_range[1]) - 1)
 norm_factor2 = integral_histo_DATA/integral_histo_DY
 print("Normalization factor 2:", norm_factor2)
+
+# Plot Data-BG vs unscaled DY before any normalization is applied to histo_DY,
+# with the same layout as the main fit plot: histograms on top, ratio below.
+histo_ratio_unscaled = histo_trueData.Clone("histo_ratio_unscaled")
+histo_ratio_unscaled.Divide(histo_DY)
+
+c_unscaled = ROOT.TCanvas("c_unscaled", "c_unscaled", 1000, 1000)
+c_unscaled.Divide(1, 2)
+
+# Top pad: main plot
+pad1_unscaled = c_unscaled.cd(1)
+pad1_unscaled.SetPad(0.0, 0.30, 1.0, 1.0)
+pad1_unscaled.SetBottomMargin(0.02)
+pad1_unscaled.SetLogy()
+
+histo_DY.SetTitle("")
+histo_DY.GetYaxis().SetTitle("Events")
+histo_DY.GetXaxis().SetLabelSize(0)
+histo_DY.GetYaxis().SetTitleSize(0.06)
+histo_DY.GetYaxis().SetTitleOffset(0.8)
+histo_DY.GetYaxis().SetLabelSize(0.05)
+histo_DY.GetXaxis().SetRangeUser(plot_range[0], plot_range[1])
+histo_DY.SetStats(False)
+histo_DY.SetFillStyle(3344)
+histo_DY.SetFillColorAlpha(ROOT.kBlue, 0.1)
+histo_DY.Draw("HIST")
+
+histo_trueData.SetMarkerStyle(8)
+histo_trueData.SetMarkerColor(ROOT.kBlack)
+histo_trueData.SetMarkerSize(0.8)
+histo_trueData.GetXaxis().SetRangeUser(plot_range[0], plot_range[1])
+histo_trueData.Draw("E1 SAME")
+
+label_unscaled = ROOT.TLatex()
+label_unscaled.SetNDC(True)
+label_unscaled.SetTextSize(0.040)
+label_unscaled.DrawLatex(0.12, 0.92, "#bf{CMS} #it{Preliminary}")
+label_unscaled.DrawLatex(0.55, 0.92, "L = 8.0 fb^{-1} (#sqrt{s} = 13.6 TeV)")
+label_unscaled.DrawLatex(0.15, 0.2, f"num(DY) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DY:.3f}")
+label_unscaled.DrawLatex(0.15, 0.15, f"num(DATA) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DATA:.3f}")
+
+leg_unscaled = ROOT.TLegend(0.60, 0.70, 0.88, 0.88)
+leg_unscaled.SetBorderSize(0)
+leg_unscaled.SetFillStyle(0)
+leg_unscaled.AddEntry(histo_trueData, "Data - BG", "pe")
+leg_unscaled.AddEntry(histo_DY, "DY (unscaled)", "f")
+leg_unscaled.Draw()
+
+# Bottom pad: ratio
+pad2_unscaled = c_unscaled.cd(2)
+pad2_unscaled.SetPad(0.0, 0.0, 1.0, 0.30)
+pad2_unscaled.SetTopMargin(0.02)
+pad2_unscaled.SetBottomMargin(0.35)
+
+histo_ratio_unscaled.SetTitle("")
+histo_ratio_unscaled.SetMarkerStyle(20)
+histo_ratio_unscaled.SetMarkerSize(0.8)
+histo_ratio_unscaled.SetLineColor(ROOT.kBlack)
+histo_ratio_unscaled.SetMarkerColor(ROOT.kBlack)
+
+histo_ratio_unscaled.GetYaxis().SetTitle("(Data-BG)/DY")
+histo_ratio_unscaled.GetYaxis().SetNdivisions(505)
+histo_ratio_unscaled.GetYaxis().SetTitleSize(0.12)
+histo_ratio_unscaled.GetYaxis().SetTitleOffset(0.30)
+histo_ratio_unscaled.GetYaxis().SetLabelSize(0.08)
+histo_ratio_unscaled.GetXaxis().SetTitle("p_{T}^{ll} [GeV]")
+histo_ratio_unscaled.GetXaxis().SetTitleSize(0.12)
+histo_ratio_unscaled.GetXaxis().SetLabelSize(0.10)
+histo_ratio_unscaled.GetXaxis().SetRangeUser(plot_range[0], plot_range[1])
+
+histo_ratio_unscaled.SetMinimum(0.0)
+histo_ratio_unscaled.SetMaximum(2.0)
+
+histo_ratio_unscaled.Draw("E1")
+histo_ratio_unscaled.SetStats(False)
+
+line_unscaled = ROOT.TLine(histo_ratio_unscaled.GetXaxis().GetXmin(), 1.0,
+                            histo_ratio_unscaled.GetXaxis().GetXmax(), 1.0)
+line_unscaled.SetLineColor(ROOT.kGray+2)
+line_unscaled.SetLineStyle(2)
+line_unscaled.Draw("SAME")
+
+c_unscaled.SaveAs(f"ZpTreweighting_unscaled_{channel}.pdf")
+c_unscaled.Close()
+
 if args.n == 2:
     histo_DY.Scale(norm_factor2)
     integral_histo_DYscaled = histo_DY.Integral(histo_DY.FindBin(fit_range[0]), histo_DY.FindBin(fit_range[1]) - 1)
 
 # Create a ratio plot of DATA to DY
 histo_ratio = histo_trueData.Clone("histo_ratio")
+
+# --- METHOD 3 IMPLEMENTATION BRANCH ---
+# # Old method 3: normalize both DATA and DY windows to unit area before dividing.
+# if args.n == 3:
+#     # Clone to isolate shape structures and ensure original histograms remain pristine for pad1 plotting
+#     histo_trueData_unit = histo_trueData.Clone("histo_trueData_unit")
+#     histo_DY_unit = histo_DY.Clone("histo_DY_unit")
+#
+#     # Force both window areas to integrate precisely to 1.0
+#     if integral_histo_DATA > 0 and integral_histo_DY > 0:
+#         histo_trueData_unit.Scale(1.0 / integral_histo_DATA)
+#         histo_DY_unit.Scale(1.0 / integral_histo_DY)
+#
+#     histo_ratio = histo_trueData_unit.Clone("histo_ratio")
+#     histo_ratio.Divide(histo_DY_unit)
+# else:
+#     # Retain the exact original method 0, 1, and 2 calculations
+#     histo_ratio.Divide(histo_DY)
+
+# New method 3: same as method 2, but without scaling/normalizing the DY histogram.
 histo_ratio.Divide(histo_DY)
 
 integral_histo_ratio = histo_ratio.Integral(histo_ratio.FindBin(fit_range[0]), histo_ratio.FindBin(fit_range[1]) - 1)
 
 # fitting_functions = ["[0]*x**6 + [1]*x**5 + [2]*x**4 + [3]*x**3 + [4]*x**2 + [5]*x + [6]", "[0]*([1]*TMath::Erf((x-[2])/[3]) + [4]*x + [5]*x**2)"]
 fitting_functions = ["([0]*TMath::Erf((x-[1])/[2]) + [3]*x + [4]*TMath::Sq(x) + [5])"]
-initial_guesses = [[0.0, 5.0, 10.0, 0.0, 0.0, 1.0]]
+# initial_guesses = [[0.0, 5.0, 10.0, 0.0, 0.0, 1.0]]
+initial_guesses = [[0.2, 9.00, 4.0, -0.0, 0.00, 1.0]]
 save_name_suffixes = [channel]
 for fitfunc, initguess, savename in zip(fitting_functions, initial_guesses, save_name_suffixes):
     c = ROOT.TCanvas("c", "c", 1000, 1000)
@@ -115,7 +221,7 @@ for fitfunc, initguess, savename in zip(fitting_functions, initial_guesses, save
     pad1.SetLogy()   # if you want log-y
 
     histo_DY.SetTitle("")
-    histo_DY.GetYaxis().SetTitle("Events / 5 GeV")
+    histo_DY.GetYaxis().SetTitle("Events")
     histo_DY.GetXaxis().SetLabelSize(0)
     histo_DY.GetYaxis().SetTitleSize(0.06)
     histo_DY.GetYaxis().SetTitleOffset(0.8)
@@ -138,12 +244,11 @@ for fitfunc, initguess, savename in zip(fitting_functions, initial_guesses, save
     label.SetNDC(True)
     label.SetTextSize(0.040)
     label.DrawLatex(0.12, 0.92, "#bf{CMS} #it{Preliminary}")
-    label.DrawLatex(0.55, 0.92, "L = 8.2 fb^{-1} (#sqrt{s} = 13.6 TeV)")
+    label.DrawLatex(0.55, 0.92, "L = 109.08 fb^{-1} (#sqrt{s} = 13.6 TeV)")
     label.DrawLatex(0.15, 0.2, f"num(DY) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DY:.3f}")
     label.DrawLatex(0.15, 0.15, f"num(DATA) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DATA:.3f}")
     if args.n == 2:
-        label.DrawLatex(0.15, 0.1, f"num(DY normalized) events in ({fit_range[0],fit_range[1]}) GeV = {integral_histo_DYscaled:.3f}")
-
+        label.DrawLatex(0.15, 0.1, f"num(DY normalized) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DYscaled:.3f}")
 
     leg = ROOT.TLegend(0.60, 0.70, 0.88, 0.88)
     leg.SetBorderSize(0)
@@ -283,14 +388,19 @@ if args.write_json is not None and args.f:
     wrote = False
     # 'fit_func', 'fit_result', 'fitfunc' are in scope from the last for-loop
     # iteration (Python loop variables persist after the loop).
-    if fit_result and fit_result.IsValid():
+    if not (fit_result and fit_result.IsValid()):
+        print("\nWARNING: Fit did not converge; writing dyZpTrw.json anyway.")
+    if fit_result:
         # Build a ROOT / C++ compatible formula string with full precision.
         root_formula = fitfunc  # e.g. "[0]*TMath::Erf(...) + [3]*x + [4]*x**2 + [5]"
         n_params = fit_func.GetNpar()
         params = [fit_func.GetParameter(i) for i in range(n_params)]
         const_val = fit_func.Eval(fit_range[1])
         for i, p in enumerate(params):
-            root_formula = root_formula.replace(f"[{i}]", f"{p:.6f}")
+            # Keep substituted values parenthesized: a negative offset in
+            # ``x-[1]`` must become ``x-(-2.8)``, never ``x--2.8`` (which
+            # C++ parses as a decrement operator in an RDF expression).
+            root_formula = root_formula.replace(f"[{i}]", f"({p:.6f})")
         # Convert Python-style x**2 to ROOT / C++ TMath::Sq(x)
         # root_formula = root_formula.replace("x**2", "TMath::Sq(x)")
         # Tidy up double signs that can appear after parameter substitution
@@ -324,4 +434,4 @@ if args.write_json is not None and args.f:
         print(f"  [{args.year}][{sample_key}]: {full_expr}")
         wrote = True
     else:
-        print("\nWARNING: Fit did not converge; dyZpTrw.json was NOT updated.")
+        print("\nWARNING: No fit result available; dyZpTrw.json was NOT updated.")
