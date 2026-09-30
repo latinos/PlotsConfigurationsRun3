@@ -108,6 +108,10 @@ DataTrig = {
     'EGamma1'  : 'HLT_Ele30_WPTight_Gsf > 0.5',
 }
 
+# DataTrig = {
+#     'EGamma0'  : '1',
+#     'EGamma1'  : '1',
+# }
 
 #########################################
 ############ MC COMMON ##################
@@ -134,7 +138,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-10to50') + \
 
 samples['DY'] = {
     'name': files,
-    'weight': mcCommonWeightNoMatch,
+    'weight': mcCommonWeightNoMatch + ' * (Gen_ZGstar_mass > 10)',
     'FilesPerJob': 50
 }
 
@@ -181,56 +185,56 @@ samples['ggWW'] = {
 }
 
 # WZ
-# files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') # + \
-#         # nanoGetSampleFiles(mcDirectory, 'WZToLNu2Q')
+files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') # + \
+        # nanoGetSampleFiles(mcDirectory, 'WZToLNu2Q')
 
-# samples['WZ'] = {
-#     'name': files,
-#     'weight': mcCommonWeightNoMatch + ' * (Gen_ZGstar_mass >= 50)',
-#     'FilesPerJob': 30,
-# }
+samples['WZ'] = {
+    'name': files,
+    'weight': mcCommonWeight3Match + ' * (Gen_ZGstar_mass >= 50)',
+    'FilesPerJob': 30,
+}
 
 files = nanoGetSampleFiles(mcDirectory, 'ZZ')
 
 samples['ZZ'] = {
     'name': files,
-    'weight': mcCommonWeightNoMatch,
+    'weight': mcCommonWeight3Match,
     'FilesPerJob': 5,
 }
 
 ### Vg/Vgstar
 
 # Wg
-# files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
+files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
-# samples['Wg'] = {
-#     'name': files,
-#     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
-#     'FilesPerJob': 30,
-# }
+samples['Wg'] = {
+    'name': files,
+    'weight': mcCommonWeight1Match + '*(Gen_ZGstar_mass <= 0)',
+    'FilesPerJob': 30,
+}
 
 # WgS
 files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
         nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
 
-samples['WZgS'] = {
+samples['WgS'] = {
     'name': files,
-    'weight': mcCommonWeightNoMatch,
+    'weight': mcCommonWeight3Match,
     'FilesPerJob': 30,
 }
 
-addSampleWeight(samples, 'WZgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass < 4)")
-addSampleWeight(samples, 'WZgS', "WZTo3LNu",    "(Gen_ZGstar_mass >= 4)")
+addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4)")
+addSampleWeight(samples, 'WgS', "WZTo3LNu",    "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
 
-# Zg
-# files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
-#         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50')
+#Zg
+files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
+        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50')
 
-# samples['Zg'] = {
-#     'name': files,
-#     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
-#     'FilesPerJob': 30,
-# }
+samples['Zg'] = {
+    'name': files,
+    'weight': mcCommonWeight2Match + '*(Gen_ZGstar_mass <= 0)',
+    'FilesPerJob': 30,
+}
 
 # ZgS
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
@@ -238,7 +242,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
 
 samples['ZgS'] = {
     'name': files,
-    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass < 4)',
+    'weight': mcCommonWeight3Match + '*((Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4))',
     'FilesPerJob': 30,
 }
 
@@ -268,7 +272,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WWW') + \
 
 samples['VVV'] = {
     'name': files,
-    'weight': mcCommonWeightNoMatch,
+    'weight': mcCommonWeight3Match,
     'FilesPerJob': 5,
 }
 

@@ -17,7 +17,15 @@ preselections = 'Alt(Lepton_pt,0,0)>32 \
 cuts['WgS_WtoE_gStoMuMu'] = {
     'expr': '(abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 13 && abs(Lepton_pdgId[2]) == 13) && (Lepton_pdgId[1] * Lepton_pdgId[2] < 0)',
     'categories': {
-        'ml2l3_low': 'mllTwoThree <= 10',
+        'mth_high': 'mth >= 60',
+        'inc' : '1',
+    }
+}
+
+cuts['WgS_WtoE_gStoMuMuSS'] = {
+    'expr': '(abs(Lepton_pdgId[0]) == 11 && abs(Lepton_pdgId[1]) == 13 && abs(Lepton_pdgId[2]) == 13) && (Lepton_pdgId[1] * Lepton_pdgId[2] > 0)',
+    'categories': {
+        'mth_high': 'mth >= 60',
         'inc' : '1',
     }
 }

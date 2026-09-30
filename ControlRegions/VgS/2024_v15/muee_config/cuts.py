@@ -10,14 +10,23 @@ preselections = 'Alt(Lepton_pt,0,0)>25 \
               && bVeto \
               && noJetInHorn \
 '
-
+# && PuppiMET_pt > 20 \
+# && abs(WH3l_chlll) == 1 \
 ### WgS CR
 
 # m-ee
 cuts['WgS_WtoMu_gStoEE'] = {
     'expr': '(abs(Lepton_pdgId[0]) == 13 && abs(Lepton_pdgId[1]) == 11 && abs(Lepton_pdgId[2]) == 11) && (Lepton_pdgId[1] * Lepton_pdgId[2] < 0)',
     'categories': {
-        'ml2l3_low': 'mllTwoThree <= 10',
+        'mth_high': 'mth >= 60',
+        'inc' : '1',
+    }
+}
+
+cuts['WgS_WtoMu_gStoEESS'] = {
+    'expr': '(abs(Lepton_pdgId[0]) == 13 && abs(Lepton_pdgId[1]) == 11 && abs(Lepton_pdgId[2]) == 11) && (Lepton_pdgId[1] * Lepton_pdgId[2] > 0)',
+    'categories': {
+        'mth_high': 'mth >= 60',
         'inc' : '1',
     }
 }

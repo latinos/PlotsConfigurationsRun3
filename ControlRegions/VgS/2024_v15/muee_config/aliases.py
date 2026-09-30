@@ -7,10 +7,10 @@ ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
-configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions/VgS/2024_v15/muee_config
-configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions/VgS/2024_v15
-configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions/VgS
-# configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions
+configurations = os.path.dirname(configurations) # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3_WH/PlotsConfigurationsRun3/ControlRegions/VgS/2024_v15/muee_config
+configurations = os.path.dirname(configurations) # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3_WH/PlotsConfigurationsRun3/ControlRegions/VgS/2024_v15
+configurations = os.path.dirname(configurations) # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3_WH/PlotsConfigurationsRun3/ControlRegions/VgS
+# configurations = os.path.dirname(configurations) # /afs/cern.ch/user/n/ntrevisa/work/latinos/Run3_WH/PlotsConfigurationsRun3/ControlRegions
 print(configurations)
 
 aliases = {}
@@ -19,45 +19,24 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
-
-
-###### Defining new electron WP for leptons 2 and 3 (cutBased_MediumID_tthMVA_Run3 without MVA requirement)
-aliases['ele2WP'] = {
-    'expr': 'abs(Alt(Lepton_pdgId,1,0)) == 11 \
-      && (Alt(Electron_eta,Lepton_electronIdx[1],0) <= 1.479 ? \
-        Alt(Electron_dxy, Lepton_electronIdx[1], 0) < 0.05 && \
-        Alt(Electron_dz, Lepton_electronIdx[1], 0) < 0.1 : \
-        Alt(Electron_dxy, Lepton_electronIdx[1], 0) < 0.1 && \
-        Alt(Electron_dz, Lepton_electronIdx[1], 0) < 0.2 ) \
-      && Alt(Electron_eta,Lepton_electronIdx[1],0) < 2.5 \
-      && Alt(Electron_cutBased, Lepton_electronIdx[1], 0) >= 3 \
-      && Alt(Electron_convVeto, Lepton_electronIdx[1], 0)',
+aliases['Lepton_isTightElectron_cutBased_TightID_Run3'] = { # remove tth (only works because of testreciepe), No SFs :(
+     'linesToAdd'     : [f'#include "{configurations}/macros/ElectronID.cc"'],
+     'linesToProcess' : [f"ROOT.gInterpreter.Declare('ELID id = ELID();')"],
+     'expr'           : f'id(Lepton_pdgId, Lepton_electronIdx, Electron_eta, Electron_dxy, Electron_dz, Electron_cutBased, Electron_convVeto)',
 }
 
-aliases['ele3WP'] = {
-    'expr': 'abs(Alt(Lepton_pdgId,2,0)) == 11 \
-      && (Alt(Electron_eta,Lepton_electronIdx[2],0) <= 1.479 ? \
-        Alt(Electron_dxy, Lepton_electronIdx[2], 0) < 0.05 && \
-        Alt(Electron_dz, Lepton_electronIdx[2], 0) < 0.1 : \
-        Alt(Electron_dxy, Lepton_electronIdx[2], 0) < 0.1 && \
-        Alt(Electron_dz, Lepton_electronIdx[2], 0) < 0.2 ) \
-      && Alt(Electron_eta,Lepton_electronIdx[2],0) < 2.5 \
-      && Alt(Electron_cutBased, Lepton_electronIdx[2], 0) >= 3 \
-      && Alt(Electron_convVeto, Lepton_electronIdx[2], 0)' \
-}
-
-######
-
+eleWP = 'cutBased_TightID_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 # No MVA requirement for leptons 2 and 3. cut_TightID_pfIsoTight_HWW_tthmva_67 ID for the leading muon.
-aliases['LepWPCut'] = {
-    'expr' : "Lepton_isTightMuon_" + muWP + "[0]>0.5 && ele2WP && ele3WP",
-    'samples': mc + ['DATA'],
-}
 
 aliases['LepWPSF'] = {
-    'expr' : "Lepton_tightMuon_" + muWP + "_IdIsoSF[0]", # electrons SFs to be computed with new WPs
+    'expr' : "Lepton_tightMuon_" + muWP + "_IdIsoSF[0]",
     'samples': mc
+}
+
+aliases['LepWPCut'] = {
+    'expr' : "Lepton_isTightMuon_" + muWP + "[0]>0.5 && Lepton_isTightElectron_" + eleWP + "[1]>0.5 && Lepton_isTightElectron_" + eleWP + "[2]>0.5",
+    'samples': mc + ['DATA'],
 }
 
 
@@ -66,19 +45,31 @@ aliases['LepWPSF'] = {
 aliases['reco_ZGstar_mass'] = {
     'expr': 'reco_ZGstar_mass(nLepton, Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId)',
     'linesToAdd': [f'#include "{configurations}/macros/reco_ZGstar_mass.cc"'],
-    'samples': mc + ['DATA']
+    'samples': mc + ['DATA'] + ['Fake']
 }
 
 aliases['JpsiVeto'] = {
     'expr': 'abs(reco_ZGstar_mass - 3.1) > 0.1',
-    'samples': mc + ['DATA']
+    'samples': mc + ['DATA'] + ['Fake']
 }
 
 ######
 
+aliases['drll23'] = {
+    'expr': '(Lepton_pt.size() > 2) ? ROOT::VecOps::DeltaR(Lepton_eta[1], Lepton_eta[2], Lepton_phi[1], Lepton_phi[2]) : -999.',
+    'samples': mc + ['Fake','DATA']
+}
+
+aliases['mll23'] = {
+    'expr': '''(Lepton_pt.size() > 2) ?( ROOT::Math::PtEtaPhiMVector(Lepton_pt[1], Lepton_eta[1], Lepton_phi[1], 0.0) + ROOT::Math::PtEtaPhiMVector(Lepton_pt[2], Lepton_eta[2], Lepton_phi[2], 0.0) ).M() : -999. ''',
+    'samples': mc + ['Fake','DATA']
+}
+
 # Gen-matching to prompt only (match to *any* gen lepton)
 aliases['PromptGenLepMatch3l'] = {
-    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) >= 3)',
+    'expr': 'Alt(Lepton_promptgenmatched, 0, 0) \
+    * Alt(Lepton_promptgenmatched, 1, 0) \
+    * Alt(Lepton_promptgenmatched, 2, 0)',
     'samples': mc
 }
 
@@ -92,20 +83,30 @@ aliases['PromptGenLepMatch1l'] = {
     'samples': mc
 }
 
-# # Conept
-# aliases['Lepton_conept'] = {
-#     'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
-#     'linesToAdd': [f'#include "{configurations}/macros/LeptonConePt_class.cc"'],
-#     'samples': mc + ['Fake', 'DATA']
-# }
+aliases['PromptGenLepNo3lMatched'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) < 3)',
+    'samples': mc
+}
 
-# # Fake leptons transfer factor
-# aliases['fakeW'] = {
-#     'linesToAdd'     : [f'#include "{configurations}/utils/macros/fake_rate_reader_class_run3.cc"'],
-#     'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 2, \"std\", \"{configurations}/utils/data/FakeRate/2024_v15_pt/\");')"],
-#     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
-#     'samples'        : ['Fake']
-# }
+aliases['PromptGenLepNo2lMatched'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) + Alt(Lepton_promptgenmatched, 2, 0) < 2)',
+    'samples': mc
+}
+
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
+configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions/VgS/2024_v15/muee_config
+configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions/VgS/2024_v15
+configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions/VgS
+configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3/ControlRegions
+configurations = os.path.dirname(configurations) # <user folder>/PlotsConfigurationsRun3
+
+# Fake leptons transfer factor
+aliases['fakeW'] = {
+    'linesToAdd'     : [f'#include "{configurations}/utils/macros/fake_rate_reader_class_run3.cc"'],
+    'linesToProcess' : [f"ROOT.gInterpreter.Declare('fake_rate_reader fr_reader = fake_rate_reader(\"{eleWP}\", \"{muWP}\", \"nominal\", 3, \"std\", \"{configurations}/utils/data/FakeRate/2024_v15_pt/\");')"],
+    'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+    'samples'        : ['Fake']
+}
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass >0 && Gen_ZGstar_mass < 4',
@@ -118,8 +119,69 @@ aliases['gstarHigh'] = {
 
 aliases['Top_pTrw'] = {
     'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
-    'samples': ['top']
+    'samples': ['top', 'top_No3Match']
 }
+
+# ISOLATION VARIABLES
+# aliases['Iso1'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,0,0))==11? Alt(Electron_pfRelIso03_all, Lepton_electronIdx[0],999)  : Alt(Muon_pfRelIso03_all,Lepton_muonIdx[0],999)',
+# }
+
+# aliases['Iso2'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,1,0))==11? Alt(Electron_pfRelIso03_all,Lepton_electronIdx[1],999)  : Alt(Muon_pfRelIso03_all,Lepton_muonIdx[1],999)',
+# }
+
+# aliases['Iso3'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,2,0))==11? Alt(Electron_pfRelIso03_all,Lepton_electronIdx[2],999)  : Alt(Muon_pfRelIso03_all,Lepton_muonIdx[2],999)',
+# }
+
+# aliases['relIso_1'] = {
+#     'expr': 'Iso1 >= 0? Iso1 - Alt(Lepton_pt,1,0)/Alt(Lepton_pt,0,0) : Iso1',
+# }
+
+# aliases['relIso_2'] = {
+#     'expr': 'Iso2 >= 0? Iso2 - Alt(Lepton_pt,2,0)/Alt(Lepton_pt,1,0) : Iso2',
+# }
+
+# aliases['ptratio_2'] = {
+#     'expr': 'Alt(Lepton_pt,2,0)/Alt(Lepton_pt,1,0)',
+# }
+
+# aliases['relIso_3'] = {
+#     'expr': 'Iso3 >= 0? Iso3 - Alt(Lepton_pt,1,0)/Alt(Lepton_pt,2,0) : Iso3',
+# }
+
+# aliases['ptratio_3'] = {
+#     'expr': 'Alt(Lepton_pt,1,0)/Alt(Lepton_pt,2,0)',
+# }
+
+# MVA variables
+
+# aliases['Muon2_promptMVA'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,1,0))==13 ? Alt(Muon_promptMVA,Lepton_muonIdx[1],999) : -999'
+# }
+
+# aliases['Muon3_promptMVA'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,2,0))==13 ? Alt(Muon_promptMVA,Lepton_muonIdx[2],999) : -999'
+# }
+
+# aliases['Electron2_promptMVA'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,1,0))==11 ? Alt(Electron_promptMVA,Lepton_electronIdx[1],999) : -999'
+# }
+
+# aliases['Electron3_promptMVA'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,2,0))==11 ? Alt(Electron_promptMVA,Lepton_electronIdx[2],999) : -999'
+# }
+
+# aliases['Electron2_convVeto'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,1,0))==11 ? Alt(Electron_convVeto,Lepton_electronIdx[1],999) : -999'
+# }
+
+# aliases['Electron3_convVeto'] = {
+#     'expr': 'abs(Alt(Lepton_pdgId,2,0))==11 ? Alt(Electron_convVeto,Lepton_electronIdx[2],999) : -999'
+# }
+
+
 
 
 # Jet bins
@@ -235,6 +297,11 @@ aliases['TrigSLWP'] = {
     'samples' : mc
 }
 
+# aliases['TrigSLSF'] = {
+#     'expr' : 'TriggerSFWeight_sngMu * TriggerSFWeight_sngEl',
+#     'samples' : mc
+# }
+
 aliases['TrigSLSF'] = {
     'expr' : 'TriggerSFWeight_sngMu',
     'samples' : mc
@@ -247,7 +314,7 @@ aliases['RecoSF3l'] = {
 }
 
 
-# Data/MC scale factors and systematic uncertainties
+# Data/MC scale factors and systematic uncertainties - Trigger scale factors are missing!
 aliases['SFweight'] = {
     'expr': ' * '.join(['TrigSLWP', 'TrigSLSF', 'RecoSF3l', 'puWeight', 'LepWPCut', 'LepWPSF']),
     'samples': mc

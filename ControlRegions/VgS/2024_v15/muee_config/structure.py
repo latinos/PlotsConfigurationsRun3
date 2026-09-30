@@ -3,8 +3,7 @@
 structure = {}
 
 # scaleSampleForDatacard
-# keys here must match keys in samples.py    
-#
+# keys here must match keys in samples.py
 
 
 structure['DY']  = {  
@@ -12,10 +11,12 @@ structure['DY']  = {
     'isData'   : 0,
 }
 
+
 structure['top'] = {   
     'isSignal' : 0,
     'isData'   : 0,
 }
+
 
 structure['WW']  = { 
     'isSignal' : 0,
@@ -23,6 +24,21 @@ structure['WW']  = {
 }
 
 structure['ggWW']  = {
+    'isSignal' : 0,
+    'isData'   : 0,
+}
+
+structure['WZ']  = { 
+    'isSignal' : 0,
+    'isData'   : 0,
+}
+
+structure['Wg']  = {
+    'isSignal' : 0,
+    'isData'   : 0,
+}
+
+structure['Zg']  = {
     'isSignal' : 0,
     'isData'   : 0,
 }
@@ -37,13 +53,13 @@ structure['VVV']  = {
     'isData'   : 0,
 }
 
-# structure['Fake']  = {  
-#     'isSignal' : 0,
-#     'isData'   : 0,                  
-# }
-
-structure['WZgS']  = { 
+structure['Fake']  = {  
     'isSignal' : 0,
+    'isData'   : 0,                  
+}
+
+structure['WgS']  = { 
+    'isSignal' : 1,
     'isData'   : 0,
 }
 
