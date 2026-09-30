@@ -360,12 +360,13 @@ def comment_addsampleweight_dy(samples_file, dry_run=False):
     # Match an un-commented addSampleWeight call referencing a DY_*_ZpTrw weight.
     # Pattern breakdown:
     #   ^(?![ \t]*#)           — line must not start with optional whitespace + '#'
-    #   ([ \t]*addSampleWeight — capture indentation + function name
+    #   ([ \t]*)              — capture indentation
+    #   (addSampleWeight       — capture function name
     #    \s*\([^)]*            — opening paren and any args
     #    ['"]DY_..._ZpTrw['"] — the DY ZpTrw weight argument
     #    [^)]*\))              — remaining args + closing paren
     pattern = re.compile(
-        r"^(?![ \t]*#)([ \t]*addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9_]*ZpTrw['\"][^)]*\))",
+        r"^(?![ \t]*#)([ \t]*)(addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9_]*ZpTrw['\"][^)]*\))",
         re.MULTILINE,
     )
 
@@ -373,7 +374,8 @@ def comment_addsampleweight_dy(samples_file, dry_run=False):
         info("WARNING: No uncommented addSampleWeight DY ZpTrw line found; skipping.")
         return
 
-    new_content = pattern.sub(r"# \1", content)
+    # Put "# " after the indentation so the line keeps its place in the loop body.
+    new_content = pattern.sub(r"\1# \2", content)
     info("  Commented out addSampleWeight DY ZpTrw line.")
 
     if not dry_run:
@@ -396,7 +398,7 @@ def uncomment_addsampleweight_dy(samples_file, dry_run=False):
 
     # Match a commented addSampleWeight call referencing a DY_*_ZpTrw weight.
     pattern = re.compile(
-        r"^([ \t]*)#[ \t]*(addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9_]*ZpTrw['\"][^)]*\))",
+        r"^([ \t]*)# ?([ \t]*)(addSampleWeight\s*\([^)]*['\"]DY_[A-Za-z0-9_]*ZpTrw['\"][^)]*\))",
         re.MULTILINE,
     )
 
@@ -404,7 +406,8 @@ def uncomment_addsampleweight_dy(samples_file, dry_run=False):
         info("WARNING: No commented addSampleWeight DY ZpTrw line found; skipping.")
         return
 
-    new_content = pattern.sub(r"\1\2", content)
+    # Keep whitespace on both sides of "#" so indentation survives either comment style.
+    new_content = pattern.sub(r"\1\2\3", content)
     info("  Uncommented addSampleWeight DY ZpTrw line.")
 
     if not dry_run:

@@ -126,7 +126,16 @@ mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight
 ###########################################
 
 # DY
-files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
+# `tag` is patched by automate.py to "{year}_{sample_type}_ZpTreweighting_{suffix}",
+# so pick the DY dataset based on the sample type embedded in it.
+# An unpatched tag (e.g. the default "ZpTreweighting") falls back to NLO.
+sample_type = 'LO' if '_LO_' in tag else 'NLO'
+
+if sample_type == 'LO':
+    # PLACEHOLDER: 'DYJetsToLL_M-50-LO' is the 2022 LO DY name and has not been checked against the Summer24 nAODv15 production (mcDirectory). Replace it with the real 2024 LO DY dataset name here AND in dy_sample_names below, otherwise the LO DY sample will have no input files.
+    files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50-LO')
+else:
+    files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-10to50') + \
@@ -138,6 +147,14 @@ samples['DY'] = {
     'weight': mcCommonWeight,# + '* DY_NLO_ZpTrw',
     'FilesPerJob': 10,
     }
+
+# automate.py comments out the addSampleWeight line below while deriving the weights (phase 1) and uncomments it for the second round (phase 3).
+# These names must match the datasets passed to nanoGetSampleFiles above (including the LO placeholder).
+dy_sample_names = ['DYJetsToLL_M-50-LO'] if sample_type == 'LO' else ['DYto2E-2Jets_MLL-50', 'DYto2Mu-2Jets_MLL-50', 'DYto2Tau-2Jets_MLL-50', 'DYto2E-2Jets_MLL-10to50', 'DYto2Mu-2Jets_MLL-10to50', 'DYto2Tau-2Jets_MLL-10to50']
+for _dy_sample_name in dy_sample_names:
+    pass  # kept so this loop body stays valid if the line below is commented out
+    addSampleWeight(samples,'DY',_dy_sample_name,'DY_ZpTrw')
+
 
 # remove backgrounds from data for ZpT reweighting:
 
