@@ -1,0 +1,342 @@
+# Danush Shekar (UIC)
+# Built on top of the DY CR 2023_v12 config: https://github.com/latinos/PlotsConfigurationsRun3/tree/main/ControlRegions/DY/2023_v12
+# with the 2022_v12/2024_v15 updates (latinos commit 2656772) applied.
+
+from mkShapesRDF.lib.search_files import SearchFiles
+
+searchFiles = SearchFiles()
+redirector = ""
+
+useXROOTD = False
+
+# MC:   /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight
+# DATA: /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2022_ReReco_nAODv12_Full2022v12/DATAl2loose2022v12__l2tight
+mcProduction = 'Summer23_130x_nAODv12_Full2023v12' # new datasets were produced around 11Apr26, using old datasets to compare with prior results (DS, 13Apr26)
+mcSteps      = 'MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight'
+dataReco     = 'Run2023_Prompt_nAODv12_Full2023v12'  # new datasets were produced around 11Apr26, using old datasets to compare with prior results (DS, 13Apr26)
+dataSteps    = 'DATAl2loose2023v12__l2loose' # Choose l2loose sample but apply tight selections in analysis (eleWP and muWP)
+fakeSteps    = 'DATAl2loose2023v12__l2loose'
+
+##############################################
+###### Tree base directory for the site ######
+##############################################
+treeBaseDir = f'/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+limitFiles = -1 # For running on smaller set of samples (DS, 21Nov25)
+
+def makeMCDirectory(var=""):
+    _treeBaseDir = treeBaseDir + ""
+    if redirector != "":
+        _treeBaseDir = redirector + treeBaseDir
+    if var == "":
+        return "/".join([_treeBaseDir, mcProduction, mcSteps])
+    else:
+        return "/".join([_treeBaseDir, mcProduction, mcSteps + "__" + var])
+
+
+mcDirectory   = makeMCDirectory()
+fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+
+samples = {}
+
+
+def nanoGetSampleFiles(path, name):
+    _files = searchFiles.searchFiles(path, name, redirector=redirector)
+    if limitFiles != -1 and len(_files) > limitFiles:
+        return [(name, _files[:limitFiles])]
+    else:
+        return [(name, _files)]
+
+
+def CombineBaseW(samples, proc, samplelist):
+    _filtFiles = list(filter(lambda k: k[0] in samplelist, samples[proc]["name"]))
+    _files = list(map(lambda k: k[1], _filtFiles))
+    _l = list(map(lambda k: len(k), _files))
+    leastFiles = _files[_l.index(min(_l))]
+    dfSmall = ROOT.RDataFrame("Runs", leastFiles)
+    s = dfSmall.Sum("genEventSumw").GetValue()
+    f = ROOT.TFile(leastFiles[0])
+    t = f.Get("Events")
+    t.GetEntry(1)
+    xs = t.baseW * s
+
+    __files = []
+    for f in _files:
+        __files += f
+    df = ROOT.RDataFrame("Runs", __files)
+    s = df.Sum("genEventSumw").GetValue()
+    newbaseW = str(xs / s)
+    weight = newbaseW + "/baseW"
+
+    for iSample in samplelist:
+        addSampleWeight(samples, proc, iSample, weight)
+
+
+def addSampleWeight(samples, sampleName, sampleNameType, weight):
+    obj = list(filter(lambda k: k[0] == sampleNameType, samples[sampleName]["name"]))[0]
+    samples[sampleName]["name"] = list(
+        filter(lambda k: k[0] != sampleNameType, samples[sampleName]["name"])
+    )
+    if len(obj) > 2:
+        samples[sampleName]["name"].append(
+            (obj[0], obj[1], obj[2] + "*(" + weight + ")")
+        )
+    else:
+        samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
+
+
+################################################
+############ DATA DECLARATION ##################
+################################################
+
+# Putting for later: HLT selections (DS, 19Nov25)
+DataRun = [
+    ['Cv1','Run2023C-Prompt-v1'],
+    ['Cv2','Run2023C-Prompt-v2'],
+    ['Cv3','Run2023C-Prompt-v3'],
+    ['Cv4','Run2023C-Prompt-v4'],
+]
+
+
+DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
+
+DataTrig = {
+    'MuonEG'          : 'Trigger_ElMu' ,
+    'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
+    'EGamma0'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)',
+    'EGamma1'         : '!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)'
+}
+
+#########################################
+############ MC COMMON ##################
+#########################################
+
+# SFweight does not include btag weights
+mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight*PromptGenLepMatch1l'
+mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
+
+
+###########################################
+#############  BACKGROUNDS  ###############
+###########################################
+
+# DY
+# `tag` is patched by automate.py to "{year}_{sample_type}_ZpTreweighting_{suffix}",
+# so pick the DY dataset based on the sample type embedded in it.
+# An unpatched tag (e.g. the default "ZpTreweighting") falls back to NLO.
+sample_type = 'LO' if '_LO_' in tag else 'NLO'
+
+if sample_type == 'LO':
+    # PLACEHOLDER: 'DYJetsToLL_M-50-LO' is the 2022 LO DY name and has not been
+    # checked against the Summer23 nAODv12 production (mcDirectory). Replace it
+    # with the real 2023 LO DY dataset name here AND in dy_sample_names below.
+    # Note: the LO sample covers only mll > 50 GeV, while the NLO samples below
+    # also include 10 < mll < 50 GeV.
+    files = nanoGetSampleFiles(mcDirectory, 'DYJetsToLL_M-50-LO')
+else:
+    files = nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-50') + \
+            nanoGetSampleFiles(mcDirectory, 'DYto2L-2Jets_MLL-10to50')
+            # Removed following the latinos DY CR update of July 9, 2026 (commit 2656772):
+            # DYto2L already includes Z->tautau, so these double count.
+            # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_0J') + \
+            # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_1J') + \
+            # nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50_2J')
+
+samples['DY'] = {
+    'name': files,
+    'weight': mcCommonWeight,# + '* DY_ZpTrw',
+    'FilesPerJob': 10,
+}
+
+# automate.py comments out the addSampleWeight line below while deriving the
+# weights (phase 1) and uncomments it for the second round (phase 3).
+# These names must match the datasets passed to nanoGetSampleFiles above.
+dy_sample_names = ['DYJetsToLL_M-50-LO'] if sample_type == 'LO' else ['DYto2L-2Jets_MLL-50', 'DYto2L-2Jets_MLL-10to50']
+for _dy_sample_name in dy_sample_names:
+    pass  # kept so this loop body stays valid if the line below is commented out
+    addSampleWeight(samples,'DY',_dy_sample_name,'DY_ZpTrw')
+
+# remove backgrounds from data for ZpT reweighting:
+
+# Top
+samples['top'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
+            nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu') + \
+            nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_s-channel_plus') + \
+            nanoGetSampleFiles(mcDirectory, 'ST_s-channel_minus'),   
+            # nanoGetSampleFiles(mcDirectory, 'ST_tW_top') + \
+            # nanoGetSampleFiles(mcDirectory, 'ST_tW_antitop') + \
+    'weight': mcCommonWeight,
+    'FilesPerJob': 15,
+}
+addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
+
+# WW and ggWW
+samples['WW'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu'),
+            # nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG10to100') + \
+            # nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100to200') + \
+            # nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG200to400') + \
+            # nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG400to600') + \
+            # nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG600'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 20,
+}
+
+samples['ggWW'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuMuNu') + \
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuTauNu') +	\
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuENu') +	\
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuMuNu') +	\
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoMuNuTauNu') +	\
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuENu') +	\
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuMuNu') +	\
+            nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoTauNuTauNu'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 15,
+}
+
+# WZ
+samples['WZ'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WZTo3LNu'),
+    'weight': mcCommonWeight + ' * (Gen_ZGstar_mass >= 50)',
+    'FilesPerJob': 30,
+}
+
+# ZZ
+samples['ZZ'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'ZZ'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 5,
+}
+
+# Zg
+# Dropped _ext1 from DYGto2LG-1Jets_MLL-4to50_PTG-10to100: no _ext1 files in Summer23 (same name as ZgS below)
+samples['Zg'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-4to50_PTG-10to100') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-4to50_PTG-100to200') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-4to50_PTG-200') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-10to100') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-100to200') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-200to400') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-400to600') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-600'),
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
+    'FilesPerJob': 50,
+}
+
+# Wg
+samples['Wg'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J'),
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
+    'FilesPerJob': 50,
+}
+
+# Zg*
+samples['ZgS'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-4to50_PTG-10to100') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-4to50_PTG-100to200') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-4to50_PTG-200') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-10to100') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-100to200') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-200to400') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-400to600') + \
+            nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_MLL-50_PTG-600'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 50,
+}
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-4to50_PTG-10to100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-4to50_PTG-100to200", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-4to50_PTG-200", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-10to100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-100to200", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-200to400", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-400to600", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_MLL-50_PTG-600", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+
+# Wg*
+# Low mass spectrum coming from WGtoLnuG sample, high mass spectrum from WZTo3LNu sample        
+samples['WgS'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 50,
+}
+addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+
+
+samples['WZS'] = {
+    'name': nanoGetSampleFiles(mcDirectory, "WZTo3LNu"),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 50,
+}
+addSampleWeight(samples, 'WZS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+
+# Multiboson
+files = nanoGetSampleFiles(mcDirectory, 'WWW') + \
+        nanoGetSampleFiles(mcDirectory, 'WWZ') + \
+        nanoGetSampleFiles(mcDirectory, 'WZZ') + \
+        nanoGetSampleFiles(mcDirectory, 'ZZZ')  
+
+samples['VVV'] = {
+    'name': files,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 5,
+}
+
+# ggH and VBF
+samples['SMhiggs'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125') + \
+            nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
+    'weight': mcCommonWeight,
+    'FilesPerJob': 20,
+}
+
+
+###########################################
+################## DATA ###################
+###########################################
+
+samples['DATA'] = { 
+    'name': [],  
+    'weight': 'LepWPCut*METFilter_DATA',     
+    'weights': [], 
+    'isData': ['all'], 
+    'FilesPerJob': 15 
+} 
+
+for _, sd in DataRun:
+  for pd in DataSets:
+    datatag = pd + '_' + sd
+
+    files = nanoGetSampleFiles(dataDirectory, datatag)
+    
+    print(datatag)
+
+    samples['DATA']['name'].extend(files)
+    addSampleWeight(samples, 'DATA', datatag, DataTrig[pd])
+
+###########################################
+################## FAKE ###################
+###########################################
+
+samples['Fake'] = {
+    'name': [],
+    'weight': 'METFilter_DATA*fakeW',
+    'weights': [],
+    'isData': ['all'],
+    'FilesPerJob': 15
+}
+
+
+for _, sd in DataRun:
+  for pd in DataSets:
+    datatag = pd + '_' + sd
+
+    files = nanoGetSampleFiles(fakeDirectory, datatag)
+    samples['Fake']['name'].extend(files)
+    addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
