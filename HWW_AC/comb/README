@@ -1,0 +1,27 @@
+
+# combine cards and create workspace with HVV EFT signal models
+# combine v10.2.1 with CMSSW_14_1_0_pre4
+
+source scripts/PrepCards.sh 
+
+# perform coupling scans using condor 
+
+cd condor/
+source ../scripts/Scan.sh Fai  
+source ../scripts/Scan.sh ciHB
+source ../scripts/Scan.sh ciWB 
+cd ..
+
+# organise (hadd) condor output
+
+source scripts/AddConJobs.sh Fai
+source scripts/AddConJobs.sh ciHB
+source scripts/AddConJobs.sh ciWB
+
+# Make final scan plots
+
+python3 scripts/PlotScans.py Fai
+python3 scripts/PlotScans.py ciHB
+python3 scripts/PlotScans.py ciWB
+
+cp plots/*.pdf /eos/user/d/dmoran/plots/

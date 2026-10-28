@@ -1,0 +1,70 @@
+
+- HypTools.py : Tools to combine/create reweighted signal hypotheses, perform signal model checks and build EFT analysis
+
+- ACCheck.py : Full check of AC signal MC + reweighting - Requires ACconfig as input (and mkshapes output of course)
+
+  python ../../python/ACCheck.py ACconfig.py
+
+- EFTAna.py : Go from mkshapes output to EFT analysis datacards - Requires EFTconfig as input (and mkshapes output of course)
+
+  python ../../PrepEFTAna.py EFTconfig.py 
+
+- ConvertToComb.py : convert model to combine format
+
+  python ConvertToComb.py Fai  > HWWSMEFTFai.py
+  python ConvertToComb.py ciHB > HWWSMEFTciHB.py
+  python ConvertToComb.py ciWB > HWWSMEFTciWB.py
+
+################# JHUGen needed for analysis (in mkshapesRDF directory) ####
+
+  git clone https://github.com/JHUGen/JHUGenMela.git JHUGenMELA
+  cd JHUGenMELA; git checkout -b from-v242 v2.4.2 ; source setup.sh -j 12 ;  // MELA/setup.sh el9_amd64_gcc12 for gcc13?
+  -> Can also share mine, clean and run setup again
+
+################ Htt (tautau) treatment #################
+
+  - In ggF, VBF and VH channels, main HWW signal completely dominates Htt contribution
+  -> Treat Htt as background or minor signal (Should have no effect either way, easier to treat as background)
+
+  - Seems not to be the case in ZH(4l) and 1 jet(Boosted) channels where ZH(Htt) can be relatively significant
+  - Maybe production based KDs are same for HWW and Htt
+  -> Assume dominant effect at production vertex and scale EFT templates by #HWW+Htt/#HWW, Or build Htt signal model (AC Htt samples)
+
+################ ggZH ######################
+
+  - In run 2 analysis qqbar ZH production dominated ggZH in VH channel (same in run 3?)
+  - JHUGen studies imply ggZH trianlge diagrams not sensitive to a2 and a3 type couplings (just a1 and k1)
+  - Box diagrams (dominant) not sensitive to HVV AC at all 
+  -> Well motivated to treat as minor signal (Not EFT signal)
+
+############## Systematic treament ###########
+
+  - Fair to assume Higgs is at least SM-like (Looking for small deviations from SM expectation)
+  -> Calculating systematics for SM Higgs and applying to all EFT templates is well motivated
+
+################ Development ideas #################
+   
+  - KD construction optimisation :
+    combine pure KDs for VV/Zg/gg might help?
+    kd_hp vs kd_hm with rebinning (Run 2 approach)? simply choose one? or combine?
+    More bins in kd_mix?
+    
+  - When final KD is decided -> Simplify macros to calculate necessary ME/KDs only (improve speed?)
+  
+  - Systematic treatement : Just SM Templates or all? Check results if we calculate systematics using SM, BSM or mix signals?
+                            Add run 2 type STXS QCD uncertaninties (ggF QCD csale seems big?!) 
+			    Any issue with ME related systematics (Issue reported by Sebastiano)
+  
+  - Additional channels : VH leptonic (ZH4l) + 1 jet (boosted VH) category? (Seem not to add much)
+
+  - General HWW Run3 developments (e.g Wg*, Z pt correction ....)
+
+  - For ggF+2 Jets maybe NLO ME helps sensitivity, that or other MVA approach (BDT/DNN)
+
+  - Update R5 XS
+
+  - Optimise mll cut in 2J channel + 2J normalisation?
+
+  - 12C? (decouple HWW and HZZ)
+
+  - For Zg/gg Fai, are gi same for AC and SMEFT? (Using AC right now)

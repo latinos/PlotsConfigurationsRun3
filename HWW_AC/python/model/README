@@ -1,0 +1,15 @@
+
+source ~/work/private/Run3/mkShapesRDF/start.sh
+
+# Scripts to produce coupling model and signal hypotheses :
+
+python MakeCouplingModel.py 4C2V > m4C2V.py
+
+python MakeCouplingModel.py 4C1V > m4C1V.py
+
+python MakeCouplingModel.py 8C2V > m8C2V.py
+
+python MakeCouplingModel.py 8C1V > m8C1V.py
+
+python MakeCouplingModel.py 6C2V > m6C2V.py
+
