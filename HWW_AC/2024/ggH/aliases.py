@@ -268,14 +268,12 @@ thus = [
     "ggH_qmtop",
 ]
 
-ggHall = ['ggH_hww'] + eft_ggfsys
-
 for thu in thus:
     aliases[thu] = {
         'linesToAdd': [f'#include "{macros}gghuncertainty.cc"'],
         'linesToProcess': [f"ROOT.gInterpreter.ProcessLine('GGHUncertainty gghUnc_{thu} = GGHUncertainty(\"{thu}\");')"],
         'expr': f'gghUnc_{thu}(HTXS_njets30, HTXS_Higgs_pt, HTXS_stage_1_pTjet30)',
-        'samples': ggHall
+        'samples': ['ggH_hww']
     }
 
 aliases['qqH_EWK'] = {
