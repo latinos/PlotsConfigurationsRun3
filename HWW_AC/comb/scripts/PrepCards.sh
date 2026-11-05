@@ -2,7 +2,7 @@
 cmsenv
 ulimit -s unlimited
 
-Ana_Dir=~/work/private/ACRun3/PlotsConfigurationsRun3/HWW_AC/2024
+Ana_Dir=~/work/private/Run3/PlotsConfigurationsRun3/HWW_AC/2024
 
 ### categories
 
@@ -13,7 +13,7 @@ Top2J=$Ana_Dir/VBF/anaVBF/datacards/topcr_2j/events/datacard.txt
 WW2J=$Ana_Dir/VBF/anaVBF/datacards/wwcr_2j/events/datacard.txt
 
 GGF=$Ana_Dir/ggH/anaGGF/datacards/hww_sr_01j/mllVSmth2/datacard.txt
-DY01J=$Ana_Dir/ggH/anaGGF/datacards/dyttcr_01j/events/datacard.txt
+DY01J=$Ana_Dir/ggH/anaGGF/datacards/dycr_01j/events/datacard.txt
 Top01J=$Ana_Dir/ggH/anaGGF/datacards/topcr_01j/events/datacard.txt 
 
 ### combine categories
