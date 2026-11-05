@@ -1,5 +1,9 @@
 from mkShapesRDF.lib.search_files import SearchFiles
 import os
+import inspect
+import sys
+
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 
 searchFiles = SearchFiles()
 
@@ -17,7 +21,7 @@ dataSteps      = 'DATAl2loose2024v15__l2loose'
 ###### Tree base directory for the site ######
 ##############################################
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
-limitFiles = -1
+limitFiles = 1
 
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
@@ -84,6 +88,17 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
     else:
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
+
+hxs_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(configurations)))) + '/utils/data/lhc-hxswg-YR5/'
+sys.path.append(hxs_path)
+cwd = os.getcwd()
+os.chdir(hxs_path)
+from HiggsXSection import HiggsXSection
+HiggsXS = HiggsXSection()
+os.chdir(cwd)
+
+print("XS ",HiggsXS.GetHiggsProdXS('ggH','125.38'),HiggsXS.GetHiggsProdXS('vbfH','125.38'),HiggsXS.GetHiggsProdXS('WH','125.38'),HiggsXS.GetHiggsProdXS('HWplus','125.38'),HiggsXS.GetHiggsProdXS('HWminus','125.38'),HiggsXS.GetHiggsProdXS('ggZH','125.38'),HiggsXS.GetHiggsProdXS('qqZH','125.38'),HiggsXS.GetHiggsProdXS('ttH','125.38'))
+
 #########################################
 ############ MC COMMON ##################
 #########################################
@@ -91,56 +106,63 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 mcCommonWeightNoMatch  = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
 mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 
-# ggH
+### ggH -> WW
 files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
 
 samples['ggH_hww'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ggH', '125.38')} / 51.960",
     'FilesPerJob': 400,
 }
 
-# VBF
+### VBF H->WW
 files = nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125')
 
 samples['qqH_hww'] = {
     'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('vbfH', '125.38')} / 4.067",
+    'FilesPerJob': 20,
 }
 
 ### ZH H->WW
 files = nanoGetSampleFiles(mcDirectory, 'ZH_Zto2L_Hto2Wto2L2Nu_M125') + \
-        nanoGetSampleFiles(mcDirectory, 'ZH_Zto2Q_Hto2Wto2L2Nu_M125')
+        nanoGetSampleFiles(mcDirectory, 'ZH_Zto2Q_Hto2Wto2L2Nu_M125') 
 
 samples['ZH_hww'] = {
     'name':   files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('qqZH', '125.38')} / 0.8014",
+    'FilesPerJob': 20,
 }
 
 files = nanoGetSampleFiles(mcDirectory, 'GluGluZH_Zto2L_Hto2Wto2L2Nu_M125') + \
-        nanoGetSampleFiles(mcDirectory, 'GluGluZH_Zto2Q_Hto2Wto2L2Nu_M125')
+        nanoGetSampleFiles(mcDirectory, 'GluGluZH_Zto2Q_Hto2Wto2L2Nu_M125') 
 
 samples['ggZH_hww'] = {
     'name':   files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ggZH', '125.38')} / 0.1347",
+    'FilesPerJob': 20,
 }
 
 ### WH H->WW
 files = nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWWTo2L2Nu_WToLNu_M125') + \
         nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWWTo2L2Nu_WTo2Q_M125')  + \
         nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWWTo2L2Nu_WToLNu_M125') + \
-        nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWWTo2L2Nu_WTo2Q_M125')
+        nanoGetSampleFiles(mcDirectory, 'HWminusJ_HToWWTo2L2Nu_WTo2Q_M125') 
 
 samples['WH_hww'] = {
     'name':   files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'FilesPerJob': 20,
 }
 
-#### VH EFT coupling signal hypotheses ###
+addSampleWeight(samples, 'WH_hww', "HWplusJ_HToWWTo2L2Nu_WToLNu_M125", f"{HiggsXS.GetHiggsProdXS('HWplus', '125.38')} / 0.8801")
+addSampleWeight(samples, 'WH_hww', "HWplusJ_HToWWTo2L2Nu_WTo2Q_M125", f"{HiggsXS.GetHiggsProdXS('HWplus', '125.38')} / 0.8801")
+addSampleWeight(samples, 'WH_hww', "HWminusJ_HToWWTo2L2Nu_WToLNu_M125", f"{HiggsXS.GetHiggsProdXS('HWminus', '125.38')} / 0.5620")
+addSampleWeight(samples, 'WH_hww', "HWminusJ_HToWWTo2L2Nu_WTo2Q_M125", f"{HiggsXS.GetHiggsProdXS('HWminus', '125.38')} / 0.5620")
+
+###########################################
+##      AC/EFT Analysis specific (VH)   ##
+###########################################
 
 # Signals to be considered for nuisances (Avoid running for all reweighting)
 eft_ewksys  = ['ZH_H0PM','WH_H0PM']
@@ -150,7 +172,6 @@ hyps_mc = ["H0PM", "H0PH", "H0M", "H0L1", "H0PHf05", "H0Mf05", "H0L1f05", "H0LZg
 
 cvtype_ZH = "AC"
 hyps_reweight = ["H0PM", "H0PH", "H0M", "H0L1", "H0PHf05", "H0Mf05", "H0L1f05", "H0LZgf05", "H0PHZgf05", "H0MZgf05", "H0PHggf05", "H0Mggf05"]
-
 
 print(" Number of ZH hypotheses for "+cvtype_ZH+" :", len(hyps_reweight))
 print(hyps_reweight)
@@ -202,5 +223,4 @@ for hmc in hyps_mc :
     'FilesPerJob': 400,
   }
   reweight_WH.append('WH_'+hmc+'to'+hrw+'')
-
 

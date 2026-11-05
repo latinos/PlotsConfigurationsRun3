@@ -54,4 +54,3 @@ cuts['wwcr']  = {
       '2jvh' : 'multiJet',
    }
 }
-

@@ -1,4 +1,5 @@
 from HiggsAnalysis.CombinedLimit.PhysicsModel import * 
+import os
 
 ### base python class to study the Higgs coupling structure in the SMEFT Higgs basis 
    
@@ -15,20 +16,30 @@ class HWWSMEFTFai(PhysicsModel):
     def getYieldScale(self,bin,proc):
         scaling=1.
 
-        # SM treatment (CR or minor signal)  
-        if   "VBF_T1"  in proc : scaling = "scale_ewk_T1"
-        elif "ggZH_T1" in proc : scaling = "scale_ggf_T1"
-        elif "ZH_T1"   in proc : scaling = "scale_ewk_T1"
-        elif "WH_T1"   in proc : scaling = "scale_ewk_T1"
-        elif "ggF_T1"  in proc : scaling = "scale_ggf_T1"
+        fshape = self.DC.shapeMap[bin]["*"][0]
+        fname = os.path.basename(fshape)
+        cat = fname.replace("histos_", "").replace(".root", "")
 
-        # EFT treatment 
-        if   "VBF_H" in proc : scaling = "scale_8C2V_"+proc[4:]
-        elif "ZH_H"  in proc : scaling = "scale_8C2V_"+proc[3:]
-        elif "WH_H"  in proc : scaling = "scale_4C2V_"+proc[3:]
-        elif "ggF_H" in proc : scaling = "scale_4C1V_"+proc[4:]
+        # Minor signal (SM scaling)
+        if   "qqH_hww"  in proc : scaling = "scale_ewk_T1"
+        elif "ggZH_hww" in proc : scaling = "scale_ggf_T1"
+        elif "ZH_hww"   in proc : scaling = "scale_ewk_T1"
+        elif "WH_hww"   in proc : scaling = "scale_ewk_T1"
+        elif "ggH_hww"  in proc : scaling = "scale_ggf_T1"
 
-        if self.info == 1 :print("Will scale", proc, "in bin", bin, "by", scaling)
+        # EFT signal
+        if "cr_" in cat :
+         if   "VBF_H1" in proc : scaling = "scale_ewk_T1"
+         elif "ZH_H1"  in proc : scaling = "scale_ewk_T1"
+         elif "WH_H1"  in proc : scaling = "scale_ewk_T1"
+         elif "ggF_H1" in proc : scaling = "scale_ggf_T1"
+        else :
+         if   "VBF_H" in proc : scaling = "scale_8C2V_"+proc[4:]
+         elif "ZH_H"  in proc : scaling = "scale_8C2V_"+proc[3:]
+         elif "WH_H"  in proc : scaling = "scale_4C2V_"+proc[3:]
+         elif "ggF_H" in proc : scaling = "scale_4C1V_"+proc[4:]
+
+        if self.info == 1 :print("Will scale", proc, "in category ", cat,"(",bin,")", "by", scaling)
 
         return scaling
 

@@ -46,8 +46,8 @@ if cf.Build == 1 :
      for s in cf.sys_eft[ip] :  
       SysToHyps(src, dst, c, v, p, hyps_reweight[ip], hypz[ip], s+"Up",   cf.pwg[ip], cf.sys_type)
       SysToHyps(src, dst, c, v, p, hyps_reweight[ip], hypz[ip], s+"Down", cf.pwg[ip], cf.sys_type)  
-   AddOtherTemplates(src, dst, c, v, cf.minorsig, 1)  
-   AddOtherTemplates(src, dst, c, v, cf.other,    0)
+   AddOtherTemplates(src, dst, c, v, cf.minorsig)  
+   AddOtherTemplates(src, dst, c, v, cf.other)
 
 if cf.Check > 0 : 
   
@@ -60,7 +60,7 @@ if cf.Check > 0 :
 
     #if not os.path.isdir(""+cf.ana+""): sys.exit(""+cf.ana+" does not exist!")
     #for cp in cf.pairs[ip] : NShape2D(dst, c, v, p, model[ip], coup_t[ip], cp[0],cp[1], "ci") # ci, fai, ai 
-    #NShape(dst, c, v, p, model[ip], coup_t[ip], "ci", cf.minS, cf.maxS, cf.maxN)
+    NShape(dst, c, v, p, model[ip], coup_t[ip], "ci", cf.minS, cf.maxS, cf.maxN)
     for s in cf.sys_eft[ip] : CheckSys(dst, c, v, p, hyps_reweight[ip], hypz[ip], s)
     
     ### Not build dependant
@@ -74,12 +74,17 @@ if cf.MakeDC == 1 :
 
  if not os.path.isdir(""+cf.ana+""): sys.exit(""+cf.ana+" does not exist!")
 
- for f in ["configuration","aliases","nuisances","plot"] : os.system("cp "+f+".py "+cf.ana+"/")
+ for f in ["configuration.py","aliases.py","nuisances.py","plot.py","THU"] : os.system("cp -r "+f+" "+cf.ana+"/")
+
+ with open(""+cf.ana+"/nuisances.py", "r") as f: content = f.read()
+ content = content.replace("hxs_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(configurations)))) + '/utils/data/lhc-hxswg-YR5/'",
+                           "hxs_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(configurations))))) + '/utils/data/lhc-hxswg-YR5/'")
+ with open(""+cf.ana+"/nuisances.py", "w") as f: f.write(content)
  
  for ic, c in enumerate(cat) :
   for v in var[ic] :
    
-   FilesForDCMaker(dst, cf.ana, c, v, cf.other, cf.prod, cf.sys_type) 
+   FilesForDCMaker(dst, cf.ana, c, v, cf.other, cf.prod, cf.sys_type, cf.minorsig) 
    os.chdir(""+cf.ana+"/")
    os.system("mkShapesRDF -c 1 && mkDatacards")
    os.chdir("../")

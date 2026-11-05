@@ -18,8 +18,10 @@
 ################# JHUGen needed for analysis (in mkshapesRDF directory) ####
 
   git clone https://github.com/JHUGen/JHUGenMela.git JHUGenMELA
-  cd JHUGenMELA; git checkout -b from-v242 v2.4.2 ; source setup.sh -j 12 ;  // MELA/setup.sh el9_amd64_gcc12 for gcc13?
-  -> Can also share mine, clean and run setup again
+  cd JHUGenMELA; git checkout -b from-v242 v2.4.2 ;
+  - MELA/setup.sh : add el9_amd64_gcc12 for gcc13
+  - MELA/src/ : cp files from ~dmoran/public/MELA-gcc13/src/
+  source setup.sh -j 12 ;
 
 ################ Htt (tautau) treatment #################
 
@@ -37,34 +39,37 @@
   - Box diagrams (dominant) not sensitive to HVV AC at all 
   -> Well motivated to treat as minor signal (Not EFT signal)
 
-############## Systematic treament ###########
+############## Signal Systematic treament ###########
 
   - Fair to assume Higgs is at least SM-like (Looking for small deviations from SM expectation)
   -> Calculating systematics for SM Higgs and applying to all EFT templates is well motivated
 
 ################ Development ideas #################
    
-  - KD construction optimisation :
-    combine pure KDs for VV/Zg/gg might help?
-    kd_hp vs kd_hm with rebinning (Run 2 approach)? simply choose one? or combine?
-    More bins in kd_mix?
+  - KD construction optimisation : combine pure KDs for VV/Zg/gg might help? kd_hp vs kd_hm with rebinning (Run 2 approach)? simply choose one? or combine? More bins in kd_mix?
     
   - When final KD is decided -> Simplify macros to calculate necessary ME/KDs only (improve speed?)
   
   - Systematic treatement : Just SM Templates or all? Check results if we calculate systematics using SM, BSM or mix signals?
-                            Add run 2 type STXS QCD uncertaninties (ggF QCD csale seems big?!) 
-			    Any issue with ME related systematics (Issue reported by Sebastiano)
   
-  - Additional channels : VH leptonic (ZH4l) + 1 jet (boosted VH) category? (Seem not to add much)
-
-  - General HWW Run3 developments (e.g Wg*, Z pt correction ....)
-
-  - For ggF+2 Jets maybe NLO ME helps sensitivity, that or other MVA approach (BDT/DNN)
-
-  - Update R5 XS
-
-  - Optimise mll cut in 2J channel + 2J normalisation?
+  - Additional channels : VH leptonic (ZH4l) + 1 jet (boosted VH) category? (Seem not to add much but with 12C?)
 
   - 12C? (decouple HWW and HZZ)
 
   - For Zg/gg Fai, are gi same for AC and SMEFT? (Using AC right now)
+
+################ To Do #################
+
+  - General HWW Run3 developments (e.g Wg* norm/sys, Z pt correction, WW resummation)
+
+  - For ggF+2 Jets : MINLO samples, maybe NLO ME helps sensitivity, that or other MVA approach (BDT/DNN)
+
+  - Optimise mll cut in 2J channel?
+
+  - Check & Clean/Filter small processes with badly defined shape sys e.g Fake shape sys ok? Signal uncertanies in CR?
+
+  - VH THU XS effects (PS, QCD, PDF)
+
+  - Check uncertainties correctly propagated to MEs (Issue reported by Sebastiano)
+
+  - Add Carlos tools : KD plotting, impacts, GOF, coupling summary scripts 

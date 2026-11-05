@@ -669,7 +669,7 @@ def CheckSys(src, cat, var, prod, hyps_reweight, hypz, syst):
    
  f = ROOT.TFile.Open(''+src+'', 'read')
 
- if "cr_" in cat : hyps = ["T1"] # Just SM in CR
+ if "cr_" in cat : hyps = ["H1"] # Just SM in CR
  else            : hyps = hyps_reweight
  
  nhyps = len(hyps)
@@ -795,7 +795,7 @@ def CheckRewHypsfromTemps(src, dst, cat, var, prod, hyps_mc, AmpSq, hyps_c):
   canvas.SaveAs("plots/HypFromTemp_"+cat+"_"+var+"_"+prod+"_H"+str(i+1)+".png")
 
 # Create signal hypotheses using reweighting
-# For CR just use H1 and rename T1 for combine signal model
+# For CR just use H1 (Model should treat as T1)
 
 def CreateRewHyps(src, dst, cat, var, prod, hyps_mc, hyps_reweight, hypz, sf, scorr, bl, syst):
 
@@ -813,8 +813,7 @@ def CreateRewHyps(src, dst, cat, var, prod, hyps_mc, hyps_reweight, hypz, sf, sc
    hyp = GetAvgSumReweight(src, cat, var, prod, hyps_mc, hrw, bl, syst, 0) 
    hyp.Scale(sf)
    hyp.Multiply(scorr)
-   if "cr_" in cat : hyp.SetName("histo_"+prod+"_T"+str(i+1)+syst+"") # rename T1
-   else            : hyp.SetName("histo_"+prod+"_H"+str(i+1)+syst+"")
+   hyp.SetName("histo_"+prod+"_H"+str(i+1)+syst+"")
    hyps.append(hyp)
   
  print("#Hyps "+prod+" (non-zero) :", len(hyps))
@@ -831,17 +830,18 @@ def CreateRewHyps(src, dst, cat, var, prod, hyps_mc, hyps_reweight, hypz, sf, sc
  
 def SysToHyps(src, dst, cat, var, prod, hyps_reweight, hypz, syst, pwg_mc, sys_type):
 
-  if sys_type == 1 : hyps_reweight = ["H1"]
-  if "cr_" in cat :  hyps_reweight = ["T1"]
+  if sys_type == 1 or "cr_" in cat :  hyps_reweight = ["H1"]
+
+  pwg_sys = ["ps_isr","ps_fsr","QCDscale_ggH_shape","QCDscale_qqH_shape","QCDscale_VH_shape","THU_ggH_Res","THU_ggH_qmtop","THU_qqH_EWK"]
   
   ref = prod+"_H0PM" 
-  if "QCDscale_qqH" in syst : ref = pwg_mc # weights not in jhugen  
-  
+  if any(ps in syst for ps in pwg_sys): ref = pwg_mc  
+
   fin = ROOT.TFile.Open(''+src+'', 'read')
   h_str    = ''+cat+'/'+var+'/histo_'+ref+'' 
   hsys_str = ''+cat+'/'+var+'/histo_'+ref+'_'+syst+''
-  if not fin.Get(""+h_str+"") : return 
-  if not fin.Get(""+hsys_str+"") : return 
+  if not fin.Get(""+h_str+"") : sys.exit("SysToHyps Error : "+h_str+" not found in "+src+" ") 
+  if not fin.Get(""+hsys_str+"") : sys.exit("SysToHyps Error : "+hsys_str+" not found in "+src+" ")
   h    = fin.Get(""+h_str+"") 
   hsys = fin.Get(""+hsys_str+"")
   h.SetDirectory(0)
@@ -853,7 +853,7 @@ def SysToHyps(src, dst, cat, var, prod, hyps_reweight, hypz, syst, pwg_mc, sys_t
 
   nhyps = len(hyps_reweight)
  
-  print("\nCopy Sys "+prod+" "+ref+"_"+syst+" to "+cat+"/"+var+" ["+str(nhyps)+" Hyps]")
+  print("\nCopy "+prod+" Sys : "+ref+"_"+syst+" to "+cat+"/"+var+" ["+str(nhyps)+" Hyps]")
 
   hyps = [] 
   for i in range(0, nhyps):
@@ -1027,8 +1027,7 @@ def CheckRewHyps(src, cat, var, prod, hyps_mc, hyps_reweight, hypz, sf, scorr, b
   canvas.SaveAs("plots/"+cat+"_"+var+"_"+prod+"_"+hrw+".pdf")
   canvas.SaveAs("plots/"+cat+"_"+var+"_"+prod+"_"+hrw+".png")
 
-
-### Shape Correction for D_x(CP/Int/VBF) jhugen -> powheg
+## Shape Correction for D_x(CP/Int/VBF) jhugen -> powheg
   
 def ShapeJHUToPWG(src, cat, var, prod, pwg_mc, app):
 
@@ -1046,15 +1045,18 @@ def ShapeJHUToPWG(src, cat, var, prod, pwg_mc, app):
  hpwg.SetLineColor(ROOT.kBlack)
  hpwg.SetMarkerColor(ROOT.kBlack) 
  hjhu.SetDirectory(0)
+ if hpwg.Integral() == 0 : sys.exit("Error : "+pwgstr+" integral is zero")
+ if hjhu.Integral() == 0 : sys.exit("Error : "+jhustr+" integral is zero")
  scale = hpwg.Integral()/hjhu.Integral()
  hjhu.Scale(scale) # just a shape correction
-
+ 
  if app ==1 :
   for i in range(0, hjhu.GetNbinsX() + 1): hjhu.SetBinError(i, 0.0)
   hpwg.Divide(hjhu)
- else       :
-  hpwg.Divide(hpwg) # dummy -> no shape corection
-  for i in range(0, hpwg.GetNbinsX() + 1): hpwg.SetBinError(i, 0.0)
+ else : # dummy -> no shape corection
+  for i in range(0, hpwg.GetNbinsX() + 1):
+   hpwg.SetBinContent(i, 1.0)
+   hpwg.SetBinError(i, 0.0)
  
  hpwg.Draw("e")
  
@@ -1090,6 +1092,7 @@ def CompareRewSMToPwg(src, cat, var, prod, hyps_mc, pwg_mc, sf, scorr, bl, msig,
  jhustr = ''+cat+'/'+var+'/histo_'+prod+'_H0PM'
  hjhu = f.Get(''+jhustr+'')
  if not hpwg : sys.exit("Error : "+pwgstr+" not found")
+ if hpwg.Integral() == 0 : sys.exit("Error : "+pwgstr+" integral is zero")
  hpwg.SetDirectory(0)
  hpwg.SetLineWidth(2)
  hpwg.SetLineColor(ROOT.kBlack)
@@ -1124,7 +1127,7 @@ def CompareRewSMToPwg(src, cat, var, prod, hyps_mc, pwg_mc, sf, scorr, bl, msig,
   print(""+ms+" : ", round(hms.Integral(),2))
  f.Close()
  
-def AddOtherTemplates(src, dst, cat , var, othertemp, msig):
+def AddOtherTemplates(src, dst, cat , var, othertemp):
 
  if len(othertemp) == 0 : return
  
@@ -1137,17 +1140,9 @@ def AddOtherTemplates(src, dst, cat , var, othertemp, msig):
  for ih in d.GetListOfKeys():
   h = ih.ReadObj()
   if any("histo_"+x in h.GetName() for x in othertemp) :
+   if "SPECIAL_NUIS" in h.GetName(): continue
    if h.GetName() not in HistNameList :
     h.SetDirectory(0)
-    if msig == 1 : # change name to T1 for signal model
-     name = h.GetName()
-     if   "qqH_hww"  in name : name = name.replace("qqH_hww",  "VBF_T1")
-     elif "ggH_hww"  in name : name = name.replace("ggH_hww",  "ggF_T1") 
-     elif "WH_hww"   in name : name = name.replace("WH_hww",   "WH_T1")
-     elif "ZH_hww"   in name : name = name.replace("ZH_hww",   "ZH_T1")   
-     elif "ggZH_hww" in name : name = name.replace("ggZH_hww", "ggZH_T1") 
-     else : sys.exit(""+name+" not considered a (minor) signal!?")
-     h.SetName(name)
     HistList.Add(h)
     HistNameList.append(h.GetName())
       
@@ -1163,17 +1158,16 @@ def AddOtherTemplates(src, dst, cat , var, othertemp, msig):
   HistList.Write()
   fout.Close()
 
-def FilesForDCMaker(dst, ana, cat, var, oth, prod, sys_type):
+def FilesForDCMaker(dst, ana, cat, var, oth, prod, sys_type, msig):
  
  print("\nMake datacard for "+cat+"/"+var+" \n") 
 
- prod_all = ["ggF", "VBF", "WH", "ggZH", "ZH"]
+ eft_all = ["ggF_H", "VBF_H", "WH_H", "ZH_H"] 
  
  fout = ROOT.TFile.Open(''+dst+'', 'read')
 
- sig     = []
  eft_ggf = []
- eft_ewk = []
+ eft_ewk = [] 
  
  fout.cd(""+cat+"/"+var+"/")
  d = ROOT.gDirectory
@@ -1182,28 +1176,27 @@ def FilesForDCMaker(dst, ana, cat, var, oth, prod, sys_type):
   name = h.GetName()
   if "Up" in name or "Down" in name : continue
   
-  for p in prod_all :
-   if "_"+p+"_H" in name or "_"+p+"_T" in name :
+  for e in eft_all :
+   if e in name :
     name = name.replace("histo_","")
-    
-    if name not in sig : sig.append(name) 
-    
-    if p in prod : # eft signal   
-     if "ggF" in name     and name not in eft_ggf : eft_ggf.append(name)      
-     if "ggF" not in name and name not in eft_ewk : eft_ewk.append(name)
+    if "ggF" in name     and name not in eft_ggf : eft_ggf.append(name)      
+    if "ggF" not in name and name not in eft_ewk : eft_ewk.append(name)
      
  fout.Close()
 
- if      sys_type == 0 :
+ sig = msig + eft_ggf + eft_ewk # all HWW signals
+ 
+ print("DC prep, Signals (Minor + EFT) :", sig)
+ 
+ if   sys_type == 0 :
   eft_ggf = []
   eft_ewk = []
  elif sys_type == 1 :
-  eft_ggf = [s for s in eft_ggf if s.endswith(("T1", "H1"))]
-  eft_ewk = [s for s in eft_ewk if s.endswith(("T1", "H1"))]
+  eft_ggf = [s for s in eft_ggf if s.endswith("H1")]
+  eft_ewk = [s for s in eft_ewk if s.endswith("H1")]
    
- print("DC prep, Signals found :", sig)
- print("DC prep, ggF EFT Signals with full nuissances :", eft_ggf)
- print("DC prep, Ewk EFT Signals with full nuissances :", eft_ewk) 
+ print("DC prep, ggF EFT Signals with nuissances :", eft_ggf)
+ print("DC prep, Ewk EFT Signals with nuissances :", eft_ewk) 
  
  with open(""+ana+"/samples.py", "w") as f:
 

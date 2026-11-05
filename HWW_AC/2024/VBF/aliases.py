@@ -2,9 +2,11 @@ import os
 import copy
 import inspect
 import ROOT
+import json
 
 ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
+ROOT.gSystem.Load("libc.so")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 macros = os.path.dirname(configurations) + '/macros/'
@@ -21,8 +23,59 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
+with open('THU/NormTHU.json', 'r') as f:
+    NormTHU = json.load(f)
 
-# LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
+for sample in NormTHU.keys():
+    for varName, norm in NormTHU[sample].items():
+        
+        if isinstance(norm, (int, float)):
+            val = norm
+            if abs(val) > 10 or abs(val) < 0.1:
+                val = 1.
+                NormTHU[sample][varName] = 1.
+                print(f"[WARNING] {varName} nuisance envelope variation is faulty, set to 1.0")
+            
+            alias_name = f'NormTHU_{sample}_{varName}'
+            aliases[alias_name] = {
+                'expr': str(val),
+                'samples': sample
+            }
+
+        elif isinstance(norm, list) and len(norm) == 2:
+            if abs(norm[0]) > 10 or abs(norm[0]) < 0.1:
+                NormTHU[sample][varName][0] = 1.
+                print(f"[WARNING] {varName} nuisance Up variation is faulty, set to 1.0")
+            if abs(norm[1]) > 10 or abs(norm[1]) < 0.1:
+                NormTHU[sample][varName][1] = 1.
+                print(f"[WARNING] {varName} nuisance Down variation is faulty, set to 1.0")
+                
+            val_up = NormTHU[sample][varName][0]
+            val_down = NormTHU[sample][varName][1]
+
+            if 'pdf' not in varName:
+                alias_up = f'NormTHU_{sample}_{varName}_Up'
+                alias_down = f'NormTHU_{sample}_{varName}_Down'
+                
+                aliases[alias_up] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+                aliases[alias_down] = {
+                    'expr': str(val_down),
+                    'samples': sample
+                }
+                
+                print(f"{alias_up} = {val_up}")
+                print(f"{alias_down} = {val_down}")
+            else:
+                alias_name = f'NormTHU_{sample}_{varName}'
+                aliases[alias_name] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+
+# LepSF2l__ele_cutBased_MediumID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
 eleWP = 'cutBased_MediumID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
@@ -48,21 +101,30 @@ aliases['PromptGenLepMatch1l'] = {
 }
 
 # Conept
-"""
 aliases['Lepton_conept'] = {
     'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
     'linesToAdd': [f'#include "{macros}LeptonConePt_class.cc"'],
     'samples': mc + ['Fake', 'DATA', 'DATA_unprescaled']
 }
-"""
+
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
     'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_MediumID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
+
+for stat in ['','Stat']:
+    for lep in ['Ele','Mu']:
+        for variation in ['Up','Down']:
+            aliases['fakeW'+stat+lep+variation] = {
+                'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
+                'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader{stat}{lep}{variation} = fake_rate_reader(\"cutBased_MediumID_tthMVA_Run3\", \"{muWP}\", \"{stat}{lep}{variation}\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+                'expr'           : f'fr_reader{stat}{lep}{variation}(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+                'samples'        : ['Fake']
+            }
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
@@ -170,7 +232,7 @@ aliases['wwcr'] = {
 
 # SR definition
 aliases['sr'] = {
-    'expr': 'mth > 60 && mth < 125 && mtw2 > 30 && bVeto && mll < 55' #DM Tune mll cut!
+    'expr': 'mth > 60 && mth < 125 && mtw2 > 30 && bVeto && mll < 55' #DM Tune mll cut! 
 }
 
 # Data/MC scale factors and systematic uncertainties
@@ -197,6 +259,11 @@ aliases['SFweightMuDown'] = {
 }
 
 """
+aliases['Ctot'] = {
+    'expr': 'log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj)',
+    'afterNuis' : True
+}
+
 aliases['m_lj'] = {
   'linesToAdd': [f'#include "{macros}m_lj.cc"'],
   'class': 'm_lj',
@@ -205,19 +272,88 @@ aliases['m_lj'] = {
   #'samples': mc
 }
 
+aliases['ht_nn'] = {
+    'expr' : 'ht',
+    'afterNuis' : True
+}
 
+aliases['dphillmet_nn'] = {
+    'expr' : 'dphillmet',
+    'afterNuis' : True
+}
+
+# check if mljs and ctot vary here
 aliases['vbf_clf'] = {
     'linesToAdd': [f'#include "{macros}vbf_clf.cc"'],
     'class': 'vbf_clf',
     'args': 'detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
-            Alt(CleanJet_eta, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_eta, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
-            Alt(CleanJet_pt, 0, -99) - 9999.9*(CleanJet_pt[0]<30), Alt(CleanJet_pt, 1, -99) - 9999.9*(CleanJet_pt[1]<30), \
+            Alt(CleanJet_eta, 0, -99), Alt(CleanJet_eta, 1, -99), \
+            Alt(CleanJet_pt, 0, -99), Alt(CleanJet_pt, 1, -99), \
             dphillmet, ptll, \
-            log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj), \
+            Ctot, \
             m_lj[0], m_lj[1], m_lj[2], m_lj[3], \
             Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
     'afterNuis': True
 }
+
+aliases['dbnn_clf'] = {
+    'linesToAdd': [f'#include "{macros}dbnn_clf_no_mlj.cc"'],
+    'class': 'dbnn_clf',
+    'args': 'event, detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
+            CleanJet_eta[0], CleanJet_eta[1], \
+            CleanJet_pt[0], CleanJet_pt[1], \
+            dphillmet, ptll, Ctot, \
+            Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
+    'afterNuis': True
+}
+"""
+#aliases['dbnn_clf_relsample_up'] = {
+#    'linesToAdd': [f'#include "{macros}dbnn_clf_no_mlj_up.cc"'],
+#    'class': 'dbnn_clf_up',
+#    'args': 'detajj_jesRegroed_RelativeSample_2024up, dphill_jesRegroed_RelativeSample_2024up, drll_jesRegroed_RelativeSample_2024up, mjj_jesRegroed_RelativeSample_2024up, ht_jesRegroed_RelativeSample_2024up, mth_jesRegroed_RelativeSample_2024up, mll_jesRegroed_RelativeSample_2024up, PuppiMET_pt_jesRegroed_RelativeSample_2024up, \
+#            CleanJet_eta_jesRegroed_RelativeSample_2024up[0], CleanJet_eta_jesRegroed_RelativeSample_2024up[1], \
+#            CleanJet_pt_jesRegroed_RelativeSample_2024up[0], CleanJet_pt_jesRegroed_RelativeSample_2024up[1], \
+#            dphillmet_jesRegroed_RelativeSample_2024up, ptll_jesRegroed_RelativeSample_2024up, \
+#            Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
+#    'afterNuis': True
+#}
+
+"""
+#aliases['dbnn_clf_python'] = {
+
+#    'linesToAdd': [f'#include "{macros}evaluate_dbnn.cc"'],
+#    'class': 'evaluate_dbnn',
+#    'args': 'detajj, dphill, drll, mjj, ht, mth, mll, PuppiMET_pt, \
+#            Alt(CleanJet_eta, 0, -99), Alt(CleanJet_eta, 1, -99), \
+#            Alt(CleanJet_pt, 0, -99), Alt(CleanJet_pt, 1, -99), \
+#            dphillmet, ptll, \
+#            log((abs(2*Lepton_eta[0]-CleanJet_eta[0]-CleanJet_eta[1])+abs(2*Lepton_eta[1]-CleanJet_eta[0]-CleanJet_eta[1]))/detajj), \
+#            m_lj[0], m_lj[1], m_lj[2], m_lj[3], \
+#            Lepton_eta[0], Lepton_eta[1], Lepton_pt[0], Lepton_pt[1]',
+#    'afterNuis': True
+#}
+"""
+"""
+aliases['vbflike_dbnn'] = { 
+    'expr': '(dbnn_clf[0] > dbnn_clf[1]) && (dbnn_clf[0] > dbnn_clf[2]) && (dbnn_clf[0] > dbnn_clf[3])',
+    'afterNuis': True
+}
+
+aliases['toplike_dbnn'] = { 
+    'expr': '(dbnn_clf[2] > dbnn_clf[0]) && (dbnn_clf[2] > dbnn_clf[1]) && (dbnn_clf[2] > dbnn_clf[3])',
+    'afterNuis': True
+}
+
+aliases['wwlike_dbnn'] = { 
+    'expr': '(dbnn_clf[3] > dbnn_clf[0]) && (dbnn_clf[3] > dbnn_clf[1]) && (dbnn_clf[3] > dbnn_clf[2])',
+    'afterNuis': True
+}
+
+aliases['gghlike_dbnn'] = { 
+    'expr': '(dbnn_clf[1] > dbnn_clf[0]) && (dbnn_clf[1] > dbnn_clf[2]) && (dbnn_clf[1] > dbnn_clf[3])',
+    'afterNuis': True
+}
+
 
 aliases['vbflike'] = { 
     'expr': '(vbf_clf[0] > vbf_clf[1]) && (vbf_clf[0] > vbf_clf[2]) && (vbf_clf[0] > vbf_clf[3])',
@@ -239,6 +375,43 @@ aliases['gghlike'] = {
     'afterNuis': True
 }
 """
+
+"""
+
+aliases['mycleanjet'] = {
+    'linesToAdd': [f'#include "{macros}mycleanjet.cc"'],
+    'class': 'copy_cleanjet_pt',
+    'args': 'CleanJet_pt',
+    'afterNuis': True
+}
+
+aliases['mycleanjet_relsample_up'] = {
+    'linesToAdd': [f'#include "{macros}mycleanjet.cc"'],
+    'class': 'copy_cleanjet_pt',
+    'args': 'CleanJet_pt_jesRegroed_RelativeSample_2024up',
+    'afterNuis': True
+}
+"""
+
+thus = [
+    "ggH_res",
+    "ggH_qmtop",
+]
+
+for thu in thus:
+    aliases[thu] = {
+        'linesToAdd': [f'#include "{macros}gghuncertainty.cc"'],
+        'linesToProcess': [f"ROOT.gInterpreter.ProcessLine('GGHUncertainty gghUnc_{thu} = GGHUncertainty(\"{thu}\");')"],
+        'expr': f'gghUnc_{thu}(HTXS_njets30, HTXS_Higgs_pt, HTXS_stage_1_pTjet30)',
+        'samples': ['ggH_hww']
+    }
+    
+aliases['qqH_EWK'] = {
+    'linesToAdd': [f'#include "{macros}qqhuncertainty.cc"'],
+    'linesToProcess': ["ROOT.gInterpreter.ProcessLine('QQHEWKUncertainty qqhUnc_THU_qqH_EWK = QQHEWKUncertainty(false);')"],
+    'expr': 'qqhUnc_THU_qqH_EWK(HTXS_stage1_1_fine_cat_pTjet30GeV)',
+    'samples': ['qqH_hww']
+}
 
 ###########################################
 ##      AC/EFT Analysis specific         ##
@@ -274,10 +447,11 @@ aliases['ToolsLib'] = {
   'linesToAdd':[f'#include "'+configurations+'/PlotsConfigurationsRun3/HWW_AC/macros/GenTools.cc"'],
 }
 
+if len(reweight_VBF) > 0 : print("Reweight VBF for "+cvtype_VBF+" scenario")
 for sig in reweight_VBF :
  hyp1 = ''.join(sig.split("VBF_")[1].split("to")[0])
  hyp2 = sig.split("to")[1]
- print("Reweight VBF ", hyp1," to ", hyp2," for ", cvtype_VBF," scenario")
+ print(f"{hyp1}>{hyp2}, ", end="")
 
  aliases[''+hyp1+'to'+hyp2+'_W'] = {
    'linesToAdd':[f'#include "'+configurations+'/PlotsConfigurationsRun3/HWW_AC/macros/GenWeight_HVV.cc"'],
@@ -285,6 +459,7 @@ for sig in reweight_VBF :
    'expr' :   f'mWgt("vbf","'+hyp1+'","'+hyp2+'","'+cvtype_VBF+'", nLHEPart, nGenPart, LHEPart_pt, LHEPart_eta, LHEPart_phi, LHEPart_pdgId, LHEPart_status, GenPart_pt, GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, Generator_x1, Generator_x2, Generator_id1, Generator_id2)',
    'samples': [''+sig+'']
  }
+print() 
 
 ## Reco ME for H+2 jet discriminant
 
@@ -332,5 +507,3 @@ aliases['kd_mixhmgg'] = { 'expr': 'kd[14]', 'afterNuis': True }
 aliases['kd_smvbf']   = { 'expr': 'kd[15]',  'afterNuis': True }
 aliases['kd_hpvbf']   = { 'expr': 'kd[16]',  'afterNuis': True }
 aliases['kd_hmvbf']   = { 'expr': 'kd[17]',  'afterNuis': True } 
-
-

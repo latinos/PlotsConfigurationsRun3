@@ -3,11 +3,11 @@
 ####### Categories and Variables  ##############
 
 tag    = "ggF_AC"
-cat    = ["hww_sr_01j"] # , "hww2l2v_13TeV_topcr_ggf"]
-var    = [["mllVSmth2"]] #,           ["events"]]  
+cat    = ["hww_sr_01j"] 
+var    = [["mllVSmth2"]] 
 
 ######## EFT signals #############################
-# Full EFT signal model built for SR only. Just H1 in CR (renamed T1 for sig model)
+# Full EFT signal model built for SR only. Just H1 in CR 
 # Shape syst built just for H1(SM) and copied to other hypotheses 
 
 prod    = ["ggF"]

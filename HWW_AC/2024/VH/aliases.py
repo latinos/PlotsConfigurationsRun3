@@ -2,9 +2,11 @@ import os
 import copy
 import inspect
 import ROOT
+import json
 
 ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
+ROOT.gSystem.Load("libc.so")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 macros = os.path.dirname(configurations) + '/macros/'
@@ -21,8 +23,59 @@ aliases = OrderedDict()
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
+with open('THU/NormTHU.json', 'r') as f:
+    NormTHU = json.load(f)
 
-# LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
+for sample in NormTHU.keys():
+    for varName, norm in NormTHU[sample].items():
+        
+        if isinstance(norm, (int, float)):
+            val = norm
+            if abs(val) > 10 or abs(val) < 0.1:
+                val = 1.
+                NormTHU[sample][varName] = 1.
+                print(f"[WARNING] {varName} nuisance envelope variation is faulty, set to 1.0")
+            
+            alias_name = f'NormTHU_{sample}_{varName}'
+            aliases[alias_name] = {
+                'expr': str(val),
+                'samples': sample
+            }
+
+        elif isinstance(norm, list) and len(norm) == 2:
+            if abs(norm[0]) > 10 or abs(norm[0]) < 0.1:
+                NormTHU[sample][varName][0] = 1.
+                print(f"[WARNING] {varName} nuisance Up variation is faulty, set to 1.0")
+            if abs(norm[1]) > 10 or abs(norm[1]) < 0.1:
+                NormTHU[sample][varName][1] = 1.
+                print(f"[WARNING] {varName} nuisance Down variation is faulty, set to 1.0")
+                
+            val_up = NormTHU[sample][varName][0]
+            val_down = NormTHU[sample][varName][1]
+
+            if 'pdf' not in varName:
+                alias_up = f'NormTHU_{sample}_{varName}_Up'
+                alias_down = f'NormTHU_{sample}_{varName}_Down'
+                
+                aliases[alias_up] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+                aliases[alias_down] = {
+                    'expr': str(val_down),
+                    'samples': sample
+                }
+                
+                print(f"{alias_up} = {val_up}")
+                print(f"{alias_down} = {val_down}")
+            else:
+                alias_name = f'NormTHU_{sample}_{varName}'
+                aliases[alias_name] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+
+# LepSF2l__ele_cutBased_MediumID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
 eleWP = 'cutBased_MediumID_tthMVA_Run3'
 muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
 
@@ -48,21 +101,30 @@ aliases['PromptGenLepMatch1l'] = {
 }
 
 # Conept
-"""
 aliases['Lepton_conept'] = {
     'expr': 'LeptonConePt(Lepton_pt, Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_jetRelIso, Muon_jetRelIso)',
     'linesToAdd': [f'#include "{macros}LeptonConePt_class.cc"'],
     'samples': mc + ['Fake', 'DATA', 'DATA_unprescaled']
 }
-"""
+
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
     'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
-    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_LooseID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+    'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader = fake_rate_reader(\"cutBased_MediumID_tthMVA_Run3\", \"{muWP}\", \"nominal\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
     'expr'           : f'fr_reader(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
+
+for stat in ['','Stat']:
+    for lep in ['Ele','Mu']:
+        for variation in ['Up','Down']:
+            aliases['fakeW'+stat+lep+variation] = {
+                'linesToAdd'     : [f'#include "{macros}fake_rate_reader_class.cc"'],
+                'linesToProcess' : [f"ROOT.gInterpreter.ProcessLine('fake_rate_reader fr_reader{stat}{lep}{variation} = fake_rate_reader(\"cutBased_MediumID_tthMVA_Run3\", \"{muWP}\", \"{stat}{lep}{variation}\", 2, \"std\", \"{fakerates}\", \"2024_v15_pt\");')"],
+                'expr'           : f'fr_reader{stat}{lep}{variation}(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
+                'samples'        : ['Fake']
+            }
 
 aliases['gstarLow'] = {
     'expr': 'Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4',
@@ -170,7 +232,7 @@ aliases['wwcr'] = {
 
 # SR definition
 aliases['sr'] = {
-    'expr': 'mth > 60 && mth < 125 && mtw2 > 30 && bVeto && mll < 55' #DM Tune mll cut!
+    'expr': 'mth > 60 && mth < 125 && mtw2 > 30 && bVeto && mll < 55' #DM Tune mll cut! 
 }
 
 # Data/MC scale factors and systematic uncertainties
@@ -194,6 +256,26 @@ aliases['SFweightMuUp'] = {
 aliases['SFweightMuDown'] = {
     'expr': 'LepSF2l__mu_'+muWP+'__Down',
     'samples': mc
+}
+
+thus = [
+    "ggH_res",
+    "ggH_qmtop",
+]
+
+for thu in thus:
+    aliases[thu] = {
+        'linesToAdd': [f'#include "{macros}gghuncertainty.cc"'],
+        'linesToProcess': [f"ROOT.gInterpreter.ProcessLine('GGHUncertainty gghUnc_{thu} = GGHUncertainty(\"{thu}\");')"],
+        'expr': f'gghUnc_{thu}(HTXS_njets30, HTXS_Higgs_pt, HTXS_stage_1_pTjet30)',
+        'samples': ['ggH_hww']
+    }
+    
+aliases['qqH_EWK'] = {
+    'linesToAdd': [f'#include "{macros}qqhuncertainty.cc"'],
+    'linesToProcess': ["ROOT.gInterpreter.ProcessLine('QQHEWKUncertainty qqhUnc_THU_qqH_EWK = QQHEWKUncertainty(false);')"],
+    'expr': 'qqhUnc_THU_qqH_EWK(HTXS_stage1_1_fine_cat_pTjet30GeV)',
+    'samples': ['qqH_hww']
 }
 
 ###########################################
@@ -238,10 +320,11 @@ aliases['ToolsLib'] = {
   'linesToAdd':[f'#include "'+configurations+'/PlotsConfigurationsRun3/HWW_AC/macros/GenTools.cc"'],
 }
 
+if len(reweight_ZH) > 0 : print("Reweight ZH for "+cvtype_ZH+" scenario")
 for sig in reweight_ZH :
  hyp1 = ''.join(sig.split("ZH_")[1].split("to")[0])
  hyp2 = sig.split("to")[1]
- print("Reweight ZH ", hyp1," to ", hyp2," for ", cvtype_ZH," scenario")
+ print(f"{hyp1}>{hyp2}, ", end="")
 
  aliases['ZH_'+hyp1+'to'+hyp2+'_W'] = {
    'linesToAdd':[f'#include "'+configurations+'/PlotsConfigurationsRun3/HWW_AC/macros/GenWeight_HVV.cc"'],
@@ -249,11 +332,13 @@ for sig in reweight_ZH :
    'expr' :   f'mWgt_ZH("zh","'+hyp1+'","'+hyp2+'","'+cvtype_ZH+'", nLHEPart, nGenPart, LHEPart_pt, LHEPart_eta, LHEPart_phi, LHEPart_pdgId, LHEPart_status, GenPart_pt, GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, Generator_x1, Generator_x2, Generator_id1, Generator_id2)',
    'samples': [''+sig+'']
  }
-
+print()
+ 
+if len(reweight_WH) > 0 : print("Reweight WH for "+cvtype_WH+" scenario") 
 for sig in reweight_WH :
  hyp1 = ''.join(sig.split("WH_")[1].split("to")[0])
  hyp2 = sig.split("to")[1]
- print("Reweight WH ", hyp1," to ", hyp2," for ", cvtype_WH," scenario")
+ print(f"{hyp1}>{hyp2}, ", end="")
 
  aliases['WH_'+hyp1+'to'+hyp2+'_W'] = {
    'linesToAdd':[f'#include "'+configurations+'/PlotsConfigurationsRun3/HWW_AC/macros/GenWeight_HVV.cc"'],
@@ -261,7 +346,8 @@ for sig in reweight_WH :
    'expr' :   f'mWgt_WH("wh","'+hyp1+'","'+hyp2+'","'+cvtype_WH+'", nLHEPart, nGenPart, LHEPart_pt, LHEPart_eta, LHEPart_phi, LHEPart_pdgId, LHEPart_status, GenPart_pt, GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, Generator_x1, Generator_x2, Generator_id1, Generator_id2)',
    'samples': [''+sig+'']
  }
- 
+print() 
+
 ## Reco ME for H+2 jet discriminant
 
 aliases['me_zh'] = {
@@ -307,6 +393,5 @@ aliases['kd_hmgg']  = { 'expr': 'kd[7]', 'afterNuis': True }
 aliases['kd_mixhp'] = { 'expr': 'kd[8]', 'afterNuis': True }
 aliases['kd_mixhm'] = { 'expr': 'kd[9]', 'afterNuis': True }
 aliases['kd_mixhl'] = { 'expr': 'kd[10]','afterNuis': True }
-
 
 

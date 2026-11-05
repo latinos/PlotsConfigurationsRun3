@@ -1,5 +1,9 @@
 from mkShapesRDF.lib.search_files import SearchFiles
 import os
+import inspect
+import sys
+
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 
 searchFiles = SearchFiles()
 
@@ -84,6 +88,14 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
     else:
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
+hxs_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(configurations)))) + '/utils/data/lhc-hxswg-YR5/'
+sys.path.append(hxs_path)
+cwd = os.getcwd()
+os.chdir(hxs_path)
+from HiggsXSection import HiggsXSection
+HiggsXS = HiggsXSection()
+os.chdir(cwd)
+
 #########################################
 ############ MC COMMON ##################
 #########################################
@@ -93,15 +105,18 @@ mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight
 
 ##### ggH standard ###
 
+### ggH -> WW
 files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
 
 samples['ggH_hww'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ggH', '125.38')} / 51.960",
     'FilesPerJob': 10,
 }
 
-#### ggF EFT coupling signal hypotheses ###
+###########################################
+##      AC/EFT Analysis specific (ggF)   ##
+###########################################
 
 # Signals to be considered for nuisances (Avoid running for all reweighting)
 eft_ggfsys = ['ggF_H0PM']
@@ -132,4 +147,3 @@ for hmc in hyps_mc :
   }
   reweight_ggF.append('ggF_'+hmc+'to'+hrw+'')
   
-

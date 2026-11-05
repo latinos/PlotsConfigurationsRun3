@@ -1,6 +1,9 @@
-
 from mkShapesRDF.lib.search_files import SearchFiles
 import os
+import inspect
+import sys
+
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 
 searchFiles = SearchFiles()
 
@@ -86,6 +89,16 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
 
+hxs_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(configurations)))) + '/utils/data/lhc-hxswg-YR5/'
+sys.path.append(hxs_path)
+cwd = os.getcwd()
+os.chdir(hxs_path)
+from HiggsXSection import HiggsXSection
+HiggsXS = HiggsXSection()
+os.chdir(cwd)
+
+print("XS ",HiggsXS.GetHiggsProdXS('ggH','125.38'),HiggsXS.GetHiggsProdXS('vbfH','125.38'),HiggsXS.GetHiggsProdXS('WH','125.38'),HiggsXS.GetHiggsProdXS('HWplus','125.38'),HiggsXS.GetHiggsProdXS('HWminus','125.38'),HiggsXS.GetHiggsProdXS('ggZH','125.38'),HiggsXS.GetHiggsProdXS('qqZH','125.38'),HiggsXS.GetHiggsProdXS('ttH','125.38'))
+
 ################################################
 ############ DATA DECLARATION ##################
 ################################################
@@ -97,7 +110,8 @@ DataRun = [
     ['F','Run2024F-Prompt-v1'],
     ['G','Run2024G-Prompt-v1'],
     ['H','Run2024H-Prompt-v1'],
-    ['I','Run2024I-Prompt-v1'],
+    ['Iv1','Run2024I-Prompt-v1'],
+    ['Iv2','Run2024I-Prompt-v2'],
 ]
 
 
@@ -124,11 +138,7 @@ mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight
 
 # DY
 
-files = nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2E-2Jets_MLL-10to50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYto2Mu-2Jets_MLL-10to50') + \
+files = nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYto2Tau-2Jets_MLL-10to50')
 
 samples['DY'] = {
@@ -150,7 +160,7 @@ files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + \
 samples['top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 3,
+    'FilesPerJob': 3, 
 }
 
 addSampleWeight(samples,'top','TTTo2L2Nu','Top_pTrw')
@@ -161,7 +171,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 samples['WW'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'FilesPerJob': 20,
 }
 
 files = nanoGetSampleFiles(mcDirectory, 'GluGlutoContintoWWtoENuENu')    + \
@@ -187,13 +197,13 @@ files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu') + \
 samples['VZ'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'FilesPerJob': 50,
 }
 
 addSampleWeight(samples, 'VZ', "WZTo3LNu", "Gen_ZGstar_mass >= 50")
 
 # Vg
-
+        
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
         nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
@@ -211,7 +221,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
         nanoGetSampleFiles(mcDirectory, "WZTo3LNu") + \
         nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
-
+        
 
 samples['VgS'] = {
     'name': files,
@@ -224,6 +234,7 @@ addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass >
 addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
 addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
 
+
 # Multiboson
 files = nanoGetSampleFiles(mcDirectory, 'WWW') + \
         nanoGetSampleFiles(mcDirectory, 'WWZ') + \
@@ -233,26 +244,25 @@ files = nanoGetSampleFiles(mcDirectory, 'WWW') + \
 samples['VVV'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 200,
+    'FilesPerJob': 100,
 }
 
-
-# ggH
+### ggH -> WW
 files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
 
 samples['ggH_hww'] = {
     'name': files,
-    'weight': mcCommonWeight,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ggH', '125.38')} / 51.960",
     'FilesPerJob': 400,
 }
 
-# VBF
+### VBF H->WW
 files = nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125')
 
 samples['qqH_hww'] = {
     'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('vbfH', '125.38')} / 4.067",
+    'FilesPerJob': 20,
 }
 
 ### ZH H->WW
@@ -261,8 +271,8 @@ files = nanoGetSampleFiles(mcDirectory, 'ZH_Zto2L_Hto2Wto2L2Nu_M125') + \
 
 samples['ZH_hww'] = {
     'name':   files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('qqZH', '125.38')} / 0.8014",
+    'FilesPerJob': 20,
 }
 
 files = nanoGetSampleFiles(mcDirectory, 'GluGluZH_Zto2L_Hto2Wto2L2Nu_M125') + \
@@ -270,8 +280,8 @@ files = nanoGetSampleFiles(mcDirectory, 'GluGluZH_Zto2L_Hto2Wto2L2Nu_M125') + \
 
 samples['ggZH_hww'] = {
     'name':   files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ggZH', '125.38')} / 0.1347",
+    'FilesPerJob': 20,
 }
 
 ### WH H->WW
@@ -283,7 +293,22 @@ files = nanoGetSampleFiles(mcDirectory, 'HWplusJ_HToWWTo2L2Nu_WToLNu_M125') + \
 samples['WH_hww'] = {
     'name':   files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 50,
+    'FilesPerJob': 20,
+}
+
+addSampleWeight(samples, 'WH_hww', "HWplusJ_HToWWTo2L2Nu_WToLNu_M125", f"{HiggsXS.GetHiggsProdXS('HWplus', '125.38')} / 0.8801")
+addSampleWeight(samples, 'WH_hww', "HWplusJ_HToWWTo2L2Nu_WTo2Q_M125", f"{HiggsXS.GetHiggsProdXS('HWplus', '125.38')} / 0.8801")
+addSampleWeight(samples, 'WH_hww', "HWminusJ_HToWWTo2L2Nu_WToLNu_M125", f"{HiggsXS.GetHiggsProdXS('HWminus', '125.38')} / 0.5620")
+addSampleWeight(samples, 'WH_hww', "HWminusJ_HToWWTo2L2Nu_WTo2Q_M125", f"{HiggsXS.GetHiggsProdXS('HWminus', '125.38')} / 0.5620")
+
+
+### ttH -> WW
+files = nanoGetSampleFiles(mcDirectory, 'ttHToNonbb_M125')
+
+samples['ttH_hww'] = {
+    'name':   files,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ttH', '125.38')} / 0.564",
+    'FilesPerJob': 20,
 }
 
 ### H->TauTau
@@ -291,16 +316,17 @@ files = nanoGetSampleFiles(mcDirectory, 'GluGluHToTauTau_M125_Powheg')
 
 samples['ggH_htt'] = {
     'name':   files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('ggH', '125.38')} / 51.960",
+    'FilesPerJob': 20,
 }
 
-#files = nanoGetSampleFiles(mcDirectory, 'VBFHToTauTau_M125')
-#samples['qqH_htt'] = {
-#    'name':   files,
-#    'weight': mcCommonWeight,
-#    'FilesPerJob': 10,
-#}
+files = nanoGetSampleFiles(mcDirectory, 'VBFHToTauTau_M125')
+
+samples['qqH_htt'] = {
+    'name':   files,
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('vbfH', '125.38')} / 4.067",
+    'FilesPerJob': 20,
+}
 
 ###########################################
 ################## DATA ###################
@@ -334,14 +360,13 @@ for _, sd in DataRun:
 ################## FAKE ###################
 ###########################################
 
-samples['Fake'] = {
+samples['Fake'] = { #DM Split by e/mu? Looks like shape uncertainties not included in this treatment        
     'name': [],
     'weight': 'METFilter_DATA*fakeW',
     'weights': [],
     'isData': ['all'],
     'FilesPerJob': 400
 }
-
 
 for _, sd in DataRun:
   for pd in DataSets:
@@ -357,7 +382,14 @@ for _, sd in DataRun:
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
 
-#### VH EFT coupling signal hypotheses ###
+#samples['Fake']['subsamples'] = {
+#  'e': 'abs(Lepton_pdgId[1]) == 11',
+#  'm': 'abs(Lepton_pdgId[1]) == 13'
+#}
+
+###########################################
+##      AC/EFT Analysis specific (VH)   ##
+###########################################
 
 # Signals to be considered for nuisances (Avoid running for all reweighting)
 eft_ewksys = ['ZH_H0PM', 'WH_H0PM']
@@ -424,5 +456,6 @@ for hmc in hyps_mc :
     'FilesPerJob': 400,
   }
   reweight_WH.append('WH_'+hmc+'to'+hrw+'')  
+
 
 

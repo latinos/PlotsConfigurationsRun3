@@ -6,7 +6,7 @@
 #include <iostream>
 #include "ROOT/RVec.hxx"
 
-#include "generated_code_vbf_clf.h"
+#include "generated_code_snn_vbf_test.h"
 
 using namespace ROOT;
 using namespace ROOT::VecOps;

@@ -1,5 +1,9 @@
 from mkShapesRDF.lib.search_files import SearchFiles
 import os
+import inspect
+import sys
+
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 
 searchFiles = SearchFiles()
 
@@ -17,7 +21,7 @@ dataSteps      = 'DATAl2loose2024v15__l2loose'
 ###### Tree base directory for the site ######
 ##############################################
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
-limitFiles = -1
+limitFiles = 1
 
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
@@ -84,6 +88,17 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
     else:
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
+
+hxs_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(configurations)))) + '/utils/data/lhc-hxswg-YR5/'
+sys.path.append(hxs_path)
+cwd = os.getcwd()
+os.chdir(hxs_path)
+from HiggsXSection import HiggsXSection
+HiggsXS = HiggsXSection()
+os.chdir(cwd)
+
+print("XS ",HiggsXS.GetHiggsProdXS('ggH','125.38'),HiggsXS.GetHiggsProdXS('vbfH','125.38'),HiggsXS.GetHiggsProdXS('WH','125.38'),HiggsXS.GetHiggsProdXS('HWplus','125.38'),HiggsXS.GetHiggsProdXS('HWminus','125.38'),HiggsXS.GetHiggsProdXS('ggZH','125.38'),HiggsXS.GetHiggsProdXS('qqZH','125.38'),HiggsXS.GetHiggsProdXS('ttH','125.38'))
+
 #########################################
 ############ MC COMMON ##################
 #########################################
@@ -91,32 +106,23 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 mcCommonWeightNoMatch  = 'XSWeight*METFilter_Common*PromptGenLepMatch1l*SFweight'
 mcCommonWeight         = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 
-### ggH ###
-
-files = nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125')
-
-samples['ggH_hww'] = {
-    'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 100,
-}
-
-### VBF ####
-
+### VBF H->WW
 files = nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125')
 
 samples['qqH_hww'] = {
     'name': files,
-    'weight': mcCommonWeight,
-    'FilesPerJob': 15, 
+    'weight': f"{mcCommonWeight} * {HiggsXS.GetHiggsProdXS('vbfH', '125.38')} / 4.067",
+    'FilesPerJob': 10,
 }
 
-#### VBF EFT coupling signal hypotheses ###
+###########################################
+##      AC/EFT Analysis specific (VBF)   ##
+###########################################
 
 # Signals to be considered for nuisances (Avoid running for all reweighting)
 eft_ewksys = ['VBF_H0PM']
 eft_ggfsys = []
-   
+
 hyps_mc = ["H0PM", "H0PH", "H0M", "H0L1", "H0PHf05", "H0Mf05", "H0L1f05", "H0LZgf05", "H0PHZgf05", "H0MZgf05", "H0PHggf05", "H0Mggf05"]
 
 cvtype_VBF = "AC"
@@ -129,12 +135,13 @@ reweight_VBF = []
 
 for hmc in hyps_mc :
  nfiles = 400
- if "VBF_"+hmc+"" in eft_ewksys : nfiles = 25
+ if "VBF_"+hmc+"" in eft_ewksys : nfiles = 25    
  samples['VBF_'+hmc+''] = {
    'name':   nanoGetSampleFiles(mcDirectory, 'VBF_'+hmc+'_ToWWTo2L2Nu'),
    'weight': mcCommonWeight+ '*VBF_'+hmc+'_N',
    'FilesPerJob': nfiles,
  }
+
  for hrw in hyps_reweight :
   if hmc == hrw : continue
   samples['VBF_'+hmc+'to'+hrw+''] = {

@@ -41,7 +41,7 @@ cuts['topcr']  = {
    }
 }
 
-cuts['dyttcr']  = {
+cuts['dycr']  = {
    'expr': 'dycr',
     # Define the sub-categorization of sr
    'categories' : {

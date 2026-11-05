@@ -15,13 +15,8 @@ preselections = ' mll > 12 \
 
 # CUTS
 
-#####################
-### Signal region ###
-#####################
-
 cuts['hww_sr']  = {
    'expr': 'sr',
-    # Define the sub-categorization of sr
    'categories' : {
       '2j' : 'multiJet',
       #'2j_vbflike' : 'multiJet && vbflike',
@@ -54,3 +49,4 @@ cuts['wwcr']  = {
       '2j' : 'multiJet',
    }
 }
+
